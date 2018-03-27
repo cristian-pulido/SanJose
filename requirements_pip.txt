@@ -1,0 +1,12 @@
+confusable-homoglyphs==3.0.0
+decorator==4.2.1
+Django==2.0.3
+django-registration==2.4.1
+djangorestframework==3.7.7
+numpy==1.14.2
+Pillow==5.0.0
+psycopg2==2.7.4
+psycopg2-binary==2.7.4
+public==0.0.65
+pytz==2018.3
+self==0.0.27

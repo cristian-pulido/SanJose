@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block title %} Formulario Sujeto {% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h1>Formulario Candidato</h1>
+    {{ form.as_p}}
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
+                    {{form.sujeto_numero}}
+                </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
+                    {{form.fecha_de_registro}}
+                </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
+                    {{form.nombres}}
+                </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
