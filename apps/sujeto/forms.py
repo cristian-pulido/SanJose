@@ -22,5 +22,5 @@ class SujetoForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
-            'imagen': forms.Select(attrs={'class': 'form-control'}),
+            'imagen': forms.TextInput(attrs={'class': 'form-control'}),
         }

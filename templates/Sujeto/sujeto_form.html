@@ -6,33 +6,35 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    <h1>Formulario Candidato</h1>
-    {{ form.as_p}}
-    <div class="col-md-8 col-md-offset-2">
-        <button class="btn btn-primary" type="submit">Guardar</button>
-    </div>
+    <h1>Formulario Sujeto</h1>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
-                    {{form.sujeto_numero}}
+                    <label for="{{form.nombre.name}}">{{form.nombre.label}}</label>
+                    {{form.nombre}}
                 </div>
         </div>
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
-                    {{form.fecha_de_registro}}
+                    <label for="{{form.edad.name}}">{{form.edad.label}}</label>
+                    {{form.edad}}
                 </div>
         </div>
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
-                    {{form.nombres}}
+                    <label for="{{form.imagen.name}}">{{form.imagen.label}}</label>
+                    {{form.imagen}}
+
                 </div>
         </div>
     </div>
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
 </form>
 {% endblock %}
 
