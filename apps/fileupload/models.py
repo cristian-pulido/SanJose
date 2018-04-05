@@ -13,7 +13,6 @@ class Picture(models.Model):
     """
     file = models.FileField(upload_to="Archivos")
     slug = models.SlugField(max_length=100, blank=True)
-
     def __str__(self):
         #return self.file.name
         return '{}'.format(self.slug)

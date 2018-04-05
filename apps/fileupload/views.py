@@ -51,6 +51,7 @@ class PictureDeleteView(DeleteView):
 class PictureListView(ListView):
     model = Picture
 
+
     def render_to_response(self, context, **response_kwargs):
         files = [ serialize(p) for p in self.get_queryset() ]
         data = {'files': files}
