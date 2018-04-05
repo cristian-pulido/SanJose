@@ -50,7 +50,7 @@ def serialize(instance, file_attr='file'):
     obj = getattr(instance, file_attr)
 
     return {
-        'url':"http://127.0.0.1:8000/sujeto/editar/"+str(instance.pk),
+        'url':"http://18.231.20.34:8000/sujeto/editar/"+str(instance.pk),
         'name': order_name(obj.name),
         'type': mimetypes.guess_type(obj.path)[0] or 'image/png',
         'thumbnailUrl': obj.url,
