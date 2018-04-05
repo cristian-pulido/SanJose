@@ -22,3 +22,5 @@ class SujetoUpdate(UpdateView):
     # a donde va dirigido
     success_url = reverse_lazy('upload-new')
 
+
+
