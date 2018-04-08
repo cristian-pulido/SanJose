@@ -28,8 +28,9 @@ class PictureCreateView(CreateView):
         ## Crear objeto vacio y añadirle la imagen subida
         s = Sujeto.objects.create()
         s.save()
-        s.imagen=self.object
+        s.imagen = self.object
         s.save()
+
         return response
 
     def form_invalid(self, form):
