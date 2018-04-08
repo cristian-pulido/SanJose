@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'apps.fileupload',
     'apps.paciente',
     'apps.sujeto',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # <- Here
+                'social_django.context_processors.login_redirect', # <- Here
             ],
         },
     },
@@ -133,3 +136,18 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'SanJose', 'media')
 
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'upload-new'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='840617295981-o7teu8iuk78nlk71i07du7g4lho0skq5.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QOvCZEt-hODaqt-96wQ6SuqL' #Paste Secret Key
