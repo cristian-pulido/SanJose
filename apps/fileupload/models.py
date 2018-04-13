@@ -1,6 +1,6 @@
 # encoding: utf-8
 from django.db import models
-
+from django.contrib.auth.decorators import permission_required
 
 
 
@@ -24,6 +24,7 @@ class Picture(models.Model):
     def save(self, *args, **kwargs):
         self.slug = self.file.name
         super(Picture, self).save(*args, **kwargs)
+
 
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""

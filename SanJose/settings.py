@@ -149,6 +149,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'upload-new'
-
+LOGIN_ERROR_URL= 'login-error'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='840617295981-o7teu8iuk78nlk71i07du7g4lho0skq5.apps.googleusercontent.com'  #Paste CLient Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QOvCZEt-hODaqt-96wQ6SuqL' #Paste Secret Key
+

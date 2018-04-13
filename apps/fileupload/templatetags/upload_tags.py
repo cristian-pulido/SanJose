@@ -33,12 +33,7 @@ def upload_js():
                 </button>
             {% } %}
             
-            {% if (!i) { %}
-                <button class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>{%=locale.fileupload.cancel%}</span>
-                </button>
-            {% } %}
+            
         </td>
         
     </tr>
@@ -61,6 +56,7 @@ def upload_js():
         <td>
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
+        <!-- 
         <td>
             <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                 <i class="glyphicon glyphicon-trash"></i>
@@ -68,6 +64,7 @@ def upload_js():
             </button>
             
         </td>
+        -->
         <td>
            <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
         </td>

@@ -2,7 +2,7 @@
 import json
 from fileinput import filename
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
 from django.views.generic import CreateView, DeleteView, ListView
 
@@ -39,7 +39,8 @@ class PictureCreateView(CreateView):
         return HttpResponse(content=data, status=400, content_type='application/json')
 
 
-class PictureDeleteView(DeleteView):
+class PictureDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'fileupload.delete_picture'
     model = Picture
 
     def delete(self, request, *args, **kwargs):
@@ -50,7 +51,8 @@ class PictureDeleteView(DeleteView):
         return response
 
 
-class PictureListView(LoginRequiredMixin,ListView):
+class PictureListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+    permission_required = 'fileupload.add_picture'
     model = Picture
 
 
