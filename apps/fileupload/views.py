@@ -24,8 +24,8 @@ class PictureCreateView(CreateView):
         response = JSONResponse(data, mimetype=response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
         ## Crear archivo
-        t = newtext()
-        t.test()
+        #t = newtext()
+        #t.test()
         ## Crear objeto vacio y añadirle la imagen subida
         s = Sujeto.objects.create()
         s.save()

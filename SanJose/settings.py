@@ -25,7 +25,7 @@ SECRET_KEY = '-lfe9w8o-55bx)ahc)mf70chus@%$n4*s37yn!c&k$m#vrplez'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.231.20.34', '127.0.0.1', 'ec2-18-231-20-34.sa-east-1.compute.amazonaws.com']
+ALLOWED_HOSTS = ['ec2-18-228-15-178.sa-east-1.compute.amazonaws.com']
 
 
 # Application definition
@@ -127,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR,'/home/ubuntu/static')
 STATICFILES_DIRS = [
     'SanJose/static',
     os.path.join(BASE_DIR, 'static'),
