@@ -134,7 +134,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'SanJose', 'media')
+MEDIA_ROOT = 'home/ubuntu/media'
 
 
 AUTHENTICATION_BACKENDS = (
