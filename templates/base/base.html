@@ -12,7 +12,7 @@
 	<title>{% block title %}Document {% endblock %}</title>
 </head>
 {% if user.is_authenticated %}
-		 <p class="display-4">Conectado como, {{ user.username }}</p>
+		 <p class="display-4">Conectado como, {{ user.first_name }} {{ user.last_name }}</p>
 		 <body>
 		 {% if perms.fileupload.add_picture %}
 			<div class="container">
