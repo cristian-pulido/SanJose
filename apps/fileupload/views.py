@@ -51,10 +51,9 @@ class PictureDeleteView(PermissionRequiredMixin, DeleteView):
         return response
 
 
-class PictureListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
-    permission_required = 'fileupload.add_picture'
+class PictureListView(LoginRequiredMixin, ListView):
+    #permission_required = 'fileupload.add_picture'
     model = Picture
-
 
     def render_to_response(self, context, **response_kwargs):
         files = [ serialize(p) for p in self.get_queryset() ]

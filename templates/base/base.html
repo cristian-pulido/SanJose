@@ -78,7 +78,9 @@
 
 		</body>
 {% else %}
-		 <a class="lead" href="{% url 'login' %}">Log in</a>
+		 <script type="text/javascript">
+        window.location="{% url 'login' %}";
+        </script>
 {% endif %}
 
 </html>

@@ -63,9 +63,14 @@ li,ul,body,input{margin:0; padding:0; list-style:none}
 <form method="post">
   {% csrf_token %}
 <ul class="ul-list">
+{% if form.errors %}
+<h1 style="color:red; text-align:center" >Usuario o Contraseña Incorrectos</h1>
+{% endif %}
 <li><input type="user" name="username" autofocus id="id_username" required class="input" placeholder="Usuario"/><span class="icon"><i class="fa fa-user"></i></span></li>
-<li><input type="password" name="password" required id="id_password" required class="input" placeholder="Contraseña"/><span class="icon"><i class="fa fa-lock"></i></span></li>
-  <li><input type="submit" value="CONTINUAR" class="btn"></li>
+{{ form.username.errors }}
+<li><input type="password" name="password" required id="id_password" class="input" placeholder="Contraseña"/><span class="icon"><i class="fa fa-lock"></i></span></li>
+{{ form.password.errors }}
+<li><input type="submit" value="CONTINUAR" class="btn"></li>
 </ul>
 </form>
 </div>
@@ -80,6 +85,7 @@ li,ul,body,input{margin:0; padding:0; list-style:none}
 </div>
 
 </div>
+
 
 </body>
 </html>
