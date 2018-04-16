@@ -8,7 +8,7 @@
 	{% endblock %}
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 	<title>{% block title %}Document {% endblock %}</title>
 </head>
 {% if user.is_authenticated %}
@@ -70,8 +70,8 @@
 				{% block footer %}
 				{% endblock%}
 			</div>
-				<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-				<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
 
 				{% block extrajs %}
 				{% endblock %}
