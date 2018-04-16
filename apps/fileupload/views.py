@@ -51,8 +51,8 @@ class PictureDeleteView(PermissionRequiredMixin, DeleteView):
         return response
 
 
-class PictureListView(LoginRequiredMixin, ListView):
-    #permission_required = 'fileupload.add_picture'
+class PictureListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+    permission_required = 'fileupload.add_picture'
     model = Picture
 
     def render_to_response(self, context, **response_kwargs):
