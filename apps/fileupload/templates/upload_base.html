@@ -21,11 +21,15 @@
     
     <!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
 </head>
 <body>
-
+<div style="font-family:verdana; text-align:center;">
+<p class="display-4">Conectado como, {{ user.first_name }} {{ user.last_name }}</p>
+</div>
+<br>
 {% block content %}
-    <h1>No content set</h1>
+<h1>No content set</h1>
 {% endblock %}
 
 </body> 
