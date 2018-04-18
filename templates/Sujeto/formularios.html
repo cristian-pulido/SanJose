@@ -18,9 +18,12 @@
 </ul>
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade" id="home">
-     {% ifequal object.estado  1 %}
+      {% ifequal object.estado  1 %}
       <p>No existe información de candidato </p>
-      <button type="button" class="btn btn-secondary" onclick = "crearpaciente({{object.estado}});">Añadir información</button>
+      <a href="{% url 'crear_candidato' object.pk %}">Añadir información</a>
+      {% endifequal %}
+      {% ifequal object.estado  2 %}
+      <a href="{% url 'paciente_crear' %}">Editar información</a>
       {% endifequal %}
  </div>
   <div class="tab-pane fade active show" id="profile">
@@ -28,14 +31,4 @@
   </div>
 
 </div>
-{% endblock %}
-{% block extrajs %}
-<script type = "text/JavaScript">
-         function crearpaciente(val) {
-            alert(val);
-            Candidato.objects.create();
-            window.location="{% url 'paciente_crear' %}";
-         }
-</script>
-
 {% endblock %}
