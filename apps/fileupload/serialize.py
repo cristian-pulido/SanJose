@@ -2,8 +2,7 @@
 import mimetypes
 import re
 
-from django.http import request, HttpRequest
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 from apps.sujeto.models import Sujeto
 
@@ -28,11 +27,11 @@ def order_name(name):
 
     return name
 
-def veri(n):
-    if n=="":
+def veri(estado):
+    if estado==0:
         return "Registro Incompleto"
-    else:
-        return "Registro Completo"
+    elif estado==1:
+        return "Información basica "
 
 def color(n):
     if n=="":
@@ -40,22 +39,31 @@ def color(n):
     else:
         return "color:black;"
 
+def direccion(n,s):
+    if n=="":
+        return "/sujeto/editar/"+str(s.pk)
+    else:
+        return "/sujeto/formularios/"+str(s.pk)
+
 def serialize(instance, file_attr='file'):
     """serialize -- Serialize a Picture instance into a dict.
-
     instance -- Picture instance
     file_attr -- attribute name that contains the FileField or ImageField
-    #"http://127.0.0.1:8000/sujeto/editar/"+str(instance.pk)
     """
 
 
     obj = getattr(instance, file_attr)
     n = ""
     u=""
+    e=0
     try:
         s = Sujeto.objects.get(pk=suj(order_name(obj.name)))
-        n = s.nombre
-        u="/sujeto/editar/"+str(s.pk)
+        n = s.nombres
+        if n != "" and s.estado==0:
+            s.estado=1
+            s.save()
+        u=direccion(n, s)
+        e=s.estado
     except:
         print("")
 
@@ -73,7 +81,7 @@ def serialize(instance, file_attr='file'):
         'deleteUrl': reverse('upload-delete', args=[instance.pk]),
         'deleteType': 'DELETE',
         'sujeto': n,
-        'verificacion':veri(n),
+        'verificacion': veri(e),
         'color': color(n),
     }
 

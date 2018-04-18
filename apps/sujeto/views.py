@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 
 from apps.sujeto.forms import SujetoForm
 from apps.sujeto.models import Sujeto
@@ -22,5 +22,8 @@ class SujetoUpdate(UpdateView):
     # a donde va dirigido
     success_url = reverse_lazy('upload-new')
 
+class SujetoList(DetailView):
+    model = Sujeto
+    template_name = 'Sujeto/formularios.html'
 
 

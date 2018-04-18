@@ -7,13 +7,20 @@ from apps.fileupload.models import Picture
 
 
 class Sujeto(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombres = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=70, null=True)
     edad = models.PositiveIntegerField(null=True)
-    #imagen = models.ForeignKey(Picture, null=True, on_delete=models.CASCADE)
+    cc = models.PositiveIntegerField(null=True)
+    #######sexo
+    hombre = 'Hombre'
+    mujer = 'Mujer'
+    Sexo_choices = ((hombre, u'Hombre'), (mujer, u'Mujer'))
+    sexo = models.CharField(max_length=9, choices=Sexo_choices, null=True)
     imagen = models.OneToOneField(Picture, null=True, on_delete=models.CASCADE)
+    estado = models.PositiveIntegerField(null=True, default=0)
 
     def __str__(self):
-        return '{}'.format(self.nombre)
+        return '{}'.format(self.nombres)
 
     def delete(self, using=None, keep_parents=False):
 

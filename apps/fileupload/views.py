@@ -51,7 +51,7 @@ class PictureDeleteView(PermissionRequiredMixin, DeleteView):
         return response
 
 
-class PictureListView(PermissionRequiredMixin,LoginRequiredMixin, ListView):
+class PictureListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     permission_required = 'fileupload.add_picture'
     model = Picture
 

@@ -9,18 +9,27 @@ class SujetoForm(forms.ModelForm):
         model = Sujeto
 
         fields = [
-            'nombre',
+            'nombres',
+            'apellidos',
             'edad',
+            'cc',
+            'sexo',
             'imagen',
         ]
 
         labels = {
-            'nombre': 'Nombre',
+            'nombres': 'Nombres',
+            'apellidos': 'Apellidos',
             'edad': 'Edad',
+            'cc': 'C.C',
+            'sexo':'Sexo',
             'imagen': 'Imagen',
         }
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombres': forms.TextInput(attrs={'class': 'form-control'}),
+            'apellidos': forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
+            'cc': forms.TextInput(attrs={'class': 'form-control'}),
+            'sexo':forms.Select(attrs={'class': 'form-control'}),
             'imagen': forms.Select(attrs={'class': 'form-control'}),
         }

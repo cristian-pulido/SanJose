@@ -4,17 +4,33 @@
 
 {% endblock %}
 
-{% block title %} Formulario Sujeto {% endblock %}
+
+{% block title %} Ingreso Nuevo {% endblock %}
 {% block content %}
+
+{% if form.nombres.value|length > 1 %}
+        <script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+        </script>
+{%endif%}
+
+
+
 <form method="post">
     {% csrf_token %}
-    <h1>Formulario Sujeto</h1>
+    <h1>Información Personal</h1>
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.nombre.name}}">{{form.nombre.label}}</label>
-                    {{form.nombre}}
+                    <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
+                    {{form.nombres}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.apellidos.name}}">{{form.apellidos.label}}</label>
+                    {{form.apellidos}}
                 </div>
         </div>
 
@@ -23,6 +39,21 @@
                     <label for="{{form.edad.name}}">{{form.edad.label}}</label>
                     {{form.edad}}
                 </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.cc.name}}">{{form.cc.label}}</label>
+                    {{form.cc}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="form-group">
+              <label for="{{form.sexo.name}}">{{form.sexo.label}}</label>
+                {{ form.sexo.errors }}
+                {{form.sexo}}
+            </div>
+
         </div>
         <div class="col-md-8 col-md-offset-2">
 
