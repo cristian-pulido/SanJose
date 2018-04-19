@@ -24,12 +24,14 @@
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
+                    {{ form.nombres.errors }}
                     {{form.nombres}}
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.apellidos.name}}">{{form.apellidos.label}}</label>
+                    {{ form.apellidos.errors }}
                     {{form.apellidos}}
                 </div>
         </div>
@@ -37,12 +39,14 @@
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.edad.name}}">{{form.edad.label}}</label>
+                    {{ form.edad.errors }}
                     {{form.edad}}
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.cc.name}}">{{form.cc.label}}</label>
+                    {{ form.cc.errors }}
                     {{form.cc}}
                 </div>
         </div>
@@ -70,8 +74,6 @@
     <div class="col-md-8 col-md-offset-2">
         <button class="btn btn-primary" type="submit">Guardar</button>
     </div>
-
-
 
 </form>
 

@@ -34,6 +34,8 @@ def veri(estado):
         return "Información basica "
     elif estado==2:
         return "Candidato vacio creado"
+    elif estado==3:
+        return "Datos candidato obtenidos"
 
 def color(n):
     if n=="":

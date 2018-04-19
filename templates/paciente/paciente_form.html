@@ -5,16 +5,165 @@
 
 <form method="post">
     {% csrf_token %}
-    {% for field in form %}
-        <div class="field_container">
-            {{ field.errors }}
-            {{ field.label_tag }} </br>
-            {{ field.help_text }}
-            {{ field }}
+    <h1>Formulario Candidato</h1>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
+                    {{ form.sujeto_numero.errors }}
+                    {{form.sujeto_numero}}
+
+                </div>
         </div>
-    {% endfor %}
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
+                    {{ form.fecha_de_registro.errors }}
+                    {{form.fecha_de_registro}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.HC.name}}">{{form.HC.label}}</label>
+                    {{ form.HC.errors }}
+                    {{form.HC}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.cama_numero.name}}">{{form.cama_numero.label}}</label>
+                    {{ form.cama_numero.errors }}
+                    {{form.cama_numero}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_evento_principal.name}}">{{form.fecha_evento_principal.label}}</label>
+                    {{ form.fecha_evento_principal.errors }}
+                    {{form.fecha_evento_principal}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.hora_evento_principal.name}}">{{form.hora_evento_principal.label}}</label>
+                    {{ form.hora_evento_principal.errors }}
+                    {{form.hora_evento_principal}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_ingreso_principal.name}}">{{form.fecha_ingreso.label}}</label>
+                    {{ form.fecha_ingreso.errors }}
+                    {{form.fecha_ingreso}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.hora_ingreso.name}}">{{form.hora_ingreso.label}}</label>
+                    {{ form.hora_ingreso.errors }}
+                    {{form.hora_ingreso}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.G_diagnostico.name}}">{{form.G_diagnostico.label}}</label>
+                    {{ form.G_diagnostico.errors }}
+                    {{form.G_diagnostico}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.D_neuro_logico_psiquiatrico_previo.name}}">{{form.D_neuro_logico_psiquiatrico_previo.label}}</label>
+                    {{ form.D_neuro_logico_psiquiatrico_previo.errors }}
+                    {{form.D_neuro_logico_psiquiatrico_previo}}
+                    <div class="help">Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.</div>
+                </div>
+
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.D_especificos.name}}">{{form.D_especificos.label}}</label>
+                    {{ form.D_especificos.errors }}
+                    {{form.D_especificos}}
+                </div>
+
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <legend>Criterios de inclusión (Debe cumplir 3 de 4)</legend>
+                  <div class="form-group">
+                    <div class="custom-control custom-radio">
+                      <input id="id_ci_1" name="ci" class="custom-control-input" checked="" type="radio" value="ci1">
+                      <label class="custom-control-label" for="id_ci_1">Paciente con episodio de parada cadíaca con reanimación exitosa</label>
+                    </div>
+                      <div><p>ó</p></div>
+                    <div class="custom-control custom-radio">
+                      <input id="id_ci_2" name="ci" class="custom-control-input" type="radio" value="ci2">
+                      <label class="custom-control-label" for="id_ci_2">Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular</label>
+                    </div>
+                      <div class="form-group">
+                            {{ form.ci3.errors }}
+                            {{form.ci3}}
+                            <label for="{{form.ci3.name}}">{{form.ci3.label}}</label>
+
+                        </div>
+                      <div class="form-group">
+                            {{ form.ci4.errors }}
+                            {{form.ci4}}
+                            <label for="{{form.ci4.name}}">{{form.ci4.label}}</label>
+
+                        </div>
+                  </div>
+
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <legend>Criterios de exclusión (al menos 1 se considera excluído)</legend>
+                  <div class="form-group">
+                      <div class="form-group">
+                            {{ form.ce1.errors }}
+                            {{form.ce1}}
+                            <label for="{{form.ce1.name}}">{{form.ce1.label}}</label>
+
+                      </div>
+                      <div class="form-group">
+                            {{ form.ce2.errors }}
+                            {{form.ce2}}
+                            <label for="{{form.ce1.name}}">{{form.ce2.label}}</label>
+
+                      </div>
+                      <div class="form-group">
+                            {{ form.ce3.errors }}
+                            {{form.ce3}}
+                            <label for="{{form.ce3.name}}">{{form.ce3.label}}</label>
+
+                      </div>
+                      <div class="form-group">
+                            {{ form.ce4.errors }}
+                            {{form.ce4}}
+                            <label for="{{form.ce4.name}}">{{form.ce4.label}}</label>
+
+                      </div>
+                  </div>
+
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.medico_responsable.name}}">{{form.medico_responsable.label}}</label>
+                    {{ form.medico_responsable.errors }}
+                    {{form.medico_responsable}}
+
+                </div>
+        </div>
+
+
+    </div>
+
     <div class="col-md-8 col-md-offset-2">
         <button class="btn btn-primary" type="submit">Guardar</button>
     </div>
+
 </form>
+{% endblock %}
+{% block extrajs %}
 {% endblock %}

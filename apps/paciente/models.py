@@ -35,6 +35,8 @@ class Candidato(models.Model):
     cama_numero =models.PositiveIntegerField(null=True)
     fecha_evento_principal = models.DateField(null=True)
     hora_evento_principal = models.TimeField(blank=True, null=True)
+    fecha_ingreso = models.DateField(null=True)
+    hora_ingreso = models.TimeField(blank=True, null=True)
     ######## Grupo diagnostico
     TCE='TCE'
     H_A='Hipoxia/Anoxia'
@@ -42,20 +44,24 @@ class Candidato(models.Model):
     G_diagnostico_choices=((TCE, u'TCE'),(H_A, u'Hipoxia/Anoxia'),(ACV, u'ACV'))
     G_diagnostico=models.CharField(max_length=20,choices=G_diagnostico_choices,null=True)
     ######## Diagnosticos neuro / psiquiatricos previos
-    D_neuro_logico_psiquiatrico_previo=models.ManyToManyField(Dprevio,blank=True)
+    D_neuro_logico_psiquiatrico_previo=models.ManyToManyField(Dprevio, blank=True)
     ###### Especificacion diagnosticos
     D_especificos = models.TextField(blank=True, null=True)
     ######## criterios de inclusion
-    ci1=models.NullBooleanField("Paciente con episodio de parada cadíaca con reanimación exitosa")
-    ci2=models.NullBooleanField("Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular")
-    ci3=models.NullBooleanField("Puntaje en escala Glasgow igual o menor a 8 después del evento inicial")
+    criterios_CHOICES = (
+        ('ci1', 'Paciente con episodio de parada cadíaca con reanimación exitosa'),
+        ('ci2', 'Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular'),
+    )
+    ci = models.CharField(choices=criterios_CHOICES, max_length=128, null=True)
+    ci3 = models.NullBooleanField('Puntaje en escala Glasgow igual o menor a 8 después del evento inicial')
     ci4=models.NullBooleanField("Paciente transportable a un resonador")
 
     ####### Criterios de exclusion
     ce1=models.NullBooleanField("Diagnóstico de muerte cerebral en las primeras 48 horas del ingreso a UCI")
     ce2=models.NullBooleanField("Destruccion masiva del parénquima cerebral no rescatable por neurocirugía")
-    ce3=models.NullBooleanField("Decisión de la familia de no participar en estudios de investigación")
-
+    ce3=models.NullBooleanField("Disfunción neurológica y/o neuropsiquiátrica previa")
+    ce4=models.NullBooleanField("Decisión de la familia de no participar en estudios de investigación")
+    #######
     #######resultado
     resultado=models.NullBooleanField("PACIENTE APTO PARA INGRESO AL ESTUDIO")
 

@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.contrib.auth import views
+from django.views.i18n import JavaScriptCatalog
+
 from .views import error, crearcandidato
 
 urlpatterns = [

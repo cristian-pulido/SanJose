@@ -20,7 +20,7 @@ class Sujeto(models.Model):
     estado = models.PositiveIntegerField(null=True, default=0)
 
     def __str__(self):
-        return '{}'.format(self.nombres)
+        return '{}'.format(self.pk)
 
     def delete(self, using=None, keep_parents=False):
 
