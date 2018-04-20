@@ -10,7 +10,7 @@ class Sujeto(models.Model):
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=70, null=True)
     edad = models.PositiveIntegerField(null=True)
-    cc = models.PositiveIntegerField(null=True)
+    cc = models.PositiveIntegerField(null=True,unique=True)
     #######sexo
     hombre = 'Hombre'
     mujer = 'Mujer'

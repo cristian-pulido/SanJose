@@ -3,7 +3,8 @@
 {% block title %} Información {% endblock %}
 
 {% block content %}
-<h1>Información General Paciente Asociado al Archivo: {{ object.imagen }}</h1>
+
+<h1>Información Clínica Sujeto # : {{ object.imagen.candidato.sujeto_numero }}</h1>
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
@@ -23,10 +24,73 @@
       <a href="{% url 'crear_candidato' object.pk %}">Añadir información</a>
       {% endifequal %}
       {% ifequal object.estado  2 %}
-      <a href="{% url 'paciente_crear' %}">Editar información</a>
+      <p class="text-danger">No se encontro información de candidato</p>
+      <a class="btn btn-primary" href="{% url 'paciente_editar' object.imagen.candidato.pk%}">Editar</a>
       {% endifequal %}
       {% ifequal object.estado  3 %}
-      Información Datos clinicos
+      <table class="table table-hover">
+
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha Registro</th>
+              <td>{{ object.imagen.candidato.fecha_de_registro }}</td>
+              <th>HC del sujeto</th>
+              <td>{{ object.imagen.candidato.HC }}</td>
+            </tr>
+            <tr>
+              <th>Cama UCI</th>
+              <td colspan="3">{{ object.imagen.candidato.cama_numero }}</td>
+            </tr>
+            <tr class="table-primary">
+              <th>Fecha de Evento Principal </th>
+              <td>{{ object.imagen.candidato.fecha_evento_principal }}</td>
+              <th>Hora</th>
+              <td>{{ object.imagen.candidato.hora_evento_principal }}</td>
+            </tr>
+            <tr class="table-secondary">
+              <th>Fecha de ingreso UCI</th>
+              <td>{{ object.imagen.candidato.fecha_ingreso }}</td>
+              <th>Hora</th>
+              <td>{{ object.imagen.candidato.hora_ingreso }}</td>
+            </tr>
+            <tr class="table-success">
+              <th>Grupo Diagnóstico</th>
+              <td colspan="3">{{ object.imagen.candidato.G_diagnostico }}</td>
+            </tr>
+            <tr class="table-success">
+              <th>Diagnósticos neurologicos o <br>neuropsiquiátricos previos al evento</th>
+              <td colspan="3">{% for diag in  object.imagen.candidato.D_neuro_logico_psiquiatrico_previo.all %}
+                    <p>{{ diag }}</p>
+                  {% endfor %}
+              </td>
+            </tr>
+            {% if object.imagen.candidato.D_especificos != "" %}
+            <tr class="table-danger">
+              <th>Diagnóstico Específico</th>
+              <td colspan="3">{{ object.imagen.candidato.D_especificos }}</td>
+            </tr>
+            {% endif %}
+            <tr class="table-warning">
+              <th >Criterios de inclusión</th>
+              <td colspan="3">
+
+                   {% if object.imagen.candidato.ci == 'ci1'%}
+                    <p>Paciente con episodio de parada cadíaca con reanimación exitosa.</p>
+                   {% elif object.imagen.candidato.ci == 'ci2'%}
+                     <p>Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular.</p>
+                    {% endif %}
+                      <p>Puntaje en escala Glasgow igual o menor a 8 después del evento inicial.</p>
+                      <p>Paciente transportable a un resonador.</p>
+
+              </td>
+            </tr>
+            <tr class="table-info">
+              <th>Médico Responsable</th>
+              <td colspan="3">{{ object.imagen.candidato.medico_responsable }}</td>
+            </tr>
+          </tbody>
+        </table>
+      <a class="btn btn-primary" href="{% url 'paciente_editar' object.imagen.candidato.pk%}">Editar</a>
       {% endifequal %}
  </div>
   <div class="tab-pane" id="profile">

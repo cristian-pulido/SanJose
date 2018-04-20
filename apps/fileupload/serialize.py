@@ -6,14 +6,6 @@ from django.urls import reverse
 
 from apps.sujeto.models import Sujeto
 
-def suj(name):
-    suj = -1
-    c = Sujeto.objects.all()
-    for i in range(len(c)):
-        if c[i].imagen.slug == name:
-            suj = c[i].pk
-            break
-    return suj
 
 
 def order_name(name):
@@ -31,20 +23,20 @@ def veri(estado):
     if estado==0:
         return "Registro Incompleto"
     elif estado==1:
-        return "Información basica "
+        return "Información basica cargada"
     elif estado==2:
-        return "Candidato vacio creado"
+        return "Información basica cargada"
     elif estado==3:
-        return "Datos candidato obtenidos"
+        return "Formulario de inclución cargada"
 
-def color(n):
-    if n=="":
+def color(e):
+    if e==0:
         return "color:red;"
     else:
         return "color:black;"
 
-def direccion(n,s):
-    if n=="":
+def direccion(s):
+    if s.estado==0:
         return "/sujeto/editar/"+str(s.pk)
     else:
         return "/sujeto/formularios/"+str(s.pk)
@@ -54,20 +46,31 @@ def serialize(instance, file_attr='file'):
     instance -- Picture instance
     file_attr -- attribute name that contains the FileField or ImageField
     """
-
-
     obj = getattr(instance, file_attr)
+
+
+
+
     n = ""
     u=""
     e=0
+    etiqueta =order_name(obj.name)
     try:
-        s = Sujeto.objects.get(pk=suj(order_name(obj.name)))
-        n = s.nombres
-        if n != "" and s.estado==0:
-            s.estado=1
-            s.save()
-        u=direccion(n, s)
-        e=s.estado
+        S=instance.sujeto
+        n = S.nombres
+        if n != "" and S.estado==0:
+            S.estado=1
+            S.save()
+        u=direccion(S)
+        e=S.estado
+    except:
+        print("")
+
+    else:
+        print("")
+    try:
+        P=instance.candidato
+        etiqueta="Sujeto #"+str(P.sujeto_numero)
     except:
         print("")
 
@@ -77,8 +80,9 @@ def serialize(instance, file_attr='file'):
 
 
     return {
+        'pk':instance.pk,
         'url': u,
-        'name': order_name(obj.name),
+        'name': etiqueta,
         'type': mimetypes.guess_type(obj.path)[0] or 'image/png',
         'thumbnailUrl': obj.url,
         'size': obj.size,
@@ -86,7 +90,7 @@ def serialize(instance, file_attr='file'):
         'deleteType': 'DELETE',
         'sujeto': n,
         'verificacion': veri(e),
-        'color': color(n),
+        'color': color(e),
     }
 
 

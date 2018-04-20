@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="es">
+
 <head>
     <!-- Force latest IE rendering engine or ChromeFrame if installed -->
     <!--[if IE]>
@@ -18,19 +19,86 @@
     <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css">
     <!-- CSS adjustments for browsers with JavaScript disabled -->
     <noscript><link rel="stylesheet" href="/static/css/jquery.fileupload-ui-noscript.css"></noscript>
-    
+
     <!-- Shim to make HTML5 elements usable in older Internet Explorer versions -->
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
 </head>
 <body>
-<div style="font-family:verdana; text-align:center;">
-<p class="display-4">Conectado como, {{ user.first_name }} {{ user.last_name }}</p>
-</div>
+<div class="container" style="font-family:verdana; text-align:left;">
+ <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>
+{% if perms.fileupload.delete_picture %}
+    <p>Administrador</p>
+{% elif perms.fileupload.add_picture%}
+    <p>Cargador</p>
+{% else %}
+    <p>Invitado</p>
+{% endif %}
+
+ </div>
 <br>
-{% block content %}
-<h1>No content set</h1>
-{% endblock %}
+
+{% if user.is_authenticated %}
+
+        {% if perms.fileupload.add_picture %}
+                <div class="container">
+                    <div class="bs-docs-section clearfix">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="bs-component">
+                                    <nav class="navbar navbar-default">
+                                        <div class="container-fluid">
+                                            <div class="navbar-header">
+                                                <a class="navbar-brand" href={% url "upload-new" %}>Inicio</a>
+                                            </div>
+                                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                            <ul class="nav navbar-nav">
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Archivos <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href={% url "upload-new" %}>Cargar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Medicos <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href={% url "medico_crear" %}>Añadir</a></li>
+                                                        <li><a href={% url "medico_listar" %}>Lista</a></li>
+                                                    </ul>
+                                                </li>
+
+                                            </ul>
+                                            <ul class="nav navbar-nav navbar-right">
+
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Opciones<span class="caret"></span></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href={% url "logout"%}>Salir</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            {% block content %}
+            {% endblock %}
+
+        {% else %}
+            <h1>Descripcion</h1>
+            <li><a href={% url "logout"%}>Salir</a></li>
+        {% endif %}
+{% else %}
+         <script type="text/javascript">
+        window.location="{% url 'login' %}";
+        </script>
+{% endif %}
 
 </body> 
 </html>

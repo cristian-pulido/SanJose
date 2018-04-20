@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Eliminacion registro {% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h3>¿Desea eliminar el registro de {{ object.nombre }}?</h3>
+
+    {% if object.get_pacientes%}
+    <p>Si lo hace los pacientes:</p>
+        {% for i in object.get_pacientes %}
+            <ul>
+                <td>Sujeto {{i.sujeto_numero}}</td>
+            </ul>
+        {% endfor %}
+    <p>Quedaran sin médico a cargo.</p>
+    {% endif %}
+
+
+    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+    <a class="btn btn-success" href="{% url 'medico_listar' %}">Cancelar</a>
+</form>
+
+{% endblock %}

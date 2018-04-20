@@ -17,3 +17,7 @@ body {
 .preview img {
     max-height:50px;
 }
+.errorlist
+    {
+        color: red;
+    }

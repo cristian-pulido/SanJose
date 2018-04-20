@@ -8,18 +8,22 @@
 {% block title %} Ingreso Nuevo {% endblock %}
 {% block content %}
 
-{% if form.nombres.value|length > 1 %}
-        <script type="text/javascript">
+{% if object.estado  > 0 %}
+<script type="text/javascript">
         window.location="{% url 'upload-new' %}";
         </script>
-{%endif%}
+{% endif %}
 
 
 
 <form method="post">
     {% csrf_token %}
-    <h1>Información Personal</h1>
 
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Información Personal</h1>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
@@ -62,12 +66,12 @@
         <div class="col-md-8 col-md-offset-2">
 
             <div class="form-group">
-              <label for="{{form.imagen.name}}">{{form.imagen.label}}</label>
-                {{ form.imagen.errors }}
-                {{form.imagen}}
+              <label >Imagen</label>
+              <input class="form-control"  value="{{object.imagen}}"  disabled type="text">
             </div>
 
         </div>
+
 
 
     </div>

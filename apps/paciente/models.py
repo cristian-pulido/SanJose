@@ -22,16 +22,22 @@ class Dprevio(models.Model):
     (Tx_Neurodesarrollo, u"Tx Neurodesarrollo"), (Tx_Psicótico, u"TX Psicótico"),
     (Tx_Afectivo, u"Tx Afectivo"), (Deficit, u"Deficit cognitivo"), (Abuso, u"Abuso de sustancias"),
     (Otro, u"Otro"))
-    nombre=models.CharField(max_length=50,choices=D_neuro_logico_psiquiatrico_previo_choices)
+    nombre=models.CharField(max_length=50, choices=D_neuro_logico_psiquiatrico_previo_choices)
 
     def __str__(self):
         return '{}'.format(self.nombre)
 
+class Medico(models.Model):
+    nombre = models.CharField(max_length=70)
 
+    def get_pacientes(self):
+        return self.candidato_set.all()
+    def __str__(self):
+        return '{}'.format(self.nombre)
 class Candidato(models.Model):
-    sujeto_numero = models.PositiveIntegerField(null=True)
+    sujeto_numero = models.PositiveIntegerField(null=True, unique=True)
     fecha_de_registro= models.DateField(null=True)
-    HC = models.PositiveIntegerField(null=True)
+    HC = models.PositiveIntegerField(null=True, unique=True)
     cama_numero =models.PositiveIntegerField(null=True)
     fecha_evento_principal = models.DateField(null=True)
     hora_evento_principal = models.TimeField(blank=True, null=True)
@@ -53,8 +59,8 @@ class Candidato(models.Model):
         ('ci2', 'Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular'),
     )
     ci = models.CharField(choices=criterios_CHOICES, max_length=128, null=True)
-    ci3 = models.NullBooleanField('Puntaje en escala Glasgow igual o menor a 8 después del evento inicial')
-    ci4=models.NullBooleanField("Paciente transportable a un resonador")
+    ci3 = models.NullBooleanField('Puntaje en escala Glasgow igual o menor a 8 después del evento inicial',default=True)
+    ci4=models.NullBooleanField("Paciente transportable a un resonador",default=True)
 
     ####### Criterios de exclusion
     ce1=models.NullBooleanField("Diagnóstico de muerte cerebral en las primeras 48 horas del ingreso a UCI")
@@ -65,7 +71,7 @@ class Candidato(models.Model):
     #######resultado
     resultado=models.NullBooleanField("PACIENTE APTO PARA INGRESO AL ESTUDIO")
 
-    medico_responsable=models.CharField(max_length=80, null=True)
+    medico_responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     imagen = models.OneToOneField(Picture, null=True, on_delete=models.CASCADE)
 
     def __str__(self):

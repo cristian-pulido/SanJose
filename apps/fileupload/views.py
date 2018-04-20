@@ -4,6 +4,8 @@ from fileinput import filename
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView
 
 from apps.sujeto.models import Sujeto
@@ -42,13 +44,15 @@ class PictureCreateView(CreateView):
 class PictureDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'fileupload.delete_picture'
     model = Picture
-
+    template_name = 'fileupload/eliminar.html'
+    # a donde va dirigido
+    success_url = reverse_lazy('upload-new')
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()
         response = JSONResponse(True, mimetype=response_mimetype(request))
         response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
+        return redirect('upload-new')
 
 
 class PictureListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):

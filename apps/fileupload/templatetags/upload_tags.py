@@ -59,15 +59,19 @@ def upload_js(per):
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
                 <td>
-                    <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                        <i class="glyphicon glyphicon-trash"></i>
-                        <span>{%=locale.fileupload.destroy%}</span>
-                    </button>
-
+                    
+                    <form>
+                      <button class="btn btn-danger"  formaction={%=file.deleteUrl%}>
+                      <i class="glyphicon glyphicon-trash"></i>
+                      Eliminar
+                      </button>
+                    </form>
+                    
                 </td>
 
                 <td>
-                   <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
+                   <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%} </p>
+                
                 </td>
             </tr>
         {% } %}

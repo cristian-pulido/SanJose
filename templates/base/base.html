@@ -18,8 +18,15 @@
 {% if user.is_authenticated %}
 
 		 <body>
-		 <div style="font-family:verdana; text-align:center;">
-		 <p class="display-4">Conectado como, {{ user.first_name }} {{ user.last_name }}</p>
+		 <div class="container" style="font-family:verdana; text-align:left;">
+		 <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>
+		 {% if perms.fileupload.delete_picture %}
+			<p>Administrador</p>
+		{% elif perms.fileupload.add_picture%}
+			<p>Cargador</p>
+		{% else %}
+			<p>Invitado</p>
+		{% endif %}
 		 </div>
 		 <br>
 		 {% if perms.fileupload.add_picture %}
@@ -44,6 +51,13 @@
 														<li><a href={% url "upload-new" %}>Cargar</a></li>
 													</ul>
 												</li>
+												<li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Medicos <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href={% url "medico_crear" %}>Añadir</a></li>
+														<li><a href={% url "medico_listar" %}>Lista</a></li>
+                                                    </ul>
+                                                </li>
 
 											</ul>
 											<ul class="nav navbar-nav navbar-right">

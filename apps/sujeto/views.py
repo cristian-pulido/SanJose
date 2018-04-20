@@ -1,3 +1,4 @@
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -21,7 +22,6 @@ class SujetoUpdate(UpdateView):
     template_name = 'Sujeto/sujeto_form.html'
     # a donde va dirigido
     success_url = reverse_lazy('upload-new')
-
 class SujetoList(DetailView):
     model = Sujeto
     template_name = 'Sujeto/formularios.html'

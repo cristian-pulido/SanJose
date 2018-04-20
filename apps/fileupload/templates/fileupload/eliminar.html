@@ -1,0 +1,27 @@
+{% extends 'upload_base.html' %}
+
+}
+{% block content %}
+<div class="container">
+    <form method="post">
+    {% csrf_token %}
+    <h3>¿Desea eliminar el registro del sujeto {{ object.candidato}}?</h3>
+    <h3>Esto eliminara los registros dependientes.</h3>
+
+    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+    <a class="btn btn-success" href="{% url 'upload-new' %}">Cancelar</a>
+</form>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="/static/js/tmpl.min.js"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+<script src="/static/js/bootstrap.min.js"></script>
+
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
+<!--[if gte IE 8]>
+<script src="/static/js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+
+{% endblock %}

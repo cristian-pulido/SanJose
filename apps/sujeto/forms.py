@@ -14,7 +14,7 @@ class SujetoForm(forms.ModelForm):
             'edad',
             'cc',
             'sexo',
-            'imagen',
+
         ]
 
         labels = {
@@ -23,13 +23,11 @@ class SujetoForm(forms.ModelForm):
             'edad': 'Edad',
             'cc': 'C.C',
             'sexo':'Sexo',
-            'imagen': 'Imagen',
         }
         widgets = {
-            'nombres': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombres': forms.TextInput(attrs={'class': 'form-control','placeholder': ('Este campo es requerido')}),
             'apellidos': forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
             'cc': forms.TextInput(attrs={'class': 'form-control'}),
             'sexo':forms.Select(attrs={'class': 'form-control'}),
-            'imagen': forms.Select(attrs={'class': 'form-control'}),
         }

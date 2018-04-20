@@ -1,7 +1,15 @@
 
 from django import forms
-from apps.paciente.models import Candidato, Dprevio
+from apps.paciente.models import Candidato, Dprevio, Medico
 from django.forms.widgets import CheckboxSelectMultiple
+
+class MedicoForm(forms.ModelForm):
+
+    class Meta:
+        model = Medico
+        fields = ['nombre',]
+        labels = {'nombre': "Nombre",}
+        widgets = {'nombre': forms.TextInput(attrs={'class': 'form-control','placeholder': ('Nombre')}),}
 
 
 class PacienteForm(forms.ModelForm):
@@ -68,7 +76,7 @@ class PacienteForm(forms.ModelForm):
             'ce2': forms.CheckboxInput(),
             'ce3': forms.CheckboxInput(),
             'ce4': forms.CheckboxInput(),
-            'medico_responsable': forms.TextInput(attrs={'class': 'form-control'}),
+            'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
 
 
         }
