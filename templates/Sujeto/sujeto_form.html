@@ -8,7 +8,7 @@
 {% block title %} Ingreso Nuevo {% endblock %}
 {% block content %}
 
-{% if object.estado  > 0 %}
+{% if object.estado  > 1 %}
 <script type="text/javascript">
         window.location="{% url 'upload-new' %}";
         </script>
@@ -63,6 +63,7 @@
             </div>
 
         </div>
+        {% if object.imagen %}
         <div class="col-md-8 col-md-offset-2">
 
             <div class="form-group">
@@ -71,6 +72,7 @@
             </div>
 
         </div>
+        {% endif %}
 
 
 

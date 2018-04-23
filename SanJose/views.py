@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from apps.paciente.models import Candidato
 from apps.sujeto.models import Sujeto
 
@@ -7,13 +7,10 @@ from apps.sujeto.models import Sujeto
 def error(request):
     return render(request, 'registration/login-error.html')
 
-def crearcandidato(request, pk):
-    s = Sujeto.objects.get(pk=pk)
-    if s.estado==1:
-        s.estado=2
-        s.save()
-        Candidato.objects.create(imagen=s.imagen)
-        c = Candidato.objects.get(imagen=s.imagen)
-        return HttpResponseRedirect('/paciente/editar/'+str(c.pk))
+
+def crearsujeto(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     else:
-        return HttpResponseRedirect('/carga/new')
+        s=Sujeto.objects.create(inscrito=False, estado=1)
+        return HttpResponseRedirect('/sujeto/editar/' + str(s.pk))

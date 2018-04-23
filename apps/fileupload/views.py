@@ -29,9 +29,7 @@ class PictureCreateView(CreateView):
         #t = newtext()
         #t.test()
         ## Crear objeto vacio y añadirle la imagen subida
-        s = Sujeto.objects.create()
-        s.save()
-        s.imagen = self.object
+        s = Sujeto.objects.create(inscrito=True,imagen=self.object)
         s.save()
 
         return response

@@ -10,7 +10,7 @@ class Sujeto(models.Model):
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=70, null=True)
     edad = models.PositiveIntegerField(null=True)
-    cc = models.PositiveIntegerField(null=True,unique=True)
+    cc = models.PositiveIntegerField(null=True, unique=True)
     #######sexo
     hombre = 'Hombre'
     mujer = 'Mujer'
@@ -18,10 +18,8 @@ class Sujeto(models.Model):
     sexo = models.CharField(max_length=9, choices=Sexo_choices, null=True)
     imagen = models.OneToOneField(Picture, null=True, on_delete=models.CASCADE)
     estado = models.PositiveIntegerField(null=True, default=0)
-
+    inscrito = models.NullBooleanField(default=True)
     def __str__(self):
         return '{}'.format(self.pk)
 
-    def delete(self, using=None, keep_parents=False):
 
-        self.imagen.delete()

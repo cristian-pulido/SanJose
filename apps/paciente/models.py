@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 from apps.fileupload.models import Picture
+from apps.sujeto.models import Sujeto
+
 
 class Dprevio(models.Model):
     Traumaticos = "Traumáticos"
@@ -69,14 +71,12 @@ class Candidato(models.Model):
     ce4=models.NullBooleanField("Decisión de la familia de no participar en estudios de investigación")
     #######
     #######resultado
-    resultado=models.NullBooleanField("PACIENTE APTO PARA INGRESO AL ESTUDIO")
+
 
     medico_responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
-    imagen = models.OneToOneField(Picture, null=True, on_delete=models.CASCADE)
+    imagen = models.OneToOneField(Picture, blank=True, null=True, on_delete=models.CASCADE)
+    sujeto = models.OneToOneField(Sujeto, blank=True, null=True,on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
 
-    def delete(self, using=None, keep_parents=False):
-
-        self.imagen.delete()

@@ -27,7 +27,7 @@ def veri(estado):
     elif estado==2:
         return "Información basica cargada"
     elif estado==3:
-        return "Formulario de inclución cargada"
+        return "Formulario de inclución cargado"
 
 def color(e):
     if e==0:
@@ -58,9 +58,6 @@ def serialize(instance, file_attr='file'):
     try:
         S=instance.sujeto
         n = S.nombres
-        if n != "" and S.estado==0:
-            S.estado=1
-            S.save()
         u=direccion(S)
         e=S.estado
     except:

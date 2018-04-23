@@ -32,7 +32,7 @@
 {% elif perms.fileupload.add_picture%}
     <p>Cargador</p>
 {% else %}
-    <p>Invitado</p>
+    <p>Invitado</p>o
 {% endif %}
 
  </div>
@@ -54,9 +54,11 @@
                                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                             <ul class="nav navbar-nav">
                                                 <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Archivos <span class="caret"></span></a>
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sujetos <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
-                                                        <li><a href={% url "upload-new" %}>Cargar</a></li>
+                                                        <li><a href={% url "upload-new" %}>Añadir con archivo</a></li>
+                                                        <li><a href={% url "crear_sujeto" %}>Añadir sin archivo</a></li>
+                                                        <li><a href={% url "paciente_listar" %}>Listar</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown">

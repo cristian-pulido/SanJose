@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Listado de Sujetos {% endblock %}
+{% block content %}
+
+
+
+
+<h1>Lista de Todos los Sujetos</h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Médico a cargo </th>
+      <th scope="col">Incluido en el estudio</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if object_list %}
+        {% for object in object_list %}
+            {% if object.sujeto_numero == None %}
+            <tr class="table-active">
+              <td colspan="4" style="color:red">Información del sujeto aún no obtenida </td>
+            </tr>
+            {% else %}
+            <tr class="table-active">
+                {% if object.sujeto %}
+                    <td><a href="{% url 'sujeto' object.sujeto.pk%}" >{{object.sujeto_numero}}</a></td>
+                {% elif object.imagen %}
+                    <td><a href="{% url 'sujeto' object.imagen.sujeto.pk%}" >{{object.sujeto_numero}}</a></td>
+                {% endif %}
+              <td>{{object.medico_responsable}}</td>
+              <td>
+                  <div  class="custom-control custom-checkbox">
+                    <input  class="custom-control-input" {% if object.imagen %} checked="" {% endif %} id="customCheck2" disabled="" type="checkbox">
+                  </div>
+              </td>
+              {% if object.sujeto%}
+              <td><a href="{% url 'sujeto_eliminar' object.sujeto.pk%}" >Eliminar</a></td>
+              {% elif object.imagen%}
+              <td><a href="{% url 'upload-delete' object.imagen.pk%}" >Eliminar</a></td>
+              {% endif %}
+            </tr>
+            {% endif %}
+        {% endfor%}
+
+    {% else %}
+    <h2>No hay registros de Sujetos</h2>
+
+    {% endif %}
+  </tbody>
+</table>
+
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+    	{% endif %}
+    </li>
+</ul>
+
+{% endblock %}
