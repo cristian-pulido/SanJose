@@ -2,6 +2,11 @@
 
 {% block title %} Eliminacion registro {% endblock %}
 {% block content %}
+{% if perms.fileupload.delete_picture == False %}
+<script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+</script>
+{% endif %}
 <form method="post">
     {% csrf_token %}
     <h3>¿Desea eliminar el registro de {{ object.nombre }}?</h3>

@@ -4,12 +4,11 @@ from fileinput import filename
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import  redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView
 
-from apps.sujeto.models import Sujeto
-from programa.creacionarchivo import newtext
+from apps.paciente.models import Candidato
 from .models import Picture
 from .response import JSONResponse, response_mimetype
 from .serialize import serialize
@@ -25,12 +24,9 @@ class PictureCreateView(CreateView):
         data = {'files': files}
         response = JSONResponse(data, mimetype=response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
-        ## Crear archivo
-        #t = newtext()
-        #t.test()
         ## Crear objeto vacio y añadirle la imagen subida
-        s = Sujeto.objects.create(inscrito=True,imagen=self.object)
-        s.save()
+        c = Candidato.objects.create(inscrito=True,imagen=self.object)
+        c.save()
 
         return response
 

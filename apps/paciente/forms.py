@@ -15,11 +15,15 @@ class MedicoForm(forms.ModelForm):
 class PacienteForm(forms.ModelForm):
 
 
-
     class Meta:
         model = Candidato
 
         fields = [
+            'nombres',
+            'apellidos',
+            'edad',
+            'cc',
+            'sexo',
             'sujeto_numero',
             'fecha_de_registro',
             'HC',
@@ -44,6 +48,11 @@ class PacienteForm(forms.ModelForm):
         ]
 
         labels = {
+            'nombres': 'Nombres',
+            'apellidos': 'Apellidos',
+            'edad': 'Edad',
+            'cc': 'C.C',
+            'sexo': 'Sexo',
             'sujeto_numero' : "Sujeto #",
             'fecha_de_registro' : "Fecha de Registro",
             'HC': "Historia Clinica",
@@ -58,6 +67,11 @@ class PacienteForm(forms.ModelForm):
             'medico_responsable': "Medico Responsable",
              }
         widgets = {
+            'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Este campo es requerido')}),
+            'apellidos': forms.TextInput(attrs={'class': 'form-control'}),
+            'edad': forms.TextInput(attrs={'class': 'form-control'}),
+            'cc': forms.TextInput(attrs={'class': 'form-control'}),
+            'sexo': forms.Select(attrs={'class': 'form-control'}),
             'sujeto_numero': forms.TextInput(attrs={'class': 'form-control'}),
             'fecha_de_registro': forms.SelectDateWidget(years=range(2017, 2020)),
             'HC':forms.TextInput(attrs={'class': 'form-control'}),

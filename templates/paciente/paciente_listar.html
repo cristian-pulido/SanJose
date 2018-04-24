@@ -21,25 +21,27 @@
         {% for object in object_list %}
             {% if object.sujeto_numero == None %}
             <tr class="table-active">
-              <td colspan="4" style="color:red">Información del sujeto aún no obtenida </td>
+              <td colspan="3" style="color:red">Información del sujeto aún no obtenida </td>
+              <td><a href="{% url 'paciente_editar' object.pk%}" >Añadir información</a></td>
             </tr>
             {% else %}
             <tr class="table-active">
-                {% if object.sujeto %}
-                    <td><a href="{% url 'sujeto' object.sujeto.pk%}" >{{object.sujeto_numero}}</a></td>
-                {% elif object.imagen %}
-                    <td><a href="{% url 'sujeto' object.imagen.sujeto.pk%}" >{{object.sujeto_numero}}</a></td>
-                {% endif %}
+              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
               <td>{{object.medico_responsable}}</td>
               <td>
                   <div  class="custom-control custom-checkbox">
-                    <input  class="custom-control-input" {% if object.imagen %} checked="" {% endif %} id="customCheck2" disabled="" type="checkbox">
+                    <input  class="custom-control-input" {% if object.inscrito == True %} checked="" {% endif %} id="customCheck2" disabled="" type="checkbox">
                   </div>
               </td>
-              {% if object.sujeto%}
-              <td><a href="{% url 'sujeto_eliminar' object.sujeto.pk%}" >Eliminar</a></td>
-              {% elif object.imagen%}
+
+              {% if perms.fileupload.delete_picture %}
+              {% if object.inscrito == False%}
+              <td><a href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a></td>
+              {% else%}
               <td><a href="{% url 'upload-delete' object.imagen.pk%}" >Eliminar</a></td>
+              {% endif %}
+              {% else %}
+              <td></td>
               {% endif %}
             </tr>
             {% endif %}

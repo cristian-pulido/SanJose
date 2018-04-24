@@ -25,7 +25,6 @@ urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
     path('admin/', admin.site.urls),
     path('carga/', include('apps.fileupload.urls')),
-    path('sujeto/', include('apps.sujeto.urls')),
     path('paciente/', include('apps.paciente.urls')),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),

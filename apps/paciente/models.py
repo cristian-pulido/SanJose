@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 from apps.fileupload.models import Picture
-from apps.sujeto.models import Sujeto
 
 
 class Dprevio(models.Model):
@@ -39,6 +38,16 @@ class Medico(models.Model):
 class Candidato(models.Model):
     sujeto_numero = models.PositiveIntegerField(null=True, unique=True)
     fecha_de_registro= models.DateField(null=True)
+    cc = models.PositiveIntegerField(null=True,unique=True)
+    nombres = models.CharField(null=True, max_length=70)
+    apellidos = models.CharField(null=True, max_length=70)
+    edad = models.PositiveIntegerField(null=True)
+    #######sexo
+    hombre = 'Hombre'
+    mujer = 'Mujer'
+    Sexo_choices = ((hombre, u'Hombre'), (mujer, u'Mujer'))
+    sexo = models.CharField(max_length=9, choices=Sexo_choices, null=True)
+    ######
     HC = models.PositiveIntegerField(null=True, unique=True)
     cama_numero =models.PositiveIntegerField(null=True)
     fecha_evento_principal = models.DateField(null=True)
@@ -50,7 +59,7 @@ class Candidato(models.Model):
     H_A='Hipoxia/Anoxia'
     ACV='ACV'
     G_diagnostico_choices=((TCE, u'TCE'),(H_A, u'Hipoxia/Anoxia'),(ACV, u'ACV'))
-    G_diagnostico=models.CharField(max_length=20,choices=G_diagnostico_choices,null=True)
+    G_diagnostico=models.CharField(max_length=20,choices=G_diagnostico_choices, null=True)
     ######## Diagnosticos neuro / psiquiatricos previos
     D_neuro_logico_psiquiatrico_previo=models.ManyToManyField(Dprevio, blank=True)
     ###### Especificacion diagnosticos
@@ -75,7 +84,8 @@ class Candidato(models.Model):
 
     medico_responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     imagen = models.OneToOneField(Picture, blank=True, null=True, on_delete=models.CASCADE)
-    sujeto = models.OneToOneField(Sujeto, blank=True, null=True,on_delete=models.CASCADE)
+    estado = models.PositiveIntegerField(null=True, default=0)
+    inscrito = models.NullBooleanField(default=True)
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)

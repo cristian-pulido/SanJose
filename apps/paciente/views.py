@@ -1,11 +1,10 @@
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
 from apps.paciente.forms import PacienteForm, MedicoForm
 from apps.paciente.models import Candidato, Medico
-from apps.sujeto.models import Sujeto
 
 
 class PacienteCreate(CreateView):
@@ -22,20 +21,24 @@ class PacienteUpdate(UpdateView):
     # a donde va dirigido
 
     def get_success_url(self):
-        if self.object.imagen != 'None':
-            img = self.object.imagen
-            s = Sujeto.objects.get(imagen=img)
-            s.estado = 3
-            s.save()
-        else:
-            s = self.objects.sujeto
+        p=self.object
+        p.estado=1
+        p.save()
+        return reverse_lazy('paciente', args=[p.pk])
 
-        return reverse_lazy('sujeto', args=[s.pk])
-
+class PacienteView(DetailView):
+    model = Candidato
+    template_name = 'paciente/formularios.html'
 
 class PacienteList(ListView):
     model = Candidato
     template_name = 'paciente/paciente_listar.html'
+
+class PacienteDelete(DeleteView):
+    model = Candidato
+    template_name = 'paciente/paciente_eliminar.html'
+    # a donde va dirigido
+    success_url = reverse_lazy('paciente_listar')
 
 class MedicoCreate(CreateView):
     model = Medico

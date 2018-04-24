@@ -21,7 +21,10 @@
 
             <td>
                 <a class="btn btn-primary" href="{% url 'medico_editar' medico.pk%}">Editar</a>
+                {% if perms.fileupload.delete_picture %}
                 <a class="btn btn-danger" href="{% url 'medico_eliminar' medico.pk%}">Eliminar</a>
+                {% endif %}
+
 
             </td>
 

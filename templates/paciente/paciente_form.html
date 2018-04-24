@@ -12,6 +12,15 @@
         </div>
     </div>
     <div class="row">
+        {% if object.imagen %}
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+              <label >Imagen</label>
+              <input class="form-control"  value="{{object.imagen}}"  disabled type="text">
+            </div>
+
+        </div>
+        {% endif %}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
@@ -40,6 +49,63 @@
                     {{ form.cama_numero.errors }}
                     {{form.cama_numero}}
                 </div>
+        </div>
+        {% if object.estado == 0 or perms.fileupload.delete_picture %}
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
+                    {{ form.nombres.errors }}
+                    {{  form.nombres  }}
+                </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.apellidos.name}}">{{form.apellidos.label}}</label>
+                    {{form.apellidos}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.cc.name}}">{{form.cc.label}}</label>
+                    {{ form.cc.errors }}
+                    {{form.cc}}
+                </div>
+        </div>
+        {% else %}
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{ form.nombres.errors }}
+                    {{  form.nombres.as_hidden  }}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{form.apellidos.as_hidden}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{form.cc.as_hidden}}
+                </div>
+        </div>
+        {% endif %}
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.edad.name}}">{{form.edad.label}}</label>
+                    {{ form.edad.errors }}
+                    {{form.edad}}
+                </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="form-group">
+              <label for="{{form.sexo.name}}">{{form.sexo.label}}</label>
+                {{ form.sexo.errors }}
+                {{form.sexo}}
+            </div>
+
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
@@ -170,6 +236,8 @@
     </div>
 
 </form>
+<br>
+<br>
 {% endblock %}
 {% block extrajs %}
 {% endblock %}

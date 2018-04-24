@@ -4,7 +4,6 @@ import re
 
 from django.urls import reverse
 
-from apps.sujeto.models import Sujeto
 
 
 
@@ -23,23 +22,25 @@ def veri(estado):
     if estado==0:
         return "Registro Incompleto"
     elif estado==1:
-        return "Información basica cargada"
-    elif estado==2:
-        return "Información basica cargada"
-    elif estado==3:
-        return "Formulario de inclución cargado"
+        return "Formulario de inclusión cargado"
 
 def color(e):
     if e==0:
         return "color:red;"
     else:
         return "color:black;"
+def eti(S,anterior):
+    if S.estado!=0:
+        return "Sujeto #" + str(S.sujeto_numero)
+    else:
+        return anterior
+
 
 def direccion(s):
     if s.estado==0:
-        return "/sujeto/editar/"+str(s.pk)
+        return "/paciente/editar/"+str(s.pk)
     else:
-        return "/sujeto/formularios/"+str(s.pk)
+        return "/paciente/formularios/"+str(s.pk)
 
 def serialize(instance, file_attr='file'):
     """serialize -- Serialize a Picture instance into a dict.
@@ -47,27 +48,16 @@ def serialize(instance, file_attr='file'):
     file_attr -- attribute name that contains the FileField or ImageField
     """
     obj = getattr(instance, file_attr)
-
-
-
-
     n = ""
     u=""
     e=0
     etiqueta =order_name(obj.name)
     try:
-        S=instance.sujeto
+        S=instance.candidato
         n = S.nombres
         u=direccion(S)
         e=S.estado
-    except:
-        print("")
-
-    else:
-        print("")
-    try:
-        P=instance.candidato
-        etiqueta="Sujeto #"+str(P.sujeto_numero)
+        etiqueta = eti(S, etiqueta)
     except:
         print("")
 
@@ -77,7 +67,7 @@ def serialize(instance, file_attr='file'):
 
 
     return {
-        'pk':instance.pk,
+        'pk': instance.pk,
         'url': u,
         'name': etiqueta,
         'type': mimetypes.guess_type(obj.path)[0] or 'image/png',
