@@ -33,7 +33,8 @@
                 <div class="form-group">
                     <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
                     {{ form.fecha_de_registro.errors }}
-                    {{form.fecha_de_registro}}
+                    <input class="form-control" name="fecha_de_registro" type="text" placeholder="Elegir fecha " id="datepicker">
+
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -50,12 +51,12 @@
                     {{form.cama_numero}}
                 </div>
         </div>
-        {% if object.estado == 0 or perms.fileupload.delete_picture %}
+        {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
                     {{ form.nombres.errors }}
-                    {{  form.nombres  }}
+                    {{ form.nombres }}
                 </div>
         </div>
 
@@ -153,7 +154,7 @@
         </div>
 
 
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2" >
                 <div class="form-group">
                     <label for="{{form.D_especificos.name}}">{{form.D_especificos.label}}</label>
                     {{ form.D_especificos.errors }}

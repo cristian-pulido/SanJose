@@ -1,15 +1,18 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
-from apps.paciente.models import Candidato
+from django.urls import reverse_lazy
+
+from apps.paciente.models import Ingreso, Candidato
 
 
 def error(request):
     return render(request, 'registration/login-error.html')
 
 
-def crearsujeto(request):
+def crearingreso(request, pk):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
-        s=Candidato.objects.create(inscrito=False, estado=0, ci3=False,ci4=False)
-        return HttpResponseRedirect('/paciente/editar/' + str(s.pk))
+        c=Candidato.objects.get(pk=pk)
+        i=Ingreso.objects.create(candidato=c)
+        return redirect("/paciente/ingreso/editar/"+str(i.pk))

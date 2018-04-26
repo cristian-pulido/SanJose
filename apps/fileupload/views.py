@@ -25,9 +25,16 @@ class PictureCreateView(CreateView):
         response = JSONResponse(data, mimetype=response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
         ## Crear objeto vacio y añadirle la imagen subida
-        c = Candidato.objects.create(inscrito=True,imagen=self.object)
-        c.save()
-
+        carga = False
+        contador=0
+        while not carga:
+            contador=contador+1
+            try:
+                c = Candidato.objects.create(sujeto_numero=contador, inscrito=True, imagen=self.object, ci3=True, ci4=True, estado=0)
+                c.save()
+                carga = True
+            except:
+                pass
         return response
 
     def form_invalid(self, form):

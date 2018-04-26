@@ -19,7 +19,7 @@ from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.contrib.auth import views
 
-from .views import error, crearsujeto
+from .views import error, crearingreso
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -30,5 +30,5 @@ urlpatterns = [
     url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
     url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
     url(r'^login-error$', error, name='login-error'),
-    path('script/crear/', crearsujeto, name='crear_sujeto'),
+    path('script/crear/<int:pk>/', crearingreso, name='crear_ingreso'),
 ]

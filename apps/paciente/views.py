@@ -3,15 +3,15 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
-from apps.paciente.forms import PacienteForm, MedicoForm
-from apps.paciente.models import Candidato, Medico
+from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm
+from apps.paciente.models import Candidato, Medico, Ingreso
 
 
 class PacienteCreate(CreateView):
     model = Candidato
     form_class = PacienteForm
     template_name = 'paciente/paciente_form.html'
-    success_url = reverse_lazy('upload-new')
+    success_url = reverse_lazy('paciente_listar')
 
 
 class PacienteUpdate(UpdateView):
@@ -25,6 +25,21 @@ class PacienteUpdate(UpdateView):
         p.estado=1
         p.save()
         return reverse_lazy('paciente', args=[p.pk])
+
+class IngresoUpdate(UpdateView):
+    model = Ingreso
+    form_class = IngresoForm
+    template_name = 'paciente/ingreso_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        i=self.object
+        p=i.candidato
+        p.estado=2
+        p.save()
+        return reverse_lazy('paciente', args=[p.pk])
+
+
 
 class PacienteView(DetailView):
     model = Candidato

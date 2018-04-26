@@ -11,10 +11,10 @@
     <a class="nav-link active " data-toggle="tab" href="#home">Candidato</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " data-toggle="tab" href="#profile">Profile</a>
+    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %} href="#estudio">Formato ingreso al estudio</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#">Disabled</a>
+    <a class="nav-link " {% if object.inscrito == True and object.estado > 1 %} data-toggle="tab" {% endif %}  href="#ultima">Disabled</a>
   </li>
 </ul>
 <div id="myTabContent" class="tab-content" >
@@ -23,7 +23,7 @@
       <p class="text-danger">No se encontro información del Sujeto</p>
       <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
       {% endifequal %}
-      {% ifequal object.estado  1 %}
+      {% if object.estado  > 0 %}
       <table class="table table-hover">
 
           <tbody>
@@ -33,7 +33,7 @@
               <th>HC del sujeto</th>
               <td>{{ object.HC }} </td>
             </tr>
-            {% if perms.fileupload.delete_picture %}
+            {% if user.groups.all.0.name == 'Administrador' %}
             <tr class="table-active">
               <th>Nombres</th>
               <td>{{ object.nombres }} </td>
@@ -131,9 +131,109 @@
           </tbody>
         </table>
       <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
-      {% endifequal %}
+      {% endif %}
  </div>
-  <div class="tab-pane" id="profile">
+  <div class="tab-pane" id="estudio">
+    {% ifequal object.estado  1 %}
+      <p class="text-danger">No se encontro información del Sujeto</p>
+      {% if object.ingreso %}
+      <a class="btn btn-primary" href="{% url 'ingreso_editar' object.ingreso.pk %}">Añadir</a>
+      {% else %}
+      <a class="btn btn-primary" href="{% url 'crear_ingreso' object.pk%}">Añadir</a>
+      {% endif %}
+    {% endifequal %}
+    {% if object.estado  > 1 %}
+    <table class="table table-hover">
+
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha Ingreso</th>
+              <td colspan="3">{{ object.ingreso.fecha_form }} </td>
+            </tr>
+            <tr class="table-active">
+              <th>Lugar de Nacimiento</th>
+              <td>{{ object.ingreso.lugar_nacimiento }} </td>
+                <th>Lugar de Residencia</th>
+              <td>{{ object.ingreso.lugar_residencia }} </td>
+            </tr>
+            {% if user.groups.all.0.name == 'Administrador' %}
+            <tr class="table-active">
+              <th>Dirección</th>
+              <td>{{ object.ingreso.direccion }} </td>
+              <th>Acompañante</th>
+              <td>{{ object.ingreso.nombre_acompanante }} </td>
+            </tr>
+            <tr class="table-active">
+              <th>Teléfono de contacto 1</th>
+              <td>{{ object.ingreso.tel1 }} </td>
+              <th>Teléfono de contacto 2</th>
+              <td>{{ object.ingreso.tel2 }} </td>
+            </tr>
+            {% endif %}
+            <tr class="table-active">
+              <th>Peso</th>
+              <td>{{ object.ingreso.peso }} Kg</td>
+              <th>Altura</th>
+              <td>{{ object.ingreso.estatura }} cms</td>
+            </tr>
+            <tr>
+              <th>Nivel educativo</th>
+              <td >{{ object.ingreso.n_educativo }} </td>
+              <th>Lateralidad</th>
+              <td >{{ object.ingreso.lateralidad }} </td>
+            </tr>
+            <tr class="table-primary">
+              <th>Estado de conciencia </th>
+              <td>{{ object.ingreso.conciencia }}</td>
+              <th>Sedado por neuroprotección</th>
+              <td>{% if object.ingreso.sedado == True %} Sí {% else %} No {% endif %}</td>
+            </tr>
+            <tr class="table-success">
+              <th>Antecedentes Patológicos</th>
+              <td >{% for p in  object.ingreso.a_patologicos.all %}
+                    <p>{% if p.nombre == 'Otro' %}{{object.ingreso.a_patologicos_cual}}{% else %}{{ p }}{% endif%}</p>
+                  {% endfor %}
+              </td>
+              <th>Antecedentes Familiares relevantes:</th>
+              <td >{{ object.ingreso.a_familiares }}</td>
+            </tr>
+            <tr class="table-secondary">
+              <th>Antecedentes quirúrgicos</th>
+              <td>
+                  {% if object.ingreso.quirurgicos == 'craneotomia' %}<p><b>Fecha:</b> {{ object.ingreso.fecha_craneotomia }}</p>{% endif %}
+                  {% if object.ingreso.quirurgicos == 'otro' %}<p> {{ object.ingreso.causa_quirurgicos }}</p>{% endif %}
+              </td>
+              <th>Antecedentes Tóxico alérgicos:</th>
+              <td>{{ object.ingreso.a_toxico_alergenicos }}</td>
+            </tr>
+            <tr class="table-success">
+              <th rowspan="2">Antecedentes Farmacológicos:</th>
+              <td >{{ object.ingreso.a_farmaco1 }}</td>
+              <th>Dosis total/día</th>
+              <td>{{ object.ingreso.a_farmaco1_dosis }}</td>
+            </tr>
+            <tr class="table-success">
+              <td >{{ object.ingreso.a_farmaco2 }}</td>
+              <th>Dosis total/día</th>
+              <td>{{ object.ingreso.a_farmaco2_dosis }}</td>
+            </tr>
+            <tr class="table-success">
+              {% if object.ingreso.firma_consentimiento == True %}
+              <th>Firma de consentimiento informado</th>
+              <td colspan="3">Sí</td>
+              {% else %}
+              <th>Firma de consentimiento informado</th>
+              <td >No</td>
+              <th>Causa</th>
+              <td >{{ object.ingreso.firma_causa }}</td>
+              {% endif %}
+            </tr>
+          </tbody>
+        </table>
+      <a class="btn btn-primary" href="{% url 'ingreso_editar' object.ingreso.pk%}">Editar</a>
+    {% endif %}
+  </div>
+   <div class="tab-pane" id="ultima">
     <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
   </div>
 

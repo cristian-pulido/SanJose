@@ -1,0 +1,241 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Paciente {% endblock %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Formulario Ingreso Sujeto #{{ object.candidato.sujeto_numero }}</h1>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_form.name}}">{{form.fecha_form.label}}</label>
+                    {{ form.fecha_form.errors }}
+                    {{form.fecha_form}}
+
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.lugar_nacimiento.name}}">{{form.lugar_nacimiento.label}}</label>
+                    {{ form.lugar_nacimiento.errors }}
+                    {{form.lugar_nacimiento}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.lugar_residencia.name}}">{{form.lugar_residencia.label}}</label>
+                    {{ form.lugar_residencia.errors }}
+                    {{form.lugar_residencia}}
+                </div>
+        </div>
+        {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.direccion.name}}">{{form.direccion.label}}</label>
+                    {{ form.direccion.errors }}
+                    {{  form.direccion  }}
+                </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.nombre_acompanante.name}}">{{form.nombre_acompanante.label}}</label>
+                    {{form.nombre_acompanante}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.tel1.name}}">{{form.tel1.label}}</label>
+                    {{ form.tel1.errors }}
+                    {{form.tel1}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.tel2.name}}">{{form.tel2.label}}</label>
+                    {{ form.tel2.errors }}
+                    {{form.tel2}}
+                </div>
+        </div>
+        {% else %}
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{ form.direccion.errors }}
+                    {{  form.direccion.as_hidden  }}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{form.nombre_acompanante.as_hidden}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{form.tel2.as_hidden}}
+                </div>
+        </div>
+        {% endif %}
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="form-group">
+              <label for="{{form.peso.name}}">{{form.peso.label}}</label>
+                {{ form.peso.errors }}
+                {{form.peso}}
+            </div>
+
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.estatura.name}}">{{form.estatura.label}}</label>
+                    {{ form.estatura.errors }}
+                    {{form.estatura}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.n_educativo.name}}">{{form.n_educativo.label}}</label>
+                    {{ form.n_educativo.errors }}
+                    {{form.n_educativo}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.lateralidad.name}}">{{form.lateralidad.label}}</label>
+                    {{ form.lateralidad.errors }}
+                    {{form.lateralidad}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.conciencia.name}}">{{form.conciencia.label}}</label>
+                    {{ form.conciencia.errors }}
+                    {{form.conciencia}}
+                </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.sedado.name}}">{{form.sedado.label}}</label>
+                    {{ form.sedado.errors }}
+                    {{form.sedado}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_patologicos.name}}">{{form.a_patologicos.label}}</label>
+                    {{ form.a_patologicos.errors }}
+                    {{form.a_patologicos}}
+                    <div class="help">Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.</div>
+                </div>
+
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_patologicos_cual.name}}">{{form.a_patologicos_cual.label}}</label>
+                    {{ form.a_patologicos_cual.errors }}
+                    {{form.a_patologicos_cual}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.quirurgicos.name}}">{{form.quirurgicos.label}}</label>
+                    {{ form.quirurgicos.errors }}
+                    {{form.quirurgicos}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_craneotomia.name}}">{{form.fecha_craneotomia.label}}</label>
+                    {{ form.fecha_craneotomia.errors }}
+                    {{form.fecha_craneotomia}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.causa_quirurgicos.name}}">{{form.causa_quirurgicos.label}}</label>
+                    {{ form.causa_quirurgicos.errors }}
+                    {{form.causa_quirurgicos}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="form-group">
+                    <label for="{{form.a_toxico_alergenicos.name}}">{{form.a_toxico_alergenicos.label}}</label>
+                    {{ form.a_toxico_alergenicos.errors }}
+                    {{form.a_toxico_alergenicos}}
+                </div>
+
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_farmaco1.name}}">{{form.a_farmaco1.label}}</label>
+                    {{ form.a_farmaco1.errors }}
+                    {{form.a_farmaco1}}
+
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_farmaco1_dosis.name}}">{{form.a_farmaco1_dosis.label}}</label>
+                    {{ form.a_farmaco1_dosis.errors }}
+                    {{form.a_farmaco1_dosis}}
+
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_farmaco2.name}}">{{form.a_farmaco2.label}}</label>
+                    {{ form.a_farmaco2.errors }}
+                    {{form.a_farmaco2}}
+
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_farmaco2_dosis.name}}">{{form.a_farmaco2_dosis.label}}</label>
+                    {{ form.a_farmaco2_dosis.errors }}
+                    {{form.a_farmaco2_dosis}}
+
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.a_familiares.name}}">{{form.a_familiares.label}}</label>
+                    {{ form.a_familiares.errors }}
+                    {{form.a_familiares}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.firma_consentimiento.name}}">{{form.firma_consentimiento.label}}</label>
+                    {{ form.firma_consentimiento.errors }}
+                    {{form.firma_consentimiento}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.firma_causa.name}}">{{form.firma_causa.label}}</label>
+                    {{ form.firma_causa.errors }}
+                    {{form.firma_causa}}
+                </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
+</form>
+<br>
+<br>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}

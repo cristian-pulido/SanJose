@@ -2,7 +2,7 @@
 
 {% block title %} Eliminacion registro {% endblock %}
 {% block content %}
-{% if perms.fileupload.delete_picture == False %}
+{% if user.groups.all.0.name != 'Administrador' %}
 <script type="text/javascript">
         window.location="{% url 'upload-new' %}";
 </script>

@@ -19,10 +19,20 @@
   <tbody>
     {% if object_list %}
         {% for object in object_list %}
-            {% if object.sujeto_numero == None %}
+            {% if object.nombres == None %}
             <tr class="table-active">
-              <td colspan="3" style="color:red">Información del sujeto aún no obtenida </td>
-              <td><a href="{% url 'paciente_editar' object.pk%}" >Añadir información</a></td>
+              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
+              <td colspan="2" style="color:red">Información del sujeto aún no obtenida </td>
+              <td>
+                  <p><a href="{% url 'paciente_editar' object.pk%}" >Añadir información</a></p>
+                  {% if user.groups.all.0.name == 'Administrador' %}
+                  {% if object.inscrito == False%}
+                  <p><a href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a></p>
+                  {% else%}
+                  <p><a href="{% url 'upload-delete' object.imagen.pk%}" >Eliminar</a></p>
+                  {% endif %}
+                  {% endif %}
+              </td>
             </tr>
             {% else %}
             <tr class="table-active">
@@ -34,7 +44,7 @@
                   </div>
               </td>
 
-              {% if perms.fileupload.delete_picture %}
+              {% if user.groups.all.0.name == 'Administrador' %}
               {% if object.inscrito == False%}
               <td><a href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a></td>
               {% else%}

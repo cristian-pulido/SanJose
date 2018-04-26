@@ -3,14 +3,15 @@
 
 {% block title %} Eliminacion registro {% endblock %}
 {% block content %}
-{% if perms.fileupload.delete_picture == False %}
+{% if user.groups.all.0.name != 'Administrador' %}
 <script type="text/javascript">
         window.location="{% url 'upload-new' %}";
 </script>
 {% endif %}
-
-<form method="post">
+<center>
+<form  method="post">
     {% csrf_token %}
+
     <h3>¿Desea eliminar el registro del Sujeto # {{ object.sujeto_numero }}?</h3>
     <h3>Esto eliminara los registros dependientes.</h3>
 
@@ -18,5 +19,6 @@
     <button class="btn btn-danger" type="submit">Sí, eliminar</button>
     <a class="btn btn-success" href="{% url 'paciente_listar' %}">Cancelar</a>
 </form>
+</center>
 
 {% endblock %}

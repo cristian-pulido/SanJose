@@ -13,23 +13,24 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
 	<link rel="stylesheet" href="/static/css/blueimp-gallery.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+
 	<title>{% block title %}Document {% endblock %}</title>
 </head>
 {% if user.is_authenticated %}
 
 		 <body>
+
 		 <div class="container" style="font-family:verdana; text-align:left;">
 		 <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>
-		 {% if perms.fileupload.delete_picture %}
-			<p>Administrador</p>
-		{% elif perms.fileupload.add_picture%}
-			<p>Cargador</p>
-		{% else %}
-			<p>Invitado</p>
-		{% endif %}
+		 {{ user.groups.all.0  }}
+	     {% load scripts %}
+		 {% creargrupos %}
 		 </div>
 		 <br>
-		 {% if perms.fileupload.add_picture %}
+		 {% if user.groups.all.0.name != 'Invitado' %}
 			<div class="container">
 
 				{% block navbar %}
@@ -49,7 +50,7 @@
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sujetos <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
                                                         <li><a href={% url "upload-new" %}>Añadir Incluido</a></li>
-                                                        <li><a href={% url "crear_sujeto" %}>Añadir Excluido</a></li>
+                                                        <li><a href={% url "paciente_crear" %}>Añadir Excluido</a></li>
                                                         <li><a href={% url "paciente_listar" %}>Listar</a></li>
                                                     </ul>
                                                 </li>
@@ -102,6 +103,16 @@
 
 		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+		   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		  <script>
+		  $( function() {
+			$( "#datepicker" ).datepicker(
+			{dateFormat: 'dd/mm/yy'});
+		  } );
+		  </script>
+
 		</body>
 {% else %}
 		 <script type="text/javascript">

@@ -23,6 +23,8 @@ def veri(estado):
         return "Registro Incompleto"
     elif estado==1:
         return "Formulario de inclusión cargado"
+    elif estado==2:
+        return "Formulario de ingreso cargado"
 
 def color(e):
     if e==0:

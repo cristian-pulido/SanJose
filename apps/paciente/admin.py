@@ -1,9 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from apps.paciente.models import Candidato, Dprevio, Medico
+from apps.paciente.models import Candidato, Dprevio, Medico, Apatologicos, Ingreso
 
 admin.site.register(Candidato)
+admin.site.register(Ingreso)
 admin.site.register(Dprevio)
+admin.site.register(Apatologicos)
 admin.site.register(Medico)
 
