@@ -1,9 +1,15 @@
 from django.contrib.auth.models import Group, Permission, User
 
-from apps.paciente.models import Dprevio, Apatologicos
+from apps.paciente.models import Dprevio, Apatologicos, Candidato
 from django import template
 
 register = template.Library()
+
+@register.simple_tag
+def numexcluido():
+    total=Candidato.objects.filter(inscrito=False).last()
+    return "E"+str(int(total.sujeto_numero[1])+1)
+
 
 @register.simple_tag
 def crearDprevios():

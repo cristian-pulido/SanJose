@@ -53,7 +53,7 @@ class Medico(models.Model):
     def __str__(self):
         return '{}'.format(self.nombre)
 class Candidato(models.Model):
-    sujeto_numero = models.PositiveIntegerField(null=True, unique=True)
+    sujeto_numero = models.CharField(max_length=20, null=True, unique=True)
     fecha_de_registro= models.DateField(null=True, default=datetime.date.today)
     cc = models.PositiveIntegerField(null=True,unique=True)
     nombres = models.CharField(null=True, max_length=70)

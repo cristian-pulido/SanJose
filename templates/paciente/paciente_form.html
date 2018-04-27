@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-
+{% load scripts %}
 <form method="post">
     {% csrf_token %}
 
@@ -25,7 +25,11 @@
                 <div class="form-group">
                     <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
                     {{ form.sujeto_numero.errors }}
-                    {{form.sujeto_numero}}
+                    <input type="text" name="sujeto_numero" {% if object.sujeto_numero %} value="{{object.sujeto_numero}}" {% else %} value="{% numexcluido %}" {% endif %} class="form-control" maxlength="20" required id="id_sujeto_numero" readonly />
+
+
+
+
 
                 </div>
         </div>

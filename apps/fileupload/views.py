@@ -14,6 +14,8 @@ from .response import JSONResponse, response_mimetype
 from .serialize import serialize
 
 
+
+
 class PictureCreateView(CreateView):
     model = Picture
     fields = "__all__"
