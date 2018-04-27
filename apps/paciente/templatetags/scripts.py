@@ -7,8 +7,11 @@ register = template.Library()
 
 @register.simple_tag
 def numexcluido():
-    total=Candidato.objects.filter(inscrito=False).last()
-    return "E"+str(int(total.sujeto_numero[1])+1)
+    if len(Candidato.objects.filter(inscrito=False))==0:
+        return "E1"
+    else:
+        a=Candidato.objects.filter(inscrito=False).last()
+        return "E"+str(int(a.sujeto_numero[1])+1)
 
 
 @register.simple_tag
