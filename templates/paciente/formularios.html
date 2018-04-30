@@ -445,7 +445,7 @@
       <a class="btn btn-primary" href="{% url 'radiologia_editar' object.radiologia.pk%}">Editar</a>
     {% endif %}
   </div>
-<div class="tab-pane active"  id="uci">
+<div class="tab-pane"  id="uci">
       {% ifequal object.estado  3 %}
       <p class="text-danger">No se encontro información formato UCI del Sujeto</p>
       {% if object.uci %}
@@ -466,7 +466,7 @@
             </tr>
           </tbody>
         </table>
-      <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
+      <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk%}">Editar</a>
       {% endif %}
  </div>
 </div>
