@@ -1,0 +1,505 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Paciente {% endblock %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+
+
+        <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Formulario Traslado a Radiología Sujeto#{{ object.candidato.sujeto_numero }}</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_procedimiento.name}}">{{form.fecha_procedimiento.label}}</label>
+                    {{ form.fecha_procedimiento.errors }}
+                    <input class="form-control" name="fecha_procedimiento" type="text" placeholder="Fecha " id="datepicker"  value="{{object.fecha_procedimiento|date:'d/m/Y'}}">
+                </div>
+        </div>
+
+
+
+
+        <div class="col-md-8 col-md-offset-2">
+            <FONT SIZE="5">Pretransporte</FONT>  &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">Establecer la condición del paciente</FONT>
+            <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th style="vertical-align:middle;" >Transportable</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_transportable" >
+                          <label {% if object.transportable == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_transportable_1">
+                            <input type="radio" name="transportable" value="SI"  required id="id_transportable_1"  {% if object.transportable == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.transportable == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_transportable_2">
+                            <input type="radio" name="transportable" value="NO" required id="id_transportable_2"  {% if object.transportable == 'NO' %} checked="" {% endif %}/>NO
+                          </label>
+                          {{forms.transportable.errors}}
+                        </div>
+                  </td >
+                  <th style="vertical-align:middle;" ><label for="{{form.hora_inicio.name}}">{{form.hora_inicio.label}}</label></th>
+                  <td style="vertical-align:middle;" >{{ form.hora_inicio.errors }} {{form.hora_inicio}}</td>
+                </tr>
+                <tr>
+                    <th class="text-primary" style="vertical-align:middle;" colspan="2">PERSONAL DE ACOMPAÑAMIENTO</th>
+                    <th class="text-primary" style="vertical-align:middle;" colspan="2">Soporte</th>
+                </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Jefe de enfermería</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_jefe_enfermeria" >
+                          <label {% if object.jefe_enfermeria == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_jefe_enfermeria_1">
+                            <input type="radio" name="jefe_enfermeria" value="SI"  required id="id_jefe_enfermeria_1"  {% if object.jefe_enfermeria == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.jefe_enfermeria == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_jefe_enfermeria_2">
+                            <input type="radio" name="jefe_enfermeria" value="NO" required id="id_jefe_enfermeria_2" {% if object.jefe_enfermeria == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <th style="vertical-align:middle;" >VMI</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_vmi" >
+                          <label {% if object.vmi == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vmi_1">
+                            <input type="radio" name="vmi" value="SI"  required id="id_vmi_1" {% if object.vmi == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.vmi == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vmi_2">
+                            <input type="radio" name="vmi" value="NO" required id="id_vmi_2" {% if object.vmi == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Auxiliar de enfermería</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_aux_enfermeria" >
+                          <label {% if object.aux_enfermeria == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_aux_enfermeria_1">
+                            <input type="radio" name="aux_enfermeria" value="SI"  required id="id_aux_enfermeria_1" {% if object.aux_enfermeria == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.aux_enfermeria == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_aux_enfermeria_2">
+                            <input type="radio" name="aux_enfermeria" value="NO" required id="id_aux_enfermeria_2" {% if object.aux_enfermeria == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <th style="vertical-align:middle;" >Vasopresor</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_vasopresor" >
+                          <label {% if object.vasopresor == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vasopresor_1">
+                            <input type="radio" name="vasopresor" value="SI"  required id="id_vasopresor_1" {% if object.vasopresor == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.vasopresor == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vasopresor_2">
+                            <input type="radio" name="vasopresor" value="NO" required id="id_vasopresor_2" {% if object.vasopresor == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Médico UCI</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_medico_uci" >
+                          <label {% if object.medico_uci == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_medico_uci_1">
+                            <input type="radio" name="medico_uci" value="SI"  required id="id_medico_uci_1" {% if object.medico_uci == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.medico_uci == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_medico_uci_2">
+                            <input type="radio" name="medico_uci" value="NO" required id="id_medico_uci_2" {% if object.medico_uci == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <th style="vertical-align:middle;" >Ionotrópico</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ionotropico" >
+                          <label {% if object.ionotropico == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ionotropico_1">
+                            <input type="radio" name="ionotropico" value="SI"  required id="id_ionotropico_1" {% if object.ionotropico == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ionotropico == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ionotropico_2">
+                            <input type="radio" name="ionotropico" value="NO" required id="id_ionotropico_2" {% if object.ionotropico == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Anestesiólogo</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_anestesiologo" >
+                          <label {% if object.anestesiologo == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_anestesiologo_1">
+                            <input type="radio" name="anestesiologo" value="SI"  required id="id_anestesiologo_1" {% if object.anestesiologo == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.anestesiologo == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_anestesiologo_2">
+                            <input type="radio" name="anestesiologo" value="NO" required id="id_anestesiologo_2" {% if object.anestesiologo == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Terapeuta Respiratorio</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_terapeuta_respiratorio" >
+                          <label {% if object.terapeuta_respiratorio == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_terapeuta_respiratorio_1">
+                            <input type="radio" name="terapeuta_respiratorio" value="SI"  required id="id_terapeuta_respiratorio_1" {% if object.terapeuta_respiratorio == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.terapeuta_respiratorio == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_terapeuta_respiratorio_2">
+                            <input type="radio" name="terapeuta_respiratorio" value="NO" required id="id_terapeuta_respiratorio_2" {% if object.terapeuta_respiratorio == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <FONT SIZE="5">Monitoreo de transporte UCI - Radiología</FONT>  &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">Durante la movilización</FONT>
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th colspan="2" style="vertical-align:middle;" ></th>
+                  <th class="text-primary" style="vertical-align:middle;" colspan="2">Signos vitales</th>
+                </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Pulsoxímetro</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ur_pulsoximetro" >
+                          <label {% if object.ur_pulsoximetro == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_pulsoximetro_1">
+                            <input type="radio" name="ur_pulsoximetro" value="SI"  required id="id_ur_pulsoximetro_1" {% if object.ur_pulsoximetro == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ur_pulsoximetro == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_pulsoximetro_2">
+                            <input type="radio" name="ur_pulsoximetro" value="NO" required id="id_ur_pulsoximetro_2" {% if object.ur_pulsoximetro == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ur_pulsoximetro_sv.errors}} {{form.ur_pulsoximetro_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Frecuencia cardíaca</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ur_frecuencia_cardiaca" >
+                          <label {% if object.ur_frecuencia_cardiaca == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_frecuencia_cardiaca_1">
+                            <input type="radio" name="ur_frecuencia_cardiaca" value="SI"  required id="id_ur_frecuencia_cardiaca_1" {% if object.ur_frecuencia_cardiaca == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ur_frecuencia_cardiaca == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_frecuencia_cardiaca_2">
+                            <input type="radio" name="ur_frecuencia_cardiaca" value="NO" required id="id_ur_frecuencia_cardiaca_2" {% if object.ur_frecuencia_cardiaca == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ur_frecuencia_cardiaca_sv.errors}} {{form.ur_frecuencia_cardiaca_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Frecuencia respiratoria</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ur_frecuencia_respiratoria" >
+                          <label {% if object.ur_frecuencia_respiratoria == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_frecuencia_respiratoria_1">
+                            <input type="radio" name="ur_frecuencia_respiratoria" value="SI"  required id="id_ur_frecuencia_respiratoria_1" {% if object.ur_frecuencia_respiratoria == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ur_frecuencia_respiratoria == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_frecuencia_respiratoria_2">
+                            <input type="radio" name="ur_frecuencia_respiratoria" value="NO" required id="id_ur_frecuencia_respiratoria_2" {% if object.ur_frecuencia_respiratoria == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ur_frecuencia_respiratoria_sv.errors}} {{form.ur_frecuencia_respiratoria_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Visoscopio</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ur_visoscopio" >
+                          <label {% if object.ur_visoscopio == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_visoscopio_1">
+                            <input type="radio" name="ur_visoscopio" value="SI"  required id="id_ur_visoscopio_1" {% if object.ur_visoscopio == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ur_visoscopio == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_visoscopio_2">
+                            <input type="radio" name="ur_visoscopio" value="NO" required id="id_ur_visoscopio_2" {% if object.ur_visoscopio == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ur_visoscopio_sv.errors}} {{form.ur_visoscopio_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Tensión arterial</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ur_tension" >
+                          <label {% if object.ur_tension == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_tension_1">
+                            <input type="radio" name="ur_tension" value="SI"  required id="id_ur_tension_1" {% if object.ur_tension == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ur_tension == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ur_tension_2">
+                            <input type="radio" name="ur_tension" value="NO" required id="id_ur_tension_2" {% if object.ur_tension == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ur_tension_sv.errors}} {{form.ur_tension_sv}}
+                  </td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <FONT SIZE="5">Monitoreo neurológico</FONT>  &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">En la estancia en la unidad de radiología</FONT>
+            &nbsp; &nbsp;
+            <br><br>
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                  <th style="vertical-align:middle;" >{{form.pic.label}}</th>
+                  <td>{{form.pic.errors}} {{form.pic}}</td >
+                  <th style="vertical-align:middle;">{{form.ppc.label}}</th>
+                  <td>{{form.ppc.errors}} {{form.ppc}}</td >
+              </tr>
+              <tr>
+                  <th colspan="2" style="vertical-align:middle;" >Medicamentos de emergencia</th>
+                  <td colspan="2">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_medicamentos_emergencia" >
+                          <label {% if object.medicamentos_emergencia == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_medicamentos_emergencia_1">
+                            <input type="radio" name="medicamentos_emergencia" value="SI"  required id="id_medicamentos_emergencia_1" {% if object.medicamentos_emergencia == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.medicamentos_emergencia == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_medicamentos_emergencia_2">
+                            <input type="radio" name="medicamentos_emergencia" value="NO" required id="id_medicamentos_emergencia_2" {% if object.medicamentos_emergencia == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >{{form.me_cual.label}}</th>
+                  <td style="vertical-align:middle;">{{form.me_cual.errors}}{{form.me_cual}}</td>
+                  <th style="vertical-align:middle;" >{{form.me_dosis.label}}</th>
+                  <td style="vertical-align:middle;">{{form.me_dosis.errors}}{{form.me_dosis}}</td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <FONT SIZE="5">Monitoreo en resonancia</FONT>  &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">Durante el procedimiento DTI/BOLD</FONT>
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                  <td colspan="2"></td>
+                  <th class="text-primary">Dosis Total</th>
+                  <th class="text-primary">Signos vitales</th>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;">Sedación</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_sedacion" >
+                          <label {% if object.sedacion == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_sedacion_1">
+                            <input type="radio" name="sedacion" value="SI"  required id="id_sedacion_1" {% if object.sedacion == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.sedacion == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_sedacion_2">
+                            <input type="radio" name="sedacion" value="NO" required id="id_sedacion_2"  {% if object.sedacion == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td>
+                  <td>{{form.sedacion_dt.errors}} {{form.sedacion_dt}}</td>
+                  <td>{{form.sedacion_sv.errors}} {{form.sedacion_sv}}</td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;">Analgesia</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_analgesia" >
+                          <label {% if object.analgesia == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_analgesia_1">
+                            <input type="radio" name="analgesia" value="SI"  required id="id_analgesia_1" {% if object.analgesia == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.analgesia == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_analgesia_2">
+                            <input type="radio" name="analgesia" value="NO" required id="id_analgesia_2" {% if object.analgesia == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td>
+                  <td>{{form.analgesia_dt.errors}} {{form.analgesia_dt}}</td>
+                  <td>{{form.analgesia_sv.errors}} {{form.analgesia_sv}}</td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;">Relajación</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_relajacion" >
+                          <label {% if object.relajacion == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_relajacion_1">
+                            <input type="radio" name="relajacion" value="SI"  required id="id_relajacion_1" {% if object.relajacion == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.relajacion == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_relajacion_2">
+                            <input type="radio" name="relajacion" value="NO" required id="id_relajacion_2" {% if object.relajacion == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td>
+                  <td>{{form.relajacion_dt.errors}} {{form.relajacion_dt}}</td>
+                  <td>{{form.relajacion_sv.errors}} {{form.relajacion_sv}}</td>
+              </tr>
+              <tr>
+                  <th colspan="3" style="vertical-align:middle;">Otra medicación administrada durante el procedimiento</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_otra_medicacion" >
+                          <label {% if object.otra_medicacion == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_otra_medicacion_1">
+                            <input type="radio" name="otra_medicacion" value="SI"  required id="id_otra_medicacion_1" {% if object.otra_medicacion == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.otra_medicacion == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_otra_medicacion_2">
+                            <input type="radio" name="otra_medicacion" value="NO" required id="id_otra_medicacion_2"  {% if object.otra_medicacion == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >{{form.otra_medicacion_cual.label}}</th>
+                  <td style="vertical-align:middle;">{{form.otra_medicacion_cual.errors}}{{form.otra_medicacion_cual}}</td>
+                  <th style="vertical-align:middle;" >{{form.otra_medicacion_dt.label}}</th>
+                  <td style="vertical-align:middle;">{{form.otra_medicacion_dt.errors}}{{form.otra_medicacion_dt}}</td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <FONT SIZE="5">Monitoreo de transporte Radiología - UCI</FONT>  &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">Druante la movilización</FONT>
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <th colspan="2" style="vertical-align:middle;" ></th>
+                  <th class="text-primary" style="vertical-align:middle;" colspan="2">Signos vitales</th>
+                </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Pulsoxímetro</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ru_pulsoximetro" >
+                          <label {% if object.ru_pulsoximetro == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_pulsoximetro_1">
+                            <input type="radio" name="ru_pulsoximetro" value="SI"  required id="id_ru_pulsoximetro_1"  {% if object.ru_pulsoximetro == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ru_pulsoximetro == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_pulsoximetro_2">
+                            <input type="radio" name="ru_pulsoximetro" value="NO" required id="id_ru_pulsoximetro_2" {% if object.ru_pulsoximetro == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ru_pulsoximetro_sv.errors}} {{form.ru_pulsoximetro_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Frecuencia cardíaca</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ru_frecuencia_cardiaca" >
+                          <label {% if object.ru_frecuencia_cardiaca == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_frecuencia_cardiaca_1">
+                            <input type="radio" name="ru_frecuencia_cardiaca" value="SI"  required id="id_ru_frecuencia_cardiaca_1" {% if object.ru_frecuencia_cardiaca == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ru_frecuencia_cardiaca == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_frecuencia_cardiaca_2">
+                            <input type="radio" name="ru_frecuencia_cardiaca" value="NO" required id="id_ru_frecuencia_cardiaca_2" {% if object.ru_frecuencia_cardiaca == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ru_frecuencia_cardiaca_sv.errors}} {{form.ru_frecuencia_cardiaca_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Frecuencia respiratoria</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ru_frecuencia_respiratoria" >
+                          <label {% if object.ru_frecuencia_respiratoria == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_frecuencia_respiratoria_1">
+                            <input type="radio" name="ru_frecuencia_respiratoria" value="SI"  required id="id_ru_frecuencia_respiratoria_1" {% if object.ru_frecuencia_respiratoria == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ru_frecuencia_respiratoria == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_frecuencia_respiratoria_2">
+                            <input type="radio" name="ru_frecuencia_respiratoria" value="NO" required id="id_ru_frecuencia_respiratoria_2"  {% if object.ru_frecuencia_respiratoria == 'NO' %} checked="" {% endif %}/>NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ru_frecuencia_respiratoria_sv.errors}} {{form.ru_frecuencia_respiratoria_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Visoscopio</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ru_visoscopio" >
+                          <label {% if object.ru_visoscopio == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_visoscopio_1">
+                            <input type="radio" name="ru_visoscopio" value="SI"  required id="id_ru_visoscopio_1" {% if object.ru_visoscopio == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ru_visoscopio == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_visoscopio_2">
+                            <input type="radio" name="ru_visoscopio" value="NO" required id="id_ru_visoscopio_2" {% if object.ru_visoscopio == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ru_visoscopio_sv.errors}} {{form.ru_visoscopio_sv}}
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >Tensión arterial</th>
+                  <td>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ru_tension" >
+                          <label {% if object.ru_tension == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_tension_1">
+                            <input type="radio" name="ru_tension" value="SI"  required id="id_ru_tension_1" {% if object.ru_tension == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.ru_tension == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ru_tension_2">
+                            <input type="radio" name="ru_tension" value="NO" required id="id_ru_tension_2" {% if object.ru_tension == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                  </td >
+                  <td colspan="2" style="vertical-align:middle;">
+                      {{form.ru_tension_sv.errors}} {{form.ru_tension_sv}}
+                  </td>
+              </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                <th style="vertical-align:middle;">{{form.tiempo_sesonacia.label}}</th>
+                <td>{{form.tiempo_sesonacia.errors}}{{form.tiempo_sesonacia}}</td>
+                <th>Complicaciones derivadas del transporte</th>
+                <td>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_complicaciones" >
+                          <label {% if object.complicaciones == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_complicaciones_1">
+                            <input type="radio" name="complicaciones" value="SI"  required id="id_complicaciones_1" {% if object.complicaciones == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label {% if object.complicaciones == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_complicaciones_2">
+                            <input type="radio" name="complicaciones" value="NO" required id="id_complicaciones_2" {% if object.complicaciones == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+                        </div>
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.hora_llegada.label}}</th>
+                <td>{{form.hora_llegada.errors}}{{form.hora_llegada}}</td>
+                <th>{{form.complicaciones_cuales.label}}</th>
+                <td>{{form.complicaciones_cuales.errors}}{{form.complicaciones_cuales}}</td>
+            </tr>
+              </tbody>
+            </table>
+        </div>
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
+    </div>
+</form>
+<br>
+<br>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}

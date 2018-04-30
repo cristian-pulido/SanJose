@@ -3,8 +3,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
-from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm
-from apps.paciente.models import Candidato, Medico, Ingreso
+from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm
+from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci
 
 
 class PacienteCreate(CreateView):
@@ -22,8 +22,9 @@ class PacienteUpdate(UpdateView):
 
     def get_success_url(self):
         p=self.object
-        p.estado=1
-        p.save()
+        if p.estado==0:
+            p.estado=1
+            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 class IngresoUpdate(UpdateView):
@@ -35,10 +36,38 @@ class IngresoUpdate(UpdateView):
     def get_success_url(self):
         i=self.object
         p=i.candidato
-        p.estado=2
-        p.save()
+        if p.estado==1:
+            p.estado=2
+            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
+class RadiologiaUpdate(UpdateView):
+    model = Radiologia
+    form_class = RadiologiaForm
+    template_name = 'paciente/radiologia_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        r=self.object
+        p=r.candidato
+        if p.estado==2:
+            p.estado=3
+            p.save()
+        return reverse_lazy('paciente', args=[p.pk])
+
+class UciUpdate(UpdateView):
+    model = Uci
+    form_class = UciForm
+    template_name = 'paciente/uci_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        u=self.object
+        p=u.candidato
+        if p.estado==3:
+            p.estado=4
+            p.save()
+        return reverse_lazy('paciente', args=[p.pk])
 
 
 class PacienteView(DetailView):

@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <label for="{{form.fecha_form.name}}">{{form.fecha_form.label}}</label>
                     {{ form.fecha_form.errors }}
-                    {{form.fecha_form}}
+                    <input class="form-control" name="fecha_form" type="text" placeholder="Fecha cuando se llena este formulario " id="datepicker"  value="{{object.fecha_form|date:'d/m/Y'}}">
 
                 </div>
         </div>
@@ -154,7 +154,7 @@
                 <div class="form-group">
                     <label for="{{form.fecha_craneotomia.name}}">{{form.fecha_craneotomia.label}}</label>
                     {{ form.fecha_craneotomia.errors }}
-                    {{form.fecha_craneotomia}}
+                    <input class="form-control" name="fecha_craneotomia" type="text" placeholder="Si se escoge craneotomía " id="date"  value="{{object.fecha_craneotomia|date:'d/m/Y'}}">
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">

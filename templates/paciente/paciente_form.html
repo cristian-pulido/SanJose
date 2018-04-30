@@ -37,10 +37,10 @@
                 <div class="form-group">
                     <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
                     {{ form.fecha_de_registro.errors }}
-                    <input class="form-control" name="fecha_de_registro" type="text" placeholder="Elegir fecha " id="datepicker">
-
+                    <input class="form-control" name="fecha_de_registro" type="text" placeholder="Elegir fecha" id="datepicker" value="{{object.fecha_de_registro|date:'d/m/Y'}}">
                 </div>
         </div>
+
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.HC.name}}">{{form.HC.label}}</label>
@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <label for="{{form.fecha_evento_principal.name}}">{{form.fecha_evento_principal.label}}</label>
                     {{ form.fecha_evento_principal.errors }}
-                    {{form.fecha_evento_principal}}
+                    <input class="form-control" name="fecha_evento_principal" type="text" placeholder="Elegir fecha " id="date"  value="{{object.fecha_evento_principal|date:'d/m/Y'}}">
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -128,9 +128,9 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.fecha_ingreso_principal.name}}">{{form.fecha_ingreso.label}}</label>
+                    <label for="{{form.fecha_ingreso.name}}">{{form.fecha_ingreso.label}}</label>
                     {{ form.fecha_ingreso.errors }}
-                    {{form.fecha_ingreso}}
+                    <input class="form-control" name="fecha_ingreso" type="text" placeholder="Elegir fecha " id="dates"  value="{{object.fecha_ingreso|date:'d/m/Y'}}">
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -166,16 +166,18 @@
                 </div>
 
         </div>
+
+
         <div class="col-md-8 col-md-offset-2">
-                <legend>Criterios de inclusión (Debe cumplir 3 de 4)</legend>
+                <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
                   <div class="form-group">
                     <div class="custom-control custom-radio">
-                      <input id="id_ci_1" name="ci" class="custom-control-input" checked="" type="radio" value="ci1">
+                      <input id="id_ci_1" name="ci" class="custom-control-input" {% if object.ci == 'ci1' %}  checked="" {% endif %} type="radio" value="ci1">
                       <label class="custom-control-label" for="id_ci_1">Paciente con episodio de parada cadíaca con reanimación exitosa</label>
                     </div>
                       <div><p>ó</p></div>
                     <div class="custom-control custom-radio">
-                      <input id="id_ci_2" name="ci" class="custom-control-input" type="radio" value="ci2">
+                      <input id="id_ci_2" name="ci" class="custom-control-input" {% if object.ci == 'ci2' %}  checked="" {% endif %} type="radio" value="ci2">
                       <label class="custom-control-label" for="id_ci_2">Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular</label>
                     </div>
                       <div class="form-group">

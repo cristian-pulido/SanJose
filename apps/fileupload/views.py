@@ -49,7 +49,6 @@ class PictureDeleteView(PermissionRequiredMixin, DeleteView):
     model = Picture
     template_name = 'fileupload/eliminar.html'
     # a donde va dirigido
-    success_url = reverse_lazy('upload-new')
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()

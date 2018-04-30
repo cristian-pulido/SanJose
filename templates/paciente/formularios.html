@@ -14,7 +14,10 @@
     <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %} href="#estudio">Formato ingreso al estudio</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " {% if object.inscrito == True and object.estado > 1 %} data-toggle="tab" {% endif %}  href="#ultima">Disabled</a>
+    <a class="nav-link " {% if object.inscrito == True and object.estado > 1 %} data-toggle="tab" {% endif %}  href="#radiologia">Traslado a Radiología</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " {% if object.inscrito == True and object.estado > 2 %} data-toggle="tab" {% endif %}  href="#uci">Formato UCI</a>
   </li>
 </ul>
 <div id="myTabContent" class="tab-content" >
@@ -135,7 +138,7 @@
  </div>
   <div class="tab-pane" id="estudio">
     {% ifequal object.estado  1 %}
-      <p class="text-danger">No se encontro información del Sujeto</p>
+      <p class="text-danger">No se encontro información de Ingreso del Sujeto</p>
       {% if object.ingreso %}
       <a class="btn btn-primary" href="{% url 'ingreso_editar' object.ingreso.pk %}">Añadir</a>
       {% else %}
@@ -150,6 +153,9 @@
               <th>Fecha Ingreso</th>
               <td colspan="3">{{ object.ingreso.fecha_form }} </td>
             </tr>
+            <tr>
+               <td colspan="4" bgcolor="#999966"></td>
+             </tr>
             <tr class="table-active">
               <th>Lugar de Nacimiento</th>
               <td>{{ object.ingreso.lugar_nacimiento }} </td>
@@ -188,6 +194,9 @@
               <th>Sedado por neuroprotección</th>
               <td>{% if object.ingreso.sedado == True %} Sí {% else %} No {% endif %}</td>
             </tr>
+            <tr>
+               <td colspan="4" bgcolor="#999966"></td>
+             </tr>
             <tr class="table-success">
               <th>Antecedentes Patológicos</th>
               <td >{% for p in  object.ingreso.a_patologicos.all %}
@@ -233,10 +242,233 @@
       <a class="btn btn-primary" href="{% url 'ingreso_editar' object.ingreso.pk%}">Editar</a>
     {% endif %}
   </div>
-   <div class="tab-pane" id="ultima">
-    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
-  </div>
+   <div class="tab-pane" id="radiologia">
+    {% ifequal object.estado  2 %}
+      <p class="text-danger">No se encontro información de Traslado a Radiología del Sujeto</p>
+      {% if object.radiologia %}
+      <a class="btn btn-primary" href="{% url 'radiologia_editar' object.radiologia.pk %}">Añadir</a>
+      {% else %}
+      <a class="btn btn-primary" href="{% url 'crear_radiologia' object.pk%}">Añadir</a>
+      {% endif %}
+    {% endifequal %}
+    {% if object.estado  > 2 %}
+    <table class="table table-hover">
 
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha de procedimiento</th>
+              <td colspan="3">{{ object.radiologia.fecha_procedimiento }} </td>
+            </tr>
+             <tr>
+               <td colspan="4" bgcolor="#999966"></td>
+             </tr>
+            <tr>
+              <th colspan="4"><FONT SIZE="5">Pretransporte</FONT></th>
+            </tr>
+
+            <tr class="table-active">
+              <th>Transportable</th>
+              <td>{{ object.radiologia.transportable }} </td>
+                <th>Hora inicio</th>
+              <td>{{ object.radiologia.hora_inicio }} </td>
+            </tr>
+            <tr>
+              <th>Personal de Acompañamiento</th>
+              <td>
+                {% if object.radiologia.jefe_enfermeria == 'SI' %}
+                  Jefe de enfermería <br>
+                {% endif %}
+                {% if object.radiologia.aux_enfermeria == 'SI' %}
+                  Auxiliar de enfermería <br>
+                {% endif %}
+                {% if object.radiologia.medico_uci == 'SI' %}
+                  Médico UCI <br>
+                {% endif %}
+                {% if object.radiologia.anestesiologo == 'SI' %}
+                  Anestesiólogo <br>
+                {% endif %}
+                {% if object.radiologia.terapeuta_respiratorio == 'SI' %}
+                  Terapeuta Respiratorio <br>
+                {% endif %}
+              </td>
+              <th>Soporte</th>
+              <td>
+                {% if object.radiologia.vmi == 'SI' %}
+                  VMI <br>
+                {% endif %}
+                {% if object.radiologia.vasopresor == 'SI' %}
+                  Vasopresor <br>
+                {% endif %}
+                {% if object.radiologia.ionotropico == 'SI' %}
+                  Ionotrópico <br>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th colspan="4"><FONT SIZE="5">Monitoreo de transporte UCI - Radiología</FONT></th>
+            </tr>
+            <tr>
+              <td></td><th>Signos vitales</th>
+            </tr>
+            {% if object.radiologia.ur_pulsoximetro == 'SI' %}
+              <tr>
+                <td>Pulsoxímetro</td>
+                <td>{{object.radiologia.ur_pulsoximetro_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ur_frecuencia_cardiaca == 'SI' %}
+              <tr>
+                <td >Frecuencia cardíaca</td>
+                <td >{{object.radiologia.ur_frecuencia_cardiaca_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ur_frecuencia_respiratoria == 'SI' %}
+              <tr>
+                <td >Frecuencia respiratoria</td>
+                <td >{{object.radiologia.ur_frecuencia_respiratoria_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ur_visoscopio == 'SI' %}
+              <tr>
+                <td >Visoscopio</td>
+                <td >{{object.radiologia.ur_visoscopio_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ur_tension == 'SI' %}
+              <tr>
+                <td >Tensión arterial</td>
+                <td >{{object.radiologia.ur_tension_sv}}</td>
+              </tr>
+            {% endif %}
+            <tr>
+              <th colspan="4"><FONT SIZE="5">Monitoreo neurológico</FONT></th>
+            </tr>
+            <tr>
+              <th>#PIC</th><td>{{object.radiologia.pic}}</td>
+              <th>#PPC</th><td>{{object.radiologia.ppc}}</td>
+            </tr>
+            {% if object.radiologia.medicamentos_emergencia == 'SI' %}
+              <th>Medicamentos de emergencia</th>
+              <td>{{object.radiologia.me_cual}}</td>
+              <th>Dosis total</th>
+              <td>{{object.radiologia.me_dosis}}</td>
+            {% endif %}
+            <tr>
+              <th colspan="4"><FONT SIZE="5">Monitoreo en resonancia</FONT></th>
+            </tr>
+            <tr>
+              <td></td><th>Dosis total</th><th>Signos vitales</th>
+            </tr>
+            {% if object.radiologia.sedacion == 'SI' %}
+              <tr>
+                <td >Sedación</td>
+                <td >{{object.radiologia.sedacion_dt}}</td>
+                <td >{{object.radiologia.sedacion_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.analgesia == 'SI' %}
+              <tr>
+                <td >Analgesia</td>
+                <td >{{object.radiologia.analgesia_dt}}</td>
+                <td >{{object.radiologia.analgesia_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.relajacion == 'SI' %}
+              <tr>
+                <td >Relajación</td>
+                <td >{{object.radiologia.relajacion_dt}}</td>
+                <td >{{object.radiologia.relajacion_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.otra_medicacion == 'SI' %}
+              <th>Otra medicación administrada durante el procedimiento</th>
+              <td>{{object.radiologia.otra_medicacion_cual}}</td>
+              <th>Dosis total</th>
+              <td>{{object.radiologia.otra_medicacion_dt}}</td>
+            {% endif %}
+
+            <tr>
+              <th colspan="4"><FONT SIZE="5">Monitoreo de transporte Radiología - UCI</FONT></th>
+            </tr>
+            <tr>
+              <td></td><th>Signos vitales</th>
+            </tr>
+            {% if object.radiologia.ru_pulsoximetro == 'SI' %}
+              <tr>
+                <td>Pulsoxímetro</td>
+                <td>{{object.radiologia.ru_pulsoximetro_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ru_frecuencia_cardiaca == 'SI' %}
+              <tr>
+                <td >Frecuencia cardíaca</td>
+                <td >{{object.radiologia.ru_frecuencia_cardiaca_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ru_frecuencia_respiratoria == 'SI' %}
+              <tr>
+                <td >Frecuencia respiratoria</td>
+                <td >{{object.radiologia.ru_frecuencia_respiratoria_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ru_visoscopio == 'SI' %}
+              <tr>
+                <td >Visoscopio</td>
+                <td >{{object.radiologia.ru_visoscopio_sv}}</td>
+              </tr>
+            {% endif %}
+            {% if object.radiologia.ru_tension == 'SI' %}
+              <tr>
+                <td >Tensión arterial</td>
+                <td >{{object.radiologia.ru_tension_sv}}</td>
+              </tr>
+            {% endif %}
+            <tr>
+               <td colspan="4" bgcolor="#999966"></td>
+             </tr>
+          <tr>
+            <th>Tiempo de resonancia</th>
+            <td>{{object.radiologia.tiempo_sesonacia}}</td>
+            <th>Hora de llegada a UCI</th>
+            <td>{{object.radiologia.hora_llegada}}</td>
+          </tr>
+          {% if object.radiologia.complicaciones == 'SI'%}
+          <tr>
+            <th >Complicaciones derivadas del transporte</th>
+            <td colspan="3">{{object.radiologia.complicaciones_cuales}}</td>
+          </tr>
+
+          {% endif %}
+
+          </tbody>
+        </table>
+      <a class="btn btn-primary" href="{% url 'radiologia_editar' object.radiologia.pk%}">Editar</a>
+    {% endif %}
+  </div>
+<div class="tab-pane active"  id="uci">
+      {% ifequal object.estado  3 %}
+      <p class="text-danger">No se encontro información formato UCI del Sujeto</p>
+      {% if object.uci %}
+      <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Añadir</a>
+      {% else %}
+      <a class="btn btn-primary" href="{% url 'crear_uci' object.pk%}">Añadir</a>
+      {% endif %}
+      {% endifequal %}
+      {% if object.estado  > 3 %}
+      <table class="table table-hover">
+
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha </th>
+              <td>{{ object.uci.fechauci }} </td>
+              <th>Hora</th>
+              <td>{{ object.uci.horauci }} </td>
+            </tr>
+          </tbody>
+        </table>
+      <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
+      {% endif %}
+ </div>
 </div>
 <br>
 <br>
