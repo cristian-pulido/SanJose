@@ -69,7 +69,7 @@ def upload_js(per):
                     
                 </td>
                 <td>
-                         <a href="{%=file.thumbnailUrl%}  " download>
+                         <a href="{%=file.thumbnailUrl%}  ">
                             Descargar
                         </a> 
                 </td>
@@ -135,12 +135,9 @@ def upload_js(per):
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
                 
-                <td>
-                       
-                         <a href="{{object.url}}  " download="">
+                <a href="{%=file.thumbnailUrl%}  ">
                             Descargar
                         </a> 
-                </td>
                 
                 <td>
                    <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
