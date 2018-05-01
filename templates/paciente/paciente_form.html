@@ -2,6 +2,11 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
+{% if user.groups.all.0.name == 'Consultor' %}
+<script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+</script>
+{% endif %}
 {% load scripts %}
 <form method="post">
     {% csrf_token %}

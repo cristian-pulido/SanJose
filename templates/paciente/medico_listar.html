@@ -8,7 +8,10 @@
         <tr>
             <td>#</td>
             <td>Nombre</td>
+            {% if user.groups.all.0.name != 'Consultor' %}
             <td>Acciones</td>
+            {% endif %}
+
         </tr>
     </thead>
     <tbody>
@@ -18,16 +21,16 @@
             <td>{{ medico.id }}</td>
             <td>{{ medico.nombre }}</td>
 
-
+            {% if user.groups.all.0.name != 'Consultor' %}
             <td>
+
                 <a class="btn btn-primary" href="{% url 'medico_editar' medico.pk%}">Editar</a>
+
                 {% if user.groups.all.0.name == 'Administrador' %}
                 <a class="btn btn-danger" href="{% url 'medico_eliminar' medico.pk%}">Eliminar</a>
                 {% endif %}
-
-
             </td>
-
+            {% endif %}
         </tr>
         {% endfor%}
 

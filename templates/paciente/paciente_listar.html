@@ -13,7 +13,9 @@
       <th scope="col">#</th>
       <th scope="col">Médico a cargo </th>
       <th scope="col">Incluido en el estudio</th>
+      {% if user.groups.all.0.name != 'Consultor' %}
       <th scope="col">Acciones</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -23,6 +25,7 @@
             <tr class="table-active">
               <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
               <td colspan="2" style="color:red">Información del sujeto aún no obtenida </td>
+              {% if user.groups.all.0.name != 'Consultor' %}
               <td>
                   <p><a href="{% url 'paciente_editar' object.pk%}" >Añadir información</a></p>
                   {% if user.groups.all.0.name == 'Administrador' %}
@@ -33,6 +36,7 @@
                   {% endif %}
                   {% endif %}
               </td>
+              {% endif %}
             </tr>
             {% else %}
             <tr class="table-active">

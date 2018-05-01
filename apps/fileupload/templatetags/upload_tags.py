@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.simple_tag
 def upload_js(per):
-    if per==True:
+    if per=='Administrador':
         return mark_safe("""
         <!-- The template to display files available for upload -->
         <script id="template-upload" type="text/x-tmpl">
@@ -67,6 +67,11 @@ def upload_js(per):
                       </button>
                     </form>
                     
+                </td>
+                <td>
+                         <a href="{%=file.thumbnailUrl%}  " download>
+                            Descargar
+                        </a> 
                 </td>
 
                 <td>
@@ -129,6 +134,14 @@ def upload_js(per):
                 <td>
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
+                
+                <td>
+                       
+                         <a href="{%=file.thumbnailUrl%}  " download>
+                            Descargar
+                        </a> 
+                </td>
+                
                 <td>
                    <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
                 </td>

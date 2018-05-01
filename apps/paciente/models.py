@@ -108,7 +108,7 @@ class Candidato(models.Model):
         return '{}'.format(self.sujeto_numero)
 
     class Meta:
-        ordering = ('sujeto_numero',)
+        ordering = [('-inscrito')]
 
 class Ingreso(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)

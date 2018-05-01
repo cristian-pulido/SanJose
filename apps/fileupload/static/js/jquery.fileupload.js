@@ -26,6 +26,10 @@
     }
 }(function ($) {
     'use strict';
+    var x= document.getElementById("drag").getAttribute("var1");
+    var y= $(document);
+
+
 
     // Detect file input support, based on
     // http://viljamis.com/blog/2012/file-upload-support-on-mobile/
@@ -57,12 +61,16 @@
     // By default, files added via file input selection, paste, drag & drop or
     // "add" method are uploaded immediately, but it is possible to override
     // the "add" callback option to queue file uploads.
+    if (x == 'Consultor') {
+            y=null
+             }
     $.widget('blueimp.fileupload', {
+
 
         options: {
             // The drop target element(s), by the default the complete document.
             // Set to null to disable drag & drop support:
-            dropZone: $(document),
+            dropZone: y,//$(document),
             // The paste target element(s), by the default the complete document.
             // Set to null to disable paste support:
             pasteZone: $(document),

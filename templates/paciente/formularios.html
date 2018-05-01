@@ -24,7 +24,9 @@
   <div class="tab-pane active"  id="home">
       {% ifequal object.estado  0 %}
       <p class="text-danger">No se encontro información del Sujeto</p>
+      {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
+      {% endif %}
       {% endifequal %}
       {% if object.estado  > 0 %}
       <table class="table table-hover">
@@ -133,16 +135,20 @@
             </tr>
           </tbody>
         </table>
+      {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
+      {% endif %}
       {% endif %}
  </div>
   <div class="tab-pane" id="estudio">
     {% ifequal object.estado  1 %}
       <p class="text-danger">No se encontro información de Ingreso del Sujeto</p>
+      {% if user.groups.all.0.name != 'Consultor' %}
       {% if object.ingreso %}
       <a class="btn btn-primary" href="{% url 'ingreso_editar' object.ingreso.pk %}">Añadir</a>
       {% else %}
       <a class="btn btn-primary" href="{% url 'crear_ingreso' object.pk%}">Añadir</a>
+      {% endif %}
       {% endif %}
     {% endifequal %}
     {% if object.estado  > 1 %}
@@ -239,16 +245,20 @@
             </tr>
           </tbody>
         </table>
+      {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'ingreso_editar' object.ingreso.pk%}">Editar</a>
+      {% endif %}
     {% endif %}
   </div>
    <div class="tab-pane" id="radiologia">
     {% ifequal object.estado  2 %}
       <p class="text-danger">No se encontro información de Traslado a Radiología del Sujeto</p>
+      {% if user.groups.all.0.name != 'Consultor' %}
       {% if object.radiologia %}
       <a class="btn btn-primary" href="{% url 'radiologia_editar' object.radiologia.pk %}">Añadir</a>
       {% else %}
       <a class="btn btn-primary" href="{% url 'crear_radiologia' object.pk%}">Añadir</a>
+      {% endif %}
       {% endif %}
     {% endifequal %}
     {% if object.estado  > 2 %}
@@ -442,16 +452,20 @@
 
           </tbody>
         </table>
+     {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'radiologia_editar' object.radiologia.pk%}">Editar</a>
+     {% endif %}
     {% endif %}
   </div>
 <div class="tab-pane"  id="uci">
       {% ifequal object.estado  3 %}
       <p class="text-danger">No se encontro información formato UCI del Sujeto</p>
+      {% if user.groups.all.0.name != 'Consultor' %}
       {% if object.uci %}
       <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Añadir</a>
       {% else %}
       <a class="btn btn-primary" href="{% url 'crear_uci' object.pk%}">Añadir</a>
+      {% endif %}
       {% endif %}
       {% endifequal %}
       {% if object.estado  > 3 %}
@@ -466,7 +480,9 @@
             </tr>
           </tbody>
         </table>
+      {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk%}">Editar</a>
+      {% endif %}
       {% endif %}
  </div>
 </div>
