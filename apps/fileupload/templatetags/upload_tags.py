@@ -137,7 +137,7 @@ def upload_js(per):
                 
                 <td>
                        
-                         <a href="{%=file.thumbnailUrl%}  " download>
+                         <a href="{{object.url}}  " download="">
                             Descargar
                         </a> 
                 </td>
