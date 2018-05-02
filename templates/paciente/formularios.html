@@ -159,9 +159,6 @@
               <th>Fecha Ingreso</th>
               <td colspan="3">{{ object.ingreso.fecha_form }} </td>
             </tr>
-            <tr>
-               <td colspan="4" bgcolor="#999966"></td>
-             </tr>
             <tr class="table-active">
               <th>Lugar de Nacimiento</th>
               <td>{{ object.ingreso.lugar_nacimiento }} </td>
@@ -200,9 +197,7 @@
               <th>Sedado por neuroprotección</th>
               <td>{% if object.ingreso.sedado == True %} Sí {% else %} No {% endif %}</td>
             </tr>
-            <tr>
-               <td colspan="4" bgcolor="#999966"></td>
-             </tr>
+
             <tr class="table-success">
               <th>Antecedentes Patológicos</th>
               <td >{% for p in  object.ingreso.a_patologicos.all %}
@@ -269,11 +264,9 @@
               <th>Fecha de procedimiento</th>
               <td colspan="3">{{ object.radiologia.fecha_procedimiento }} </td>
             </tr>
-             <tr>
-               <td colspan="4" bgcolor="#999966"></td>
-             </tr>
+
             <tr>
-              <th colspan="4"><FONT SIZE="5">Pretransporte</FONT></th>
+              <th colspan="4" style="color:blue;">Pretransporte</th>
             </tr>
 
             <tr class="table-active">
@@ -315,7 +308,7 @@
               </td>
             </tr>
             <tr>
-              <th colspan="4"><FONT SIZE="5">Monitoreo de transporte UCI - Radiología</FONT></th>
+              <th colspan="4" style="color:blue;">Monitoreo de transporte UCI - Radiología</th>
             </tr>
             <tr>
               <td></td><th>Signos vitales</th>
@@ -351,7 +344,7 @@
               </tr>
             {% endif %}
             <tr>
-              <th colspan="4"><FONT SIZE="5">Monitoreo neurológico</FONT></th>
+              <th colspan="4" style="color:blue;">Monitoreo neurológico</th>
             </tr>
             <tr>
               <th>#PIC</th><td>{{object.radiologia.pic}}</td>
@@ -364,7 +357,7 @@
               <td>{{object.radiologia.me_dosis}}</td>
             {% endif %}
             <tr>
-              <th colspan="4"><FONT SIZE="5">Monitoreo en resonancia</FONT></th>
+              <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
             </tr>
             <tr>
               <td></td><th>Dosis total</th><th>Signos vitales</th>
@@ -398,7 +391,7 @@
             {% endif %}
 
             <tr>
-              <th colspan="4"><FONT SIZE="5">Monitoreo de transporte Radiología - UCI</FONT></th>
+              <th colspan="4" style="color:blue;">Monitoreo de transporte Radiología - UCI</th>
             </tr>
             <tr>
               <td></td><th>Signos vitales</th>
@@ -433,9 +426,7 @@
                 <td >{{object.radiologia.ru_tension_sv}}</td>
               </tr>
             {% endif %}
-            <tr>
-               <td colspan="4" bgcolor="#999966"></td>
-             </tr>
+
           <tr>
             <th>Tiempo de resonancia</th>
             <td>{{object.radiologia.tiempo_sesonacia}}</td>

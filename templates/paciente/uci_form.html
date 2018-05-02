@@ -98,19 +98,155 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.fallaorganica.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_fallaorganica" >
+                            <label onclick="falla('SI')" {% if object.fallaorganica  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_fallaorganica_1">
+                                <input type="radio" name="fallaorganica" value="SI"  required id="id_fallaorganica_1"  {% if object.fallaorganica == 'SI' %} checked="" {% endif %} />SI
+                            </label>
+                            <label onclick="falla('NO')" {% if object.fallaorganica  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_fallaorganica_2">
+                                <input type="radio" name="fallaorganica" value="NO"  required id="id_fallaorganica_2"  {% if object.fallaorganica == 'NO' %} checked="" {% endif %} />NO
+                            </label>
+                          {{forms.fallaorganica.errors}}
+                        </div>
+                    </td>
+                    <th style="vertical-align:middle;"><label {% if object.fallaorganica == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="falla">{{form.fallaorganica_cual.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.fallaorganica == 'SI'%} type="text" {% else %} type="hidden" {% endif %} name="fallaorganica_cual" placeholder="" required class="form-control" maxlength="25" id="id_fallaorganica_cual" value="{{object.fallaorganica_cual}}"/></td>
+                </tr>
+              <tr>
+                  <th style="vertical-align:middle;">{{form.sepsis.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_sepsis" >
+                            <label  {% if object.sepsis  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_sepsis_1">
+                                <input type="radio" name="sepsis" value="SI"  required id="id_sepsis_1"  {% if object.sepsis == 'SI' %} checked="" {% endif %} />SI
+                            </label>
+                            <label  {% if object.sepsis  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_sepsis_2">
+                                <input type="radio" name="sepsis" value="NO"  required id="id_sepsis_2"  {% if object.sepsis == 'NO' %} checked="" {% endif %} />NO
+                            </label>
+                          {{forms.sepsis.errors}}
+                        </div>
+                  </td>
+                  <th style="vertical-align:middle;">{{form.presion_intracraneana.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_presion_intracraneana" >
+                            <label  {% if object.presion_intracraneana  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_presion_intracraneana_1">
+                                <input type="radio" name="presion_intracraneana" value="SI"  required id="id_presion_intracraneana_1"  {% if object.presion_intracraneana == 'SI' %} checked="" {% endif %} />SI
+                            </label>
+                            <label  {% if object.presion_intracraneana  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_presion_intracraneana_2">
+                                <input type="radio" name="presion_intracraneana" value="NO"  required id="id_presion_intracraneana_2"  {% if object.presion_intracraneana == 'NO' %} checked="" {% endif %} />NO
+                            </label>
+                          {{forms.presion_intracraneana.errors}}
+                        </div>
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;">{{form.monitoria_pic.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_monitoria_pic" >
+                            <label  {% if object.monitoria_pic  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_monitoria_pic_1">
+                                <input type="radio" name="monitoria_pic" value="SI"  required id="id_monitoria_pic_1"  {% if object.monitoria_pic == 'SI' %} checked="" {% endif %} />SI
+                            </label>
+                            <label  {% if object.monitoria_pic  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_monitoria_pic_2">
+                                <input type="radio" name="monitoria_pic" value="NO"  required id="id_monitoria_pic_2"  {% if object.monitoria_pic == 'NO' %} checked="" {% endif %} />NO
+                            </label>
+                          {{forms.monitoria_pic.errors}}
+                        </div>
+                  </td>
+                  <th style="vertical-align:middle;">{{form.ventilacionmecanica.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ventilacionmecanica" >
+                            <label  {% if object.ventilacionmecanica  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ventilacionmecanica_1">
+                                <input type="radio" name="ventilacionmecanica" value="SI"  required id="id_ventilacionmecanica_1"  {% if object.ventilacionmecanica == 'SI' %} checked="" {% endif %} />SI
+                            </label>
+                            <label  {% if object.ventilacionmecanica  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ventilacionmecanica_2">
+                                <input type="radio" name="ventilacionmecanica" value="NO"  required id="id_ventilacionmecanica_2"  {% if object.ventilacionmecanica == 'NO' %} checked="" {% endif %} />NO
+                            </label>
+                          {{forms.ventilacionmecanica.errors}}
+                        </div>
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;">{{form.soportevasopresor.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_soportevasopresor" >
+                            <label  onclick="soporte('SI')" {% if object.soportevasopresor  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_soportevasopresor_1">
+                                <input type="radio" name="soportevasopresor" value="SI"  required id="id_soportevasopresor_1"  {% if object.soportevasopresor == 'SI' %} checked="" {% endif %} />SI
+                            </label>
+                            <label  onclick="soporte('NO')" {% if object.soportevasopresor  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_soportevasopresor_2">
+                                <input type="radio" name="soportevasopresor" value="NO"  required id="id_soportevasopresor_2"  {% if object.soportevasopresor == 'NO' %} checked="" {% endif %} />NO
+                            </label>
+                          {{forms.soportevasopresor.errors}}
+                        </div>
+                  </td>
+
+
+
+
+                  <th colspan="2" style="vertical-align:middle;">
+                      <table>
+                          <tbody>
+                          <tr>
+                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI' %} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso1">{{form.noradrenalina.label}}</label></th>
+                              <td style="vertical-align:middle;">
+                                  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_noradrenalina" >
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso1si" {% if object.noradrenalina  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} >
+                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %} name="noradrenalina" value="SI"  required id="id_noradrenalina_1"  {% if object.noradrenalina == 'SI' %} checked="" {% endif %} />SI
+                                    </label>
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso1no"
+                                            {% if object.noradrenalina  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_noradrenalina_2">
+                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %}  name="noradrenalina" value="NO"  required id="id_noradrenalina_2"  {% if object.noradrenalina == 'NO' %} checked="" {% endif %} />NO
+                                    </label>
+                                  {{forms.noradrenalina.errors}}
+                                </div>
+
+                              </td>
+                          </tr>
+                          <tr>
+                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso2">{{form.vasopresina.label}}</label></th>
+                              <td style="vertical-align:middle;">
+                                  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_vasopresina" >
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso2si"
+                                            {% if object.vasopresina  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vasopresina_1">
+                                        <input{% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %} name="vasopresina" value="SI"  required id="id_vasopresina_1"  {% if object.vasopresina == 'SI' %} checked="" {% endif %} />SI
+                                    </label>
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso2no"
+                                            {% if object.vasopresina  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vasopresina_2">
+                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %}  name="vasopresina" value="NO"  required id="id_vasopresina_2"  {% if object.vasopresina == 'NO' %} checked="" {% endif %} />NO
+                                    </label>
+                                  {{forms.vasopresina.errors}}
+                                </div>
+
+                              </td>
+                          </tr>
+                          <tr>
+                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso3">{{form.adrenalina.label}}</label></th>
+                              <td style="vertical-align:middle;">
+                                  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_adrenalina" >
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso3si"
+                                            {% if object.adrenalina  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_adrenalina_1">
+                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %} name="adrenalina" value="SI"  required id="id_adrenalina_1"  {% if object.adrenalina == 'SI' %} checked="" {% endif %} />SI
+                                    </label>
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso3no"
+                                            {% if object.adrenalina  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_adrenalina_2">
+                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %}  name="adrenalina" value="NO"  required id="id_adrenalina_2"  {% if object.adrenalina == 'NO' %} checked="" {% endif %} />NO
+                                    </label>
+                                  {{forms.adrenalina.errors}}
+                                </div>
+
+                              </td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </th>
+
+              </tr>
               </tbody>
             </table>
+
+
+
         </div>
-
-
-
-
-
-
-
-
-
-
 
 
     <div class="col-md-8 col-md-offset-2">
@@ -152,6 +288,83 @@ function sumar(a,b) {
     }
 
     document.getElementById("id_glasgowtotal").value = total;
+}
+</script>
+<script>
+function falla(a) {
+    var x=document.getElementById("id_fallaorganica_cual");
+    var y=document.getElementById("falla");
+    if (a == 'SI') {
+        x.class='form-control';
+        x.type='text';
+        y.style="visibility:inline";
+    }
+    if (a == 'NO') {
+        x.class='form-control';
+        x.type='hidden';
+        y.style="visibility:hidden";
+        x.value="";
+    }
+}
+</script>
+<script>
+function soporte(a) {
+    var al1=document.getElementById("vaso1");
+    var al2=document.getElementById("vaso1si");
+    var al3=document.getElementById("vaso1no");
+    var ai1=document.getElementById("id_noradrenalina_1");
+    var ai2=document.getElementById("id_noradrenalina_2");
+
+    var bl1=document.getElementById("vaso2");
+    var bl2=document.getElementById("vaso2si");
+    var bl3=document.getElementById("vaso2no");
+    var bi1=document.getElementById("id_vasopresina_1");
+    var bi2=document.getElementById("id_vasopresina_2");
+
+    var cl1=document.getElementById("vaso3");
+    var cl2=document.getElementById("vaso3si");
+    var cl3=document.getElementById("vaso3no");
+    var ci1=document.getElementById("id_adrenalina_1");
+    var ci2=document.getElementById("id_adrenalina_2");
+
+
+    if (a == 'SI') {
+        al1.style="visibility:inline";
+        al2.style="visibility:inline";
+        al3.style="visibility:inline";
+        ai1.type="radio";
+        ai2.type="radio";
+        bl1.style="visibility:inline";
+        bl2.style="visibility:inline";
+        bl3.style="visibility:inline";
+        bi1.type="radio";
+        bi2.type="radio";
+        cl1.style="visibility:inline";
+        cl2.style="visibility:inline";
+        cl3.style="visibility:inline";
+        ci1.type="radio";
+        ci2.type="radio";
+
+    }
+    if (a == 'NO') {
+        al1.style="visibility:hidden";
+        al2.style="visibility:hidden";
+        al3.style="visibility:hidden";
+        ai1.type="hidden";
+        ai2.type="hidden";
+        bl1.style="visibility:hidden";
+        bl2.style="visibility:hidden";
+        bl3.style="visibility:hidden";
+        bi1.type="hidden";
+        bi2.type="hidden";
+        cl1.style="visibility:hidden";
+        cl2.style="visibility:hidden";
+        cl3.style="visibility:hidden";
+        ci1.type="hidden";
+        ci2.type="hidden";
+
+    }
+
 }
 </script>
 {% endblock %}

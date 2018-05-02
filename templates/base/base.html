@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<!-- Force latest IE rendering engine or ChromeFrame if installed -->
     <!--[if IE]>
@@ -23,7 +24,7 @@
 
 		 <body>
 
-		 <div class="container" style="font-family:verdana; text-align:left;">
+		 <div class="container" style="text-align:left;">
 		 <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>
 		 {{ user.groups.all.0  }}
 	     {% load scripts %}
@@ -83,6 +84,12 @@
 						</div>
 					</div>
 				</div>
+
+
+
+
+
+
 
 				{% endblock %}
 
