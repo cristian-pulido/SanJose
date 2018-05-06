@@ -113,13 +113,13 @@ class Candidato(models.Model):
 class Ingreso(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
     fecha_form = models.DateField(null=True)
-    lugar_nacimiento = models.CharField(max_length=80,null=True, blank=True)
-    lugar_residencia = models.CharField(max_length=80,null=True,blank=True)
-    direccion = models.CharField(max_length=100,null=True,blank=True)
-    nombre_acompanante = models.CharField(max_length=70,null=True,blank=True)
-    tel1 = models.PositiveIntegerField(null=True,blank=True)
-    tel2 = models.PositiveIntegerField(null=True,blank=True)
-    peso =models.PositiveIntegerField(null=True,blank=True)
+    lugar_nacimiento = models.CharField(max_length=80,null=True)
+    lugar_residencia = models.CharField(max_length=80,null=True)
+    direccion = models.CharField(max_length=100,null=True)
+    nombre_acompanante = models.CharField(max_length=70,null=True)
+    tel1 = models.PositiveIntegerField(null=True)
+    tel2 = models.PositiveIntegerField(null=True, blank=True)
+    peso =models.PositiveIntegerField(null=True, blank=True)
     estatura = models.PositiveIntegerField(null=True,blank=True)
     ####### nivel educativo
     primaria = 'Primaria'
@@ -127,21 +127,21 @@ class Ingreso(models.Model):
     tecnico = 'Técnico'
     profesional = 'Profesional'
     educativo_choices = ((primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'),(profesional, u'Profesional'))
-    n_educativo = models.CharField(max_length=20, choices=educativo_choices, null=True,blank=True)
+    n_educativo = models.CharField(max_length=20, choices=educativo_choices, null=True)
     ######
     ####### lateralidad
     diestro = 'Diestro'
     zurdo = 'Zurdo'
     ambidiestro = 'Ambidiestro'
     lateralidad_choices = ((diestro, u'Diestro'), (zurdo, u'Zurdo'), (ambidiestro, u'Ambidiestro'))
-    lateralidad = models.CharField(max_length=20, choices=lateralidad_choices, null=True,blank=True)
+    lateralidad = models.CharField(max_length=20, choices=lateralidad_choices, null=True)
     ######
     ####### conciencia
     coma = 'Coma'
     svsr = 'SVSR'
     emc = 'EMC'
     conciencia_choices = ((coma, u'Coma'), (svsr, u'SVSR'), (emc, u'EMC'))
-    conciencia = models.CharField(max_length=20, choices=conciencia_choices, null=True,blank=True)
+    conciencia = models.CharField(max_length=20, choices=conciencia_choices, null=True)
     ######
     sedado=models.NullBooleanField("Sedado por neuroprotección")
     a_patologicos = models.ManyToManyField(Apatologicos, blank=True)
@@ -161,7 +161,8 @@ class Ingreso(models.Model):
     a_farmaco2_dosis = models.CharField(max_length=30, null=True, blank=True)
     a_familiares=models.CharField(max_length=180,null=True, blank=True)
     firma_consentimiento=models.BooleanField(default=True)
-    firma_causa=models.CharField(max_length=50,null=True, blank=True)
+    firma_causa=models.CharField(max_length=50, null=True, blank=True)
+    fechafirma=models.DateField(null=True)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
@@ -312,5 +313,47 @@ class Uci(models.Model):
     glasgowtotal_e = models.CharField(max_length=5, null=True, default=0,blank=True)
 
 
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+
+class Neurologia(models.Model):
+    numero_CHOICES = (
+        ('0','0'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+    )
+    conciencia_CHOICES = (
+        ('Coma', 'Coma'),
+        ('Vigilia_sin_respuesta', 'Vigilia sin respuesta'),
+        ('Mínima_conciencia', 'Mínima conciencia'),
+    )
+    seleccion_CHOICES = (
+        ('SI', 'SI'),
+        ('NO', 'NO'),
+    )
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    fechaneuro = models.DateField(null=True)
+    neurologo = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
+    auditiva = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    motora = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    comunicacion = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    visual = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    verbal = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    alerta = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    total1 = models.CharField(max_length=20,null=True,default=0)
+    aperturaocular = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    respuestamotora = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    reflejos = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    respiracion = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
+    total2=models.CharField(max_length=20,null=True,default=0)
+    estadoconciencia=models.CharField(choices=conciencia_CHOICES,max_length=30,null=True)
+    segunda=models.CharField(max_length=20, choices=seleccion_CHOICES, null=True)
+    epileptico=models.CharField(max_length=20, choices=seleccion_CHOICES, null=True)
+    fechaeeg=models.DateField(null=True,blank=True)
+    resultadoeeg=models.CharField(max_length=200, null=True,blank=True)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)

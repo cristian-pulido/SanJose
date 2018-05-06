@@ -167,11 +167,13 @@
                 <div class="form-group">
                     <label for="{{form.D_especificos.name}}">{{form.D_especificos.label}}</label>
                     {{ form.D_especificos.errors }}
-                    {{form.D_especificos}}
+                    <textarea name="D_especificos" rows="4" cols="40" id="id_D_especificos" class="form-control"></textarea>
                 </div>
 
         </div>
 
+
+        {% if object.fecha_de_registro == None %}
 
         <div class="col-md-8 col-md-offset-2">
                 <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
@@ -200,6 +202,33 @@
                   </div>
 
         </div>
+        {% else %}
+        <div class="col-md-8 col-md-offset-2">
+                <legend>Criterios de inclusión  </legend>
+                {% if object.ci == 'ci1'%}
+                    <p>Paciente con episodio de parada cadíaca con reanimación exitosa.</p>
+                   {% elif object.ci == 'ci2'%}
+                     <p>Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular.</p>
+                   {% endif %}
+                   {% if object.ci3 == True %}
+                    <p>Puntaje en escala Glasgow igual o menor a 8 después del evento inicial.</p>
+                   {% endif %}
+                   {% if object.ci4 == True %}
+                    <p>Paciente transportable a un resonador.</p>
+                   {% endif %}
+                {{form.ci.as_hidden}}
+                {{form.ci3.as_hidden}}
+                {{form.ci4.as_hidden}}
+
+        </div>
+
+        {% endif %}
+
+
+        {% if object.inscrito != True %}
+
+
+        {% if object.fecha_de_registro == None %}
 
         <div class="col-md-8 col-md-offset-2">
                 <legend>Criterios de exclusión (al menos 1 se considera excluído)</legend>
@@ -231,6 +260,36 @@
                   </div>
 
         </div>
+        {% else %}
+        <div class="col-md-8 col-md-offset-2">
+                <legend>Criterios de exclusión   </legend>
+                {% if object.ce1 == True %}
+                <p>Diagnóstico de muerte cerebral en las primeras 48 horas del ingreso a UCI.</p>
+               {% endif %}
+               {% if object.ce2 == True %}
+                <p>Destruccion masiva del parénquima cerebral no rescatable por neurocirugía.</p>
+               {% endif %}
+               {% if object.ce3 == True %}
+                <p>Disfunción neurológica y/o neuropsiquiátrica previa.</p>
+               {% endif %}
+               {% if object.ce4 == True %}
+                <p>Decisión de la familia de no participar en estudios de investigación.</p>
+               {% endif %}
+                {{form.ce1.as_hidden}}
+                {{form.ce2.as_hidden}}
+                {{form.ce3.as_hidden}}
+                {{form.ce4.as_hidden}}
+
+        </div>
+
+        {% endif %}
+
+
+
+        {% endif  %}
+
+
+
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.medico_responsable.name}}">{{form.medico_responsable.label}}</label>

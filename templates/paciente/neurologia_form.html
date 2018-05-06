@@ -1,0 +1,628 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %} Formulario Paciente {% endblock %}
+{% block content %}
+{% if user.groups.all.0.name == 'Consultor' %}
+<script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+</script>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+
+
+        <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Formato Neurología Sujeto#{{ object.candidato.sujeto_numero }}</h1>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th style="vertical-align:middle;">{{form.fechaneuro.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.fechaneuro.errors }}
+                        <input class="form-control" name="fechaneuro" type="text" placeholder="Fecha evaluación neurológica " id="datepicker"  value="{{object.fechaneuro|date:'d/m/Y'}}">
+                    </td>
+                    <th style="vertical-align:middle;">{{form.neurologo.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.neurologo.errors }}{{ form.neurologo }}
+                    </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <div style=" padding: 25px; border-radius: 19px 19px 19px 19px;-moz-border-radius: 19px 19px 19px 19px;-webkit-border-radius: 19px 19px 19px 19px;border: 1px solid #000000;">
+
+                <center><b style="align:'center'  ">COMA RECOVERY SCALE-REVISED</b></center>
+                <br>
+
+                <div class="left">
+                    <p>ESCALA DE FUNCIÓN AUDITIVA</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar1(4,'auditiva')" type="radio" name="auditiva" value="4" id="id_auditiva_5" required {% if object.auditiva == '4' %}checked {% endif %}/></td>
+                                <th>(4) Movimiento consistente a la orden*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(3,'auditiva')" type="radio" name="auditiva" value="3" id="id_auditiva_4" required {% if object.auditiva == '3' %}checked {% endif %}/></td>
+                                <th>(3) Reproduce movimiento a la orden*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(2,'auditiva')" type="radio" name="auditiva" value="2" id="id_auditiva_3" required {% if object.auditiva == '2' %}checked {% endif %}/></td>
+                                <th>(2) Localiza el sonido</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(1,'auditiva')" type="radio" name="auditiva" value="1" id="id_auditiva_2" required {% if object.auditiva == '1' %}checked {% endif %}/></td>
+                                <th>(1) Percibe pero no localiza (Sobresalto auditivo)</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(0,'auditiva')" type="radio" name="auditiva" value="0" id="id_auditiva_1" required {% if object.auditiva == '0' %}checked {% endif %}/></td>
+                                <th>(0) No hay respuesta</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>ESCALA DE FUNCIÓN MOTORA</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar1(6,'motora')" type="radio" name="motora" value="6" id="id_motora_7" required {% if object.motora == '6' %}checked {% endif %}/></td>
+                                <th>(6) Uso funcional del objeto {}</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(5,'motora')" type="radio" name="motora" value="5" id="id_motora_6" required {% if object.motora == '5' %}checked {% endif %}/></td>
+                                <th>(5) Respuesta motora automática*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(4,'motora')" type="radio" name="motora" value="4" id="id_motora_5" required {% if object.motora == '4' %}checked {% endif %}/></td>
+                                <th>(4) Manipulación de objetos*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(3,'motora')" type="radio" name="motora" value="3" id="id_motora_4" required {% if object.motora == '3' %}checked {% endif %}/></td>
+                                <th>(3) Localización de estímulos dolorosos*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(2,'motora')" type="radio" name="motora" value="2" id="id_motora_3" required {% if object.motora == '2' %}checked {% endif %}/></td>
+                                <th>(2) Retirada flexora</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(1,'motora')" type="radio" name="motora" value="1" id="id_motora_2" required {% if object.motora == '1' %}checked {% endif %}/></td>
+                                <th>(1) Postura anormal</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(0,'motora')" type="radio" name="motora" value="0" id="id_motora_1" required {% if object.motora == '0' %}checked {% endif %}/></td>
+                                <th>(0) No hay respuesta/flacidez</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>ESCALA DE COMUNICACIÓN</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar1(2,'comunicacion')" type="radio" name="comunicacion" value="2" id="id_comunicacion_3" required {% if object.comunicacion == '2' %}checked {% endif %}/></td>
+                                <th>(2) Funcional: Adecuada {}</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(1,'comunicacion')" type="radio" name="comunicacion" value="1" id="id_comunicacion_2" required {% if object.comunicacion == '1' %}checked {% endif %}/></td>
+                                <th>(1) Funcional: Adecuada* </th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(0,'comunicacion')" type="radio" name="comunicacion" value="0" id="id_comunicacion_1" required {% if object.comunicacion == '0' %}checked {% endif %}/></td>
+                                <th>(0) No hay respuesta</th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="right">
+                    <p>ESCALA DE FUNCIÓN VISUAL</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar1(5,'visual')" type="radio" name="visual" value="5" id="id_visual_6" required {% if object.visual == '5' %}checked {% endif %}/></td>
+                                <th>(5) Reconoce el objeto*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(4,'visual')" type="radio" name="visual" value="4" id="id_visual_5" required {% if object.visual == '4' %}checked {% endif %}/></td>
+                                <th>(4) Localiza el objeto: alcanza*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(3,'visual')" type="radio" name="visual" value="3" id="id_visual_4" required {% if object.visual == '3' %}checked {% endif %}/></td>
+                                <th>(3) Seguimiento visual*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(2,'visual')" type="radio" name="visual" value="2" id="id_visual_3" required {% if object.visual == '2' %}checked {% endif %}/></td>
+                                <th>(2) Fijación visual*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(1,'visual')" type="radio" name="visual" value="1" id="id_visual_2" required {% if object.visual == '1' %}checked {% endif %}/></td>
+                                <th>(1) Sobresalto visual</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(0,'visual')" type="radio" name="visual" value="0" id="id_visual_1" required {% if object.visual == '0' %}checked {% endif %}/></td>
+                                <th>(0) No hay respuesta</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>ESCALA DE FUNCIÓN OROMOTORA/VERBAL</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar1(3,'verbal')" type="radio" name="verbal" value="3" id="id_verbal_4" required {% if object.verbal == '3' %}checked {% endif %}/></td>
+                                <th>(3) Verbalización entendible*</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(2,'verbal')" type="radio" name="verbal" value="2" id="id_verbal_3" required {% if object.verbal == '2' %}checked {% endif %}/></td>
+                                <th>(2) Movimientos orales/vocalizaciones</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(1,'verbal')" type="radio" name="verbal" value="1" id="id_verbal_2" required {% if object.verbal == '1' %}checked {% endif %}/></td>
+                                <th>(1) Movimientos orales reflejos</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(0,'verbal')" type="radio" name="verbal" value="0" id="id_verbal_1" required {% if object.verbal == '0' %}checked {% endif %}/></td>
+                                <th>(0) No hay respuesta</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>ESCALA DE NIVEL DE ALERTA</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar1(3,'alerta')" type="radio" name="alerta" value="3" id="id_alerta_4" required {% if object.alerta == '3' %}checked {% endif %}/></td>
+                                <th>(3) Alerta y atento </th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(2,'alerta')" type="radio" name="alerta" value="2" id="id_alerta_3" required {% if object.alerta == '2' %}checked {% endif %}/></td>
+                                <th>(2) Apertura ocular espontánea</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(1,'alerta')" type="radio" name="alerta" value="1" id="id_alerta_2" required {% if object.alerta == '1' %}checked {% endif %}/></td>
+                                <th>(1) Apertura ocular con estimulación </th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar1(0,'alerta')" type="radio" name="alerta" value="0" id="id_alerta_1" required {% if object.alerta == '0' %}checked {% endif %}/></td>
+                                <th>(0) No hay respuesta</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>{{form.total1.label}}</th>
+                            <td><input type="text" name="total1" value="{{object.total1}}" maxlength="20" size="2" id="id_total1" required class="form-control" placeholder="Suma" readonly /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <p>* Denota Estado de mínima conciencia</p>
+                    <p>{} Denota salida de Estado mínima conciencia</p>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <br>
+
+            <div style=" padding: 25px; border-radius: 19px 19px 19px 19px;-moz-border-radius: 19px 19px 19px 19px;-webkit-border-radius: 19px 19px 19px 19px;border: 1px solid #000000;">
+
+                <center><b style="align:'center'  ">Full Outline of UnResponsiveness FOUR</b></center>
+                <br>
+
+                <div class="left">
+                <p>Apertura ocular</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar2(4,'aperturaocular')" type="radio" name="aperturaocular" value="4" id="id_aperturaocular_5" required {% if object.aperturaocular == '4' %}checked {% endif %}/></td>
+                                <th>(4) Dirige la mirada en respuesta a órdenes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(3,'aperturaocular')" type="radio" name="aperturaocular" value="3" id="id_aperturaocular_4" required {% if object.aperturaocular == '3' %}checked {% endif %}/></td>
+                                <th>(3) Espontánea pero no dirige la mirada</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(2,'aperturaocular')" type="radio" name="aperturaocular" value="2" id="id_aperturaocular_3" required {% if object.aperturaocular == '2' %}checked {% endif %}/></td>
+                                <th>(2) Apertura a estímulos sonoros intensos</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(1,'aperturaocular')" type="radio" name="aperturaocular" value="1" id="id_aperturaocular_2" required {% if object.aperturaocular == '1' %}checked {% endif %}/></td>
+                                <th>(1) Apertura a estímulos nociceptivos</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(0,'aperturaocular')" type="radio" name="aperturaocular" value="0" id="id_aperturaocular_1" required {% if object.aperturaocular == '0' %}checked {% endif %}/></td>
+                                <th>(0) Ojos cerrados al dolor</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                <p>Reflejos del Tronco</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar2(4,'reflejos')" type="radio" name="reflejos" value="4" id="id_reflejos_5" required {% if object.reflejos == '4' %}checked {% endif %}/></td>
+                                <th>(4) Ambos reflejos corneales y fotomotores presentes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(3,'reflejos')" type="radio" name="reflejos" value="3" id="id_reflejos_4" required {% if object.reflejos == '3' %}checked {% endif %}/></td>
+                                <th>(3) Reflejo motor ausente unilateral</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar(2,'reflejos')" type="radio" name="reflejos" value="2" id="id_reflejos_3" required {% if object.reflejos == '2' %}checked {% endif %}/></td>
+                                <th>(2) Reflejos corneales <b>o</b> fotomotores ausentes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(1,'reflejos')" type="radio" name="reflejos" value="1" id="id_reflejos_2" required {% if object.reflejos == '1' %}checked {% endif %}/></td>
+                                <th>(1) Reflejos corneales <b>y</b> fotomotores ausentes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(0,'reflejos')" type="radio" name="reflejos" value="0" id="id_reflejos_1" required {% if object.reflejos == '0' %}checked {% endif %}/></td>
+                                <th>(0) Reflejos corneales, fotomotores y tusígeno ausentes</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>{{form.total2.label}}</th>
+                            <td><input type="text" name="total2" value="{{object.total2}}" maxlength="20" size="2" id="id_total2" required class="form-control" placeholder="Suma" readonly /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="right">
+                    <p>Respuesta Motora</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar2(4,'respuestamotora')" type="radio" name="respuestamotora" value="4" id="id_respuestamotora_5" required {% if object.respuestamotora == '4' %}checked {% endif %}/></td>
+                                <th>(4) Dirige la mirada en respuesta a órdenes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(3,'respuestamotora')" type="radio" name="respuestamotora" value="3" id="id_respuestamotora_4" required {% if object.respuestamotora == '3' %}checked {% endif %}/></td>
+                                <th>(3) Espontánea pero no dirige la mirada</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(2,'respuestamotora')" type="radio" name="respuestamotora" value="2" id="id_respuestamotora_3" required {% if object.respuestamotora == '2' %}checked {% endif %}/></td>
+                                <th>(2) Apertura a estímulos sonoros intensos</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(1,'respuestamotora')" type="radio" name="respuestamotora" value="1" id="id_respuestamotora_2" required {% if object.respuestamotora == '1' %}checked {% endif %}/></td>
+                                <th>(1) Apertura a estímulos nociceptivos</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(0,'respuestamotora')" type="radio" name="respuestamotora" value="0" id="id_respuestamotora_1" required {% if object.respuestamotora == '0' %}checked {% endif %}/></td>
+                                <th>(0) Ojos cerrados al dolor</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                <p>Respiración</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><input onclick="sumar2(4,'respiracion')" type="radio" name="respiracion" value="4" id="id_respiracion_5" required {% if object.respiracion == '4' %}checked {% endif %}/></td>
+                                <th>(4) Ambos respiracion corneales y fotomotores presentes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(3,'respiracion')" type="radio" name="respiracion" value="3" id="id_respiracion_4" required {% if object.respiracion == '3' %}checked {% endif %}/></td>
+                                <th>(3) Reflejo motor ausente unilateral</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(2,'respiracion')" type="radio" name="respiracion" value="2" id="id_respiracion_3" required {% if object.respiracion == '2' %}checked {% endif %}/></td>
+                                <th>(2) respiracion corneales <b>o</b> fotomotores ausentes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(1,'respiracion')" type="radio" name="respiracion" value="1" id="id_respiracion_2" required {% if object.respiracion == '1' %}checked {% endif %}/></td>
+                                <th>(1) respiracion corneales <b>y</b> fotomotores ausentes</th>
+                            </tr>
+                            <tr>
+                                <td><input onclick="sumar2(0,'respiracion')" type="radio" name="respiracion" value="0" id="id_respiracion_1" required {% if object.respiracion == '0' %}checked {% endif %}/></td>
+                                <th>(0) respiracion corneales, fotomotores y tusígeno ausentes</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th><input type="text" name="resultado"  maxlength="20" size="20" id="resultado"  class="form-control" placeholder="Suma" readonly
+                            {% if object.total2|add:0 < 8 %}
+                                value="Severa injuria cerebral"
+                            {% endif %}
+                            {% if object.total2|add:0 > 7 and  object.total2|add:0 < 13 %}
+                                value="Moderada injuria cerebral"
+                            {% endif %}
+                            {% if object.total2|add:0 > 12 %}
+                                value="Leve injuria cerebral"
+                            {% endif %}
+
+                            /></th>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+            </div>
+
+    <table>
+        <br>
+        <tbody>
+        <tr>
+            <th >{{form.estadoconciencia.label}}</th>
+
+
+
+            <td colspan="3"><input type="radio"
+                       {% if  object.auditiva == '4' or object.auditiva == '3'  %}
+                            {% if  object.motora == '5' or object.motora == '4' or object.motora == '3'  %}
+                                {% if  object.comunicacion == '1'  %}
+                                    {% if  object.visual == '5' or object.visual == '4' or object.visual == '3' or object.visual == '2'  %}
+                                        {% if  object.verbal == '3'  %}
+                                            disabled
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                    {% endif %}
+
+                       name="estadoconciencia" value="Coma" required id="id_estadoconciencia_1" {% if object.estadoconciencia == 'Coma' %} checked {% endif %}/> Coma
+            <input type="radio"
+                       {% if  object.auditiva == '4' or object.auditiva == '3'  %}
+                                {% if  object.motora == '5' or object.motora == '4' or object.motora == '3'  %}
+                                    {% if  object.comunicacion == '1'  %}
+                                        {% if  object.visual == '5' or object.visual == '4' or object.visual == '3' or object.visual == '2'  %}
+                                            {% if  object.verbal == '3'  %}
+                                                disabled
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                        {% endif %}
+                       name="estadoconciencia" value="Vigilia_sin_respuesta" required id="id_estadoconciencia_2" {% if object.estadoconciencia == 'Vigilia_sin_respuesta' %} checked {% endif %}/>Vigilia sin respuesta
+            <input type="radio"  name="estadoconciencia" value="Mínima_conciencia" required id="id_estadoconciencia_3" {% if object.estadoconciencia == 'Mínima_conciencia' %} checked {% endif %}/> Mínima conciencia
+        </tr>
+        <tr>
+            <th>{{form.segunda.label}}</th>
+            <td>{{form.segunda}}</td>
+            <th>{{form.epileptico.label}}</th>
+            <td>{{form.epileptico}}</td>
+        </tr>
+        <tr>
+            <th>{{form.fechaeeg.label}}</th>
+            <td style="vertical-align:middle;">
+                {{ form.fechaneuro.errors }}
+                <input class="form-control" name="fechaeeg" type="text" placeholder="Fecha  " id="date"  value="{{object.fechaeeg|date:'d/m/Y'}}">
+            </td>
+            <th>{{form.resultadoeeg.label}}</th>
+            <td>{{form.resultadoeeg}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    </div>
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+</form>
+
+
+<br>
+<br>
+{% endblock %}
+{% block extrajs %}
+<script>
+function sumar1(a,b) {
+    var auditiva4 =document.getElementById("id_auditiva_5").checked ;
+    var auditiva3 =document.getElementById("id_auditiva_4").checked ;
+    var auditiva2 =document.getElementById("id_auditiva_3").checked ;
+    var auditiva1 =document.getElementById("id_auditiva_2").checked ;
+    var auditiva0 =document.getElementById("id_auditiva_1").checked ;
+    var motora6 =document.getElementById("id_motora_7").checked ;
+    var motora5 =document.getElementById("id_motora_6").checked ;
+    var motora4 =document.getElementById("id_motora_5").checked ;
+    var motora3 =document.getElementById("id_motora_4").checked ;
+    var motora2 =document.getElementById("id_motora_3").checked ;
+    var motora1 =document.getElementById("id_motora_2").checked ;
+    var motora0 =document.getElementById("id_motora_1").checked ;
+    var comunicacion2 =document.getElementById("id_comunicacion_3").checked ;
+    var comunicacion1 =document.getElementById("id_comunicacion_2").checked ;
+    var comunicacion0 =document.getElementById("id_comunicacion_1").checked ;
+    var visual5 =document.getElementById("id_visual_6").checked ;
+    var visual4 =document.getElementById("id_visual_5").checked ;
+    var visual3 =document.getElementById("id_visual_4").checked ;
+    var visual2 =document.getElementById("id_visual_3").checked ;
+    var visual1 =document.getElementById("id_visual_2").checked ;
+    var visual0 =document.getElementById("id_visual_1").checked ;
+    var verbal3 =document.getElementById("id_verbal_4").checked ;
+    var verbal2 =document.getElementById("id_verbal_3").checked ;
+    var verbal1 =document.getElementById("id_verbal_2").checked ;
+    var verbal0 =document.getElementById("id_verbal_1").checked ;
+    var alerta3 =document.getElementById("id_alerta_4").checked ;
+    var alerta2 =document.getElementById("id_alerta_3").checked ;
+    var alerta1 =document.getElementById("id_alerta_2").checked ;
+    var alerta0 =document.getElementById("id_alerta_1").checked ;
+    
+
+    
+    
+    var total=0;
+    
+    if (b == 'auditiva') {
+    total = a+motora6*6+motora5*5+motora4*4+motora3*3+motora2*2+motora1*1+motora0*0+comunicacion2*2+comunicacion1*1+comunicacion0*0+visual5*5+visual4*4+visual3*3+visual2*2+visual1*1+visual0*0+verbal3*3+verbal2*2+verbal1*1+verbal0*0+alerta3*3+alerta2*2+alerta1*1+alerta0*0;
+    }
+    if (b == 'motora') {
+    total = a+auditiva4*4+auditiva3*3+auditiva2*2+auditiva1*1+auditiva0*0+comunicacion2*2+comunicacion1*1+comunicacion0*0+visual5*5+visual4*4+visual3*3+visual2*2+visual1*1+visual0*0+verbal3*3+verbal2*2+verbal1*1+verbal0*0+alerta3*3+alerta2*2+alerta1*1+alerta0*0;
+    }
+    if (b == 'comunicacion') {
+    total = a+auditiva4*4+auditiva3*3+auditiva2*2+auditiva1*1+auditiva0*0+motora6*6+motora5*5+motora4*4+motora3*3+motora2*2+motora1*1+motora0*0+visual5*5+visual4*4+visual3*3+visual2*2+visual1*1+visual0*0+verbal3*3+verbal2*2+verbal1*1+verbal0*0+alerta3*3+alerta2*2+alerta1*1+alerta0*0;
+    }
+    if (b == 'visual') {
+    total = a+auditiva4*4+auditiva3*3+auditiva2*2+auditiva1*1+auditiva0*0+motora6*6+motora5*5+motora4*4+motora3*3+motora2*2+motora1*1+motora0*0+comunicacion2*2+comunicacion1*1+comunicacion0*0+verbal3*3+verbal2*2+verbal1*1+verbal0*0+alerta3*3+alerta2*2+alerta1*1+alerta0*0;
+    }
+    if (b == 'verbal') {
+    total = a+auditiva4*4+auditiva3*3+auditiva2*2+auditiva1*1+auditiva0*0+motora6*6+motora5*5+motora4*4+motora3*3+motora2*2+motora1*1+motora0*0+comunicacion2*2+comunicacion1*1+comunicacion0*0+visual5*5+visual4*4+visual3*3+visual2*2+visual1*1+visual0*0+alerta3*3+alerta2*2+alerta1*1+alerta0*0;
+    }
+    if (b == 'alerta') {
+    total = a+auditiva4*4+auditiva3*3+auditiva2*2+auditiva1*1+auditiva0*0+motora6*6+motora5*5+motora4*4+motora3*3+motora2*2+motora1*1+motora0*0+comunicacion2*2+comunicacion1*1+comunicacion0*0+visual5*5+visual4*4+visual3*3+visual2*2+visual1*1+visual0*0+verbal3*3+verbal2*2+verbal1*1+verbal0*0;
+    }
+    
+
+    document.getElementById("id_total1").value = total;
+
+    var dx=0
+    if ( b == 'auditiva') {
+        dx=motora5*1+motora4*1+motora3*1+comunicacion1*1+visual5*1+visual4*1+visual3*1+visual2*1+verbal3*1;
+        if ( a == 4 || a == 3) {
+        dx=dx+1;
+    }
+    }
+    if (  b == 'motora') {
+        dx=auditiva4*1+auditiva3*1+comunicacion1*1+visual5*1+visual4*1+visual3*1+visual2*1+verbal3*1;
+        if ( a == 5 || a == 4 || a == 3) {
+        dx=dx+1;
+    }
+    }
+    if (  b == 'comunicacion') {
+        dx=auditiva4*1+auditiva3*1+motora5*1+motora4*1+motora3*1+visual5*1+visual4*1+visual3*1+visual2*1+verbal3*1;
+        if ( a == 1 ) {
+        dx=dx+1;
+    }
+    }
+    if ( b == 'visual') {
+        dx=auditiva4*1+auditiva3*1+motora5*1+motora4*1+motora3*1+comunicacion1*1+verbal3*1;
+        if ( a == 5 || a == 4 || a == 3 || a == 2 ) {
+        dx=dx+1;
+    }
+
+    }
+    if ( b == 'verbal') {
+        dx=auditiva4*1+auditiva3*1+motora5*1+motora4*1+motora3*1+comunicacion1*1+visual5*1+visual4*1+visual3*1+visual2*1;
+        if ( a == 3 ) {
+        dx=dx+1;
+    }
+    }
+    if (  b == 'alerta') {
+        dx=auditiva4*1+auditiva3*1+motora5*1+motora4*1+motora3*1+comunicacion1*1+visual5*1+visual4*1+visual3*1+visual2*1+verbal3*1;
+    }
+
+    if (  dx == 5) {
+        document.getElementById("id_estadoconciencia_3").checked=true;
+        document.getElementById("id_estadoconciencia_2").disabled=true;
+        document.getElementById("id_estadoconciencia_1").disabled=true;
+    }
+    if (  dx != 5) {
+        document.getElementById("id_estadoconciencia_2").disabled=false;
+        document.getElementById("id_estadoconciencia_1").disabled=false;
+    }
+
+
+
+
+}
+</script>
+
+<script>
+function sumar2(a,b) {
+
+    var aperturaocular4 =document.getElementById("id_aperturaocular_5").checked ;
+    var aperturaocular3 =document.getElementById("id_aperturaocular_4").checked ;
+    var aperturaocular2 =document.getElementById("id_aperturaocular_3").checked ;
+    var aperturaocular1 =document.getElementById("id_aperturaocular_2").checked ;
+    var aperturaocular0 =document.getElementById("id_aperturaocular_1").checked ;
+    var respuestamotora4 =document.getElementById("id_respuestamotora_5").checked ;
+    var respuestamotora3 =document.getElementById("id_respuestamotora_4").checked ;
+    var respuestamotora2 =document.getElementById("id_respuestamotora_3").checked ;
+    var respuestamotora1 =document.getElementById("id_respuestamotora_2").checked ;
+    var respuestamotora0 =document.getElementById("id_respuestamotora_1").checked ;
+    var reflejos4 =document.getElementById("id_reflejos_5").checked ;
+    var reflejos3 =document.getElementById("id_reflejos_4").checked ;
+    var reflejos2 =document.getElementById("id_reflejos_3").checked ;
+    var reflejos1 =document.getElementById("id_reflejos_2").checked ;
+    var reflejos0 =document.getElementById("id_reflejos_1").checked ;
+    var respiracion4 =document.getElementById("id_respiracion_5").checked ;
+    var respiracion3 =document.getElementById("id_respiracion_4").checked ;
+    var respiracion2 =document.getElementById("id_respiracion_3").checked ;
+    var respiracion1 =document.getElementById("id_respiracion_2").checked ;
+    var respiracion0 =document.getElementById("id_respiracion_1").checked ;
+
+    var total2=0;
+    var r='';
+
+    if (b == 'aperturaocular') {
+    total2 = a+respuestamotora4*4+respuestamotora3*3+respuestamotora2*2+respuestamotora1*1+respuestamotora0*0+reflejos4*4+reflejos3*3+reflejos2*2+reflejos1*1+reflejos0*0+respiracion4*4+respiracion3*3+respiracion2*2+respiracion1*1+respiracion0*0;
+    }
+     if (b == 'respuestamotora') {
+    total2 = a+aperturaocular4*4+aperturaocular3*3+aperturaocular2*2+aperturaocular1*1+aperturaocular0*0+reflejos4*4+reflejos3*3+reflejos2*2+reflejos1*1+reflejos0*0+respiracion4*4+respiracion3*3+respiracion2*2+respiracion1*1+respiracion0*0;
+    }
+     if (b == 'reflejos') {
+    total2 = a+aperturaocular4*4+aperturaocular3*3+aperturaocular2*2+aperturaocular1*1+aperturaocular0*0+respuestamotora4*4+respuestamotora3*3+respuestamotora2*2+respuestamotora1*1+respuestamotora0*0+respiracion4*4+respiracion3*3+respiracion2*2+respiracion1*1+respiracion0*0;
+    }
+     if (b == 'respiracion') {
+    total2 = a+aperturaocular4*4+aperturaocular3*3+aperturaocular2*2+aperturaocular1*1+aperturaocular0*0+respuestamotora4*4+respuestamotora3*3+respuestamotora2*2+respuestamotora1*1+respuestamotora0*0+reflejos4*4+reflejos3*3+reflejos2*2+reflejos1*1+reflejos0*0;
+    }
+
+    if ( total2 <= 7) {
+    r='Severa injuria cerebral';
+    }
+
+    if (total2 > 7 && total2 < 13) {
+    r='Moderada injuria cerebral';
+    }
+
+    if (total2 > 12 ) {
+    r='Leve injuria cerebral';
+    }
+
+    document.getElementById("id_total2").value = total2;
+    document.getElementById("resultado").value = r;
+}
+</script>
+
+
+{% endblock %}

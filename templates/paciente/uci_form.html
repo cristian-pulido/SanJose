@@ -69,7 +69,7 @@
                         </div>
                     </td>
                     <td colspan="2" colrow="3" style="vertical-align:middle;">
-                    <input type="text" readonly name="glasgowtotal" placeholder="" required class="form-control" maxlength="5" id="id_glasgowtotal" value="{{object.glasgowtotal}}"/>
+                    <input type="text" readonly name="glasgowtotal" placeholder="" size="3" required class="form-control" maxlength="3" id="id_glasgowtotal" value="{{object.glasgowtotal}}"/>
                     </td>
                 </tr>
                 <tr>
@@ -236,13 +236,438 @@
 
                               </td>
                           </tr>
+
                           </tbody>
                       </table>
                   </th>
 
               </tr>
+              <tr>
+                  <th style="vertical-align:middle;" rowspan="3">SEDACIÓN</th>
+                  <th style="vertical-align:middle;" >{{form.midazolan.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="midazolan" id="id_midazolan" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.midazolan == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.midazolan == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="midazolan_dt" id="id_midazolan_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.midazolan_dt != None %} value="{{object.midazolan_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.tiopental.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="tiopental" id="id_tiopental" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.tiopental == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.tiopental == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="tiopental_dt" id="id_tiopental_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.tiopental_dt != None %} value="{{object.tiopental_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.dexmedetomidina.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="dexmedetomidina" id="id_dexmedetomidina" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.dexmedetomidina == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.dexmedetomidina == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="dexmedetomidina_dt" id="id_dexmedetomidina_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.dexmedetomidina_dt != None %} value="{{object.dexmedetomidina_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" rowspan="3">ANALGESIA</th>
+                  <th style="vertical-align:middle;" >{{form.morfina.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="morfina" id="id_morfina" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.morfina == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.morfina == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="morfina_dt" id="id_morfina_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.morfina_dt != None %} value="{{object.morfina_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.hidromorfona.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="hidromorfona" id="id_hidromorfona" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.hidromorfona == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.hidromorfona == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="hidromorfona_dt" id="id_hidromorfona_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.hidromorfona_dt != None %} value="{{object.hidromorfona_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.fentanyl.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="fentanyl" id="id_fentanyl" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.fentanyl == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.fentanyl == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="fentanyl_dt" id="id_fentanyl_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.fentanyl_dt != None %} value="{{object.fentanyl_dt}}" {% endif %} />
+                  </td>
+              </tr>
+
+
+              <tr>
+                  <th style="vertical-align:middle;" rowspan="5">ANTICONVULSIVANTES</th>
+                  <th style="vertical-align:middle;" >{{form.fenitoina.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="fenitoina" id="id_fenitoina" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.fenitoina == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.fenitoina == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="fenitoina_dt" id="id_fenitoina_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.fenitoina_dt != None %} value="{{object.fenitoina_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.topiramato.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="topiramato" id="id_topiramato" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.topiramato == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.topiramato == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="topiramato_dt" id="id_topiramato_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.topiramato_dt != None %} value="{{object.topiramato_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.acido_valproico.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="acido_valproico" id="id_acido_valproico" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.acido_valproico == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.acido_valproico == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="acido_valproico_dt" id="id_acido_valproico_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.acido_valproico_dt != None %} value="{{object.acido_valproico_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;" >{{form.levetiracetam.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="levetiracetam" id="id_levetiracetam" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.levetiracetam == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.levetiracetam == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="levetiracetam_dt" id="id_levetiracetam_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.levetiracetam_dt != None %} value="{{object.levetiracetam_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.lacosamida.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="lacosamida" id="id_lacosamida" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.lacosamida == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.lacosamida == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="lacosamida_dt" id="id_lacosamida_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.lacosamida_dt != None %} value="{{object.lacosamida_dt}}" {% endif %} />
+                  </td>
+              </tr>
+
+              <tr>
+                  <th style="vertical-align:middle;" rowspan="3">ANTIPSICÓTICOS</th>
+                  <th style="vertical-align:middle;" >{{form.clozapina.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="clozapina" id="id_clozapina" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.clozapina == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.clozapina == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="clozapina_dt" id="id_clozapina_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.clozapina_dt != None %} value="{{object.clozapina_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.haloperidol.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="haloperidol" id="id_haloperidol" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.haloperidol == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.haloperidol == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="haloperidol_dt" id="id_haloperidol_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.haloperidol_dt != None %} value="{{object.haloperidol_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.ketiapina.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="ketiapina" id="id_ketiapina" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.ketiapina == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.ketiapina == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="ketiapina_dt" id="id_ketiapina_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.ketiapina_dt != None %} value="{{object.ketiapina_dt}}" {% endif %} />
+                  </td>
+              </tr>
+
+
+              <tr>
+                  <th style="vertical-align:middle;" rowspan="2">MODULADORES DEL ÁNIMO</th>
+                  <th style="vertical-align:middle;" >{{form.carbamacepina.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="carbamacepina" id="id_carbamacepina" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.carbamacepina == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.carbamacepina == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="carbamacepina_dt" id="id_carbamacepina_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.carbamacepina_dt != None %} value="{{object.carbamacepina_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+
+                  <th style="vertical-align:middle;" >{{form.carbonato_litio.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="carbonato_litio" id="id_carbonato_litio" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.carbonato_litio == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.carbonato_litio == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <td>
+                      <input type="text" name="carbonato_litio_dt" id="id_carbonato_litio_dt" class="form-control" placeholder="Dosis Total" maxlength="50" {%if object.carbonato_litio_dt != None %} value="{{object.carbonato_litio_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr>
+                  <th style="vertical-align:middle;">{{form.valorable_neuro.label}}</th>
+                  <td style="vertical-align:middle;">
+                      <p><select name="valorable_neuro" id="id_valorable_neuro" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.valorable_neuro == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.valorable_neuro == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+                  <th style="vertical-align:middle;">{{form.valorable_neuro_causa.label}}</th>
+                  <td>
+                      <input type="text" name="valorable_neuro_causa" id="valorable_neuro_causa" class="form-control" placeholder="Solo si NO" maxlength="50" {%if object.valorable_neuro_causa != None %} value="{{object.carbonato_litio_dt}}" {% endif %} />
+                  </td>
+              </tr>
+              <tr >
+                  <th style="vertical-align:middle;" colspan="2">{{form.continua_studio.label}}</th>
+
+                  <td style="vertical-align:middle;" colspan="2">
+                      <p><select name="continua_studio" id="id_continua_studio" required>
+                        <option value="" >---------</option>
+
+                        <option value="SI"  {% if object.continua_studio == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option value="NO" {% if object.continua_studio == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                  </td>
+
+              </tr>
+
               </tbody>
             </table>
+
+            <br>
+            <label>Evaluación de egreso UCI</label>
+            <span class="help-block">Diligenciar este espacio únicamente al momento de alta del paciente</span>
+            <table class="table table-hover">
+                <tbody>
+                <tr class="table-active">
+                  <th style="vertical-align:middle;">{{form.fechaegreso.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.fechaegreso.errors }}
+                        <input class="form-control" name="fechaegreso" type="text" placeholder="Fecha " id="date"  value="{{object.fechaegreso|date:'d/m/Y'}}">
+                    </td>
+                    <th style="vertical-align:middle;">{{form.horaegreso.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.horaegreso.errors }} {{ form.horaegreso }}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.condicion_egreso.label}}</th>
+                    <td style="vertical-align:middle;" colspan="3">
+
+
+                            <label for="id_condicion_egreso_1"><input type="radio" name="condicion_egreso" value="Vivo"  id="id_condicion_egreso_1" {% if object.condicion_egreso == "Vivo" %} checked {% endif %}/>
+                         Vivo</label>
+
+
+                            <label for="id_condicion_egreso_2"><input type="radio" name="condicion_egreso" value="Remitido" id="id_condicion_egreso_2" {% if object.condicion_egreso == "Remitido" %} checked {% endif %}/>
+                         Remitido</label>
+
+
+                            <label for="id_condicion_egreso_3"><input type="radio" name="condicion_egreso" value="Fallecido" id="id_condicion_egreso_3" {% if object.condicion_egreso == "Fallecido" %} checked {% endif %}/>
+                         Fallecido</label>
+
+                    </td>
+                <tr>
+                    <th style="vertical-align:middle;" rowspan="3">{{form.dx_egreso.label}}</th>
+                    <td style="vertical-align:middle;" rowspan="3">{{form.dx_egreso}}</td>
+                    <th  style="vertical-align:middle;">{{form.causa_mortalidad.label}}</th>
+                    <td style="vertical-align:middle;">{{form.causa_mortalidad}}</td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.fechamortalidad.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.fechamortalidad.errors }}
+                        <input class="form-control" name="fechamortalidad" type="text" placeholder="Fecha " id="dates"  value="{{object.fechamortalidad|date:'d/m/Y'}}">
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.horamortalidad.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.horamortalidad.errors }} {{ form.horamortalidad }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th colspan="2">Glasgow de egreso UCI</th>
+                    <th colspan="2">{{form.glasgowtotal_e.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.apertura_ocular_e.label}}</td>
+                    <td>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_apertura_ocular_e" >
+                          {% for o in "1234"|make_list %}
+                            <label onclick="sumare({{o}},'ocular')" {% if object.apertura_ocular_e == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_apertura_ocular_e_{{o}}">
+                            <input type="radio" name="apertura_ocular_e" value="{{o}}"  required id="id_apertura_ocular_e_{{o}}"  {% if object.apertura_ocular_e == o %} checked="" {% endif %} />{{o}}
+                          </label>
+                          {% endfor %}
+                          {{forms.apertura_ocular_e.errors}}
+                        </div>
+                    </td>
+                    <td colspan="2" colrow="3" style="vertical-align:middle;">
+                    <input type="text" readonly name="glasgowtotal_e" placeholder="" size="3" required class="form-control" maxlength="3" id="id_glasgowtotal_e" value="{{object.glasgowtotal_e}}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{form.respuesta_motora_e.label}}</td>
+                    <td>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_respuesta_motora_e" >
+                          {% for o in "123456"|make_list %}
+                            <label onclick="sumare({{o}},'motora')" {% if object.respuesta_motora_e == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_respuesta_motora_e_{{o}}">
+                            <input type="radio" name="respuesta_motora_e" value="{{o}}"  required id="id_respuesta_motora_e_{{o}}"  {% if object.respuesta_motora_e == o %} checked="" {% endif %} />{{o}}
+                          </label>
+                          {% endfor %}
+                          {{forms.respuesta_motora_e.errors}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{form.respuesta_verbal_e.label}}</td>
+                    <td>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_respuesta_verbal_e" >
+                          {% for o in "12345"|make_list %}
+                            <label onclick="sumare({{o}},'verbal')" {% if object.respuesta_verbal_e == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_respuesta_verbal_e_{{o}}">
+                            <input type="radio" name="respuesta_verbal_e" value="{{o}}"  required id="id_respuesta_verbal_e_{{o}}"  {% if object.respuesta_verbal_e == o %} checked="" {% endif %} />{{o}}
+                          </label>
+                          {% endfor %}
+                          {{forms.respuesta_verbal_e.errors}}
+                        </div>
+                    </td>
+                </tr>
+                
+
+
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -255,6 +680,8 @@
 
     </div>
 </form>
+
+
 <br>
 <br>
 {% endblock %}
@@ -290,6 +717,40 @@ function sumar(a,b) {
     document.getElementById("id_glasgowtotal").value = total;
 }
 </script>
+<script>
+function sumare(a,b) {
+    var ao1 =document.getElementById("id_apertura_ocular_e_1").checked ;
+    var ao2 =document.getElementById("id_apertura_ocular_e_2").checked ;
+    var ao3 =document.getElementById("id_apertura_ocular_e_3").checked ;
+    var ao4 =document.getElementById("id_apertura_ocular_e_4").checked ;
+    var rm1 =document.getElementById("id_respuesta_motora_e_1").checked ;
+    var rm2 =document.getElementById("id_respuesta_motora_e_2").checked ;
+    var rm3 =document.getElementById("id_respuesta_motora_e_3").checked ;
+    var rm4 =document.getElementById("id_respuesta_motora_e_4").checked ;
+    var rm5 =document.getElementById("id_respuesta_motora_e_5").checked ;
+    var rm6 =document.getElementById("id_respuesta_motora_e_6").checked ;
+    var rv1 =document.getElementById("id_respuesta_verbal_e_1").checked ;
+    var rv2 =document.getElementById("id_respuesta_verbal_e_2").checked ;
+    var rv3 =document.getElementById("id_respuesta_verbal_e_3").checked ;
+    var rv4 =document.getElementById("id_respuesta_verbal_e_4").checked ;
+    var rv5 =document.getElementById("id_respuesta_verbal_e_5").checked ;
+    var total=0;
+    if (b == 'ocular') {
+    total = total+a+rm1*1+rm2*2+rm3*3+rm4*4+rm5*5+rm6*6+rv1*1+rv2*2+rv3*3+rv4*4+rv5*5;
+    }
+    if (b == 'motora') {
+    total = total+a+ao1*1+ao2*2+ao3*3+ao4*4+rv1*1+rv2*2+rv3*3+rv4*4+rv5*5;
+    }
+    if (b == 'verbal') {
+    total = total+a+ao1*1+ao2*2+ao3*3+ao4*4+rm1*1+rm2*2+rm3*3+rm4*4+rm5*5+rm6*6;
+    }
+
+    document.getElementById("id_glasgowtotal_e").value = total;
+}
+</script>
+
+
+
 <script>
 function falla(a) {
     var x=document.getElementById("id_fallaorganica_cual");

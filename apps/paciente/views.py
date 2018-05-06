@@ -3,8 +3,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
-from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm
-from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci
+from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm
+from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia
 
 
 class PacienteCreate(CreateView):
@@ -41,19 +41,6 @@ class IngresoUpdate(UpdateView):
             p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
-class RadiologiaUpdate(UpdateView):
-    model = Radiologia
-    form_class = RadiologiaForm
-    template_name = 'paciente/radiologia_form.html'
-    # a donde va dirigido
-
-    def get_success_url(self):
-        r=self.object
-        p=r.candidato
-        if p.estado==2:
-            p.estado=3
-            p.save()
-        return reverse_lazy('paciente', args=[p.pk])
 
 class UciUpdate(UpdateView):
     model = Uci
@@ -64,10 +51,39 @@ class UciUpdate(UpdateView):
     def get_success_url(self):
         u=self.object
         p=u.candidato
+        if p.estado==2:
+            p.estado=3
+            p.save()
+        return reverse_lazy('paciente', args=[p.pk])
+
+class NeurologiaUpdate(UpdateView):
+    model = Neurologia
+    form_class = NeurologiaForm
+    template_name = 'paciente/neurologia_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        n=self.object
+        p=n.candidato
         if p.estado==3:
             p.estado=4
             p.save()
         return reverse_lazy('paciente', args=[p.pk])
+
+class RadiologiaUpdate(UpdateView):
+    model = Radiologia
+    form_class = RadiologiaForm
+    template_name = 'paciente/radiologia_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        r=self.object
+        p=r.candidato
+        if p.estado==4:
+            p.estado=5
+            p.save()
+        return reverse_lazy('paciente', args=[p.pk])
+
 
 
 class PacienteView(DetailView):

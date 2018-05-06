@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci
+from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia
 
 
 def error(request):
@@ -42,3 +42,14 @@ def crearuci(request, pk):
         else:
             u=Uci.objects.create(candidato=c)
             return redirect("/paciente/uci/editar/"+str(u.pk))
+
+def crearneurologia(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        if hasattr(c, 'neurologia'):
+            return redirect("/paciente/neurologia/editar/" + str(c.neurologia.pk))
+        else:
+            n=Neurologia.objects.create(candidato=c)
+            return redirect("/paciente/neurologia/editar/"+str(n.pk))

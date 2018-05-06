@@ -1,6 +1,6 @@
 
 from django import forms
-from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci
+from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia
 from django.forms.widgets import CheckboxSelectMultiple
 
 class MedicoForm(forms.ModelForm):
@@ -128,6 +128,7 @@ class IngresoForm(forms.ModelForm):
             'a_familiares',
             'firma_consentimiento',
             'firma_causa',
+            'fechafirma',
 
 
         ]
@@ -158,6 +159,7 @@ class IngresoForm(forms.ModelForm):
             'a_familiares':"Antecedentes Familiares relevantes",
             'firma_consentimiento':"Firma de consentimiento informado",
             'firma_causa':"Causa",
+            'fechafirma':'Fecha'
              }
         widgets = {
             'fecha_form': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Fecha cuando se llena este formulario')}),
@@ -186,6 +188,7 @@ class IngresoForm(forms.ModelForm):
             'a_familiares': forms.TextInput(attrs={'class': 'form-control'}),
             'firma_consentimiento': forms.CheckboxInput(),
             'firma_causa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Si no se firma')}),
+            'fechafirma': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Fecha firma consentimiento')}),
         }
 
 class RadiologiaForm(forms.ModelForm):
@@ -452,7 +455,79 @@ class UciForm(forms.ModelForm):
             'apertura_ocular' :forms.RadioSelect(),
             'respuesta_motora':forms.RadioSelect(),
             'respuesta_verbal':forms.RadioSelect(),
-            'glasgowtotal':forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+
             'fallaorganica':forms.RadioSelect(),
             'fallaorganica_cual': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Si hubo falla')}),
+            'horaegreso': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Formato 24 horas')}),
+            'condicion_egreso': forms.RadioSelect(),
+            'dx_egreso': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'causa_mortalidad': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'horamortalidad': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Formato 24 horas')}),
+            'apertura_ocular_e': forms.RadioSelect(),
+            'respuesta_motora_e': forms.RadioSelect(),
+            'respuesta_verbal_e': forms.RadioSelect(),
+
+        }
+
+
+class NeurologiaForm(forms.ModelForm):
+    class Meta:
+        model = Neurologia
+
+        fields = [
+            'fechaneuro',
+            'neurologo',
+            'auditiva',
+            'motora',
+            'comunicacion',
+            'visual',
+            'verbal',
+            'alerta',
+            'total1',
+            'aperturaocular',
+            'respuestamotora',
+            'reflejos',
+            'respiracion',
+            'total2',
+            'estadoconciencia',
+            'segunda',
+            'epileptico',
+            'fechaeeg',
+            'resultadoeeg',
+
+
+        ]
+
+        labels = {
+            'fechaneuro': "Fecha evaluación neurológica",
+            'neurologo': "Neurólogo / Profesional Responsable",
+            'total1':"Total",
+            'total2': "Total",
+            'estadoconciencia': "Dx Estado de conciencia",
+            'segunda':"Requiere segunda valoración por neurología",
+            'epileptico':"Sospecha de estatus epiléptico no convulsivo",
+            'fechaeeg':"Toma EEG",
+            'resultadoeeg':"Resultado EEG",
+
+        }
+        widgets = {
+            'fechaneuro': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'neurologo': forms.Select(attrs={'class': 'form-control'}),
+            'auditiva':forms.RadioSelect(),
+            'motora':forms.RadioSelect(),
+            'comunicacion':forms.RadioSelect(),
+            'visual': forms.RadioSelect(),
+            'verbal': forms.RadioSelect(),
+            'alerta': forms.RadioSelect(),
+            'total1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Suma')}),
+            'aperturaocular': forms.RadioSelect(),
+            'respuestamotora': forms.RadioSelect(),
+            'reflejos': forms.RadioSelect(),
+            'respiracion': forms.RadioSelect(),
+            'total2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Suma')}),
+            'estadoconciencia': forms.RadioSelect(),
+            'segunda': forms.Select(attrs={'class': 'form-control'}),
+            'epileptico': forms.Select(attrs={'class': 'form-control'}),
+            'fechaeeg': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'resultadoeeg':forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
         }

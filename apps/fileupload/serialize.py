@@ -26,9 +26,9 @@ def veri(estado):
     elif estado==2:
         return "Formulario de ingreso cargado"
     elif estado==3:
-        return "Formulario de radiología cargado"
-    elif estado==4:
         return "Formulario UCI cargado"
+    elif estado==4:
+        return "Formulario de radiología cargado"
 
 def color(e):
     if e==0:

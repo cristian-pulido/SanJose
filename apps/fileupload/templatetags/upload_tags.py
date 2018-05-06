@@ -134,11 +134,11 @@ def upload_js(per):
                 <td>
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
-                
+                <td>
                 <a href="{%=file.thumbnailUrl%}  ">
                             Descargar
                         </a> 
-                
+                </td>
                 <td>
                    <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
                 </td>

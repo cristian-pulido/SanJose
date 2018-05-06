@@ -230,6 +230,13 @@
                     {{form.firma_causa}}
                 </div>
         </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fechafirma.name}}">{{form.fechafirma.label}}</label>
+                    {{ form.fechafirma.errors }}
+                    <input class="form-control" name="fechafirma" type="text" placeholder="Fecha firma consentimiento " id="dates"  value="{{object.fecha_craneotomia|date:'d/m/Y'}}">
+                </div>
+        </div>
 
 
     </div>
