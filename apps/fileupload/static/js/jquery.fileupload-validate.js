@@ -37,7 +37,7 @@
             // even if the previous action was rejected: 
             always: true,
             // Options taken from the global options map:
-            acceptFileTypes: /(\.|\/)(nii|zip)$/i,
+            acceptFileTypes: /(\.|\/)(nii|zip|7z|gz|tar|rar)$/i,
             maxFileSize: '@',
             minFileSize: '@',
             maxNumberOfFiles: '@',

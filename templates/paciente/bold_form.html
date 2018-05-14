@@ -1,0 +1,762 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Checklist BOLD {% endblock %}
+{% block content %}
+{% if user.groups.all.0.name == 'Consultor' %}
+<script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+</script>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Checklist BOLD</h1>
+
+            <label for="{{form.fechaimg.name}}">{{form.fechaimg.label}}</label>
+            {{ form.fechaimg.errors }}
+            <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaimg" type="date"  id="id_fechaimg" value="{{object.fechaimg|date:'Y-m-d'}}">
+            <legend>Parámetros del protocolo de adquisición de imágenes</legend>
+
+                <div class="left">
+
+
+                        <label>{{form.axt2prop.label}}</label>{{form.axt2prop.errors}}
+                    <input type="checkbox" name="axt2prop" id="id_axt2prop" {% if object.axt2prop == True %} checked {% endif %} >
+                    <br>
+                    <table id="tableprop" {% if object.axt2prop == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.axt2prop1.label}}</td>
+
+                            <td><input type="checkbox" name="axt2prop1" value="1" id="id_axt2prop1" {% if object.axt2prop1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.axt2prop2.label}}</td>
+
+                            <td><input type="checkbox" name="axt2prop2" value="2" id="id_axt2prop2" {% if object.axt2prop2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.axt2prop3.label}}</td>
+
+                            <td><input type="checkbox" name="axt2prop3" value="3" id="id_axt2prop3" {% if object.axt2prop3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.axt2prop4.label}}</td>
+
+                            <td><input type="checkbox" name="axt2prop4" value="4" id="id_axt2prop4" {% if object.axt2prop4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.axt2prop5.label}}</td>
+
+                            <td><input type="checkbox" name="axt2prop5" value="5" id="id_axt2prop5" {% if object.axt2prop5 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    
+                    <label>{{form.resting.label}}</label>{{form.resting.errors}}
+                    <input type="checkbox" name="resting" id="id_resting" {% if object.resting == True %} checked {% endif %} >
+                    <br>
+                    <table id="tableres" {% if object.resting == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.resting1.label}}</td>
+
+                            <td><input type="checkbox" name="resting1" value="1" id="id_resting1" {% if object.resting1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.resting2.label}}</td>
+
+                            <td><input type="checkbox" name="resting2" value="2" id="id_resting2" {% if object.resting2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.resting3.label}}</td>
+
+                            <td><input type="checkbox" name="resting3" value="3" id="id_resting3" {% if object.resting3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.resting4.label}}</td>
+
+                            <td><input type="checkbox" name="resting4" value="4" id="id_resting4" {% if object.resting4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.resting5.label}}</td>
+
+                            <td><input type="checkbox" name="resting5" value="5" id="id_resting5" {% if object.resting5 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.resting6.label}}</td>
+
+                            <td><input type="checkbox" name="resting6" value="6" id="id_resting6" {% if object.resting6 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.resting7.label}}</td>
+
+                            <td><input type="checkbox" name="resting7" value="7" id="id_resting7" {% if object.resting7 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.resting8.label}}</td>
+
+                            <td><input type="checkbox" name="resting8" value="8" id="id_resting8" {% if object.resting8 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    
+                    <br>
+                    <label>{{form.flair.label}}</label>{{form.flair.errors}}
+                    <input type="checkbox" name="flair" id="id_flair" {% if object.flair == True %} checked {% endif %} >
+                    <br>
+                    <table id="tableflair" {% if object.flair == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.flair1.label}}</td>
+
+                            <td><input type="checkbox" name="flair1" value="1" id="id_flair1" {% if object.flair1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.flair2.label}}</td>
+
+                            <td><input type="checkbox" name="flair2" value="2" id="id_flair2" {% if object.flair2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.flair3.label}}</td>
+
+                            <td><input type="checkbox" name="flair3" value="3" id="id_flair3" {% if object.flair3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.flair4.label}}</td>
+
+                            <td><input type="checkbox" name="flair4" value="4" id="id_flair4" {% if object.flair4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.flair5.label}}</td>
+
+                            <td><input type="checkbox" name="flair5" value="5" id="id_flair5" {% if object.flair5 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.flair6.label}}</td>
+
+                            <td><input type="checkbox" name="flair6" value="6" id="id_flair6" {% if object.flair6 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.flair7.label}}</td>
+
+                            <td><input type="checkbox" name="flair7" value="7" id="id_flair7" {% if object.flair7 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    
+                    <label>{{form.swi.label}}</label>{{form.swi.errors}}
+                    <input type="checkbox" name="swi" id="id_swi" {% if object.swi == True %} checked {% endif %} >
+                    <br>
+                    <table id="tableswi" {% if object.swi == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.swi1.label}}</td>
+
+                            <td><input type="checkbox" name="swi1" value="1" id="id_swi1" {% if object.swi1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.swi2.label}}</td>
+
+                            <td><input type="checkbox" name="swi2" value="2" id="id_swi2" {% if object.swi2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.swi3.label}}</td>
+
+                            <td><input type="checkbox" name="swi3" value="3" id="id_swi3" {% if object.swi3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.swi4.label}}</td>
+
+                            <td><input type="checkbox" name="swi4" value="4" id="id_swi4" {% if object.swi4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.swi5.label}}</td>
+
+                            <td><input type="checkbox" name="swi5" value="5" id="id_swi5" {% if object.swi5 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.swi6.label}}</td>
+
+                            <td><input type="checkbox" name="swi6" value="6" id="id_swi6" {% if object.swi6 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.swi7.label}}</td>
+
+                            <td><input type="checkbox" name="swi7" value="7" id="id_swi7" {% if object.swi7 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.swi8.label}}</td>
+
+                            <td><input type="checkbox" name="swi8" value="8" id="id_swi8" {% if object.swi8 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+
+
+                </div>
+
+                <div class="right">
+                   
+
+                        <label>{{form.difussion.label}}</label>{{form.difussion.errors}}
+                    <input type="checkbox" name="difussion" id="id_difussion" {% if object.difussion == True %} checked {% endif %} >
+                    <br>
+                    <table id="tabledif" {% if object.difussion == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.difussion1.label}}</td>
+
+                            <td><input type="checkbox" name="difussion1" value="1" id="id_difussion1" {% if object.difussion1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.difussion2.label}}</td>
+
+                            <td><input type="checkbox" name="difussion2" value="2" id="id_difussion2" {% if object.difussion2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.difussion3.label}}</td>
+
+                            <td><input type="checkbox" name="difussion3" value="3" id="id_difussion3" {% if object.difussion3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.difussion4.label}}</td>
+
+                            <td><input type="checkbox" name="difussion4" value="4" id="id_difussion4" {% if object.difussion4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.difussion5.label}}</td>
+
+                            <td><input type="checkbox" name="difussion5" value="5" id="id_difussion5" {% if object.difussion5 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.difussion6.label}}</td>
+
+                            <td><input type="checkbox" name="difussion6" value="6" id="id_difussion6" {% if object.difussion6 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.difussion7.label}}</td>
+
+                            <td><input type="checkbox" name="difussion7" value="7" id="id_difussion7" {% if object.difussion7 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    
+                    <label>{{form.obl.label}}</label>{{form.obl.errors}}
+                    <input type="checkbox" name="obl" id="id_obl" {% if object.obl == True %} checked {% endif %} >
+                    <br>
+                    <table id="tableobl" {% if object.obl == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.obl1.label}}</td>
+
+                            <td><input type="checkbox" name="obl1" value="1" id="id_obl1" {% if object.obl1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.obl2.label}}</td>
+
+                            <td><input type="checkbox" name="obl2" value="2" id="id_obl2" {% if object.obl2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.obl3.label}}</td>
+
+                            <td><input type="checkbox" name="obl3" value="3" id="id_obl3" {% if object.obl3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.obl4.label}}</td>
+
+                            <td><input type="checkbox" name="obl4" value="4" id="id_obl4" {% if object.obl4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.obl5.label}}</td>
+
+                            <td><input type="checkbox" name="obl5" value="5" id="id_obl5" {% if object.obl5 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.obl6.label}}</td>
+
+                            <td><input type="checkbox" name="obl6" value="6" id="id_obl6" {% if object.obl6 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    
+                    <br>
+                    <label>{{form.cal.label}}</label>{{form.cal.errors}}
+                    <input type="checkbox" name="cal" id="id_cal" {% if object.cal == True %} checked {% endif %} >
+                    <br>
+                    <table id="tablecal" {% if object.cal == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.cal1.label}}</td>
+
+                            <td><input type="checkbox" name="cal1" value="1" id="id_cal1" {% if object.cal1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.cal2.label}}</td>
+
+                            <td><input type="checkbox" name="cal2" value="2" id="id_cal2" {% if object.cal2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.cal3.label}}</td>
+
+                            <td><input type="checkbox" name="cal3" value="3" id="id_cal3" {% if object.cal3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.cal4.label}}</td>
+
+                            <td><input type="checkbox" name="cal4" value="4" id="id_cal4" {% if object.cal4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.cal5.label}}</td>
+
+                            <td><input type="checkbox" name="cal5" value="5" id="id_cal5" {% if object.cal5 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    <label>{{form.tensor.label}}</label>{{form.tensor.errors}}
+                    <input type="checkbox" name="tensor" id="id_tensor" {% if object.tensor == True %} checked {% endif %} >
+                    <br>
+                    <table id="tabletensor" {% if object.tensor == False %} style="display:none" {% endif %}>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">{{form.tensor1.label}}</td>
+
+                            <td><input type="checkbox" name="tensor1" value="1" id="id_tensor1" {% if object.tensor1 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.tensor2.label}}</td>
+
+                            <td><input type="checkbox" name="tensor2" value="2" id="id_tensor2" {% if object.tensor2 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">{{form.tensor3.label}}</td>
+
+                            <td><input type="checkbox" name="tensor3" value="3" id="id_tensor3" {% if object.tensor3 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.tensor4.label}}</td>
+
+                            <td><input type="checkbox" name="tensor4" value="4" id="id_tensor4" {% if object.tensor4 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.tensor5.label}}</td>
+
+                            <td><input type="checkbox" name="tensor5" value="5" id="id_tensor5" {% if object.tensor5 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.tensor6.label}}</td>
+
+                            <td><input type="checkbox" name="tensor6" value="6" id="id_tensor6" {% if object.tensor6 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.tensor7.label}}</td>
+
+                            <td><input type="checkbox" name="tensor7" value="7" id="id_tensor7" {% if object.tensor7 == True %} checked {% endif %} /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.tensor8.label}}</td>
+
+                            <td><input type="checkbox" name="tensor8" value="8" id="id_tensor8" {% if object.tensor8 == True %} checked {% endif %} /></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+
+
+
+                </div>
+            <br>
+
+
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+            <legend>Verificación de parámetros para postproceso</legend>
+
+            <div class="left">
+
+                <label>T1</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.t1A.label}}</td>
+                        <td>{{form.t1A}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.t1G.label}}</td>
+                        <td>{{form.t1G}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.t1M.label}}</td>
+                        <td>{{form.t1M}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <label>T2</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.t2A.label}}</td>
+                        <td>{{form.t2A}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.t2M.label}}</td>
+                        <td>{{form.t2M}}</td>
+                    </tr>
+                    </tbody>
+                </table >
+                <br>
+                <label>FLAIR</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.flairA.label}}</td>
+                        <td>{{form.flairA}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.flairM.label}}</td>
+                        <td>{{form.flairM}}</td>
+                    </tr>
+                    </tbody>
+                </table >
+                <br>
+                <label>DIFUSIÓN</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.difusionA.label}}</td>
+                        <td>{{form.difusionA}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.difusionM.label}}</td>
+                        <td>{{form.difusionM}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <div class="right">
+
+                <label>TENSOR - DWI</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.tensorA.label}}</td>
+                        <td>{{form.tensorA}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.tensord.label}}</td>
+                        <td>{{form.tensord}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.tensorG.label}}</td>
+                        <td>{{form.tensorG}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.tensorM.label}}</td>
+                        <td>{{form.tensorM}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <label>DIFUSSION</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.difussionA.label}}</td>
+                        <td>{{form.difussionA}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.difussionM.label}}</td>
+                        <td>{{form.difussionM}}</td>
+                    </tr>
+                    </tbody>
+                </table >
+                <br>
+                <label>fMRI RESTING</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.restingA.label}}</td>
+                        <td>{{form.restingA}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.restingV.label}}</td>
+                        <td>{{form.restingV}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.restingG.label}}</td>
+                        <td>{{form.restingG}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.restingT.label}}</td>
+                        <td>{{form.restingT}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.restingM.label}}</td>
+                        <td>{{form.restingM}}</td>
+                    </tr>
+                    </tbody>
+                </table >
+                
+
+
+            </div>
+        </div>
+    
+        <div class="col-md-8 col-md-offset-2">
+        <p>{{form.cd.label}}{{form.cd}}</p>
+        <p>{{form.responsable.label}}{{form.responsable}}</p>
+        </div>
+
+    </div>
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
+</form>
+{% endblock %}
+{% block extrajs %}
+<script>
+
+/* event listener */
+document.getElementsByName("axt2prop")[0].addEventListener('change', prop);
+document.getElementsByName("difussion")[0].addEventListener('change', dif);
+document.getElementsByName("resting")[0].addEventListener('change', res);
+document.getElementsByName("obl")[0].addEventListener('change', obl);
+document.getElementsByName("flair")[0].addEventListener('change', flair);
+document.getElementsByName("cal")[0].addEventListener('change', cal);
+document.getElementsByName("swi")[0].addEventListener('change', swi);
+document.getElementsByName("tensor")[0].addEventListener('change', tensor);
+
+/* function */
+function prop(){
+    var p= document.getElementById("id_axt2prop").checked;
+
+    if (p == true ) {
+    document.getElementById("tableprop").style="display:inline";
+    document.getElementById("id_axt2prop1").checked=true;
+    document.getElementById("id_axt2prop2").checked=true;
+    document.getElementById("id_axt2prop3").checked=true;
+    document.getElementById("id_axt2prop4").checked=true;
+    document.getElementById("id_axt2prop5").checked=true;
+    } else {
+    document.getElementById("tableprop").style="display:none";
+    document.getElementById("id_axt2prop1").checked=false;
+    document.getElementById("id_axt2prop2").checked=false;
+    document.getElementById("id_axt2prop3").checked=false;
+    document.getElementById("id_axt2prop4").checked=false;
+    document.getElementById("id_axt2prop5").checked=false;
+    }
+}
+
+function dif(){
+    var p= document.getElementById("id_difussion").checked;
+
+    if (p == true ) {
+    document.getElementById("tabledif").style="display:inline";
+    document.getElementById("id_difussion1").checked=true;
+    document.getElementById("id_difussion2").checked=true;
+    document.getElementById("id_difussion3").checked=true;
+    document.getElementById("id_difussion4").checked=true;
+    document.getElementById("id_difussion5").checked=true;
+    document.getElementById("id_difussion6").checked=true;
+    document.getElementById("id_difussion7").checked=true;
+    } else {
+    document.getElementById("tabledif").style="display:none";
+    document.getElementById("id_difussion1").checked=false;
+    document.getElementById("id_difussion2").checked=false;
+    document.getElementById("id_difussion3").checked=false;
+    document.getElementById("id_difussion4").checked=false;
+    document.getElementById("id_difussion5").checked=false;
+    document.getElementById("id_difussion6").checked=false;
+    document.getElementById("id_difussion7").checked=false;
+    }
+}
+
+
+function res(){
+    var p= document.getElementById("id_resting").checked;
+
+    if (p == true ) {
+    document.getElementById("tableres").style="display:inline";
+    document.getElementById("id_resting1").checked=true;
+    document.getElementById("id_resting2").checked=true;
+    document.getElementById("id_resting3").checked=true;
+    document.getElementById("id_resting4").checked=true;
+    document.getElementById("id_resting5").checked=true;
+    document.getElementById("id_resting6").checked=true;
+    document.getElementById("id_resting7").checked=true;
+    document.getElementById("id_resting8").checked=true;
+    } else {
+    document.getElementById("tableres").style="display:none";
+    document.getElementById("id_resting1").checked=false;
+    document.getElementById("id_resting2").checked=false;
+    document.getElementById("id_resting3").checked=false;
+    document.getElementById("id_resting4").checked=false;
+    document.getElementById("id_resting5").checked=false;
+    document.getElementById("id_resting6").checked=false;
+    document.getElementById("id_resting7").checked=false;
+    document.getElementById("id_resting8").checked=false;
+    }
+}
+
+function obl(){
+    var p= document.getElementById("id_obl").checked;
+
+    if (p == true ) {
+    document.getElementById("tableobl").style="display:inline";
+    document.getElementById("id_obl1").checked=true;
+    document.getElementById("id_obl2").checked=true;
+    document.getElementById("id_obl3").checked=true;
+    document.getElementById("id_obl4").checked=true;
+    document.getElementById("id_obl5").checked=true;
+    document.getElementById("id_obl6").checked=true;
+    document.getElementById("id_obl7").checked=true;
+    } else {
+    document.getElementById("tableobl").style="display:none";
+    document.getElementById("id_obl1").checked=false;
+    document.getElementById("id_obl2").checked=false;
+    document.getElementById("id_obl3").checked=false;
+    document.getElementById("id_obl4").checked=false;
+    document.getElementById("id_obl5").checked=false;
+    document.getElementById("id_obl6").checked=false;
+    document.getElementById("id_obl7").checked=false;
+    }
+}
+
+function flair(){
+    var p= document.getElementById("id_flair").checked;
+
+    if (p == true ) {
+    document.getElementById("tableflair").style="display:inline";
+    document.getElementById("id_flair1").checked=true;
+    document.getElementById("id_flair2").checked=true;
+    document.getElementById("id_flair3").checked=true;
+    document.getElementById("id_flair4").checked=true;
+    document.getElementById("id_flair5").checked=true;
+    document.getElementById("id_flair6").checked=true;
+    document.getElementById("id_flair7").checked=true;
+    } else {
+    document.getElementById("tableflair").style="display:none";
+    document.getElementById("id_flair1").checked=false;
+    document.getElementById("id_flair2").checked=false;
+    document.getElementById("id_flair3").checked=false;
+    document.getElementById("id_flair4").checked=false;
+    document.getElementById("id_flair5").checked=false;
+    document.getElementById("id_flair6").checked=false;
+    document.getElementById("id_flair7").checked=false;
+    }
+}
+
+function cal(){
+    var p= document.getElementById("id_cal").checked;
+
+    if (p == true ) {
+    document.getElementById("tablecal").style="display:inline";
+    document.getElementById("id_cal1").checked=true;
+    document.getElementById("id_cal2").checked=true;
+    document.getElementById("id_cal3").checked=true;
+    document.getElementById("id_cal4").checked=true;
+    document.getElementById("id_cal5").checked=true;
+    } else {
+    document.getElementById("tablecal").style="display:none";
+    document.getElementById("id_cal1").checked=false;
+    document.getElementById("id_cal2").checked=false;
+    document.getElementById("id_cal3").checked=false;
+    document.getElementById("id_cal4").checked=false;
+    document.getElementById("id_cal5").checked=false;
+    }
+}
+
+function swi(){
+    var p= document.getElementById("id_swi").checked;
+
+    if (p == true ) {
+    document.getElementById("tableswi").style="display:inline";
+    document.getElementById("id_swi1").checked=true;
+    document.getElementById("id_swi2").checked=true;
+    document.getElementById("id_swi3").checked=true;
+    document.getElementById("id_swi4").checked=true;
+    document.getElementById("id_swi5").checked=true;
+    document.getElementById("id_swi6").checked=true;
+    document.getElementById("id_swi7").checked=true;
+    document.getElementById("id_swi8").checked=true;
+    } else {
+    document.getElementById("tableswi").style="display:none";
+    document.getElementById("id_swi1").checked=false;
+    document.getElementById("id_swi2").checked=false;
+    document.getElementById("id_swi3").checked=false;
+    document.getElementById("id_swi4").checked=false;
+    document.getElementById("id_swi5").checked=false;
+    document.getElementById("id_swi6").checked=false;
+    document.getElementById("id_swi7").checked=false;
+    document.getElementById("id_swi8").checked=false;
+    }
+}
+
+function tensor(){
+    var p= document.getElementById("id_tensor").checked;
+
+    if (p == true ) {
+    document.getElementById("tabletensor").style="display:inline";
+    document.getElementById("id_tensor1").checked=true;
+    document.getElementById("id_tensor2").checked=true;
+    document.getElementById("id_tensor3").checked=true;
+    document.getElementById("id_tensor4").checked=true;
+    document.getElementById("id_tensor5").checked=true;
+    document.getElementById("id_tensor6").checked=true;
+    document.getElementById("id_tensor7").checked=true;
+    document.getElementById("id_tensor8").checked=true;
+    } else {
+    document.getElementById("tabletensor").style="display:none";
+    document.getElementById("id_tensor1").checked=false;
+    document.getElementById("id_tensor2").checked=false;
+    document.getElementById("id_tensor3").checked=false;
+    document.getElementById("id_tensor4").checked=false;
+    document.getElementById("id_tensor5").checked=false;
+    document.getElementById("id_tensor6").checked=false;
+    document.getElementById("id_tensor7").checked=false;
+    document.getElementById("id_tensor8").checked=false;
+    }
+}
+
+</script>
+{% endblock %}

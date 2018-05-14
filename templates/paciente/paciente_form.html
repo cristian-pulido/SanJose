@@ -7,6 +7,8 @@
         window.location="{% url 'upload-new' %}";
 </script>
 {% endif %}
+
+
 {% load scripts %}
 <form method="post">
     {% csrf_token %}
@@ -17,6 +19,11 @@
         </div>
     </div>
     <div class="row">
+
+
+
+
+
         {% if object.imagen %}
         <div class="col-md-8 col-md-offset-2">
             <div class="form-group">
@@ -26,6 +33,7 @@
 
         </div>
         {% endif %}
+
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
@@ -42,7 +50,8 @@
                 <div class="form-group">
                     <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
                     {{ form.fecha_de_registro.errors }}
-                    <input class="form-control" name="fecha_de_registro" type="text" placeholder="Elegir fecha" id="datepicker" value="{{object.fecha_de_registro|date:'d/m/Y'}}">
+                    <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_de_registro" type="date" placeholder="Elegir fecha" id="id_fecha_de_registro" value="{{object.fecha_de_registro|date:'Y-m-d'}}">
+
                 </div>
         </div>
 
@@ -50,14 +59,14 @@
                 <div class="form-group">
                     <label for="{{form.HC.name}}">{{form.HC.label}}</label>
                     {{ form.HC.errors }}
-                    {{form.HC}}
+                    <input type="text" name="HC" required id="id_HC" oninput="this.value = this.value.replace(/[^0-9]/, '')" placeholder="Historia clínica número" class="form-control" {% if object.HC != None %} value="{{object.HC}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.cama_numero.name}}">{{form.cama_numero.label}}</label>
                     {{ form.cama_numero.errors }}
-                    {{form.cama_numero}}
+                    <input type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cama_numero" required id="id_cama_numero" placeholder="Ingrese número entero" class="form-control" {% if object.cama_numero != None %} value="{{object.cama_numero}}" {% endif %}/>
                 </div>
         </div>
         {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
@@ -65,21 +74,23 @@
                 <div class="form-group">
                     <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
                     {{ form.nombres.errors }}
-                    {{ form.nombres }}
+                    <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombres" maxlength="70" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
+
                 </div>
         </div>
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.apellidos.name}}">{{form.apellidos.label}}</label>
-                    {{form.apellidos}}
+                    {{ form.apellidos.errors }}
+                    <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="apellidos" maxlength="70" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.cc.name}}">{{form.cc.label}}</label>
                     {{ form.cc.errors }}
-                    {{form.cc}}
+                    <input type="text" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cc" required id="id_cc" placeholder="Ingrese número entero" class="form-control" {% if object.cc != None %} value="{{object.cc}}" {% endif %}/>
                 </div>
         </div>
         {% else %}
@@ -104,7 +115,7 @@
                 <div class="form-group">
                     <label for="{{form.edad.name}}">{{form.edad.label}}</label>
                     {{ form.edad.errors }}
-                    {{form.edad}}
+                    <input type="text" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="edad" required id="id_edad" placeholder="Ingrese número entero" class="form-control" {% if object.edad != None %} value="{{object.edad}}" {% endif %}/>
                 </div>
         </div>
 
@@ -121,28 +132,29 @@
                 <div class="form-group">
                     <label for="{{form.fecha_evento_principal.name}}">{{form.fecha_evento_principal.label}}</label>
                     {{ form.fecha_evento_principal.errors }}
-                    <input class="form-control" name="fecha_evento_principal" type="text" placeholder="Elegir fecha " id="date"  value="{{object.fecha_evento_principal|date:'d/m/Y'}}">
+                    <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_evento_principal" type="date" placeholder="Elegir fecha" id="id_fecha_evento_principal" value="{{object.fecha_evento_principal|date:'Y-m-d'}}">
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.hora_evento_principal.name}}">{{form.hora_evento_principal.label}}</label>
                     {{ form.hora_evento_principal.errors }}
-                    {{form.hora_evento_principal}}
+
+                    <input type="time" step = "1" name="hora_evento_principal" value="{{object.hora_evento_principal}}" class="form-control"  id="id_hora_evento_principal" />
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.fecha_ingreso.name}}">{{form.fecha_ingreso.label}}</label>
                     {{ form.fecha_ingreso.errors }}
-                    <input class="form-control" name="fecha_ingreso" type="text" placeholder="Elegir fecha " id="dates"  value="{{object.fecha_ingreso|date:'d/m/Y'}}">
+                    <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_ingreso" type="date" placeholder="Elegir fecha" id="id_fecha_ingreso" value="{{object.fecha_ingreso|date:'Y-m-d'}}">
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.hora_ingreso.name}}">{{form.hora_ingreso.label}}</label>
                     {{ form.hora_ingreso.errors }}
-                    {{form.hora_ingreso}}
+                    <input type="time" step = "1" name="hora_ingreso" value="{{object.hora_ingreso}}" class="form-control"  id="id_hora_ingreso" />
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -165,12 +177,13 @@
 
         <div class="col-md-8 col-md-offset-2" >
                 <div class="form-group">
-                    <label for="{{form.D_especificos.name}}">{{form.D_especificos.label}}</label>
+                    <label {% if object.D_especificos|length > 0 %} style="display:inline" {% else %} style="display:none;" {% endif %}  id="d">{{form.D_especificos.label}}</label>
                     {{ form.D_especificos.errors }}
-                    <textarea name="D_especificos" rows="4" cols="40" id="id_D_especificos" class="form-control"></textarea>
+                    <textarea name="D_especificos" rows="4" cols="40" id="id_D_especificos"  {% if object.D_especificos|length > 0 %} required style="display:inline" {% else %} style="display:none" {% endif %} class="form-control" >{% if object.D_especificos|length > 0 %} {{object.D_especificos}}  {% endif %}</textarea>
                 </div>
 
         </div>
+
 
 
         {% if object.fecha_de_registro == None %}
@@ -297,7 +310,10 @@
                     {{form.medico_responsable}}
 
                 </div>
+
         </div>
+
+
 
 
     </div>
@@ -311,4 +327,74 @@
 <br>
 {% endblock %}
 {% block extrajs %}
+
+<script>
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+ if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("id_fecha_evento_principal").setAttribute("max", today);
+document.getElementById("id_fecha_ingreso").setAttribute("max", today);
+
+
+/* event listener */
+document.getElementsByName("edad")[0].addEventListener('change', valedad);
+
+
+/* function */
+function valedad(){
+    if ( this.value < 18 ) {
+        alert('La edad no puede ser menor a 18 años');
+        document.getElementById("id_edad").value = "";
+    }
+
+}
+</script>
+
+<script>
+/* event listener */
+document.getElementsByName("fecha_evento_principal")[0].addEventListener('change', valfecha);
+
+
+/* function */
+function valfecha(){
+    document.getElementById("id_fecha_ingreso").min = this.value;
+
+}
+</script>
+
+
+
+<script>
+/* event listener */
+document.getElementsByName("D_neuro_logico_psiquiatrico_previo")[0].addEventListener('change', vald);
+
+/* function */
+function vald(){
+    var x=document.querySelectorAll("option:checked").length-3;
+    if ( x > 0 ) {
+        document.getElementById("d").style="display:inline";
+        document.getElementById("id_D_especificos").style="display:inline";
+        document.getElementById("id_D_especificos").required="required";
+    } else {
+        document.getElementById("d").style="display:none";
+        document.getElementById("id_D_especificos").style="display:none";
+        document.getElementById("id_D_especificos").required=false;
+        document.getElementById("id_D_especificos").value="";
+    }
+
+
+
+}
+</script>
+
+
 {% endblock %}

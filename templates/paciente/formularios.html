@@ -23,6 +23,9 @@
   <li class="nav-item">
     <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#radiologia">Traslado a Radiología</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#bold">Checklist BOLD</a>
+  </li>
 
   {% endif %}
 </ul>
@@ -70,13 +73,23 @@
               <th>Fecha de Evento Principal </th>
               <td>{{ object.fecha_evento_principal }}</td>
               <th>Hora</th>
+              {% if object.hora_evento_principal == None %}
+              <td>Desconocida</td>
+              {% else %}
               <td>{{ object.hora_evento_principal }}</td>
+              {% endif %}
+
             </tr>
             <tr class="table-secondary">
               <th>Fecha de ingreso UCI</th>
               <td>{{ object.fecha_ingreso }}</td>
               <th>Hora</th>
+              {% if object.hora_ingreso == None %}
+              <td>Desconocida</td>
+              {% else %}
               <td>{{ object.hora_ingreso }}</td>
+              {% endif %}
+
             </tr>
             <tr class="table-success">
               <th>Grupo Diagnóstico</th>
@@ -185,7 +198,11 @@
               <th>Teléfono de contacto 1</th>
               <td>{{ object.ingreso.tel1 }} </td>
               <th>Teléfono de contacto 2</th>
-              <td>{{ object.ingreso.tel2 }} </td>
+              {% if object.ingreso.tel2 == None %}
+              <td>Desconocido</td>
+              {% else %}
+              <td>{{ object.ingreso.tel2 }}</td>
+              {% endif %}
             </tr>
             {% endif %}
             <tr class="table-active">
@@ -214,32 +231,40 @@
                   {% endfor %}
               </td>
               <th>Antecedentes Familiares relevantes:</th>
-              <td >{{ object.ingreso.a_familiares }}</td>
+              <td >{% if object.ingreso.a_familiares != None %}{{ object.ingreso.a_familiares }}{% else%} Ninguno {% endif %}</td>
             </tr>
             <tr class="table-secondary">
               <th>Antecedentes quirúrgicos</th>
               <td>
-                  {% if object.ingreso.quirurgicos == 'craneotomia' %}<p><b>Fecha:</b> {{ object.ingreso.fecha_craneotomia }}</p>{% endif %}
-                  {% if object.ingreso.quirurgicos == 'otro' %}<p> {{ object.ingreso.causa_quirurgicos }}</p>{% endif %}
+                  {% if object.ingreso.fecha_craneotomia != None %}<p>Craneotomía el {{ object.ingreso.fecha_craneotomia }}</p>{% endif %}
+                  {% if object.ingreso.causa_quirurgicos != None %}<p>Otras Causas: {{ object.ingreso.causa_quirurgicos }}</p>{% endif %}
               </td>
               <th>Antecedentes Tóxico alérgicos:</th>
-              <td>{{ object.ingreso.a_toxico_alergenicos }}</td>
+              <td>{% if object.ingreso.a_toxico_alergenicos != None %}{{ object.ingreso.a_toxico_alergenicos }}{% else%} Ninguno {% endif %}</td>
             </tr>
             <tr class="table-success">
               <th rowspan="2">Antecedentes Farmacológicos:</th>
+              {% if object.ingreso.a_farmaco1 != None %}
               <td >{{ object.ingreso.a_farmaco1 }}</td>
               <th>Dosis total/día</th>
               <td>{{ object.ingreso.a_farmaco1_dosis }}</td>
+              {% else %}
+              <td>Ninguno</td>
+              {% endif %}
             </tr>
+
             <tr class="table-success">
+              {% if object.ingreso.a_farmaco2 != None %}
               <td >{{ object.ingreso.a_farmaco2 }}</td>
               <th>Dosis total/día</th>
               <td>{{ object.ingreso.a_farmaco2_dosis }}</td>
+              {% endif %}
             </tr>
+
             <tr class="table-success">
               {% if object.ingreso.firma_consentimiento == True %}
               <th>Firma de consentimiento informado</th>
-              <td colspan="3">Sí</td>
+              <td colspan="3">Sí, el {{object.ingreso.fechafirma}}</td>
               {% else %}
               <th>Firma de consentimiento informado</th>
               <td >No</td>
@@ -475,6 +500,7 @@
 
 
       {% if object.uci and object.uci.fechauci != None %}
+      <legend>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</legend>
       <table class="table table-hover">
 
           <tbody>
@@ -484,8 +510,155 @@
               <th>Hora</th>
               <td>{{ object.uci.horauci }} </td>
             </tr>
+            <tr>
+              <th>Glasgow de seguimiento</th>
+              <td>
+                <p>Apertura ocular: {{ object.uci.apertura_ocular }}</p>
+                <p>Respuesta motora: {{ object.uci.respuesta_motora }}</p>
+                <p>Respuesta verbal: {{ object.uci.respuesta_verbal }}</p>
+              </td>
+              <th>Glasgow total </th>
+              <td>{{ object.uci.glasgowtotal }}</td>
+            </tr>
+          <tr>
+            <th>Falla orgánica</th>
+            <td>{% if object.uci.fallaorganica == "SI" %} Sí, {{object.uci.fallaorganica_cual}} {% else %} No {% endif %}</td>
+            <th>Sepsis</th>
+            <td>{% if object.uci.sepsis == "SI" %} Sí  {% else %} No {% endif %}</td>
+          </tr>
+          <tr>
+            <th>Presión intracraneana</th>
+            <td>{% if object.uci.presion_intracraneana == "SI" %} Sí {% else %} No {% endif %}</td>
+            <th>Monitoría PIC</th>
+            <td>{% if object.uci.monitoria_pic == "SI" %} Sí  {% else %} No {% endif %}</td>
+          </tr>
+          <tr>
+            <th>Ventilación mecánica</th>
+            <td>{% if object.uci.ventilacionmecanica == "SI" %} Sí {% else %} No {% endif %}</td>
+            <th>Soporte vasopresor</th>
+            <td>{% if object.uci.soportevasopresor == "SI" %} Sí,
+              con: <p>{% if object.uci.noradrenalina == "SI" %} Noradrenalina >0.5 Mcg Kg Min  {% endif %}</p>
+              <p>{% if object.uci.vasopresina == "SI" %} Vasopresina >2UI IV Hora  {% endif %}</p>
+              <p>{% if object.uci.adrenalina == "SI" %} Adrenalina. {% endif %}</p>
+              {% else %} No {% endif %}</td>
+          </tr>
+          <tr>
+            <th>Sedación</th>
+            {% if  object.uci.midazolan == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            <td>
+              <p>{% if object.uci.midazolan == "SI" %} Midazolam : {{object.uci.midazolan_dt }} {% endif %} </p>
+              <p>{% if object.uci.tiopental == "SI" %} Tiopental : {{object.uci.tiopental_dt }} {% endif %} </p>
+              <p>{% if object.uci.dexmedetomidina == "SI" %} Dexmedetomidina : {{object.uci.dexmedetomidina_dt }} {% endif %} </p>
+            </td>
+            {% else %}
+            <td>Ninguna</td>
+            {% endif %}
+
+            <th>Analgesia</th>
+            {% if  object.uci.morfina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            <td>
+              <p>{% if object.uci.morfina == "SI" %} Morfina : {{object.uci.morfina_dt }} {% endif %} </p>
+              <p>{% if object.uci.hidromorfona == "SI" %} Hidromorfona : {{object.uci.hidromorfona_dt }} {% endif %} </p>
+              <p>{% if object.uci.fentanyl == "SI" %} Fentanyl : {{object.uci.fentanyl_dt }} {% endif %} </p>
+            </td>
+            {% else %}
+            <td>Ninguna</td>
+            {% endif %}
+
+          </tr>
+
+          <tr>
+            <th>Anticonvulsivantes</th>
+            {% if  object.uci.fenitoina == "SI"  or  object.uci.topiramato == "SI" or object.uci.acido_valproico == "SI" or object.uci.levetiracetam == "SI" or object.uci.lacosamida == "SI"  %}
+            <td>
+              <p>{% if object.uci.fenitoina == "SI" %} Fenitoina : {{object.uci.fenitoina_dt }} {% endif %} </p>
+              <p>{% if object.uci.topiramato == "SI" %} Topiramato : {{object.uci.topiramato_dt }} {% endif %} </p>
+              <p>{% if object.uci.acido_valproico == "SI" %} Acido valproico : {{object.uci.acido_valproico_dt }} {% endif %} </p>
+              <p>{% if object.uci.levetiracetam == "SI" %} Levetiracetam : {{object.uci.levetiracetam_dt }} {% endif %} </p>
+              <p>{% if object.uci.lacosamida == "SI" %} Lacosamida : {{object.uci.lacosamida_dt }} {% endif %} </p>
+            </td>
+            {% else %}
+            <td>Ninguna</td>
+            {% endif %}
+
+            <th>Antipsicóticos</th>
+            {% if  object.uci.clozapina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            <td>
+              <p>{% if object.uci.clozapina == "SI" %} Clozapina : {{object.uci.clozapina_dt }} {% endif %} </p>
+              <p>{% if object.uci.haloperidol == "SI" %} Haloperidol : {{object.uci.haloperidol_dt }} {% endif %} </p>
+              <p>{% if object.uci.ketiapina == "SI" %} Ketiapina : {{object.uci.ketiapina_dt }} {% endif %} </p>
+            </td>
+            {% else %}
+            <td>Ninguna</td>
+            {% endif %}
+
+          </tr>
+
+          <tr>
+            <th>Moduladores del ánimo</th>
+            {% if  object.uci.carbamacepina == "SI"  or  object.uci.carbonato_litio == "SI" %}
+            <td colspan="3">
+              <p>{% if object.uci.carbamacepina == "SI" %} Carbamacepina : {{object.uci.carbamacepina_dt }} {% endif %} </p>
+              <p>{% if object.uci.carbonato_litio == "SI" %} Carbonato de Litio : {{object.uci.carbonato_litio_dt }} {% endif %} </p>
+            </td>
+            {% else %}
+            <td colspan="3">Ninguna</td>
+            {% endif %}
+
+          </tr>
+
+          <tr>
+            <th>Valorable por Neurología</th>
+            <td colspan="3">{% if object.uci.valorable_neuro == "NO" %} No, {{object.uci.valorable_neuro_causa}} {% else %} Sí {% endif %}</td>
+          </tr>
+          <tr>
+            <th>Paciente en condiciones de continuar en el estudio</th>
+            <td colspan="3">{% if object.uci.continua_studio == "SI" %} Sí {% else %} No {% endif %}</td>
+          </tr>
+
           </tbody>
         </table>
+
+        {% if object.uci.fechaegreso != None %}
+        <legend>Evaluación de egreso UCI</legend>
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+              <th>Fecha del Egreso de la UCI</th>
+              <td>{{object.uci.fechaegreso}}</td>
+              <th>Hora</th>
+              <td>{{object.uci.horaegreso}}</td>
+            </tr>
+            <tr>
+              <th>Condición de egreso de UCI</th>
+              <td>{{object.uci.condicion_egreso}}</td>
+              <th>Dx de egreso</th>
+              <td>{{object.uci.dx_egreso}}</td>
+            </tr>
+            {% if object.uci.condicion_egreso == 'Fallecido' %}
+            <tr>
+              <th>Causa de mortalidad</th>
+              <td>{{object.uci.causa_mortalidad}}</td>
+              <td>Fecha: {{object.uci.fechamortalidad}}</td>
+              <td>Hora: {{object.uci.horamortalidad}}</td>
+            </tr>
+            <tr>
+              <th>Glasgow de egreso UCI</th>
+              <td>
+                <p>Apertura ocular: {{ object.uci.apertura_ocular_e }}</p>
+                <p>Respuesta motora: {{ object.uci.respuesta_motora_e }}</p>
+                <p>Respuesta verbal: {{ object.uci.respuesta_verbal_e }}</p>
+              </td>
+              <th>Glasgow total </th>
+              <td>{{ object.uci.glasgowtotal_e }}</td>
+            </tr>
+            {% endif %}
+            </tbody>
+
+          </table>
+        {% endif %}
+
+
       {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Editar</a>
       {% endif %}
@@ -668,12 +841,14 @@
             <th>Sospecha de estatus epiléptico no convulsivo</th>
             <td>{{object.neurologia.epileptico}}</td>
           </tr>
+            {% if object.neurologia.epileptico == "SI" %}
           <tr>
             <th>Toma EEG</th>
             <td>{{object.neurologia.fechaeeg}}</td>
             <th>Resultado EEG</th>
             <td>{{object.neurologia.resultadoeeg}}</td>
           </tr>
+          {% endif %}
 
           
           </tbody>
@@ -683,6 +858,356 @@
       {% endif %}
       {% endif %}
  </div>
+<div class="tab-pane"  id="bold">
+      {% if not object.bold or object.bold.fechaimg == None %}
+      <p class="text-danger">No se encontro información del protocolo</p>
+      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if object.bold %}
+      <a class="btn btn-primary" href="{% url 'bold_editar' object.bold.pk %}">Añadir</a>
+      {% else %}
+      <a class="btn btn-primary" href="{% url 'crear_bold' object.pk %}">Añadir</a>
+      {% endif %}
+      {% endif %}
+    {% endif %}
+
+
+
+      {% if object.bold and object.bold.fechaimg != None %}
+      <table class="table table-hover">
+
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha de captura de imágenes </th>
+              <td>{{ object.bold.fechaimg }} </td>
+              <th>Responsable</th>
+              <td>{{ object.bold.responsable }}</td>
+            </tr>
+          <tr>
+            <th>Captura en CD</th>
+            <td colspan="3">{% if object.bold.cd == True %} Sí {% else %} No {% endif %}</td>
+          </tr>
+
+          </tbody>
+        </table>
+      <legend>Parámetros del protocolo de adquisición de imágenes</legend>
+      <table class="table table-hover">
+
+          <tbody>
+            <tr class="table-active">
+              <th>AX T2 Prop </th>
+              <td>
+                {% if object.bold.axt2prop == True %}
+                <p>{% if object.bold.axt2prop1 == True %} Plane: Oblique {% endif %}</p>
+                <p>{% if object.bold.axt2prop2 == True %} FOV 22.0cm {% endif %}</p>
+                <p>{% if object.bold.axt2prop3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                <p>{% if object.bold.axt2prop4 == True %} Slice Spacing 1.0mm {% endif %}</p>
+                <p>{% if object.bold.axt2prop5 == True %} TR 6000ms {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+              <th>DIFUSSION</th>
+              <td>
+                {% if object.bold.difussion == True %}
+                <p>{% if object.bold.difussion1 == True %} Scan plane: Oblique {% endif %}</p>
+                <p>{% if object.bold.difussion2 == True %} FOV 22.0 {% endif %}</p>
+                <p>{% if object.bold.difussion3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                <p>{% if object.bold.difussion4 == True %} Spacing 1.0mm {% endif %}</p>
+                <p>{% if object.bold.difussion5 == True %} Freq Dir: R/L {% endif %}</p>
+                <p>{% if object.bold.difussion6 == True %} TR 6000ms {% endif %}</p>
+                <p>{% if object.bold.difussion7 == True %} Minimum TR 1000.0 {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+            </tr>
+            <tr class="table-active">
+              <th>RESTING </th>
+              <td>
+                {% if object.bold.resting == True %}
+                <p>{% if object.bold.resting1 == True %} Scan plane: Axial {% endif %}</p>
+                <p>{% if object.bold.resting2 == True %} FOV 28.8 {% endif %}</p>
+                <p>{% if object.bold.resting3 == True %} Phase FOV 1.00 {% endif %}</p>
+                <p>{% if object.bold.resting4 == True %} Slice Thickness 4.5mm {% endif %}</p>
+                <p>{% if object.bold.resting5 == True %} Spacing 0.0mm {% endif %}</p>
+                <p>{% if object.bold.resting6 == True %} Freq Dir: R/L {% endif %}</p>
+                <p>{% if object.bold.resting7 == True %} TR 3000ms {% endif %}</p>
+                <p>{% if object.bold.resting8 == True %} Minimum TR 89.0 {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+              <th>3D AX Obl T1</th>
+              <td>
+                {% if object.bold.obl == True %}
+                <p>{% if object.bold.obl1 == True %} Scan plane: Axial {% endif %}</p>
+                <p>{% if object.bold.obl2 == True %} FOV 25.0 {% endif %}</p>
+                <p>{% if object.bold.obl3 == True %} Phase FOV 0.90 {% endif %}</p>
+                <p>{% if object.bold.obl4 == True %} Slice Thickness 2.0mm {% endif %}</p>
+                <p>{% if object.bold.obl5 == True %} Freq Dir: A/P {% endif %}</p>
+                <p>{% if object.bold.obl6 == True %} Minimum TR 6.7 {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+            </tr>
+
+            <tr class="table-active">
+              <th>AX FLAIR </th>
+              <td>
+                {% if object.bold.flair == True %}
+                <p>{% if object.bold.flair1 == True %} Scan plane: Oblique {% endif %}</p>
+                <p>{% if object.bold.flair2 == True %} FOV 22.0 {% endif %}</p>
+                <p>{% if object.bold.flair3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                <p>{% if object.bold.flair4 == True %} Spacing 1.0mm {% endif %}</p>
+                <p>{% if object.bold.flair5 == True %} Freq Dir: Unswap {% endif %}</p>
+                <p>{% if object.bold.flair6 == True %} TR 9000ms {% endif %}</p>
+                <p>{% if object.bold.flair7 == True %} Minimum TR 5000.0 {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+              <th>ASSET Cal</th>
+              <td>
+                {% if object.bold.cal == True %}
+                <p>{% if object.bold.cal1 == True %} Scan plane: Axial {% endif %}</p>
+                <p>{% if object.bold.cal2 == True %} FOV 30.0 {% endif %}</p>
+                <p>{% if object.bold.cal3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                <p>{% if object.bold.cal4 == True %} Freq Dir: A/P {% endif %}</p>
+                <p>{% if object.bold.cal5 == True %} Minimum TR 150.0 {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+            </tr>
+
+          <tr class="table-active">
+              <th>AXIAL SWI </th>
+              <td>
+                {% if object.bold.swi == True %}
+                <p>{% if object.bold.swi1 == True %} Scan plane: Oblique {% endif %}</p>
+                <p>{% if object.bold.swi2 == True %} FOV 22.0 {% endif %}</p>
+                <p>{% if object.bold.swi3 == True %} Phase FOV 1.00 {% endif %}</p>
+                <p>{% if object.bold.swi4 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                <p>{% if object.bold.swi5 == True %} Spacing 1.0mm {% endif %}</p>
+                <p>{% if object.bold.swi6 == True %} Freq Dir: Unswap {% endif %}</p>
+                <p>{% if object.bold.swi7 == True %} TR 4375ms {% endif %}</p>
+                <p>{% if object.bold.swi8 == True %} Minimum TR 394.0 {% endif %}</p>
+                {% else %}
+                No
+                {% endif %}
+              </td>
+              <th>TENSOR AXI</th>
+              <td>
+                {% if object.bold.tensor == True %}
+                <p>{% if object.bold.tensor1 == True %} Scan plane: Axial {% endif %}</p>
+                <p>{% if object.bold.tensor2 == True %} FOV 25.0 {% endif %}</p>
+                <p>{% if object.bold.tensor3 == True %} Phase FOV 1.00 {% endif %}</p>
+                <p>{% if object.bold.tensor4 == True %} Slice Thickness 2.5mm {% endif %}</p>
+                <p>{% if object.bold.tensor5 == True %} Spacing 0.0mm {% endif %}</p>
+                <p>{% if object.bold.tensor6 == True %} Freq Dir: R/L {% endif %}</p>
+                <p>{% if object.bold.tensor7 == True %} TR 17000ms {% endif %}</p>
+                <p>{% if object.bold.tensor8 == True %} Minimum TR 1000 {% endif %}</p>
+                
+                {% else %}
+                No
+                {% endif %}
+              </td>
+            </tr>
+          
+
+          </tbody>
+        </table>
+        <legend>Verificación de parámetros para postproceso</legend>
+
+      <div>
+
+        <div class="left">
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+              <th>T1</th>
+              <td>{% if object.bold.t1A == False and object.bold.t1G == False and object.bold.t1M == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.t1A == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.t1G == True %}
+            <tr>
+              <td>Grosor 2mm</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.t1M == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            <tr>
+              <th>T2</th>
+              <td>{% if object.bold.t2A == False and object.bold.t2M == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.t2A == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.t2M == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            <tr>
+              <th>FLAIR</th>
+              <td>{% if object.bold.flairA == False and object.bold.flairM == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.flairA == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.flairM == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            <tr>
+              <th>DIFUSIÓN</th>
+              <td>{% if object.bold.difusionA == False and object.bold.difusionM == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.difusionA == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.difusionM == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="right">
+
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+              <th>TENSOR - DWI</th>
+              <td>{% if object.bold.tensorA == False and object.bold.tensord == False and object.bold.tensorG == False and object.bold.tensorM == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.tensorA == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.tensord == True %}
+            <tr>
+              <td>30 direcciones</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.tensorG == True %}
+            <tr>
+              <td>Grosor 2mm</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.tensorM == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            <tr>
+              <th>DIFUSSION</th>
+              <td>{% if object.bold.difussionA == False and object.bold.difussionM == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.difussionA == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.difussionM == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            <tr>
+              <th>fMRI RESTING</th>
+              <td>{% if object.bold.restingA == False and object.bold.restingV == False and object.bold.restingG == False and object.bold.restingT == False and object.bold.restingM == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.restingA == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.restingV == True %}
+            <tr>
+              <td>180 volúmenes</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.restingG == True %}
+            <tr>
+              <td>Grosor 4.5mm</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.restingT == True %}
+            <tr>
+              <td>TR 3000ms</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.restingM == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+
+            </tbody>
+          </table>
+
+        </div>
+
+    </div>
+
+
+
+
+      {% if user.groups.all.0.name != 'Consultor' %}
+
+      <a class="btn btn-primary" href="{% url 'bold_editar' object.bold.pk %}">Editar</a>
+      {% endif %}
+      {% endif %}
+ </div>
+
+
 </div>
 <br>
 <br>

@@ -56,8 +56,8 @@ class Candidato(models.Model):
     sujeto_numero = models.CharField(max_length=20, null=True, unique=True)
     fecha_de_registro= models.DateField(null=True)
     cc = models.PositiveIntegerField(null=True,unique=True)
-    nombres = models.CharField(null=True, max_length=70)
-    apellidos = models.CharField(null=True, max_length=70)
+    nombres = models.CharField(null=True, max_length=70, default="")
+    apellidos = models.CharField(null=True, max_length=70, default="")
     edad = models.PositiveIntegerField(null=True)
     #######sexo
     hombre = 'Hombre'
@@ -68,9 +68,9 @@ class Candidato(models.Model):
     HC = models.PositiveIntegerField(null=True, unique=True)
     cama_numero =models.PositiveIntegerField(null=True)
     fecha_evento_principal = models.DateField(null=True)
-    hora_evento_principal = models.TimeField(blank=True, null=True, default=datetime.time(00, 00))
+    hora_evento_principal = models.TimeField(blank=True, null=True)
     fecha_ingreso = models.DateField(null=True)
-    hora_ingreso = models.TimeField(blank=True, null=True, default=datetime.time(00, 00))
+    hora_ingreso = models.TimeField(blank=True, null=True)
     ######## Grupo diagnostico
     TCE='TCE'
     H_A='Hipoxia/Anoxia'
@@ -107,16 +107,17 @@ class Candidato(models.Model):
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
 
+
     class Meta:
         ordering = [('-inscrito')]
 
 class Ingreso(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
     fecha_form = models.DateField(null=True)
-    lugar_nacimiento = models.CharField(max_length=80,null=True)
-    lugar_residencia = models.CharField(max_length=80,null=True)
+    lugar_nacimiento = models.CharField(max_length=80, null=True)
+    lugar_residencia = models.CharField(max_length=80, null=True)
     direccion = models.CharField(max_length=100,null=True)
-    nombre_acompanante = models.CharField(max_length=70,null=True)
+    nombre_acompanante = models.CharField(max_length=70,null=True,default="")
     tel1 = models.PositiveIntegerField(null=True)
     tel2 = models.PositiveIntegerField(null=True, blank=True)
     peso =models.PositiveIntegerField(null=True, blank=True)
@@ -145,15 +146,12 @@ class Ingreso(models.Model):
     ######
     sedado=models.NullBooleanField("Sedado por neuroprotección")
     a_patologicos = models.ManyToManyField(Apatologicos, blank=True)
-    a_patologicos_cual= models.CharField(max_length=50, null=True)
-    ######## antecedentes quirurgicos
-    quirurgicos_CHOICES = (
-        ('craneotomia', 'Craneotomía'),
-        ('otro', 'Otro'),
-    )
-    quirurgicos = models.CharField(choices=quirurgicos_CHOICES, max_length=128, null=True,blank=True)
+    a_patologicos_cual= models.CharField(max_length=50, null=True,blank=True)
+
+
     fecha_craneotomia=models.DateField(blank=True, null=True)
     causa_quirurgicos = models.CharField(max_length=100,null=True, blank=True)
+
     a_toxico_alergenicos= models.CharField(max_length=180,null=True, blank=True)
     a_farmaco1=models.CharField(max_length=180,null=True, blank=True)
     a_farmaco1_dosis=models.CharField(max_length=30,null=True, blank=True)
@@ -161,8 +159,8 @@ class Ingreso(models.Model):
     a_farmaco2_dosis = models.CharField(max_length=30, null=True, blank=True)
     a_familiares=models.CharField(max_length=180,null=True, blank=True)
     firma_consentimiento=models.BooleanField(default=True)
-    firma_causa=models.CharField(max_length=50, null=True, blank=True)
-    fechafirma=models.DateField(null=True)
+    firma_causa=models.CharField(max_length=50, null=True,blank=True)
+    fechafirma=models.DateField(null=True,blank=True)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
@@ -170,6 +168,7 @@ class Ingreso(models.Model):
 class Radiologia(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
     fecha_procedimiento = models.DateField(null=True)
+    radiologo=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),
@@ -194,6 +193,7 @@ class Radiologia(models.Model):
     ur_visoscopio_sv = models.CharField(max_length=50, null=True, blank=True)
     ur_tension= models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     ur_tension_sv = models.CharField(max_length=50, null=True, blank=True)
+    monitoreo=models.CharField(max_length=50,null=True, choices=seleccion_CHOICES)
     pic=models.CharField(max_length=25,null=True,blank=True)
     ppc = models.CharField(max_length=25, null=True, blank=True)
     medicamentos_emergencia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
@@ -233,7 +233,7 @@ class Radiologia(models.Model):
 class Uci(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
     fechauci = models.DateField(null=True)
-    horauci = models.TimeField(null=True, default=datetime.time(00, 00))
+    horauci = models.TimeField(null=True)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),
@@ -257,9 +257,9 @@ class Uci(models.Model):
     monitoria_pic = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     ventilacionmecanica = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     soportevasopresor = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
-    noradrenalina = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
-    vasopresina = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
-    adrenalina = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    noradrenalina = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, blank=True)
+    vasopresina = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, blank=True)
+    adrenalina = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, blank=True)
     midazolan = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     midazolan_dt = models.CharField(max_length=50, null=True, blank=True)
     tiopental = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
@@ -296,17 +296,17 @@ class Uci(models.Model):
     valorable_neuro_causa = models.CharField(max_length=50, null=True, blank=True)
     continua_studio = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     fechaegreso = models.DateField(null=True, blank=True)
-    horaegreso = models.TimeField(null=True, default=datetime.time(00, 00),blank=True)
+    horaegreso = models.TimeField(null=True, blank=True)
     condicion_CHOICES = (
         ('Vivo', 'Vivo'),
         ('Remitido', 'Remitido'),
         ('Fallecido', 'Fallecido'),
     )
     condicion_egreso=models.CharField(max_length=100, choices=condicion_CHOICES, null=True,blank=True)
-    dx_egreso=models.CharField(max_length=200,null=True,blank=True)
+    dx_egreso=models.CharField(max_length=200,null=True,blank=True,default="")
     causa_mortalidad=models.CharField(max_length=200,null=True,blank=True)
     fechamortalidad=models.DateField(null=True, blank=True)
-    horamortalidad = models.TimeField(null=True, default=datetime.time(00, 00),blank=True)
+    horamortalidad = models.TimeField(null=True, blank=True)
     apertura_ocular_e = models.CharField(choices=numero_CHOICES, max_length=5, null=True, blank=True)
     respuesta_motora_e = models.CharField(choices=numero_CHOICES, max_length=5, null=True,blank=True)
     respuesta_verbal_e = models.CharField(choices=numero_CHOICES, max_length=5, null=True,blank=True)
@@ -328,8 +328,8 @@ class Neurologia(models.Model):
     )
     conciencia_CHOICES = (
         ('Coma', 'Coma'),
-        ('Vigilia_sin_respuesta', 'Vigilia sin respuesta'),
-        ('Mínima_conciencia', 'Mínima conciencia'),
+        ('Vigilia sin respuesta', 'Vigilia sin respuesta'),
+        ('Mínima conciencia', 'Mínima conciencia'),
     )
     seleccion_CHOICES = (
         ('SI', 'SI'),
@@ -354,6 +354,98 @@ class Neurologia(models.Model):
     segunda=models.CharField(max_length=20, choices=seleccion_CHOICES, null=True)
     epileptico=models.CharField(max_length=20, choices=seleccion_CHOICES, null=True)
     fechaeeg=models.DateField(null=True,blank=True)
-    resultadoeeg=models.CharField(max_length=200, null=True,blank=True)
+    resultadoeeg=models.CharField(max_length=200, null=True,blank=True,default="")
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+
+
+class Bold(models.Model):
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    fechaimg=models.DateField(null=True)
+    axt2prop=models.BooleanField(default=False)
+    axt2prop1=models.BooleanField(default=False)
+    axt2prop2 = models.BooleanField(default=False)
+    axt2prop3 = models.BooleanField(default=False)
+    axt2prop4 = models.BooleanField(default=False)
+    axt2prop5 = models.BooleanField(default=False)
+    difussion = models.BooleanField(default=False)
+    difussion1 = models.BooleanField(default=False)
+    difussion2 = models.BooleanField(default=False)
+    difussion3 = models.BooleanField(default=False)
+    difussion4 = models.BooleanField(default=False)
+    difussion5 = models.BooleanField(default=False)
+    difussion6 = models.BooleanField(default=False)
+    difussion7 = models.BooleanField(default=False)
+    resting = models.BooleanField(default=False)
+    resting1 = models.BooleanField(default=False)
+    resting2 = models.BooleanField(default=False)
+    resting3 = models.BooleanField(default=False)
+    resting4 = models.BooleanField(default=False)
+    resting5 = models.BooleanField(default=False)
+    resting6 = models.BooleanField(default=False)
+    resting7 = models.BooleanField(default=False)
+    resting8 = models.BooleanField(default=False)
+    obl = models.BooleanField(default=False)
+    obl1 = models.BooleanField(default=False)
+    obl2 = models.BooleanField(default=False)
+    obl3 = models.BooleanField(default=False)
+    obl4 = models.BooleanField(default=False)
+    obl5 = models.BooleanField(default=False)
+    obl6 = models.BooleanField(default=False)
+    flair = models.BooleanField(default=False)
+    flair1 = models.BooleanField(default=False)
+    flair2 = models.BooleanField(default=False)
+    flair3 = models.BooleanField(default=False)
+    flair4 = models.BooleanField(default=False)
+    flair5 = models.BooleanField(default=False)
+    flair6 = models.BooleanField(default=False)
+    flair7 = models.BooleanField(default=False)
+    cal = models.BooleanField(default=False)
+    cal1 = models.BooleanField(default=False)
+    cal2 = models.BooleanField(default=False)
+    cal3 = models.BooleanField(default=False)
+    cal4 = models.BooleanField(default=False)
+    cal5 = models.BooleanField(default=False)
+    swi = models.BooleanField(default=False)
+    swi1 = models.BooleanField(default=False)
+    swi2 = models.BooleanField(default=False)
+    swi3 = models.BooleanField(default=False)
+    swi4 = models.BooleanField(default=False)
+    swi5 = models.BooleanField(default=False)
+    swi6 = models.BooleanField(default=False)
+    swi7 = models.BooleanField(default=False)
+    swi8 = models.BooleanField(default=False)
+    tensor = models.BooleanField(default=False)
+    tensor1 = models.BooleanField(default=False)
+    tensor2 = models.BooleanField(default=False)
+    tensor3 = models.BooleanField(default=False)
+    tensor4 = models.BooleanField(default=False)
+    tensor5 = models.BooleanField(default=False)
+    tensor6 = models.BooleanField(default=False)
+    tensor7 = models.BooleanField(default=False)
+    tensor8 = models.BooleanField(default=False)
+    t1A=models.BooleanField(default=False)
+    t1G=models.BooleanField(default=False)
+    t1M=models.BooleanField(default=False)
+    t2A=models.BooleanField(default=False)
+    t2M=models.BooleanField(default=False)
+    flairA=models.BooleanField(default=False)
+    flairM=models.BooleanField(default=False)
+    difusionA=models.BooleanField(default=False)
+    difusionM=models.BooleanField(default=False)
+    tensorA=models.BooleanField(default=False)
+    tensord=models.BooleanField(default=False)
+    tensorG=models.BooleanField(default=False)
+    tensorM=models.BooleanField(default=False)
+    difussionA=models.BooleanField(default=False)
+    difussionM=models.BooleanField(default=False)
+    restingA=models.BooleanField(default=False)
+    restingV=models.BooleanField(default=False)
+    restingG=models.BooleanField(default=False)
+    restingT=models.BooleanField(default=False)
+    restingM=models.BooleanField(default=False)
+    cd=models.BooleanField(default=False)
+    responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
+
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)

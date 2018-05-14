@@ -45,11 +45,12 @@
                   <th style="vertical-align:middle;">{{form.fechauci.label}}</th>
                     <td style="vertical-align:middle;">
                         {{ form.fechauci.errors }}
-                        <input class="form-control" name="fechauci" type="text" placeholder="Fecha " id="datepicker"  value="{{object.fechauci|date:'d/m/Y'}}">
+                        <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechauci" type="date" placeholder="Elegir fecha" id="id_fechauci" value="{{object.fechauci|date:'Y-m-d'}}">
                     </td>
                     <th style="vertical-align:middle;">{{form.horauci.label}}</th>
                     <td style="vertical-align:middle;">
-                        {{ form.horauci.errors }}{{ form.horauci }}
+                        {{ form.horauci.errors }}
+                        <input type="time" step = "1" name="horauci" value="{{object.horauci}}" class="form-control"  id="id_horauci" required />
                     </td>
                 </tr>
                 <tr>
@@ -59,14 +60,14 @@
                 <tr>
                     <td>{{form.apertura_ocular.label}}</td>
                     <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_apertura_ocular" >
-                          {% for o in "1234"|make_list %}
-                            <label onclick="sumar({{o}},'ocular')" {% if object.apertura_ocular == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_apertura_ocular_{{o}}">
-                            <input type="radio" name="apertura_ocular" value="{{o}}"  required id="id_apertura_ocular_{{o}}"  {% if object.apertura_ocular == o %} checked="" {% endif %} />{{o}}
-                          </label>
-                          {% endfor %}
-                          {{forms.apertura_ocular.errors}}
-                        </div>
+
+                 {% for o in "1234"|make_list %}
+                    <label onclick="sumar({{o}},'ocular')"  for="id_apertura_ocular_{{o}}">
+                    <input type="radio" name="apertura_ocular" value="{{o}}"  required id="id_apertura_ocular_{{o}}"  {% if object.apertura_ocular == o %} checked="" {% endif %} />{{o}}
+                  </label>
+                  {% endfor %}
+                  {{forms.apertura_ocular.errors}}
+
                     </td>
                     <td colspan="2" colrow="3" style="vertical-align:middle;">
                     <input type="text" readonly name="glasgowtotal" placeholder="" size="3" required class="form-control" maxlength="3" id="id_glasgowtotal" value="{{object.glasgowtotal}}"/>
@@ -75,109 +76,112 @@
                 <tr>
                     <td>{{form.respuesta_motora.label}}</td>
                     <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_respuesta_motora" >
+
                           {% for o in "123456"|make_list %}
-                            <label onclick="sumar({{o}},'motora')" {% if object.respuesta_motora == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_respuesta_motora_{{o}}">
+                            <label onclick="sumar({{o}},'motora')"  for="id_respuesta_motora_{{o}}">
                             <input type="radio" name="respuesta_motora" value="{{o}}"  required id="id_respuesta_motora_{{o}}"  {% if object.respuesta_motora == o %} checked="" {% endif %} />{{o}}
                           </label>
                           {% endfor %}
                           {{forms.respuesta_motora.errors}}
-                        </div>
+
                     </td>
                 </tr>
                 <tr>
                     <td>{{form.respuesta_verbal.label}}</td>
                     <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_respuesta_verbal" >
+
                           {% for o in "12345"|make_list %}
-                            <label onclick="sumar({{o}},'verbal')" {% if object.respuesta_verbal == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_respuesta_verbal_{{o}}">
+                            <label onclick="sumar({{o}},'verbal')" for="id_respuesta_verbal_{{o}}">
                             <input type="radio" name="respuesta_verbal" value="{{o}}"  required id="id_respuesta_verbal_{{o}}"  {% if object.respuesta_verbal == o %} checked="" {% endif %} />{{o}}
                           </label>
                           {% endfor %}
                           {{forms.respuesta_verbal.errors}}
-                        </div>
+
                     </td>
                 </tr>
                 <tr>
                     <th style="vertical-align:middle;">{{form.fallaorganica.label}}</th>
                     <td style="vertical-align:middle;">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_fallaorganica" >
-                            <label onclick="falla('SI')" {% if object.fallaorganica  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_fallaorganica_1">
-                                <input type="radio" name="fallaorganica" value="SI"  required id="id_fallaorganica_1"  {% if object.fallaorganica == 'SI' %} checked="" {% endif %} />SI
-                            </label>
-                            <label onclick="falla('NO')" {% if object.fallaorganica  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_fallaorganica_2">
-                                <input type="radio" name="fallaorganica" value="NO"  required id="id_fallaorganica_2"  {% if object.fallaorganica == 'NO' %} checked="" {% endif %} />NO
-                            </label>
-                          {{forms.fallaorganica.errors}}
-                        </div>
+                        <p><select name="fallaorganica" id="id_fallaorganica" required>
+                        <option value="" >---------</option>
+
+                        <option onclick="falla('SI')" value="SI"  {% if object.fallaorganica == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option onclick="falla('NO')" value="NO" {% if object.fallaorganica == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                        {{forms.fallaorganica.errors}}
+
+
                     </td>
                     <th style="vertical-align:middle;"><label {% if object.fallaorganica == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="falla">{{form.fallaorganica_cual.label}}</label></th>
-                    <td style="vertical-align:middle;"><input {% if object.fallaorganica == 'SI'%} type="text" {% else %} type="hidden" {% endif %} name="fallaorganica_cual" placeholder="" required class="form-control" maxlength="25" id="id_fallaorganica_cual" value="{{object.fallaorganica_cual}}"/></td>
+                    <td style="vertical-align:middle;"><input {% if object.fallaorganica == 'SI'%} type="text" value="{{object.fallaorganica_cual}}" {% else %} type="hidden" {% endif %} name="fallaorganica_cual" placeholder="" required class="form-control" maxlength="25" id="id_fallaorganica_cual" /></td>
                 </tr>
               <tr>
                   <th style="vertical-align:middle;">{{form.sepsis.label}}</th>
                   <td style="vertical-align:middle;">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_sepsis" >
-                            <label  {% if object.sepsis  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_sepsis_1">
-                                <input type="radio" name="sepsis" value="SI"  required id="id_sepsis_1"  {% if object.sepsis == 'SI' %} checked="" {% endif %} />SI
-                            </label>
-                            <label  {% if object.sepsis  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_sepsis_2">
-                                <input type="radio" name="sepsis" value="NO"  required id="id_sepsis_2"  {% if object.sepsis == 'NO' %} checked="" {% endif %} />NO
-                            </label>
-                          {{forms.sepsis.errors}}
-                        </div>
+                      <p><select name="sepsis" id="id_sepsis" required>
+                        <option value="" >---------</option>
+
+                        <option  value="SI"  {% if object.sepsis == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option  value="NO" {% if object.sepsis == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                        {{forms.sepsis.errors}}
                   </td>
                   <th style="vertical-align:middle;">{{form.presion_intracraneana.label}}</th>
                   <td style="vertical-align:middle;">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_presion_intracraneana" >
-                            <label  {% if object.presion_intracraneana  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_presion_intracraneana_1">
-                                <input type="radio" name="presion_intracraneana" value="SI"  required id="id_presion_intracraneana_1"  {% if object.presion_intracraneana == 'SI' %} checked="" {% endif %} />SI
-                            </label>
-                            <label  {% if object.presion_intracraneana  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_presion_intracraneana_2">
-                                <input type="radio" name="presion_intracraneana" value="NO"  required id="id_presion_intracraneana_2"  {% if object.presion_intracraneana == 'NO' %} checked="" {% endif %} />NO
-                            </label>
-                          {{forms.presion_intracraneana.errors}}
-                        </div>
+                      <p><select name="presion_intracraneana" id="id_presion_intracraneana" required>
+                        <option value="" >---------</option>
+
+                        <option  value="SI"  {% if object.presion_intracraneana == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option  value="NO" {% if object.presion_intracraneana == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                        {{forms.presion_intracraneana.errors}}
                   </td>
               </tr>
               <tr>
                   <th style="vertical-align:middle;">{{form.monitoria_pic.label}}</th>
                   <td style="vertical-align:middle;">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_monitoria_pic" >
-                            <label  {% if object.monitoria_pic  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_monitoria_pic_1">
-                                <input type="radio" name="monitoria_pic" value="SI"  required id="id_monitoria_pic_1"  {% if object.monitoria_pic == 'SI' %} checked="" {% endif %} />SI
-                            </label>
-                            <label  {% if object.monitoria_pic  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_monitoria_pic_2">
-                                <input type="radio" name="monitoria_pic" value="NO"  required id="id_monitoria_pic_2"  {% if object.monitoria_pic == 'NO' %} checked="" {% endif %} />NO
-                            </label>
-                          {{forms.monitoria_pic.errors}}
-                        </div>
+                      <p><select name="monitoria_pic" id="id_monitoria_pic" required>
+                        <option value="" >---------</option>
+
+                        <option  value="SI"  {% if object.monitoria_pic == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option  value="NO" {% if object.monitoria_pic == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                        {{forms.monitoria_pic.errors}}
                   </td>
                   <th style="vertical-align:middle;">{{form.ventilacionmecanica.label}}</th>
                   <td style="vertical-align:middle;">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_ventilacionmecanica" >
-                            <label  {% if object.ventilacionmecanica  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ventilacionmecanica_1">
-                                <input type="radio" name="ventilacionmecanica" value="SI"  required id="id_ventilacionmecanica_1"  {% if object.ventilacionmecanica == 'SI' %} checked="" {% endif %} />SI
-                            </label>
-                            <label  {% if object.ventilacionmecanica  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_ventilacionmecanica_2">
-                                <input type="radio" name="ventilacionmecanica" value="NO"  required id="id_ventilacionmecanica_2"  {% if object.ventilacionmecanica == 'NO' %} checked="" {% endif %} />NO
-                            </label>
-                          {{forms.ventilacionmecanica.errors}}
-                        </div>
+                      <p><select name="ventilacionmecanica" id="id_ventilacionmecanica" required>
+                        <option value="" >---------</option>
+
+                        <option  value="SI"  {% if object.ventilacionmecanica == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option  value="NO" {% if object.ventilacionmecanica == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                        {{forms.ventilacionmecanica.errors}}
                   </td>
               </tr>
               <tr>
                   <th style="vertical-align:middle;">{{form.soportevasopresor.label}}</th>
                   <td style="vertical-align:middle;">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_soportevasopresor" >
-                            <label  onclick="soporte('SI')" {% if object.soportevasopresor  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_soportevasopresor_1">
-                                <input type="radio" name="soportevasopresor" value="SI"  required id="id_soportevasopresor_1"  {% if object.soportevasopresor == 'SI' %} checked="" {% endif %} />SI
-                            </label>
-                            <label  onclick="soporte('NO')" {% if object.soportevasopresor  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_soportevasopresor_2">
-                                <input type="radio" name="soportevasopresor" value="NO"  required id="id_soportevasopresor_2"  {% if object.soportevasopresor == 'NO' %} checked="" {% endif %} />NO
-                            </label>
-                          {{forms.soportevasopresor.errors}}
-                        </div>
+                      <p><select name="soportevasopresor" id="id_soportevasopresor" required>
+                        <option  onclick="soporte('--')" value="" >---------</option>
+
+                        <option onclick="soporte('SI')" value="SI"  {% if object.soportevasopresor == 'SI' %} selected {% endif %}>SI</option>
+
+                        <option onclick="soporte('NO')" value="NO" {% if object.soportevasopresor == 'NO' %} selected {% endif %}>NO</option>
+
+                        </select></p>
+                        {{forms.soportevasopresor.errors}}
+
                   </td>
 
 
@@ -187,52 +191,47 @@
                       <table>
                           <tbody>
                           <tr>
-                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI' %} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso1">{{form.noradrenalina.label}}</label></th>
+                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI' %} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso1">{{form.noradrenalina.label}}</label></th>
                               <td style="vertical-align:middle;">
-                                  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_noradrenalina" >
-                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso1si" {% if object.noradrenalina  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} >
-                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %} name="noradrenalina" value="SI"  required id="id_noradrenalina_1"  {% if object.noradrenalina == 'SI' %} checked="" {% endif %} />SI
+
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso1si"  >
+                                    <input  {% if object.soportevasopresor == 'SI'%} required style="display:inline" {% else %} style="display:none" {% endif %} name="noradrenalina" value="SI"   id="id_noradrenalina_1" type="radio" {% if object.noradrenalina == 'SI' %} checked="" {% endif %} />SI
                                     </label>
-                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso1no"
-                                            {% if object.noradrenalina  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_noradrenalina_2">
-                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %}  name="noradrenalina" value="NO"  required id="id_noradrenalina_2"  {% if object.noradrenalina == 'NO' %} checked="" {% endif %} />NO
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso1no" for="id_noradrenalina_2">
+                                    <input  {% if object.soportevasopresor == 'SI'%} required style="display:inline" {% else %} style="display:none" {% endif %}  name="noradrenalina" value="NO"   id="id_noradrenalina_2"  type="radio" {% if object.noradrenalina == 'NO' %} checked="" {% endif %} />NO
                                     </label>
                                   {{forms.noradrenalina.errors}}
-                                </div>
+
 
                               </td>
                           </tr>
                           <tr>
-                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso2">{{form.vasopresina.label}}</label></th>
+                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso2">{{form.vasopresina.label}}</label></th>
                               <td style="vertical-align:middle;">
-                                  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_vasopresina" >
-                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso2si"
-                                            {% if object.vasopresina  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vasopresina_1">
-                                        <input{% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %} name="vasopresina" value="SI"  required id="id_vasopresina_1"  {% if object.vasopresina == 'SI' %} checked="" {% endif %} />SI
+
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso2si" for="id_vasopresina_1">
+                                    <input{% if object.soportevasopresor == 'SI'%} required style="display:inline" {% else %} style="none" {% endif %} name="vasopresina" value="SI"   id="id_vasopresina_1"  type="radio" {% if object.vasopresina == 'SI' %} checked="" {% endif %} />SI
                                     </label>
-                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso2no"
-                                            {% if object.vasopresina  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_vasopresina_2">
-                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %}  name="vasopresina" value="NO"  required id="id_vasopresina_2"  {% if object.vasopresina == 'NO' %} checked="" {% endif %} />NO
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso2no" for="id_vasopresina_2">
+                                    <input {% if object.soportevasopresor == 'SI'%} required style="display:inline" {% else %} style="none" {% endif %}  name="vasopresina" value="NO"   id="id_vasopresina_2"  type="radio" {% if object.vasopresina == 'NO' %} checked="" {% endif %} />NO
                                     </label>
                                   {{forms.vasopresina.errors}}
-                                </div>
+
 
                               </td>
                           </tr>
                           <tr>
-                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso3">{{form.adrenalina.label}}</label></th>
+                              <th style="vertical-align:middle;"><label {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso3">{{form.adrenalina.label}}</label></th>
                               <td style="vertical-align:middle;">
-                                  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_adrenalina" >
-                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso3si"
-                                            {% if object.adrenalina  == 'SI' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_adrenalina_1">
-                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %} name="adrenalina" value="SI"  required id="id_adrenalina_1"  {% if object.adrenalina == 'SI' %} checked="" {% endif %} />SI
+
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso3si" for="id_adrenalina_1">
+                                    <input {% if object.soportevasopresor == 'SI'%} required style="display:inline" {% else %} style="none" {% endif %} name="adrenalina" value="SI"   id="id_adrenalina_1"  type="radio" {% if object.adrenalina == 'SI' %} checked="" {% endif %} />SI
                                     </label>
-                                    <label  {% if object.soportevasopresor == 'SI'%} style="visibility:inline" {% else %} style="visibility:hidden" {% endif %}  id="vaso3no"
-                                            {% if object.adrenalina  == 'NO' %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_adrenalina_2">
-                                        <input {% if object.soportevasopresor == 'SI'%} type="radio" {% else %} type="hidden" {% endif %}  name="adrenalina" value="NO"  required id="id_adrenalina_2"  {% if object.adrenalina == 'NO' %} checked="" {% endif %} />NO
+                                    <label  {% if object.soportevasopresor == 'SI'%} style="display:inline" {% else %} style="display:none" {% endif %}  id="vaso3no" for="id_adrenalina_2">
+                                    <input {% if object.soportevasopresor == 'SI'%} required style="display:inline" {% else %} style="none" {% endif %}  name="adrenalina" value="NO"   id="id_adrenalina_2"  type="radio" {% if object.adrenalina == 'NO' %} checked="" {% endif %} />NO
                                     </label>
                                   {{forms.adrenalina.errors}}
-                                </div>
+
 
                               </td>
                           </tr>
@@ -530,9 +529,9 @@
 
                         </select></p>
                   </td>
-                  <th style="vertical-align:middle;">{{form.valorable_neuro_causa.label}}</th>
+                  <th style="vertical-align:middle;"><label id="neurocausa" {%if object.valorable_neuro == 'NO' %}  style="display:inline"  {% else %} style="display:none"  {% endif %}>{{form.valorable_neuro_causa.label}}</label></th>
                   <td>
-                      <input type="text" name="valorable_neuro_causa" id="valorable_neuro_causa" class="form-control" placeholder="Solo si NO" maxlength="50" {%if object.valorable_neuro_causa != None %} value="{{object.carbonato_litio_dt}}" {% endif %} />
+                      <input type="text" {%if object.valorable_neuro == 'NO' %}  style="display:inline" value="{{object.valorable_neuro_causa}}" {% else %} style="display:none"  {% endif %} name="valorable_neuro_causa" id="valorable_neuro_causa" class="form-control"  maxlength="50" />
                   </td>
               </tr>
               <tr >
@@ -555,19 +554,22 @@
             </table>
 
             <br>
-            <label>Evaluación de egreso UCI</label>
+            <label>Evaluación de egreso UCI</label><button onclick="salida()" id="bsalida" type="button"  class="btn btn-secondary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
             <span class="help-block">Diligenciar este espacio únicamente al momento de alta del paciente</span>
-            <table class="table table-hover">
+
+            <table {% if object.fechaegreso == None %} style="display:none" {% endif %} class="table table-hover" id="tablaegreso">
                 <tbody>
-                <tr class="table-active">
+
+                    <tr class="table-active">
                   <th style="vertical-align:middle;">{{form.fechaegreso.label}}</th>
                     <td style="vertical-align:middle;">
                         {{ form.fechaegreso.errors }}
-                        <input class="form-control" name="fechaegreso" type="text" placeholder="Fecha " id="date"  value="{{object.fechaegreso|date:'d/m/Y'}}">
+                        <input class="form-control"  min="{{object.fechauci|date:'Y-m-d'}}" max="2020-12-31"  name="fechaegreso" type="date" {% if object.fechaegreso != None %} required {% endif %} id="id_fechaegreso" value="{{object.fechaegreso|date:'Y-m-d'}}">
                     </td>
                     <th style="vertical-align:middle;">{{form.horaegreso.label}}</th>
                     <td style="vertical-align:middle;">
-                        {{ form.horaegreso.errors }} {{ form.horaegreso }}
+                        {{ form.horaegreso.errors }}
+                        <input type="time" step = "1" name="horaegreso" value="{{object.horaegreso}}" {% if object.fechaegreso != None %} required {% endif %} class="form-control"  id="id_horaegreso" />
                     </td>
                 </tr>
                 <tr>
@@ -575,99 +577,97 @@
                     <td style="vertical-align:middle;" colspan="3">
 
 
-                            <label for="id_condicion_egreso_1"><input type="radio" name="condicion_egreso" value="Vivo"  id="id_condicion_egreso_1" {% if object.condicion_egreso == "Vivo" %} checked {% endif %}/>
+                            <label for="id_condicion_egreso_1"><input onclick="muerto()" type="radio"  {% if object.fechaegreso != None %} required {% endif %} name="condicion_egreso" value="Vivo"  id="id_condicion_egreso_1" {% if object.condicion_egreso == "Vivo" %} checked {% endif %}/>
                          Vivo</label>
 
 
-                            <label for="id_condicion_egreso_2"><input type="radio" name="condicion_egreso" value="Remitido" id="id_condicion_egreso_2" {% if object.condicion_egreso == "Remitido" %} checked {% endif %}/>
+                            <label for="id_condicion_egreso_2"><input onclick="muerto()" type="radio"  {% if object.fechaegreso != None %} required {% endif %} name="condicion_egreso" value="Remitido" id="id_condicion_egreso_2" {% if object.condicion_egreso == "Remitido" %} checked {% endif %}/>
                          Remitido</label>
 
 
-                            <label for="id_condicion_egreso_3"><input type="radio" name="condicion_egreso" value="Fallecido" id="id_condicion_egreso_3" {% if object.condicion_egreso == "Fallecido" %} checked {% endif %}/>
+                            <label for="id_condicion_egreso_3"><input onclick="muerto()" type="radio"  {% if object.fechaegreso != None %} required {% endif %} name="condicion_egreso" value="Fallecido" id="id_condicion_egreso_3" {% if object.condicion_egreso == "Fallecido" %} checked {% endif %}/>
                          Fallecido</label>
 
                     </td>
-                <tr>
-                    <th style="vertical-align:middle;" rowspan="3">{{form.dx_egreso.label}}</th>
-                    <td style="vertical-align:middle;" rowspan="3">{{form.dx_egreso}}</td>
-                    <th  style="vertical-align:middle;">{{form.causa_mortalidad.label}}</th>
-                    <td style="vertical-align:middle;">{{form.causa_mortalidad}}</td>
-                </tr>
-                <tr>
-                    <th style="vertical-align:middle;">{{form.fechamortalidad.label}}</th>
-                    <td style="vertical-align:middle;">
-                        {{ form.fechamortalidad.errors }}
-                        <input class="form-control" name="fechamortalidad" type="text" placeholder="Fecha " id="dates"  value="{{object.fechamortalidad|date:'d/m/Y'}}">
-                    </td>
-                </tr>
-                <tr>
-                    <th style="vertical-align:middle;">{{form.horamortalidad.label}}</th>
-                    <td style="vertical-align:middle;">
-                        {{ form.horamortalidad.errors }} {{ form.horamortalidad }}
-                    </td>
                 </tr>
 
+                <tr>
+                    <th style="vertical-align:middle;" rowspan="3">{{form.dx_egreso.label}}</th>
+                    <td style="vertical-align:middle;" rowspan="3"><input type="text" name="dx_egreso" value="{{object.dx_egreso}}" {% if object.fechaegreso != None %} required {% endif %} class="form-control" id="id_dx_egreso" maxlength="200" /></td>
+                    <th  style="vertical-align:middle;"><label id="cmortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" {% else %} style="display:none"  {% endif %}>{{form.causa_mortalidad.label}}</label></th>
+                    <td style="vertical-align:middle;"><input type="text"  name="causa_mortalidad" class="form-control" maxlength="200" placeholder="" id="id_causa_mortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" required value="{{object.causa_mortalidad}}" {% else %} style="display:none"  {% endif %}/></td>
+                </tr>
+
+                <tr>
+                    <th style="vertical-align:middle;"><label id="fmortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" {% else %} style="display:none"  {% endif %}>{{form.fechamortalidad.label}}</label></th>
+                    <td style="vertical-align:middle;">
+                        {{ form.fechamortalidad.errors }}
+                        <input type="date" name="fechamortalidad" class="form-control"  min="{{object.fechauci|date:'Y-m-d'}}" max="{{object.fechaegreso|date:'Y-m-d'}}" id="id_fechamortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" required value="{{object.fechamortalidad|date:'Y-m-d'}}" {% else %} style="display:none"  {% endif %}/>
+                    </td>
+                </tr>
+                 <tr>
+                    <th style="vertical-align:middle;"><label id="hmortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" {% else %} style="display:none"  {% endif %}>{{form.horamortalidad.label}}</label></th>
+                    <td style="vertical-align:middle;">
+                        {{ form.horamortalidad.errors }}
+                        <input type="time" name="horamortalidad" class="form-control"   id="id_horamortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" required value="{{object.horamortalidad}}" {% else %} style="display:none"  {% endif %}/>
+                    </td>
+                </tr>
 
                 <tr>
                     <th colspan="2">Glasgow de egreso UCI</th>
                     <th colspan="2">{{form.glasgowtotal_e.label}}</th>
                 </tr>
+
                 <tr>
                     <td>{{form.apertura_ocular_e.label}}</td>
                     <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_apertura_ocular_e" >
+
                           {% for o in "1234"|make_list %}
-                            <label onclick="sumare({{o}},'ocular')" {% if object.apertura_ocular_e == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_apertura_ocular_e_{{o}}">
-                            <input type="radio" name="apertura_ocular_e" value="{{o}}"  required id="id_apertura_ocular_e_{{o}}"  {% if object.apertura_ocular_e == o %} checked="" {% endif %} />{{o}}
+                            <label onclick="sumare({{o}},'ocular')"  for="id_apertura_ocular_e_{{o}}">
+                            <input type="radio" name="apertura_ocular_e" value="{{o}}"  {% if object.fechaegreso != None %} required {% endif %} id="id_apertura_ocular_e_{{o}}"  {% if object.apertura_ocular_e == o %} checked="" {% endif %} />{{o}}
                           </label>
                           {% endfor %}
                           {{forms.apertura_ocular_e.errors}}
-                        </div>
+
                     </td>
                     <td colspan="2" colrow="3" style="vertical-align:middle;">
-                    <input type="text" readonly name="glasgowtotal_e" placeholder="" size="3" required class="form-control" maxlength="3" id="id_glasgowtotal_e" value="{{object.glasgowtotal_e}}"/>
+                    <input type="text" readonly name="glasgowtotal_e" placeholder="" size="3" {% if object.fechaegreso != None %} required {% endif %} class="form-control" maxlength="3" id="id_glasgowtotal_e" value="{{object.glasgowtotal_e}}"/>
                     </td>
                 </tr>
+
                 <tr>
                     <td>{{form.respuesta_motora_e.label}}</td>
                     <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_respuesta_motora_e" >
+
                           {% for o in "123456"|make_list %}
-                            <label onclick="sumare({{o}},'motora')" {% if object.respuesta_motora_e == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_respuesta_motora_e_{{o}}">
-                            <input type="radio" name="respuesta_motora_e" value="{{o}}"  required id="id_respuesta_motora_e_{{o}}"  {% if object.respuesta_motora_e == o %} checked="" {% endif %} />{{o}}
+                            <label onclick="sumare({{o}},'motora')"  for="id_respuesta_motora_e_{{o}}">
+                            <input type="radio" name="respuesta_motora_e" value="{{o}}"  {% if object.fechaegreso != None %} required {% endif %} id="id_respuesta_motora_e_{{o}}"  {% if object.respuesta_motora_e == o %} checked="" {% endif %} />{{o}}
                           </label>
                           {% endfor %}
                           {{forms.respuesta_motora_e.errors}}
-                        </div>
+
                     </td>
                 </tr>
                 <tr>
                     <td>{{form.respuesta_verbal_e.label}}</td>
                     <td>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id="id_respuesta_verbal_e" >
+
                           {% for o in "12345"|make_list %}
-                            <label onclick="sumare({{o}},'verbal')" {% if object.respuesta_verbal_e == o %} class="btn btn-success active" {% else %} class="btn btn-success" {% endif %} for="id_respuesta_verbal_e_{{o}}">
-                            <input type="radio" name="respuesta_verbal_e" value="{{o}}"  required id="id_respuesta_verbal_e_{{o}}"  {% if object.respuesta_verbal_e == o %} checked="" {% endif %} />{{o}}
+                            <label onclick="sumare({{o}},'verbal')"  for="id_respuesta_verbal_e_{{o}}">
+                            <input type="radio" name="respuesta_verbal_e" value="{{o}}"  {% if object.fechaegreso != None %} required {% endif %} id="id_respuesta_verbal_e_{{o}}"  {% if object.respuesta_verbal_e == o %} checked="" {% endif %} />{{o}}
                           </label>
                           {% endfor %}
                           {{forms.respuesta_verbal_e.errors}}
-                        </div>
+
                     </td>
                 </tr>
-                
+
+
+
 
 
                 </tbody>
             </table>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -686,6 +686,41 @@
 <br>
 {% endblock %}
 {% block extrajs %}
+<script>
+
+/* event listener */
+document.getElementsByName("fechaegreso")[0].addEventListener('change', fechamuerto);
+document.getElementsByName("valorable_neuro")[0].addEventListener('change', neurologia);
+
+
+/* function */
+function fechamuerto(){
+    var p= document.getElementById("id_fechaegreso").value;
+    document.getElementById("id_fechamortalidad").max=p;
+    }
+
+function neurologia(){
+    var p= document.getElementById("id_valorable_neuro").value;
+    if (p == 'NO') {
+        document.getElementById("valorable_neuro_causa").style="display:inline";
+        document.getElementById("neurocausa").style="display:inline"
+        document.getElementById("valorable_neuro_causa").required=true;
+    } else {
+        document.getElementById("valorable_neuro_causa").style="display:none";
+        document.getElementById("neurocausa").style="display:none"
+        document.getElementById("valorable_neuro_causa").required=false;
+        document.getElementById("valorable_neuro_causa").value="";
+    }
+
+
+    }
+
+
+
+
+
+</script>
+
 <script>
 function sumar(a,b) {
     var ao1 =document.getElementById("id_apertura_ocular_1").checked ;
@@ -767,7 +802,125 @@ function falla(a) {
         x.value="";
     }
 }
+
+function salida() {
+    var x=document.getElementById("bsalida").textContent;
+    if (x == "Realizar evaluación") {
+        document.getElementById("bsalida").textContent="Deshacer";
+        document.getElementById("tablaegreso").style="display:inline";
+        document.getElementById("id_fechaegreso").required=true;
+        document.getElementById("id_horaegreso").required=true;
+        document.getElementById("id_condicion_egreso_1").required=true;
+        document.getElementById("id_condicion_egreso_2").required=true;
+        document.getElementById("id_condicion_egreso_3").required=true;
+        document.getElementById("id_dx_egreso").required=true;
+        document.getElementById("id_apertura_ocular_e_1").required=true;
+        document.getElementById("id_apertura_ocular_e_2").required=true;
+        document.getElementById("id_apertura_ocular_e_3").required=true;
+        document.getElementById("id_apertura_ocular_e_4").required=true;
+        document.getElementById("id_respuesta_motora_e_1").required=true;
+        document.getElementById("id_respuesta_motora_e_2").required=true;
+        document.getElementById("id_respuesta_motora_e_3").required=true;
+        document.getElementById("id_respuesta_motora_e_4").required=true;
+        document.getElementById("id_respuesta_motora_e_5").required=true;
+        document.getElementById("id_respuesta_motora_e_6").required=true;
+        document.getElementById("id_respuesta_verbal_e_1").required=true;
+        document.getElementById("id_respuesta_verbal_e_2").required=true;
+        document.getElementById("id_respuesta_verbal_e_3").required=true;
+        document.getElementById("id_respuesta_verbal_e_4").required=true;
+        document.getElementById("id_respuesta_verbal_e_5").required=true;
+
+
+    } else {
+        document.getElementById("bsalida").textContent="Realizar evaluación";
+        document.getElementById("tablaegreso").style="display:none";
+        document.getElementById("id_fechaegreso").required=false;
+        document.getElementById("id_fechaegreso").value="";
+        document.getElementById("id_horaegreso").required=false;
+        document.getElementById("id_horaegreso").value="";
+        document.getElementById("id_condicion_egreso_1").required=false;
+        document.getElementById("id_condicion_egreso_1").checked=false;
+        document.getElementById("id_condicion_egreso_2").required=false;
+        document.getElementById("id_condicion_egreso_2").checked=false;
+        document.getElementById("id_condicion_egreso_3").required=false;
+        document.getElementById("id_condicion_egreso_3").checked=false;
+        document.getElementById("id_dx_egreso").required=false;
+        document.getElementById("id_dx_egreso").value="";
+        document.getElementById("id_apertura_ocular_e_1").required=false;
+        document.getElementById("id_apertura_ocular_e_1").checked=false;
+        document.getElementById("id_apertura_ocular_e_2").required=false;
+        document.getElementById("id_apertura_ocular_e_2").checked=false;
+        document.getElementById("id_apertura_ocular_e_3").required=false;
+        document.getElementById("id_apertura_ocular_e_3").checked=false;
+        document.getElementById("id_apertura_ocular_e_4").required=false;
+        document.getElementById("id_apertura_ocular_e_4").checked=false;
+        document.getElementById("id_respuesta_motora_e_1").required=false;
+        document.getElementById("id_respuesta_motora_e_1").checked=false;
+        document.getElementById("id_respuesta_motora_e_2").required=false;
+        document.getElementById("id_respuesta_motora_e_2").checked=false;
+        document.getElementById("id_respuesta_motora_e_3").required=false;
+        document.getElementById("id_respuesta_motora_e_3").checked=false;
+        document.getElementById("id_respuesta_motora_e_4").required=false;
+        document.getElementById("id_respuesta_motora_e_4").checked=false;
+        document.getElementById("id_respuesta_motora_e_5").required=false;
+        document.getElementById("id_respuesta_motora_e_5").checked=false;
+        document.getElementById("id_respuesta_motora_e_6").required=false;
+        document.getElementById("id_respuesta_motora_e_6").checked=false;
+        document.getElementById("id_respuesta_verbal_e_1").required=false;
+        document.getElementById("id_respuesta_verbal_e_1").checked=false;
+        document.getElementById("id_respuesta_verbal_e_2").required=false;
+        document.getElementById("id_respuesta_verbal_e_2").checked=false;
+        document.getElementById("id_respuesta_verbal_e_3").required=false;
+        document.getElementById("id_respuesta_verbal_e_3").checked=false;
+        document.getElementById("id_respuesta_verbal_e_4").required=false;
+        document.getElementById("id_respuesta_verbal_e_4").checked=false;
+        document.getElementById("id_respuesta_verbal_e_5").required=false;
+        document.getElementById("id_respuesta_verbal_e_5").checked=false;
+    }
+
+}
+
+
+
 </script>
+
+<script>
+function muerto() {
+    var x=document.getElementById("id_condicion_egreso_3").checked;
+
+    if (x == true ) {
+        document.getElementById("cmortalidad").style="display:inline";
+        document.getElementById("id_causa_mortalidad").style="display:inline";
+        document.getElementById("id_causa_mortalidad").required=true;
+        document.getElementById("fmortalidad").style="display:inline";
+        document.getElementById("id_fechamortalidad").style="display:inline";
+        document.getElementById("id_fechamortalidad").required=true;
+        document.getElementById("hmortalidad").style="display:inline";
+        document.getElementById("id_horamortalidad").style="display:inline";
+        document.getElementById("id_horamortalidad").required=true;
+    }else {
+        document.getElementById("cmortalidad").style="display:none";
+        document.getElementById("id_causa_mortalidad").style="display:none";
+        document.getElementById("id_causa_mortalidad").required=false;
+        document.getElementById("id_causa_mortalidad").value="";
+        document.getElementById("fmortalidad").style="display:none";
+        document.getElementById("id_fechamortalidad").style="display:none";
+        document.getElementById("id_fechamortalidad").required=false;
+        document.getElementById("id_fechamortalidad").value="";
+        document.getElementById("hmortalidad").style="display:none";
+        document.getElementById("id_horamortalidad").style="display:none";
+        document.getElementById("id_horamortalidad").required=false;
+        document.getElementById("id_horamortalidad").value="";
+
+    }
+
+
+
+
+}
+</script>
+
+
 <script>
 function soporte(a) {
     var al1=document.getElementById("vaso1");
@@ -790,39 +943,56 @@ function soporte(a) {
 
 
     if (a == 'SI') {
-        al1.style="visibility:inline";
-        al2.style="visibility:inline";
-        al3.style="visibility:inline";
-        ai1.type="radio";
-        ai2.type="radio";
-        bl1.style="visibility:inline";
-        bl2.style="visibility:inline";
-        bl3.style="visibility:inline";
-        bi1.type="radio";
-        bi2.type="radio";
-        cl1.style="visibility:inline";
-        cl2.style="visibility:inline";
-        cl3.style="visibility:inline";
-        ci1.type="radio";
-        ci2.type="radio";
+        al1.style="display:inline";
+        al2.style="display:inline";
+        al3.style="display:inline";
+        ai1.style="display:inline";
+        ai1.required=true;
+        ai2.style="display:inline";
+        ai2.required=true;
+        bl1.style="display:inline";
+        bl2.style="display:inline";
+        bl3.style="display:inline";
+        bi1.style="display:inline";
+        bi1.required=true;
+        bi2.style="display:inline";
+        bi2.required=true;
+        cl1.style="display:inline";
+        cl2.style="display:inline";
+        cl3.style="display:inline";
+        ci1.style="display:inline";
+        ci1.required=true;
+        ci2.style="display:inline";
+        ci2.required=true;
 
-    }
-    if (a == 'NO') {
-        al1.style="visibility:hidden";
-        al2.style="visibility:hidden";
-        al3.style="visibility:hidden";
-        ai1.type="hidden";
-        ai2.type="hidden";
-        bl1.style="visibility:hidden";
-        bl2.style="visibility:hidden";
-        bl3.style="visibility:hidden";
-        bi1.type="hidden";
-        bi2.type="hidden";
-        cl1.style="visibility:hidden";
-        cl2.style="visibility:hidden";
-        cl3.style="visibility:hidden";
-        ci1.type="hidden";
-        ci2.type="hidden";
+    }else {
+        al1.style="display:none";
+        al2.style="display:none";
+        al3.style="display:none";
+        ai1.style="display:none";
+        ai1.required=false;
+        ai1.checked=false;
+        ai2.style="display:none";
+        ai2.required=false;
+        ai2.checked=false;
+        bl1.style="display:none";
+        bl2.style="display:none";
+        bl3.style="display:none";
+        bi1.style="display:none";
+        bi1.required=false;
+        bi1.checked=false;
+        bi2.style="display:none";
+        bi2.required=false;
+        bi2.checked=false;
+        cl1.style="display:none";
+        cl2.style="display:none";
+        cl3.style="display:none";
+        ci1.style="display:none";
+        ci1.required=false;
+        ci1.checked=false;
+        ci2.style="display:none";
+        ci2.required=false;
+        ci2.checked=false;
 
     }
 

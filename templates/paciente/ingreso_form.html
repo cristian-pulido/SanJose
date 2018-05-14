@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load staticfiles %}
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
@@ -22,22 +23,48 @@
                 <div class="form-group">
                     <label for="{{form.fecha_form.name}}">{{form.fecha_form.label}}</label>
                     {{ form.fecha_form.errors }}
-                    <input class="form-control" name="fecha_form" type="text" placeholder="Fecha cuando se llena este formulario " id="datepicker"  value="{{object.fecha_form|date:'d/m/Y'}}">
-
+                    <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_form" type="date" placeholder="Elegir fecha" id="id_fecha_form" value="{{object.fecha_form|date:'Y-m-d'}}">
+                    <div class="help">Cuando se llena este formulario.</div>
                 </div>
         </div>
+
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
+
                     <label for="{{form.lugar_nacimiento.name}}">{{form.lugar_nacimiento.label}}</label>
                     {{ form.lugar_nacimiento.errors }}
-                    {{form.lugar_nacimiento}}
+                    <input type="text" name="lugar_nacimiento" maxlength="80" id="id_lugar_nacimiento" class="form-control" readonly required {% if object.lugar_nacimiento != None %} value="{{object.lugar_nacimiento}}" {% endif %}/>
+
+                    <br>
+
+
+					<script src="{% static 'js/countries.js' %}"></script>
+					País:   <select id="country" name ="country" {% if object.lugar_nacimiento != None %} required {% endif %} ></select>
+                    Departamento: <select name ="state" id ="state"  style="display:none"></select>
+
+				<script language="javascript">
+					populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+				</script>
+
+
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.lugar_residencia.name}}">{{form.lugar_residencia.label}}</label>
                     {{ form.lugar_residencia.errors }}
-                    {{form.lugar_residencia}}
+                    <input type="text" name="lugar_residencia" maxlength="80" id="id_lugar_residencia" class="form-control" readonly required {% if object.lugar_residencia != None %} value="{{object.lugar_residencia}}" {% endif %}/>
+
+                    <br>
+
+
+					<script src="{% static 'js/countries.js' %}"></script>
+					País:   <select id="country2" name ="country2" {% if object.lugar_residencia != None %} required {% endif %} ></select>
+                    Departamento: <select name ="state2" id ="state2"  style="display:none"></select>
+
+				<script language="javascript">
+					populateCountries("country2", "state2"); // first parameter is id of country2 drop-down and second parameter is id of state2 drop-down
+				</script>
                 </div>
         </div>
         {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
@@ -52,21 +79,21 @@
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.nombre_acompanante.name}}">{{form.nombre_acompanante.label}}</label>
-                    {{form.nombre_acompanante}}
+                    <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombre_acompanante" maxlength="70" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.tel1.name}}">{{form.tel1.label}}</label>
                     {{ form.tel1.errors }}
-                    {{form.tel1}}
+                    <input maxlength="10" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel1" required id="id_tel1" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel1 != None %} value="{{object.tel1}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.tel2.name}}">{{form.tel2.label}}</label>
                     {{ form.tel2.errors }}
-                    {{form.tel2}}
+                    <input  maxlength="10" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel2" id="id_tel2" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel2 != None %} value="{{object.tel2}}" {% endif %}/>
                 </div>
         </div>
         {% else %}
@@ -92,7 +119,7 @@
             <div class="form-group">
               <label for="{{form.peso.name}}">{{form.peso.label}}</label>
                 {{ form.peso.errors }}
-                {{form.peso}}
+                <input maxlength="3" required max="120" type="number" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="peso" id="id_peso" placeholder="Peso en Kilogramos" class="form-control" {% if object.peso != None %} value="{{object.peso}}" {% endif %}/>
             </div>
 
         </div>
@@ -100,7 +127,7 @@
                 <div class="form-group">
                     <label for="{{form.estatura.name}}">{{form.estatura.label}}</label>
                     {{ form.estatura.errors }}
-                    {{form.estatura}}
+                    <input maxlength="3" required min="100" max="220" type="number" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="estatura" id="id_estatura" placeholder="estatura en cms " class="form-control" {% if object.estatura != None %} value="{{object.estatura}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -138,77 +165,92 @@
                     {{ form.a_patologicos.errors }}
                     {{form.a_patologicos}}
                     <div class="help">Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.</div>
+                    <br>
+
+
+
+                     <label id="label_a_patologicos_cual"  {% if object.a_patologicos_cual == None %}  style="display:none"   {% endif %}>{{form.a_patologicos_cual.label}}</label>
+                    {{ form.a_patologicos_cual.errors }}
+                    <input type="text"  name="a_patologicos_cual" {% if object.a_patologicos_cual == None %}  style="display:none"   {% else %} value="{{object.a_patologicos_cual}}" {% endif %} class="form-control"  maxlength="50" id="id_a_patologicos_cual" />
+
                 </div>
 
+
+
+
         </div>
+
         <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.a_patologicos_cual.name}}">{{form.a_patologicos_cual.label}}</label>
-                    {{ form.a_patologicos_cual.errors }}
-                    {{form.a_patologicos_cual}}
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.quirurgicos.name}}">{{form.quirurgicos.label}}</label>
+                    <label>Antecedentes quirúrgicos:</label>
                     {{ form.quirurgicos.errors }}
-                    {{form.quirurgicos}}
-                </div>
+                    <br>
+                    <table width="500" Cellspacing="10">
+                        <tbody>
+                        <tr>
+                            <td style="align:'center'"><input onclick="craneo()" type="checkbox" name="craneotomia" value="craneotomia" id="craneotomia" {% if object.fecha_craneotomia != None %} checked {% endif  %}> Craneotomía</td>
+                            <td style="align:'center'">
+                                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                                    <p id="fcraneo" {% if object.fecha_craneotomia == None %} style="display:none" {% endif  %}>{{form.fecha_craneotomia.label}}</p>
+                                    &nbsp;&nbsp;{{ form.fecha_craneotomia.errors }}
+                                    <input   {% if object.fecha_craneotomia == None %} style="display:none" {% endif  %} class="form-control"  min="1960-01-01" max="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}"  name="fecha_craneotomia" type="date"  id="id_fecha_craneotomia" value="{{object.fecha_craneotomia|date:'Y-m-d'}}">
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="align:'center'"><input onclick="qotro()" type="checkbox" name="q_otro" value="q_otro" id="q_otro" {% if object.causa_quirurgicos != None %} checked {% endif  %}> Otro</td>
+                            <td style="align:'center'">
+                                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                                    <p id="causaotro" {% if object.causa_quirurgicos == None %} style="display:none" {% endif  %}>{{form.causa_quirurgicos.label}}</p>
+                                    &nbsp;&nbsp;{{ form.causa_quirurgicos.errors }}
+                                    <input   {% if object.causa_quirurgicos == None %} style="display:none" {% else %} value="{{object.causa_quirurgicos}}" {% endif  %} class="form-control"   name="causa_quirurgicos" type="text"  id="id_causa_quirurgicos" >
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+
+                    <br>
         </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.fecha_craneotomia.name}}">{{form.fecha_craneotomia.label}}</label>
-                    {{ form.fecha_craneotomia.errors }}
-                    <input class="form-control" name="fecha_craneotomia" type="text" placeholder="Si se escoge craneotomía " id="date"  value="{{object.fecha_craneotomia|date:'d/m/Y'}}">
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.causa_quirurgicos.name}}">{{form.causa_quirurgicos.label}}</label>
-                    {{ form.causa_quirurgicos.errors }}
-                    {{form.causa_quirurgicos}}
-                </div>
-        </div>
+
+
         <div class="col-md-8 col-md-offset-2" >
                 <div class="form-group">
                     <label for="{{form.a_toxico_alergenicos.name}}">{{form.a_toxico_alergenicos.label}}</label>
                     {{ form.a_toxico_alergenicos.errors }}
                     {{form.a_toxico_alergenicos}}
                 </div>
+            <div class="form-group">
+                <label>Antecedentes Farmacológicos</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td style="align:'center'"><b>1</b></td>
+                        <td style="align:'center'"><input type="text" name="a_farmaco1" {% if object.a_farmaco1 != None %} value="{{object.a_farmaco1}}" {% endif  %} maxlength="180" class="form-control" id="id_a_farmaco1" /></td>
+                        <th style="align:'center'"><label id="f1" {% if object.a_farmaco1 == None %} style="display:none" {% endif  %}>{{form.a_farmaco1_dosis.label}}</label></th>
+                        <td style="align:'center'"><input   {% if object.a_farmaco1 == None %} style="display:none" {% else %} value="{{object.a_farmaco1_dosis}}" required {% endif  %} class="form-control"   name="a_farmaco1_dosis" type="text"  id="id_a_farmaco1_dosis" ></td>
+                    </tr>
+                    <tr>
+                        <td style="align:'center'"><b>2</b></td>
+                        <td style="align:'center'"><input type="text" name="a_farmaco2" {% if object.a_farmaco2 != None %} value="{{object.a_farmaco2}}" {% endif  %} maxlength="180" class="form-control" id="id_a_farmaco2" /></td>
+                        <th style="align:'center'"><label id="f2" {% if object.a_farmaco2 == None %} style="display:none" {% endif  %}>{{form.a_farmaco2_dosis.label}}</label></th>
+                        <td style="align:'center'"><input   {% if object.a_farmaco2 == None %} style="display:none" {% else %} value="{{object.a_farmaco2_dosis}}" required {% endif  %} class="form-control"   name="a_farmaco2_dosis" type="text"  id="id_a_farmaco2_dosis" ></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
 
         </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.a_farmaco1.name}}">{{form.a_farmaco1.label}}</label>
-                    {{ form.a_farmaco1.errors }}
-                    {{form.a_farmaco1}}
 
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.a_farmaco1_dosis.name}}">{{form.a_farmaco1_dosis.label}}</label>
-                    {{ form.a_farmaco1_dosis.errors }}
-                    {{form.a_farmaco1_dosis}}
-
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.a_farmaco2.name}}">{{form.a_farmaco2.label}}</label>
-                    {{ form.a_farmaco2.errors }}
-                    {{form.a_farmaco2}}
-
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.a_farmaco2_dosis.name}}">{{form.a_farmaco2_dosis.label}}</label>
-                    {{ form.a_farmaco2_dosis.errors }}
-                    {{form.a_farmaco2_dosis}}
-
-                </div>
-        </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.a_familiares.name}}">{{form.a_familiares.label}}</label>
@@ -220,24 +262,19 @@
                 <div class="form-group">
                     <label for="{{form.firma_consentimiento.name}}">{{form.firma_consentimiento.label}}</label>
                     {{ form.firma_consentimiento.errors }}
-                    {{form.firma_consentimiento}}
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.firma_causa.name}}">{{form.firma_causa.label}}</label>
-                    {{ form.firma_causa.errors }}
-                    {{form.firma_causa}}
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.fechafirma.name}}">{{form.fechafirma.label}}</label>
+                    <input onclick="ff()" type="checkbox" name="firma_consentimiento" id="id_firma_consentimiento" {% if object.firma_consentimiento == True %} checked {% endif  %} />
                     {{ form.fechafirma.errors }}
-                    <input class="form-control" name="fechafirma" type="text" placeholder="Fecha firma consentimiento " id="dates"  value="{{object.fecha_craneotomia|date:'d/m/Y'}}">
+                    <br>
+                    <label id="ffirma" {% if object.firma_consentimiento == False %} style="display:none" {% endif  %}>{{form.fechafirma.label}}</label>
+                    <input   {% if object.firma_consentimiento == False %} style="display:none" {% endif  %} class="form-control"  required min="2017-01-01" max="2020-12-31"  name="fechafirma" type="date"  id="id_fechafirma" value="{{object.fechafirma|date:'Y-m-d'}}">
+                    <br>
+                    <label id="causafirma" {% if object.firma_consentimiento == True %} style="display:none" {% endif  %}>{{form.firma_causa.label}}</label>
+                    <input   {% if object.firma_consentimiento == True %} style="display:none" {% else %} value="{{object.firma_causa}}" {% endif  %} class="form-control"   name="firma_causa" type="text"  id="id_firma_causa" >
+
+                    {{ form.firma_causa.errors }}
+
                 </div>
         </div>
-
 
     </div>
 
@@ -246,8 +283,176 @@
     </div>
 
 </form>
+
+
+
+
+
 <br>
 <br>
 {% endblock %}
 {% block extrajs %}
+<script>
+
+/* event listener */
+document.getElementsByName("country")[0].addEventListener('change', npais);
+document.getElementsByName("state")[0].addEventListener('change', ndep);
+document.getElementsByName("country2")[0].addEventListener('change', npais2);
+document.getElementsByName("state2")[0].addEventListener('change', ndep2);
+document.getElementsByName("a_patologicos")[0].addEventListener('change', patologicos);
+document.getElementsByName("a_farmaco1")[0].addEventListener('change', far1);
+document.getElementsByName("a_farmaco2")[0].addEventListener('change', far2);
+
+/* function */
+function npais(){
+    var p= document.getElementById("country").value;
+    if ( p == -1 ) {
+        document.getElementById("id_lugar_nacimiento").value = "";
+    } else {
+        document.getElementById("id_lugar_nacimiento").value = p;
+    }
+    var d= document.getElementById("state").style="display:inline";
+    var d= document.getElementById("state").required=true;
+}
+function ndep(){
+    var d= document.getElementById("state").value;
+    var p= document.getElementById("country").value;
+    document.getElementById("id_lugar_nacimiento").value = p+", "+d;
+
+}
+function npais2(){
+    var p= document.getElementById("country2").value;
+    if ( p == -1 ) {
+        document.getElementById("id_lugar_residencia").value = "";
+    } else {
+        document.getElementById("id_lugar_residencia").value = p;
+    }
+    var d= document.getElementById("state2").style="display:inline";
+    var d= document.getElementById("state2").required=true;
+}
+function ndep2(){
+    var d= document.getElementById("state2").value;
+    var p= document.getElementById("country2").value;
+    document.getElementById("id_lugar_residencia").value = p+", "+d;
+
+}
+
+function patologicos(){
+    var x=document.querySelectorAll("option:checked");
+    var flag=false;
+    for (var i = 0; i < x.length; i++) {
+    if ( x[i].value == "6" ) {
+        flag=true;
+        break;
+    } }
+
+    if ( flag == true ) {
+        document.getElementById("label_a_patologicos_cual").style ="display:inline" ;
+        document.getElementById("id_a_patologicos_cual").style ="display:inline" ;
+        document.getElementById("id_a_patologicos_cual").required =true ;
+    } else {
+        document.getElementById("label_a_patologicos_cual").style ="display:none" ;
+        document.getElementById("id_a_patologicos_cual").style ="display:none" ;
+        document.getElementById("id_a_patologicos_cual").required =false ;
+        document.getElementById("id_a_patologicos_cual").value ="" ;
+    }
+}
+
+function far1(){
+    var v= document.getElementById("id_a_farmaco1").value;
+    if ( v != "" ) {
+        document.getElementById("f1").style ="display:inline" ;
+        document.getElementById("id_a_farmaco1_dosis").style ="display:inline" ;
+        document.getElementById("id_a_farmaco1_dosis").required =true ;
+    } else {
+        document.getElementById("f1").style ="display:none" ;
+        document.getElementById("id_a_farmaco1_dosis").style ="display:none" ;
+        document.getElementById("id_a_farmaco1_dosis").required =false ;
+        document.getElementById("id_a_farmaco1_dosis").value ="" ;
+    }
+
+}
+
+function far2(){
+    var v= document.getElementById("id_a_farmaco2").value;
+    if ( v != "" ) {
+        document.getElementById("f2").style ="display:inline" ;
+        document.getElementById("id_a_farmaco2_dosis").style ="display:inline" ;
+        document.getElementById("id_a_farmaco2_dosis").required =true ;
+    } else {
+        document.getElementById("f2").style ="display:none" ;
+        document.getElementById("id_a_farmaco2_dosis").style ="display:none" ;
+        document.getElementById("id_a_farmaco2_dosis").required =false ;
+        document.getElementById("id_a_farmaco2_dosis").value ="" ;
+    }
+
+}
+
+
+
+
+
+
+</script>
+
+<script>
+function craneo(){
+    var flag= document.getElementById("craneotomia").checked;
+    if ( flag == true ) {
+        document.getElementById("fcraneo").style ="display:inline" ;
+        document.getElementById("id_fecha_craneotomia").style ="display:inline" ;
+        document.getElementById("id_fecha_craneotomia").required =true ;
+    } else {
+        document.getElementById("fcraneo").style ="display:none" ;
+        document.getElementById("id_fecha_craneotomia").style ="display:none" ;
+        document.getElementById("id_fecha_craneotomia").required =false ;
+        document.getElementById("id_fecha_craneotomia").value ="" ;
+    }
+}
+
+
+function qotro(){
+    var flag= document.getElementById("q_otro").checked;
+    if ( flag == true ) {
+        document.getElementById("causaotro").style ="display:inline" ;
+        document.getElementById("id_causa_quirurgicos").style ="display:inline" ;
+        document.getElementById("id_causa_quirurgicos").required =true ;
+    } else {
+        document.getElementById("causaotro").style ="display:none" ;
+        document.getElementById("id_causa_quirurgicos").style ="display:none" ;
+        document.getElementById("id_causa_quirurgicos").required =false ;
+        document.getElementById("id_causa_quirurgicos").value ="" ;
+    }
+}
+
+
+function ff(){
+    var v= document.getElementById("id_firma_consentimiento").checked;
+    if ( v == true ) {
+        document.getElementById("ffirma").style ="display:inline" ;
+        document.getElementById("id_fechafirma").style ="display:inline" ;
+        document.getElementById("id_fechafirma").required = true ;
+        document.getElementById("causafirma").style ="display:none" ;
+        document.getElementById("id_firma_causa").style ="display:none" ;
+        document.getElementById("id_firma_causa").required =false ;
+        document.getElementById("id_firma_causa").value ="" ;
+    } else {
+        document.getElementById("ffirma").style ="display:none" ;
+        document.getElementById("id_fechafirma").style ="display:none" ;
+        document.getElementById("id_fechafirma").required =false ;
+        document.getElementById("id_fechafirma").value ="" ;
+        document.getElementById("causafirma").style ="display:inline" ;
+        document.getElementById("id_firma_causa").style ="display:inline" ;
+        document.getElementById("id_firma_causa").required =true ;
+    }
+
+}
+
+</script>
+
+
+
+
+
+
 {% endblock %}

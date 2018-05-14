@@ -46,7 +46,7 @@ def upload_js(per):
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-download fade">
 
-                <td>
+                <td style="vertical-align:middle;">
                     <p class="name">
                        <a href={%=file.url%}>{%=file.name%}</a>
                     </p>
@@ -55,7 +55,7 @@ def upload_js(per):
                     {% } %}
                 </td>
 
-                <td>
+                <td >
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
                 <td>
@@ -68,13 +68,16 @@ def upload_js(per):
                     </form>
                     
                 </td>
-                <td>
-                         <a href="{%=file.thumbnailUrl%}  ">
-                            Descargar
-                        </a> 
+                <td>                        
+                        <form>
+                          <button class="btn btn-warning"  formaction={%=file.thumbnailUrl%}>
+                          <i class="glyphicon glyphicon-download"></i>
+                          Descargar
+                          </button>
+                        </form>
                 </td>
 
-                <td>
+                <td style="vertical-align:middle;">
                    <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%} </p>
                 
                 </td>
@@ -122,7 +125,7 @@ def upload_js(per):
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-download fade">
 
-                <td>
+                <td style="vertical-align:middle;">
                     <p class="name">
                        <a href={%=file.url%}>{%=file.name%}</a>
                     </p>
@@ -135,11 +138,14 @@ def upload_js(per):
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
                 <td>
-                <a href="{%=file.thumbnailUrl%}  ">
-                            Descargar
-                        </a> 
+                        <form>
+                          <button class="btn btn-warning"  formaction={%=file.thumbnailUrl%}>
+                          <i class="glyphicon glyphicon-download"></i>
+                          Descargar
+                          </button>
+                        </form>
                 </td>
-                <td>
+                <td style="vertical-align:middle;">
                    <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
                 </td>
             </tr>

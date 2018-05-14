@@ -46,7 +46,7 @@
                   <th style="vertical-align:middle;">{{form.fechaneuro.label}}</th>
                     <td style="vertical-align:middle;">
                         {{ form.fechaneuro.errors }}
-                        <input class="form-control" name="fechaneuro" type="text" placeholder="Fecha evaluación neurológica " id="datepicker"  value="{{object.fechaneuro|date:'d/m/Y'}}">
+                        <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaneuro" type="date"  id="id_fechaneuro" value="{{object.fechaneuro|date:'Y-m-d'}}">
                     </td>
                     <th style="vertical-align:middle;">{{form.neurologo.label}}</th>
                     <td style="vertical-align:middle;">
@@ -132,7 +132,7 @@
                             </tr>
                             <tr>
                                 <td><input onclick="sumar1(1,'comunicacion')" type="radio" name="comunicacion" value="1" id="id_comunicacion_2" required {% if object.comunicacion == '1' %}checked {% endif %}/></td>
-                                <th>(1) Funcional: Adecuada* </th>
+                                <th>(1) No funcional: Intencional* </th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar1(0,'comunicacion')" type="radio" name="comunicacion" value="0" id="id_comunicacion_1" required {% if object.comunicacion == '0' %}checked {% endif %}/></td>
@@ -317,23 +317,23 @@
                         <tbody>
                             <tr>
                                 <td><input onclick="sumar2(4,'respuestamotora')" type="radio" name="respuestamotora" value="4" id="id_respuestamotora_5" required {% if object.respuestamotora == '4' %}checked {% endif %}/></td>
-                                <th>(4) Dirige la mirada en respuesta a órdenes</th>
+                                <th>(4) Obedece órdenes</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(3,'respuestamotora')" type="radio" name="respuestamotora" value="3" id="id_respuestamotora_4" required {% if object.respuestamotora == '3' %}checked {% endif %}/></td>
-                                <th>(3) Espontánea pero no dirige la mirada</th>
+                                <th>(3) Localiza estímulos dolorosos</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(2,'respuestamotora')" type="radio" name="respuestamotora" value="2" id="id_respuestamotora_3" required {% if object.respuestamotora == '2' %}checked {% endif %}/></td>
-                                <th>(2) Apertura a estímulos sonoros intensos</th>
+                                <th>(2) Respuesta flexora al dolor en MMSS (Decorticación y retirada)</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(1,'respuestamotora')" type="radio" name="respuestamotora" value="1" id="id_respuestamotora_2" required {% if object.respuestamotora == '1' %}checked {% endif %}/></td>
-                                <th>(1) Apertura a estímulos nociceptivos</th>
+                                <th>(1) Respuesta extensora al dolor (Descerebración)</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(0,'respuestamotora')" type="radio" name="respuestamotora" value="0" id="id_respuestamotora_1" required {% if object.respuestamotora == '0' %}checked {% endif %}/></td>
-                                <th>(0) Ojos cerrados al dolor</th>
+                                <th>(0) Ninguna o Estado mioclónico generalizado</th>
                             </tr>
                         </tbody>
                     </table>
@@ -343,23 +343,23 @@
                         <tbody>
                             <tr>
                                 <td><input onclick="sumar2(4,'respiracion')" type="radio" name="respiracion" value="4" id="id_respiracion_5" required {% if object.respiracion == '4' %}checked {% endif %}/></td>
-                                <th>(4) Ambos respiracion corneales y fotomotores presentes</th>
+                                <th>(4) No intubado, respiración rítmica</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(3,'respiracion')" type="radio" name="respiracion" value="3" id="id_respiracion_4" required {% if object.respiracion == '3' %}checked {% endif %}/></td>
-                                <th>(3) Reflejo motor ausente unilateral</th>
+                                <th>(3) No intubado, respiración de Cheyene- Stokes</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(2,'respiracion')" type="radio" name="respiracion" value="2" id="id_respiracion_3" required {% if object.respiracion == '2' %}checked {% endif %}/></td>
-                                <th>(2) respiracion corneales <b>o</b> fotomotores ausentes</th>
+                                <th>(2) No intubado, respiración irregular</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(1,'respiracion')" type="radio" name="respiracion" value="1" id="id_respiracion_2" required {% if object.respiracion == '1' %}checked {% endif %}/></td>
-                                <th>(1) respiracion corneales <b>y</b> fotomotores ausentes</th>
+                                <th>(1) Intubado, respira por encima de la frecuencia del respirador</th>
                             </tr>
                             <tr>
                                 <td><input onclick="sumar2(0,'respiracion')" type="radio" name="respiracion" value="0" id="id_respiracion_1" required {% if object.respiracion == '0' %}checked {% endif %}/></td>
-                                <th>(0) respiracion corneales, fotomotores y tusígeno ausentes</th>
+                                <th>(0) Intubado, respira a la frecuencia del respirador o apnea</th>
                             </tr>
                         </tbody>
                     </table>
@@ -423,24 +423,39 @@
                                     {% endif %}
                                 {% endif %}
                         {% endif %}
-                       name="estadoconciencia" value="Vigilia_sin_respuesta" required id="id_estadoconciencia_2" {% if object.estadoconciencia == 'Vigilia_sin_respuesta' %} checked {% endif %}/>Vigilia sin respuesta
-            <input type="radio"  name="estadoconciencia" value="Mínima_conciencia" required id="id_estadoconciencia_3" {% if object.estadoconciencia == 'Mínima_conciencia' %} checked {% endif %}/> Mínima conciencia
+                       name="estadoconciencia" value="Vigilia sin respuesta" required id="id_estadoconciencia_2" {% if object.estadoconciencia == 'Vigilia sin respuesta' %} checked {% endif %}/>Vigilia sin respuesta
+            <input type="radio"  name="estadoconciencia" value="Mínima conciencia" required id="id_estadoconciencia_3" {% if object.estadoconciencia == 'Mínima conciencia' %} checked {% endif %}/> Mínima conciencia
         </tr>
         <tr>
             <th>{{form.segunda.label}}</th>
             <td>{{form.segunda}}</td>
             <th>{{form.epileptico.label}}</th>
-            <td>{{form.epileptico}}</td>
-        </tr>
-        <tr>
-            <th>{{form.fechaeeg.label}}</th>
-            <td style="vertical-align:middle;">
-                {{ form.fechaneuro.errors }}
-                <input class="form-control" name="fechaeeg" type="text" placeholder="Fecha  " id="date"  value="{{object.fechaeeg|date:'d/m/Y'}}">
+            <td><select name="epileptico" id="id_epileptico" required class="form-control">
+                  <option value="">---------</option>
+
+                  <option value="SI" {% if object.epileptico == "SI" %} selected {% endif %} >SI</option>
+
+                  <option value="NO" {% if object.epileptico == "NO" %} selected {% endif %} >NO</option>
+
+                </select>
             </td>
-            <th>{{form.resultadoeeg.label}}</th>
-            <td>{{form.resultadoeeg}}</td>
         </tr>
+
+
+
+        </tbody>
+    </table>
+    <table id="tablee" {% if object.epileptico == "NO" %} style="display:none" {% endif %} class="table table-hover">
+        <tbody>
+            <tr>
+                <th style="vertical-align:middle;">{{form.fechaeeg.label}}</th>
+                <td style="vertical-align:middle;">
+                    {{ form.fechaneuro.errors }}
+                    <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" {% if object.epileptico == "SI" %} required {% endif %} name="fechaeeg" type="date"  id="id_fechaeeg" value="{{object.fechaeeg|date:'Y-m-d'}}" />
+                </td>
+                <th style="vertical-align:middle;">{{form.resultadoeeg.label}}</th>
+                <td style="vertical-align:middle;"> <input type="text" name="resultadoeeg" maxlength="200" id="id_resultadoeeg" placeholder="" class="form-control" {% if object.epileptico == "SI" %} value="{{object.resultadoeeg}}" required {% endif %} /></td>
+            </tr>
         </tbody>
     </table>
 
@@ -456,6 +471,27 @@
 <br>
 {% endblock %}
 {% block extrajs %}
+<script>
+
+/* event listener */
+document.getElementsByName("epileptico")[0].addEventListener('change', e);
+
+/* function */
+function e(){
+    var p= document.getElementById("id_epileptico").value;
+    if (p == 'SI') {
+    document.getElementById("tablee").style="display:inline";
+    document.getElementById("id_fechaeeg").required=true;
+    document.getElementById("id_resultadoeeg").required=true;
+    } else {
+    document.getElementById("tablee").style="display:none";
+    document.getElementById("id_fechaeeg").required=false;
+    document.getElementById("id_fechaeeg").value="";
+    document.getElementById("id_resultadoeeg").required=false;
+    document.getElementById("id_resultadoeeg").value="";
+    }
+}
+</script>
 <script>
 function sumar1(a,b) {
     var auditiva4 =document.getElementById("id_auditiva_5").checked ;
@@ -518,6 +554,7 @@ function sumar1(a,b) {
     var dx=0
     if ( b == 'auditiva') {
         dx=motora5*1+motora4*1+motora3*1+comunicacion1*1+visual5*1+visual4*1+visual3*1+visual2*1+verbal3*1;
+
         if ( a == 4 || a == 3) {
         dx=dx+1;
     }

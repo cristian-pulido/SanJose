@@ -38,11 +38,28 @@
                 <h1>Formulario Traslado a Radiología Sujeto#{{ object.candidato.sujeto_numero }}</h1>
         </div>
         <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.fecha_procedimiento.name}}">{{form.fecha_procedimiento.label}}</label>
-                    {{ form.fecha_procedimiento.errors }}
-                    <input class="form-control" name="fecha_procedimiento" type="text" placeholder="Fecha " id="datepicker"  value="{{object.fecha_procedimiento|date:'d/m/Y'}}">
-                </div>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <label for="{{form.fecha_procedimiento.name}}">{{form.fecha_procedimiento.label}}</label>
+                            </th>
+                            <td>
+                                {{ form.fecha_procedimiento.errors }}
+                                <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_procedimiento" type="date"  id="id_fecha_procedimiento" value="{{object.fecha_procedimiento|date:'Y-m-d'}}">
+                            </td>
+                            <th>
+                                <label for="{{form.radiologo.name}}">{{form.radiologo.label}}</label>
+                            </th>
+                            <td>
+                                {{form.radiologo}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
         </div>
 
 
@@ -267,7 +284,7 @@
         </div>
 
         <div class="col-md-8 col-md-offset-2">
-            <FONT SIZE="5">Monitoreo neurológico</FONT>  &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">En la estancia en la unidad de radiología</FONT>
+            <FONT SIZE="5">Monitoreo neurológico</FONT>  {{form.monitoreo}} &nbsp; &nbsp; &nbsp;  <FONT SIZE="2">En la estancia en la unidad de radiología</FONT>
             &nbsp; &nbsp;
             <br><br>
             <table class="table table-hover">

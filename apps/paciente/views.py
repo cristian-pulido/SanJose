@@ -3,8 +3,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
-from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm
-from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia
+from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, BoldForm
+from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold
 
 
 class PacienteCreate(CreateView):
@@ -81,6 +81,20 @@ class RadiologiaUpdate(UpdateView):
         p=r.candidato
         if p.estado==4:
             p.estado=5
+            p.save()
+        return reverse_lazy('paciente', args=[p.pk])
+
+class BoldUpdate(UpdateView):
+    model = Bold
+    form_class = BoldForm
+    template_name = 'paciente/bold_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        b=self.object
+        p=b.candidato
+        if p.estado==5:
+            p.estado=6
             p.save()
         return reverse_lazy('paciente', args=[p.pk])
 

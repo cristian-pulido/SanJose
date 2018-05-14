@@ -19,7 +19,7 @@ from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.contrib.auth import views
 
-from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia
+from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -34,6 +34,7 @@ urlpatterns = [
     path('script/crearr/<int:pk>/', crearradiologia, name='crear_radiologia'),
     path('script/crearu/<int:pk>/', crearuci, name='crear_uci'),
     path('script/crearn/<int:pk>/', crearneurologia, name='crear_neurologia'),
+    path('script/crearb/<int:pk>/', crearbold, name='crear_bold'),
 ]
 
 from django.conf import settings
