@@ -12,6 +12,8 @@
     {% csrf_token %}
 
 
+
+
     <div class="row">
         <div >
                 <h1>Formulario Informante </h1>
@@ -26,7 +28,7 @@
                             <th style="vertical-align: middle;">{{form.fechaentrevista.label}}</th>
                             <td style="vertical-align: middle;">
                                 {{ form.fechaentrevista.errors }}
-                                <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaentrevista" type="date"  id="id_fechaentrevista" value="{{object.fechaentrevista|date:'Y-m-d'}}">
+                                <input  class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaentrevista" type="date"  id="id_fechaentrevista" value="{{object.fechaentrevista|date:'Y-m-d'}}">
                             </td>
                             <th style="vertical-align: middle;">{{form.neuropsicologa.label}}</th>
                             <td style="vertical-align: middle;">
@@ -54,6 +56,837 @@
                         </tbody>
                     </table>
 
+                    <legend>Funcionamiento Premórbido:</legend>
+                    <label>ESCALA LAWTON-BRODY DE ACTIVIDADES INSTRUMENTALES</label>
+                    <p class="help">El informante debe responder la siguiente escala seleccionando uno solo de los valores por ítem</p>
+
+                    <table class="table table-hover">
+                        <tr>
+                            <th >A. Capacidad para el uso del teléfono</th>
+                            <th >B. Hacer compras</th>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="telefono" value="1" id="id_telefono_1" required title="1" {% if object.telefono == '1' %} checked {% endif %}/>1 Utiliza el teléfono por iniciativa propia.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="compras" value="1" id="id_compras_1" required title="1" {% if object.compras == '1' %} checked {% endif %}/>1 Realiza todas las compras independiente.</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="telefono" value="2" id="id_telefono_2" required title="1" {% if object.telefono == '2' %} checked {% endif %}/>1 Es capaz de marcar algunos teléfonos conocidos.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="compras" value="2" id="id_compras_2" required title="0" {% if object.compras == '2' %} checked {% endif %}/>0 Hace pequeñas compras independiente.</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="telefono" value="3" id="id_telefono_3" required title="1" {% if object.telefono == '3' %} checked {% endif %}/>1 Contesta el teléfono, pero no marca.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="compras" value="3" id="id_compras_3" required title="0" {% if object.compras == '3' %} checked {% endif %}/>0 Necesita acompañamiento para compras.</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="telefono" value="4" id="id_telefono_4" required title="0" {% if object.telefono == '4' %} checked {% endif %}/>0 No utiliza el teléfono</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="compras" value="4" id="id_compras_4" required title="0" {% if object.compras == '4' %} checked {% endif %}/>0 Totalmente incapaz de hacer compras.</td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <th >C. Preparación de la comida</th>
+                            <th >D. Cuidado de la casa</th>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="comida" value="1" id="id_comida_1" required title="1" {% if object.comida == '1' %} checked {% endif %}/>1 Organiza, prepara y sirve las comidas por sí solo.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="casa" value="1" id="id_casa_1" required title="1" {% if object.casa == '1' %} checked {% endif %}/>1 Mantiene la casa solo o con ayuda ocasional (p.e en trabajos pesados).</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="comida" value="2" id="id_comida_2" required title="0" {% if object.comida == '2' %} checked {% endif %}/>0 Prepara adecuadamente las comidas si se le dan los ingredientes.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="casa" value="2" id="id_casa_2" required title="1" {% if object.casa == '2' %} checked {% endif %}/>1 Realiza tareas cotidianas livianas como lavar loza o hacer las camas.</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="comida" value="3" id="id_comida_3" required title="0" {% if object.comida == '3' %} checked {% endif %}/>0 Prepara, calienta y sirve las comidas, pero no sigue una dieta.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="casa" value="3" id="id_casa_3" required title="1" {% if object.casa == '3' %} checked {% endif %}/>1 Realiza tareas cotidianas sencillas pero no puede mantener un adecuado nivel de limpieza.</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="comida" value="4" id="id_comida_4" required title="0" {% if object.comida == '4' %} checked {% endif %}/>0 Necesita que le preparen y sirvan las comidas</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="casa" value="4" id="id_casa_4" required title="1" {% if object.casa == '4' %} checked {% endif %}/>1 Necesita ayuda en todas las labores de la casa.</td>
+                        </tr>
+                        <tr>
+                            
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="casa" value="5" id="id_casa_5" required title="0" {% if object.casa == '5' %} checked {% endif %}/>0 No participa en ninguna labor de la casa.</td>
+                        </tr>
+                        
+                        <tr>
+                            <th >E. Lavado de ropa</th>
+                            <th >F. Uso de medios de transporte</th>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="ropa" value="1" id="id_ropa_1" required title="1" {% if object.ropa == '1' %} checked {% endif %}/>1 Lava por si solo toda su ropa.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="transporte" value="1" id="id_transporte_1" required title="1" {% if object.transporte == '1' %} checked {% endif %}/>1 Viaja solo en transporte público o conduce su propio auto (p.e en trabajos pesados).</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="ropa" value="2" id="id_ropa_2" required title="1" {% if object.ropa == '2' %} checked {% endif %}/>1 Lava por si solo pequeñas prendas.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="transporte" value="2" id="id_transporte_2" required title="1" {% if object.transporte == '2' %} checked {% endif %}/>1 Es capaz de tomar un taxi, pero no utiliza otro medio de transporte público.</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3"><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="ropa" value="3" id="id_ropa_3" required title="0" {% if object.ropa == '3' %} checked {% endif %}/>0 Todo el lavado es hecho por otros.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="transporte" value="3" id="id_transporte_3" required title="1" {% if object.transporte == '3' %} checked {% endif %}/>1 Viaja en transporte público cuando va acompañado por otra persona.</td>
+                        </tr>
+                        <tr>
+                            <td ><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="ropa" value="4" id="id_ropa_4" required title="0" {% if object.ropa == '4' %} checked {% endif %}/>0 Utiliza el taxi o el automóvil solo con ayuda de otros</td>
+                            
+                        </tr>
+                        <tr>
+                            
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="transporte" value="5" id="id_transporte_5" required title="0" {% if object.transporte == '5' %} checked {% endif %}/>0 No viaja en absoluto.</td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <th >G. Responsabilidad respecto a su propia medicación</th>
+                            <th >H. Manejo de las finanzas personales</th>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="medicacion" value="1" id="id_medicacion_1" required title="1" {% if object.medicacion == '1' %} checked {% endif %}/>1 Es capaz de tomar su propia medicación a la hora y dosis correcta.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="finanzas" value="1" id="id_finanzas_1" required title="1" {% if object.finanzas == '1' %} checked {% endif %}/>1 Se encarga de sus asuntos económicos por si solo (pago de cuentas, renta, va al banco).</td>
+                        </tr>
+                        <tr>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="medicacion" value="2" id="id_medicacion_2" required title="0" {% if object.medicacion == '2' %} checked {% endif %}/>0 Toma su medicación si la dosis es preparada previamente.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="finanzas" value="2" id="id_finanzas_2" required title="1" {% if object.finanzas == '2' %} checked {% endif %}/>1 Realiza compras de cada día, pero necesita ayuda en las grandes compras e idas al banco.</td>
+                        </tr>
+                        <tr>
+                            <td ><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="medicacion" value="3" id="id_medicacion_3" required title="0" {% if object.medicacion == '3' %} checked {% endif %}/>0 No es capaz de administrarse su medicación.</td>
+                            <td><input onchange="independencia('{{object.candidato.sexo}}')" type="radio" name="finanzas" value="3" id="id_finanzas_3" required title="0" {% if object.finanzas == '3' %} checked {% endif %}/>0 Incapaz de manejar dinero.</td>
+                        </tr>
+                        
+                        
+                        
+                        
+                        <tr>
+                            <th>
+                                {{form.totalindependencia.label}}
+                                <input size="1" type="text" id="id_totalindependencia" readonly name="totalindependencia" required class="form-control" value="{{object.totalindependencia}}">
+                            </th>
+                            <td></td>
+                        </tr>
+                        
+                    </table>
+
+                    <legend>ESCALA DE TRASTORNOS DE LA MEMORIA</legend>
+                    <p class="help">El informante debe responder al interrogatorio a partir de la siguiente escala: <b>0:</b> Nunca <b>1:</b> Rara vez <b>2:</b> A veces <b>3:</b> Casi siempre</p>
+                    <table class="table table-hover">
+                        <tbody >
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria1.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria1" value="1" id="id_memoria1_1" title="memoria" required {% if object.memoria1 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria1" value="2" id="id_memoria1_2" title="memoria" required {% if object.memoria1 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria1" value="3" id="id_memoria1_3" title="memoria" required {% if object.memoria1 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria1" value="4" id="id_memoria1_4" title="memoria" required {% if object.memoria1 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria2.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria2" value="1" id="id_memoria2_1" title="memoria" required {% if object.memoria2 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria2" value="2" id="id_memoria2_2" title="memoria" required {% if object.memoria2 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria2" value="3" id="id_memoria2_3" title="memoria" required {% if object.memoria2 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria2" value="4" id="id_memoria2_4" title="memoria" required {% if object.memoria2 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria3.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria3" value="1" id="id_memoria3_1" title="memoria" required {% if object.memoria3 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria3" value="2" id="id_memoria3_2" title="memoria" required {% if object.memoria3 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria3" value="3" id="id_memoria3_3" title="memoria" required {% if object.memoria3 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria3" value="4" id="id_memoria3_4" title="memoria" required {% if object.memoria3 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria4.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria4" value="1" id="id_memoria4_1" title="memoria" required {% if object.memoria4 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria4" value="2" id="id_memoria4_2" title="memoria" required {% if object.memoria4 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria4" value="3" id="id_memoria4_3" title="memoria" required {% if object.memoria4 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria4" value="4" id="id_memoria4_4" title="memoria" required {% if object.memoria4 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria5.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria5" value="1" id="id_memoria5_1" title="memoria" required {% if object.memoria5 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria5" value="2" id="id_memoria5_2" title="memoria" required {% if object.memoria5 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria5" value="3" id="id_memoria5_3" title="memoria" required {% if object.memoria5 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria5" value="4" id="id_memoria5_4" title="memoria" required {% if object.memoria5 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria6.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria6" value="1" id="id_memoria6_1" title="memoria" required {% if object.memoria6 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria6" value="2" id="id_memoria6_2" title="memoria" required {% if object.memoria6 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria6" value="3" id="id_memoria6_3" title="memoria" required {% if object.memoria6 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria6" value="4" id="id_memoria6_4" title="memoria" required {% if object.memoria6 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria7.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria7" value="1" id="id_memoria7_1" title="memoria" required {% if object.memoria7 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria7" value="2" id="id_memoria7_2" title="memoria" required {% if object.memoria7 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria7" value="3" id="id_memoria7_3" title="memoria" required {% if object.memoria7 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria7" value="4" id="id_memoria7_4" title="memoria" required {% if object.memoria7 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria8.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria8" value="1" id="id_memoria8_1" title="memoria" required {% if object.memoria8 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria8" value="2" id="id_memoria8_2" title="memoria" required {% if object.memoria8 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria8" value="3" id="id_memoria8_3" title="memoria" required {% if object.memoria8 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria8" value="4" id="id_memoria8_4" title="memoria" required {% if object.memoria8 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria9.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria9" value="1" id="id_memoria9_1" title="memoria" required {% if object.memoria9 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria9" value="2" id="id_memoria9_2" title="memoria" required {% if object.memoria9 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria9" value="3" id="id_memoria9_3" title="memoria" required {% if object.memoria9 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria9" value="4" id="id_memoria9_4" title="memoria" required {% if object.memoria9 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria10.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria10" value="1" id="id_memoria10_1" title="memoria" required {% if object.memoria10 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria10" value="2" id="id_memoria10_2" title="memoria" required {% if object.memoria10 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria10" value="3" id="id_memoria10_3" title="memoria" required {% if object.memoria10 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria10" value="4" id="id_memoria10_4" title="memoria" required {% if object.memoria10 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria11.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria11" value="1" id="id_memoria11_1" title="memoria" required {% if object.memoria11 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria11" value="2" id="id_memoria11_2" title="memoria" required {% if object.memoria11 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria11" value="3" id="id_memoria11_3" title="memoria" required {% if object.memoria11 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria11" value="4" id="id_memoria11_4" title="memoria" required {% if object.memoria11 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria12.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria12" value="1" id="id_memoria12_1" title="memoria" required {% if object.memoria12 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria12" value="2" id="id_memoria12_2" title="memoria" required {% if object.memoria12 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria12" value="3" id="id_memoria12_3" title="memoria" required {% if object.memoria12 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria12" value="4" id="id_memoria12_4" title="memoria" required {% if object.memoria12 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria13.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria13" value="1" id="id_memoria13_1" title="memoria" required {% if object.memoria13 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria13" value="2" id="id_memoria13_2" title="memoria" required {% if object.memoria13 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria13" value="3" id="id_memoria13_3" title="memoria" required {% if object.memoria13 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria13" value="4" id="id_memoria13_4" title="memoria" required {% if object.memoria13 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria14.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria14" value="1" id="id_memoria14_1" title="memoria" required {% if object.memoria14 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria14" value="2" id="id_memoria14_2" title="memoria" required {% if object.memoria14 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria14" value="3" id="id_memoria14_3" title="memoria" required {% if object.memoria14 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria14" value="4" id="id_memoria14_4" title="memoria" required {% if object.memoria14 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.memoria15.label}}</td>
+                            <td>
+                                <input onchange="sumamemoria()" type="radio" name="memoria15" value="1" id="id_memoria15_1" title="memoria" required {% if object.memoria15 == '1' %} checked {% endif %}/>0
+                                <input onchange="sumamemoria()" type="radio" name="memoria15" value="2" id="id_memoria15_2" title="memoria" required {% if object.memoria15 == '2' %} checked {% endif %}/>1
+                                <input onchange="sumamemoria()" type="radio" name="memoria15" value="3" id="id_memoria15_3" title="memoria" required {% if object.memoria15 == '3' %} checked {% endif %}/>2
+                                <input onchange="sumamemoria()" type="radio" name="memoria15" value="4" id="id_memoria15_4" title="memoria" required {% if object.memoria15 == '4' %} checked {% endif %}/>3
+
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Total</th>
+                            <th><input type="text" id="id_totalmemoria" readonly name="totalmemoria" required class="form-control" value="{{object.totalmemoria}}"></th>
+                        </tr>
+                        
+                        
+                        </tbody>
+                    </table>
+
+
+                    <legend>Frontal Systems Behavior Scale (FrSBe)</legend>
+                    <p class="help">El informante debe responder a partir de la siguiente escala: <b>1:</b>  Nunca <b>2:</b> Rara vez <b>3:</b> A veces <b>4:</b> Frecuentemente <b>5:</b> Casi siempre</p>
+                    <table class="table table-hover">
+                        <tbody >
+                            
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal1.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal1" value="1" id="id_frontal1_1" title="apatia" required {% if object.frontal1 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal1" value="2" id="id_frontal1_2" title="apatia" required {% if object.frontal1 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal1" value="3" id="id_frontal1_3" title="apatia" required {% if object.frontal1 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal1" value="4" id="id_frontal1_4" title="apatia" required {% if object.frontal1 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal1" value="5" id="id_frontal1_5" title="apatia" required {% if object.frontal1 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal2.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal2" value="1" id="id_frontal2_1" title="deshinibicion" required {% if object.frontal2 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal2" value="2" id="id_frontal2_2" title="deshinibicion" required {% if object.frontal2 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal2" value="3" id="id_frontal2_3" title="deshinibicion" required {% if object.frontal2 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal2" value="4" id="id_frontal2_4" title="deshinibicion" required {% if object.frontal2 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal2" value="5" id="id_frontal2_5" title="deshinibicion" required {% if object.frontal2 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                          <tr>
+                            <td style="vertical-align: middle;">{{form.frontal3.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal3" value="1" id="id_frontal3_1" title="funcion" required {% if object.frontal3 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal3" value="2" id="id_frontal3_2" title="funcion" required {% if object.frontal3 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal3" value="3" id="id_frontal3_3" title="funcion" required {% if object.frontal3 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal3" value="4" id="id_frontal3_4" title="funcion" required {% if object.frontal3 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal3" value="5" id="id_frontal3_5" title="funcion" required {% if object.frontal3 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal4.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal4" value="1" id="id_frontal4_1" title="deshinibicion" required {% if object.frontal4 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal4" value="2" id="id_frontal4_2" title="deshinibicion" required {% if object.frontal4 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal4" value="3" id="id_frontal4_3" title="deshinibicion" required {% if object.frontal4 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal4" value="4" id="id_frontal4_4" title="deshinibicion" required {% if object.frontal4 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal4" value="5" id="id_frontal4_5" title="deshinibicion" required {% if object.frontal4 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal5.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal5" value="1" id="id_frontal5_1" title="funcion" required {% if object.frontal5 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal5" value="2" id="id_frontal5_2" title="funcion" required {% if object.frontal5 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal5" value="3" id="id_frontal5_3" title="funcion" required {% if object.frontal5 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal5" value="4" id="id_frontal5_4" title="funcion" required {% if object.frontal5 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal5" value="5" id="id_frontal5_5" title="funcion" required {% if object.frontal5 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal6.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal6" value="1" id="id_frontal6_1" title="deshinibicion" required {% if object.frontal6 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal6" value="2" id="id_frontal6_2" title="deshinibicion" required {% if object.frontal6 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal6" value="3" id="id_frontal6_3" title="deshinibicion" required {% if object.frontal6 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal6" value="4" id="id_frontal6_4" title="deshinibicion" required {% if object.frontal6 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal6" value="5" id="id_frontal6_5" title="deshinibicion" required {% if object.frontal6 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal7.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal7" value="1" id="id_frontal7_1" title="funcion" required {% if object.frontal7 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal7" value="2" id="id_frontal7_2" title="funcion" required {% if object.frontal7 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal7" value="3" id="id_frontal7_3" title="funcion" required {% if object.frontal7 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal7" value="4" id="id_frontal7_4" title="funcion" required {% if object.frontal7 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal7" value="5" id="id_frontal7_5" title="funcion" required {% if object.frontal7 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal8.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal8" value="1" id="id_frontal8_1" title="apatia" required {% if object.frontal8 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal8" value="2" id="id_frontal8_2" title="apatia" required {% if object.frontal8 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal8" value="3" id="id_frontal8_3" title="apatia" required {% if object.frontal8 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal8" value="4" id="id_frontal8_4" title="apatia" required {% if object.frontal8 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal8" value="5" id="id_frontal8_5" title="apatia" required {% if object.frontal8 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal9.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal9" value="1" id="id_frontal9_1" title="deshinibicion" required {% if object.frontal9 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal9" value="2" id="id_frontal9_2" title="deshinibicion" required {% if object.frontal9 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal9" value="3" id="id_frontal9_3" title="deshinibicion" required {% if object.frontal9 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal9" value="4" id="id_frontal9_4" title="deshinibicion" required {% if object.frontal9 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal9" value="5" id="id_frontal9_5" title="deshinibicion" required {% if object.frontal9 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal10.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal10" value="1" id="id_frontal10_1" title="deshinibicion" required {% if object.frontal10 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal10" value="2" id="id_frontal10_2" title="deshinibicion" required {% if object.frontal10 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal10" value="3" id="id_frontal10_3" title="deshinibicion" required {% if object.frontal10 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal10" value="4" id="id_frontal10_4" title="deshinibicion" required {% if object.frontal10 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal10" value="5" id="id_frontal10_5" title="deshinibicion" required {% if object.frontal10 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal11.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal11" value="1" id="id_frontal11_1" title="apatia" required {% if object.frontal11 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal11" value="2" id="id_frontal11_2" title="apatia" required {% if object.frontal11 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal11" value="3" id="id_frontal11_3" title="apatia" required {% if object.frontal11 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal11" value="4" id="id_frontal11_4" title="apatia" required {% if object.frontal11 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal11" value="5" id="id_frontal11_5" title="apatia" required {% if object.frontal11 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal12.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal12" value="1" id="id_frontal12_1" title="deshinibicion" required {% if object.frontal12 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal12" value="2" id="id_frontal12_2" title="deshinibicion" required {% if object.frontal12 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal12" value="3" id="id_frontal12_3" title="deshinibicion" required {% if object.frontal12 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal12" value="4" id="id_frontal12_4" title="deshinibicion" required {% if object.frontal12 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal12" value="5" id="id_frontal12_5" title="deshinibicion" required {% if object.frontal12 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal13.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal13" value="1" id="id_frontal13_1" title="funcion" required {% if object.frontal13 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal13" value="2" id="id_frontal13_2" title="funcion" required {% if object.frontal13 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal13" value="3" id="id_frontal13_3" title="funcion" required {% if object.frontal13 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal13" value="4" id="id_frontal13_4" title="funcion" required {% if object.frontal13 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal13" value="5" id="id_frontal13_5" title="funcion" required {% if object.frontal13 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal14.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal14" value="1" id="id_frontal14_1" title="apatia" required {% if object.frontal14 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal14" value="2" id="id_frontal14_2" title="apatia" required {% if object.frontal14 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal14" value="3" id="id_frontal14_3" title="apatia" required {% if object.frontal14 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal14" value="4" id="id_frontal14_4" title="apatia" required {% if object.frontal14 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal14" value="5" id="id_frontal14_5" title="apatia" required {% if object.frontal14 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal15.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal15" value="1" id="id_frontal15_1" title="funcion" required {% if object.frontal15 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal15" value="2" id="id_frontal15_2" title="funcion" required {% if object.frontal15 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal15" value="3" id="id_frontal15_3" title="funcion" required {% if object.frontal15 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal15" value="4" id="id_frontal15_4" title="funcion" required {% if object.frontal15 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal15" value="5" id="id_frontal15_5" title="funcion" required {% if object.frontal15 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal16.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal16" value="1" id="id_frontal16_1" title="apatia" required {% if object.frontal16 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal16" value="2" id="id_frontal16_2" title="apatia" required {% if object.frontal16 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal16" value="3" id="id_frontal16_3" title="apatia" required {% if object.frontal16 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal16" value="4" id="id_frontal16_4" title="apatia" required {% if object.frontal16 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal16" value="5" id="id_frontal16_5" title="apatia" required {% if object.frontal16 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal17.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal17" value="1" id="id_frontal17_1" title="funcion" required {% if object.frontal17 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal17" value="2" id="id_frontal17_2" title="funcion" required {% if object.frontal17 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal17" value="3" id="id_frontal17_3" title="funcion" required {% if object.frontal17 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal17" value="4" id="id_frontal17_4" title="funcion" required {% if object.frontal17 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal17" value="5" id="id_frontal17_5" title="funcion" required {% if object.frontal17 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal18.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal18" value="1" id="id_frontal18_1" title="deshinibicion" required {% if object.frontal18 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal18" value="2" id="id_frontal18_2" title="deshinibicion" required {% if object.frontal18 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal18" value="3" id="id_frontal18_3" title="deshinibicion" required {% if object.frontal18 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal18" value="4" id="id_frontal18_4" title="deshinibicion" required {% if object.frontal18 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal18" value="5" id="id_frontal18_5" title="deshinibicion" required {% if object.frontal18 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal19.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal19" value="1" id="id_frontal19_1" title="funcion" required {% if object.frontal19 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal19" value="2" id="id_frontal19_2" title="funcion" required {% if object.frontal19 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal19" value="3" id="id_frontal19_3" title="funcion" required {% if object.frontal19 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal19" value="4" id="id_frontal19_4" title="funcion" required {% if object.frontal19 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal19" value="5" id="id_frontal19_5" title="funcion" required {% if object.frontal19 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal20.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal20" value="1" id="id_frontal20_1" title="funcion" required {% if object.frontal20 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal20" value="2" id="id_frontal20_2" title="funcion" required {% if object.frontal20 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal20" value="3" id="id_frontal20_3" title="funcion" required {% if object.frontal20 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal20" value="4" id="id_frontal20_4" title="funcion" required {% if object.frontal20 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal20" value="5" id="id_frontal20_5" title="funcion" required {% if object.frontal20 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal21.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal21" value="1" id="id_frontal21_1" title="apatia" required {% if object.frontal21 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal21" value="2" id="id_frontal21_2" title="apatia" required {% if object.frontal21 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal21" value="3" id="id_frontal21_3" title="apatia" required {% if object.frontal21 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal21" value="4" id="id_frontal21_4" title="apatia" required {% if object.frontal21 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal21" value="5" id="id_frontal21_5" title="apatia" required {% if object.frontal21 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal22.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal22" value="1" id="id_frontal22_1" title="funcion" required {% if object.frontal22 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal22" value="2" id="id_frontal22_2" title="funcion" required {% if object.frontal22 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal22" value="3" id="id_frontal22_3" title="funcion" required {% if object.frontal22 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal22" value="4" id="id_frontal22_4" title="funcion" required {% if object.frontal22 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal22" value="5" id="id_frontal22_5" title="funcion" required {% if object.frontal22 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal23.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal23" value="1" id="id_frontal23_1" title="apatia" required {% if object.frontal23 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal23" value="2" id="id_frontal23_2" title="apatia" required {% if object.frontal23 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal23" value="3" id="id_frontal23_3" title="apatia" required {% if object.frontal23 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal23" value="4" id="id_frontal23_4" title="apatia" required {% if object.frontal23 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal23" value="5" id="id_frontal23_5" title="apatia" required {% if object.frontal23 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal24.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal24" value="1" id="id_frontal24_1" title="apatia" required {% if object.frontal24 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal24" value="2" id="id_frontal24_2" title="apatia" required {% if object.frontal24 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal24" value="3" id="id_frontal24_3" title="apatia" required {% if object.frontal24 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal24" value="4" id="id_frontal24_4" title="apatia" required {% if object.frontal24 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal24" value="5" id="id_frontal24_5" title="apatia" required {% if object.frontal24 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal25.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal25" value="1" id="id_frontal25_1" title="funcion" required {% if object.frontal25 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal25" value="2" id="id_frontal25_2" title="funcion" required {% if object.frontal25 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal25" value="3" id="id_frontal25_3" title="funcion" required {% if object.frontal25 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal25" value="4" id="id_frontal25_4" title="funcion" required {% if object.frontal25 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal25" value="5" id="id_frontal25_5" title="funcion" required {% if object.frontal25 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal26.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal26" value="1" id="id_frontal26_1" title="funcion" required {% if object.frontal26 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal26" value="2" id="id_frontal26_2" title="funcion" required {% if object.frontal26 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal26" value="3" id="id_frontal26_3" title="funcion" required {% if object.frontal26 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal26" value="4" id="id_frontal26_4" title="funcion" required {% if object.frontal26 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal26" value="5" id="id_frontal26_5" title="funcion" required {% if object.frontal26 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal27.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal27" value="1" id="id_frontal27_1" title="deshinibicion" required {% if object.frontal27 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal27" value="2" id="id_frontal27_2" title="deshinibicion" required {% if object.frontal27 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal27" value="3" id="id_frontal27_3" title="deshinibicion" required {% if object.frontal27 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal27" value="4" id="id_frontal27_4" title="deshinibicion" required {% if object.frontal27 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal27" value="5" id="id_frontal27_5" title="deshinibicion" required {% if object.frontal27 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal28.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal28" value="1" id="id_frontal28_1" title="deshinibicion" required {% if object.frontal28 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal28" value="2" id="id_frontal28_2" title="deshinibicion" required {% if object.frontal28 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal28" value="3" id="id_frontal28_3" title="deshinibicion" required {% if object.frontal28 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal28" value="4" id="id_frontal28_4" title="deshinibicion" required {% if object.frontal28 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal28" value="5" id="id_frontal28_5" title="deshinibicion" required {% if object.frontal28 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal29.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal29" value="1" id="id_frontal29_1" title="apatia" required {% if object.frontal29 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal29" value="2" id="id_frontal29_2" title="apatia" required {% if object.frontal29 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal29" value="3" id="id_frontal29_3" title="apatia" required {% if object.frontal29 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal29" value="4" id="id_frontal29_4" title="apatia" required {% if object.frontal29 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal29" value="5" id="id_frontal29_5" title="apatia" required {% if object.frontal29 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal30.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal30" value="1" id="id_frontal30_1" title="deshinibicion" required {% if object.frontal30 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal30" value="2" id="id_frontal30_2" title="deshinibicion" required {% if object.frontal30 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal30" value="3" id="id_frontal30_3" title="deshinibicion" required {% if object.frontal30 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal30" value="4" id="id_frontal30_4" title="deshinibicion" required {% if object.frontal30 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal30" value="5" id="id_frontal30_5" title="deshinibicion" required {% if object.frontal30 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal31.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal31" value="1" id="id_frontal31_1" title="deshinibicion" required {% if object.frontal31 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal31" value="2" id="id_frontal31_2" title="deshinibicion" required {% if object.frontal31 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal31" value="3" id="id_frontal31_3" title="deshinibicion" required {% if object.frontal31 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal31" value="4" id="id_frontal31_4" title="deshinibicion" required {% if object.frontal31 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal31" value="5" id="id_frontal31_5" title="deshinibicion" required {% if object.frontal31 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal32.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal32" value="1" id="id_frontal32_1" title="deshinibicion" required {% if object.frontal32 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal32" value="2" id="id_frontal32_2" title="deshinibicion" required {% if object.frontal32 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal32" value="3" id="id_frontal32_3" title="deshinibicion" required {% if object.frontal32 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal32" value="4" id="id_frontal32_4" title="deshinibicion" required {% if object.frontal32 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal32" value="5" id="id_frontal32_5" title="deshinibicion" required {% if object.frontal32 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal33.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal33" value="1" id="id_frontal33_1" title="funcion" required {% if object.frontal33 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal33" value="2" id="id_frontal33_2" title="funcion" required {% if object.frontal33 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal33" value="3" id="id_frontal33_3" title="funcion" required {% if object.frontal33 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal33" value="4" id="id_frontal33_4" title="funcion" required {% if object.frontal33 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal33" value="5" id="id_frontal33_5" title="funcion" required {% if object.frontal33 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal34.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal34" value="1" id="id_frontal34_1" title="funcion" required {% if object.frontal34 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal34" value="2" id="id_frontal34_2" title="funcion" required {% if object.frontal34 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal34" value="3" id="id_frontal34_3" title="funcion" required {% if object.frontal34 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal34" value="4" id="id_frontal34_4" title="funcion" required {% if object.frontal34 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal34" value="5" id="id_frontal34_5" title="funcion" required {% if object.frontal34 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal35.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal35" value="1" id="id_frontal35_1" title="funcion" required {% if object.frontal35 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal35" value="2" id="id_frontal35_2" title="funcion" required {% if object.frontal35 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal35" value="3" id="id_frontal35_3" title="funcion" required {% if object.frontal35 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal35" value="4" id="id_frontal35_4" title="funcion" required {% if object.frontal35 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal35" value="5" id="id_frontal35_5" title="funcion" required {% if object.frontal35 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal36.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal36" value="1" id="id_frontal36_1" title="funcion" required {% if object.frontal36 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal36" value="2" id="id_frontal36_2" title="funcion" required {% if object.frontal36 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal36" value="3" id="id_frontal36_3" title="funcion" required {% if object.frontal36 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal36" value="4" id="id_frontal36_4" title="funcion" required {% if object.frontal36 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal36" value="5" id="id_frontal36_5" title="funcion" required {% if object.frontal36 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal37.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal37" value="1" id="id_frontal37_1" title="funcion" required {% if object.frontal37 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal37" value="2" id="id_frontal37_2" title="funcion" required {% if object.frontal37 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal37" value="3" id="id_frontal37_3" title="funcion" required {% if object.frontal37 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal37" value="4" id="id_frontal37_4" title="funcion" required {% if object.frontal37 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal37" value="5" id="id_frontal37_5" title="funcion" required {% if object.frontal37 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal38.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal38" value="1" id="id_frontal38_1" title="apatia" required {% if object.frontal38 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal38" value="2" id="id_frontal38_2" title="apatia" required {% if object.frontal38 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal38" value="3" id="id_frontal38_3" title="apatia" required {% if object.frontal38 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal38" value="4" id="id_frontal38_4" title="apatia" required {% if object.frontal38 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal38" value="5" id="id_frontal38_5" title="apatia" required {% if object.frontal38 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal39.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal39" value="1" id="id_frontal39_1" title="apatia" required {% if object.frontal39 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal39" value="2" id="id_frontal39_2" title="apatia" required {% if object.frontal39 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal39" value="3" id="id_frontal39_3" title="apatia" required {% if object.frontal39 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal39" value="4" id="id_frontal39_4" title="apatia" required {% if object.frontal39 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal39" value="5" id="id_frontal39_5" title="apatia" required {% if object.frontal39 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td style="vertical-align: middle;">{{form.frontal40.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal40" value="1" id="id_frontal40_1" title="funcion" required {% if object.frontal40 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal40" value="2" id="id_frontal40_2" title="funcion" required {% if object.frontal40 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal40" value="3" id="id_frontal40_3" title="funcion" required {% if object.frontal40 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal40" value="4" id="id_frontal40_4" title="funcion" required {% if object.frontal40 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal40" value="5" id="id_frontal40_5" title="funcion" required {% if object.frontal40 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal41.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal41" value="1" id="id_frontal41_1" title="apatia" required {% if object.frontal41 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal41" value="2" id="id_frontal41_2" title="apatia" required {% if object.frontal41 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal41" value="3" id="id_frontal41_3" title="apatia" required {% if object.frontal41 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal41" value="4" id="id_frontal41_4" title="apatia" required {% if object.frontal41 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal41" value="5" id="id_frontal41_5" title="apatia" required {% if object.frontal41 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal42.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal42" value="1" id="id_frontal42_1" title="apatia" required {% if object.frontal42 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal42" value="2" id="id_frontal42_2" title="apatia" required {% if object.frontal42 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal42" value="3" id="id_frontal42_3" title="apatia" required {% if object.frontal42 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal42" value="4" id="id_frontal42_4" title="apatia" required {% if object.frontal42 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal42" value="5" id="id_frontal42_5" title="apatia" required {% if object.frontal42 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                           <tr>
+                            <td style="vertical-align: middle;">{{form.frontal43.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal43" value="1" id="id_frontal43_1" title="deshinibicion" required {% if object.frontal43 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal43" value="2" id="id_frontal43_2" title="deshinibicion" required {% if object.frontal43 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal43" value="3" id="id_frontal43_3" title="deshinibicion" required {% if object.frontal43 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal43" value="4" id="id_frontal43_4" title="deshinibicion" required {% if object.frontal43 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal43" value="5" id="id_frontal43_5" title="deshinibicion" required {% if object.frontal43 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                           <tr>
+                            <td style="vertical-align: middle;">{{form.frontal44.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal44" value="1" id="id_frontal44_1" title="deshinibicion" required {% if object.frontal44 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal44" value="2" id="id_frontal44_2" title="deshinibicion" required {% if object.frontal44 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal44" value="3" id="id_frontal44_3" title="deshinibicion" required {% if object.frontal44 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal44" value="4" id="id_frontal44_4" title="deshinibicion" required {% if object.frontal44 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal44" value="5" id="id_frontal44_5" title="deshinibicion" required {% if object.frontal44 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                           <tr>
+                            <td style="vertical-align: middle;">{{form.frontal45.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal45" value="1" id="id_frontal45_1" title="deshinibicion" required {% if object.frontal45 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal45" value="2" id="id_frontal45_2" title="deshinibicion" required {% if object.frontal45 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal45" value="3" id="id_frontal45_3" title="deshinibicion" required {% if object.frontal45 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal45" value="4" id="id_frontal45_4" title="deshinibicion" required {% if object.frontal45 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal45" value="5" id="id_frontal45_5" title="deshinibicion" required {% if object.frontal45 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.frontal46.label}}</td>
+                            <td>
+                                <input onchange="sumafrontal()" type="radio" name="frontal46" value="1" id="id_frontal46_1" title="apatia" required {% if object.frontal46 == '1' %} checked {% endif %}/>1
+                                <input onchange="sumafrontal()" type="radio" name="frontal46" value="2" id="id_frontal46_2" title="apatia" required {% if object.frontal46 == '2' %} checked {% endif %}/>2
+                                <input onchange="sumafrontal()" type="radio" name="frontal46" value="3" id="id_frontal46_3" title="apatia" required {% if object.frontal46 == '3' %} checked {% endif %}/>3
+                                <input onchange="sumafrontal()" type="radio" name="frontal46" value="4" id="id_frontal46_4" title="apatia" required {% if object.frontal46 == '4' %} checked {% endif %}/>4
+                                <input onchange="sumafrontal()" type="radio" name="frontal46" value="5" id="id_frontal46_5" title="apatia" required {% if object.frontal46 == '5' %} checked {% endif %}/>5
+                            </td>
+                        </tr>
+                        
+
+
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>Total Apatia *</th><td><input type="text" id="id_totalapatia" readonly name="totalapatia" required class="form-control" value="{{object.totalapatia}}"></td>
+                        </tr>
+                        <tr>
+                            <th>Total Deshinhibicion ç</th><td><input type="text" id="id_totaldes" readonly name="totaldes" required class="form-control" value="{{object.totaldes}}"></td>
+                        </tr>
+                        <tr>
+                            <th>Total Funciones ejecutivas {</th><td><input type="text" id="id_totalfunciones" readonly name="totalfunciones" required class="form-control" value="{{object.totalfunciones}}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                        
+            
                 </div>
         </div>
     </div>
@@ -65,4 +898,63 @@
 </form>
 {% endblock %}
 {% block extrajs %}
+<script>
+/* function */
+function independencia(s){
+    var total=0
+    var elements = document.getElementsByTagName("input");
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].type == 'radio' && elements[i].checked && parseInt(elements[i].title) < 5 ) {
+            total=total+parseInt(elements[i].title);
+
+    }
+    }
+
+    if ( s == 'Hombre' ) {
+            document.getElementById("id_totalindependencia").value=total+"/5";
+
+    } else {
+     document.getElementById("id_totalindependencia").value=total+"/8";
+
+    }
+
+    }
+
+
+function sumamemoria(){
+    var total=0;
+    var elements = document.getElementsByTagName("input");
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].title == 'memoria') {
+         total=total+(elements[i].checked)*(elements[i].value-1);
+    }
+
+    }
+    document.getElementById("id_totalmemoria").value=total;
+    }
+
+function sumafrontal(){
+    var totalapatia=0;
+    var totaldes=0;
+    var totalfunciones=0;
+    var elements = document.getElementsByTagName("input");
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].title == 'apatia') {
+         totalapatia=totalapatia+(elements[i].checked)*(elements[i].value);
+        }
+        if (elements[i].title == 'deshinibicion') {
+         totaldes=totaldes+(elements[i].checked)*(elements[i].value);
+        }
+        if (elements[i].title == 'funcion') {
+         totalfunciones=totalfunciones+(elements[i].checked)*(elements[i].value);
+        }
+    }
+    document.getElementById("id_totalapatia").value=totalapatia;
+    document.getElementById("id_totaldes").value=totaldes;
+    document.getElementById("id_totalfunciones").value=totalfunciones;
+
+
+    }
+
+</script>
 {% endblock %}

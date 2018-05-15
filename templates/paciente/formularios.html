@@ -1337,6 +1337,32 @@
        {% endif %}
 
 
+      <legend>Funcionamiento Premórbido:</legend>
+
+
+      <table class="table table-hover">
+          <tbody>
+            <tr class="table-active">
+              <th>Escala Lawton-Brody de actividades instrumentales </th>
+              <td>Total {{object.informante.totalindependencia}} </td>
+              <th>Escala de transtornos de memoria</th>
+              <td>Total {{object.informante.totalmemoria}}/45</td>
+            </tr>
+          <tr>
+            <th colspan="4">Frontal Systems Behavior Scale (FrSBe)</th>
+          </tr>
+          <tr>
+            <th>Total Apatia</th> <td>{{object.informante.totalapatia}}</td>
+          </tr>
+          <tr>
+            <th>Total Deshinhibicion</th> <td>{{object.informante.totaldes}}</td>
+          </tr>
+          <tr>
+            <th>Total Funciones ejecutivas</th> <td>{{object.informante.totalfunciones}}</td>
+          </tr>
+          </tbody>
+        </table>
+
 
       {% if user.groups.all.0.name != 'Consultor' %}
 

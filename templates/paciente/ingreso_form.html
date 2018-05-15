@@ -9,7 +9,7 @@
 </script>
 {% endif %}
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="row">
@@ -268,11 +268,16 @@
                     <label id="ffirma" {% if object.firma_consentimiento == False %} style="display:none" {% endif  %}>{{form.fechafirma.label}}</label>
                     <input   {% if object.firma_consentimiento == False %} style="display:none" {% endif  %} class="form-control"  required min="2017-01-01" max="2020-12-31"  name="fechafirma" type="date"  id="id_fechafirma" value="{{object.fechafirma|date:'Y-m-d'}}">
                     <br>
+                    <label id="dfirma"  {% if object.firma_consentimiento == False %} style="display:none" {% endif  %}>Cargar Consentimiento</label>
+                    <p><input type="file" name="archivofirma" id="id_archivofirma" accept="application/pdf"  {% if object.firma_consentimiento == False %} style="display:none" {% else%} required value="{{object.archivofirma}}" {% endif  %} /></p>
+                    <br>
                     <label id="causafirma" {% if object.firma_consentimiento == True %} style="display:none" {% endif  %}>{{form.firma_causa.label}}</label>
                     <input   {% if object.firma_consentimiento == True %} style="display:none" {% else %} value="{{object.firma_causa}}" {% endif  %} class="form-control"   name="firma_causa" type="text"  id="id_firma_causa" >
 
                     {{ form.firma_causa.errors }}
-
+                    <br>
+                    <label>{{form.archivo.label}}</label>
+                    <p>{{form.archivo}}</p>
                 </div>
         </div>
 
@@ -436,6 +441,9 @@ function ff(){
         document.getElementById("id_firma_causa").style ="display:none" ;
         document.getElementById("id_firma_causa").required =false ;
         document.getElementById("id_firma_causa").value ="" ;
+        document.getElementById("id_archivofirma").style ="display:inline" ;
+        document.getElementById("dfirma").style ="display:inline" ;
+        document.getElementById("id_archivofirma").required = true ;
     } else {
         document.getElementById("ffirma").style ="display:none" ;
         document.getElementById("id_fechafirma").style ="display:none" ;
@@ -444,6 +452,10 @@ function ff(){
         document.getElementById("causafirma").style ="display:inline" ;
         document.getElementById("id_firma_causa").style ="display:inline" ;
         document.getElementById("id_firma_causa").required =true ;
+        document.getElementById("id_archivofirma").style ="display:none" ;
+        document.getElementById("id_archivofirma").required = false ;
+        document.getElementById("dfirma").style ="display:none" ;
+
     }
 
 }
