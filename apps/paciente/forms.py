@@ -1,7 +1,7 @@
 
 from django import forms
-from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold
-
+from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, \
+    Informante
 
 
 class MedicoForm(forms.ModelForm):
@@ -44,6 +44,7 @@ class PacienteForm(forms.ModelForm):
             'ce3',
             'ce4',
             'medico_responsable',
+            'archivo',
 
 
         ]
@@ -66,6 +67,7 @@ class PacienteForm(forms.ModelForm):
             'D_neuro_logico_psiquiatrico_previo': "Diagnósticos neurológicos/psiquiátricos previos al evento",
             'D_especificos': 'Especifique diagnóstico',
             'medico_responsable': "Profesional Responsable",
+            'archivo': "Documento fisico",
              }
         widgets = {
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Nombres')}),
@@ -92,6 +94,7 @@ class PacienteForm(forms.ModelForm):
             'ce3': forms.CheckboxInput(),
             'ce4': forms.CheckboxInput(),
             'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
+            'archivo': forms.ClearableFileInput(attrs={'accept':'application/pdf'}),
 
 
         }
@@ -747,4 +750,121 @@ class BoldForm(forms.ModelForm):
             'responsable': forms.Select(attrs={'class': 'form-control'}),
 
         }
+
+class MayorForm(forms.ModelForm):
+
+    class Meta:
+        model = Mayor
+        fields = [
+            'fechaentrevista',
+            'neuropsicologa',
+            'informante',
+            'parentezco',
+            'confiable',
+            'cambio1',
+            'cambio2',
+            'cambio3',
+            'cambio4',
+            'cambio5',
+            'cambio6',
+            'cambio7',
+            'cambio8',
+            'cambio9',
+            'cambio10',
+            'cambio11',
+            'cambio12',
+            'cambio13',
+            'cambio14',
+            'cambio15',
+            'cambio16',
+            'cambio17',
+            'cambio18',
+            'cambio19',
+            'cambio20',
+            'cambio21',
+            'cambio22',
+            'cambio23',
+            'cambio24',
+            'cambio25',
+            'cambio26',
+            'total',
+            'resultado',
+            'severidadgds',
+            'dxdemencia',
+            'tiempo',
+
+                  ]
+        labels = {
+            'fechaentrevista': "Fecha de entrevista clínica",
+            'neuropsicologa': "Neuropsicóloga",
+            'informante': "Informante",
+            'parentezco': "Parentezco",
+            'confiable': "Confiable",
+            'cambio1':"1. Reconocer las caras de las personas más intimas (parientes, amigos)",
+            'cambio2':"2. Recordar los nombres de esas mismas personas",
+            'cambio3': "3. Recordar las cosas de esas personas (dónde o de qué viven, su cumpleaños,etc.)",
+            'cambio4': "4. Recordar cosas sucedidas en los últimos meses (noticias, sucesos familiares)",
+            'cambio5': "5. Recordar lo que se habló en una conversación mantenida unos dias antes",
+            'cambio6': "6. Mantener una conversación sin olvidar lo que dijo pocos minutos antes, o sin pararse en medio de una frase, o sin olvidar lo que quería decir",
+            'cambio7': "7. Recordar su propia dirección ó su número de teléfono",
+            'cambio8': "8. Recordar la fecha en que vive",
+            'cambio9': "9. Conocer el sitio de los armarios de su casa y dónde se guardan las cosas",
+            'cambio10': "10. Saber dónde se encuentra una cosa que se dejó descolocada",
+            'cambio11': "11. Adaptarse a la situación cuando la rutina diaria se ve alterada (visitas, celebraciones, vacaciones, etc.)",
+            'cambio12': "12. Manejar los aparatos de la casa (Tfno., coche, lavadora, máquina de afeitar)",
+            'cambio13': "13. Aprender a manejar un aparato nuevo (lavadora, secador, tocadiscos, coche)",
+            'cambio14': "14. Recordar las cosas sucedidas recientemente",
+            'cambio15': "15. Aprender cosas nuevas en general",
+            'cambio16': "16. Recordar cosas que ocurrieron o que aprendió cuando era joven",
+            'cambio17': "17. Comprender el significado de palabras poco corrientes (prensa, TV,etc.)",
+            'cambio18': "18. Entender artículos de periódicos o revistas en los que está interesado",
+            'cambio19': "19. Seguir una historia en un libro, el cine, la radio o la televisión",
+            'cambio20': "20. Redactar cartas a parientes o amigos, o cartas de negocios",
+            'cambio21': "21. Recordar personas y hechos históricos (guerras, cambios políticos, líderes)",
+            'cambio22': "22. Tomar decisiones en cuestiones cotidianas (elegir vestido o comida) o de más trascendencia (vacaciones, inversiones, compras, etc.)",
+            'cambio23': "23. Manejar los asuntos financieros (pensión, bancos, impuestos, rentas, etc.)",
+            'cambio24': "24. Manejar el dinero para la compra (precios, cantidades, cambio)",
+            'cambio25': "25. Resolver problemas aritméticos cotidianos (tiempos, cantidades, distancias)",
+            'cambio26': "26. ¿Cree que su inteligencia ha cambiado algo durante los últimos 5 años?",
+            'total': "Total",
+            'resultado':"Resultado",
+            'severidadgds':"Severidad GDS",
+            'dxdemencia':"Dx Demencia",
+            'tiempo':"Tiempo de evolución",
+
+
+        }
+        widgets = {
+            'neuropsicologa': forms.Select(attrs={'class': 'form-control'}),
+            'confiable': forms.Select(attrs={'class': 'form-control'}),
+
+            'severidadgds': forms.Select(attrs={'class': 'form-control'}),
+            'dxdemencia': forms.Select(attrs={'class': 'form-control'}),
+            'tiempo':forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class InformanteForm(forms.ModelForm):
+
+    class Meta:
+        model = Informante
+        fields = [
+            'fechaentrevista',
+            'neuropsicologa',
+            'informante',
+            'parentezco',
+            'confiable',
+
+        ]
+        labels = {
+            'fechaentrevista': "Fecha de entrevista clínica",
+            'neuropsicologa': "Neuropsicóloga",
+            'informante': "Informante",
+            'parentezco': "Parentezco",
+            'confiable': "Confiable",
+        }
+        widgets = {
+            'neuropsicologa': forms.Select(attrs={'class': 'form-control'}),
+            'confiable': forms.Select(attrs={'class': 'form-control'}),
+        }
+
 

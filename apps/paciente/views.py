@@ -3,8 +3,9 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
-from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, BoldForm
-from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold
+from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
+    BoldForm, MayorForm, InformanteForm
+from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
 
 
 class PacienteCreate(CreateView):
@@ -97,6 +98,40 @@ class BoldUpdate(UpdateView):
             p.estado=6
             p.save()
         return reverse_lazy('paciente', args=[p.pk])
+
+class MayorUpdate(UpdateView):
+    model = Mayor
+    form_class = MayorForm
+    template_name = 'paciente/mayor_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        m=self.object
+        p=m.candidato
+        i=p.informante
+        i.fechaentrevista = p.mayor.fechaentrevista
+        i.neuropsicologa = p.mayor.neuropsicologa
+        i.informante = p.mayor.informante
+        i.parentezco = p.mayor.parentezco
+        i.confiable = p.mayor.confiable
+        i.save()
+        return reverse_lazy('informante_editar', args=[i.pk])
+
+class InformanteUpdate(UpdateView):
+    model = Informante
+    form_class = InformanteForm
+    template_name = 'paciente/informante_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        i=self.object
+        p=i.candidato
+        if p.estado==6:
+            p.estado=7
+            p.save()
+        return reverse_lazy('paciente', args=[p.pk])
+
+
 
 
 

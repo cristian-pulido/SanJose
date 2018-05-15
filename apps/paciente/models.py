@@ -103,9 +103,15 @@ class Candidato(models.Model):
     imagen = models.OneToOneField(Picture, blank=True, null=True, on_delete=models.CASCADE)
     estado = models.PositiveIntegerField(null=True, default=1)
     inscrito = models.NullBooleanField(default=False)
+    archivo = models.FileField(null=True, upload_to="Documentos")
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
+
+    def delete(self, *args, **kwargs):
+        """delete -- Remove to leave file."""
+        self.archivo.delete(False)
+        super(Candidato, self).delete(*args, **kwargs)
 
 
     class Meta:
@@ -447,5 +453,82 @@ class Bold(models.Model):
     cd=models.BooleanField(default=False)
     responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+
+class Mayor(models.Model):
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    fechaentrevista = models.DateField(null=True)
+    neuropsicologa = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
+    informante = models.CharField(max_length=200, null=True,default="")
+    parentezco= models.CharField(max_length=100, null=True,default="")
+    seleccion_CHOICES = (
+        ('SI', 'SI'),
+        ('NO', 'NO'),
+    )
+    confiable = models.CharField(choices=seleccion_CHOICES, null=True,max_length=50)
+    numero_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+    cambio1 = models.CharField(max_length=30,choices=numero_CHOICES,null=True)
+    cambio2 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio3 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio4 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio5 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio6 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio7 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio8 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio9 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio10 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio11 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio12 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio13 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio14 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio15 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio16 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio17 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio18 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio19 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio20 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio21 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio22 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio23 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio24 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio25 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    cambio26 = models.CharField(max_length=30, choices=numero_CHOICES, null=True)
+    total = models.CharField(max_length=30,null=True,default=0)
+    resultado = models.CharField(max_length=100,null=True, default= "Mejoría")
+    gds_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+    )
+    severidadgds=models.CharField(max_length=20,null=True,choices=gds_CHOICES)
+    dxdemencia=models.CharField(max_length=20,null=True,choices=seleccion_CHOICES)
+    tiempo=models.CharField(max_length=100,null=True)
+
+
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+
+class Informante(models.Model):
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    fechaentrevista = models.DateField(null=True)
+    neuropsicologa = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
+    informante = models.CharField(max_length=200, null=True, default="")
+    parentezco = models.CharField(max_length=100, null=True, default="")
+    seleccion_CHOICES = (
+        ('SI', 'SI'),
+        ('NO', 'NO'),
+    )
+    confiable = models.CharField(choices=seleccion_CHOICES, null=True, max_length=50)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)

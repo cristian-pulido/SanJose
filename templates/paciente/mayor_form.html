@@ -1,0 +1,463 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Informante mayor 60 años {% endblock %}
+{% block content %}
+{% if user.groups.all.0.name == 'Consultor' %}
+<script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+</script>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Formulario Informante Sujeto mayor 60 años</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div >
+                <div class="form-group">
+
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th style="vertical-align: middle;">{{form.fechaentrevista.label}}</th>
+                            <td style="vertical-align: middle;">
+                                {{ form.fechaentrevista.errors }}
+                                <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaentrevista" type="date"  id="id_fechaentrevista" value="{{object.fechaentrevista|date:'Y-m-d'}}">
+                            </td>
+                            <th style="vertical-align: middle;">{{form.neuropsicologa.label}}</th>
+                            <td style="vertical-align: middle;">
+                                {{ form.neuropsicologa.errors }}
+                                {{ form.neuropsicologa }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle;">{{ form.informante.label }}</th>
+                            <td style="vertical-align: middle;"> 
+                                {{ form.informante.errors }}
+                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
+                            </td>
+                            <th style="vertical-align: middle;">{{ form.parentezco.label }}</th>
+                            <td style="vertical-align: middle;"> 
+                                {{ form.parentezco.errors }}
+                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle;">{{ form.confiable.label }}</th>
+                            <td style="vertical-align: middle;">{{ form.confiable.errors }}{{ form.confiable }}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <legend>S - I.Q.C.O.D.E.</legend>
+                    <p>Instrucción: Trate de recordar cómo era su familiar hace 10 años y compárelo con su situación actualmente</p>
+                    <p>El informante debe señalar los cambios que haya observado en el paciente a partir de esta escala:</p>
+                    Mucha mejoría <b>1</b> &nbsp;&nbsp; Poca mejoría <b>2</b> &nbsp;&nbsp; Cambio mínimo <b>3</b> &nbsp;&nbsp; Empeoró un poco <b>4</b> &nbsp;&nbsp; Empeoró mucho <b>5</b>
+
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio1.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio1" value="1" id="id_cambio1_1" required {% if object.cambio1 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio1" value="2" id="id_cambio1_2" required {% if object.cambio1 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio1" value="3" id="id_cambio1_3" required {% if object.cambio1 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio1" value="4" id="id_cambio1_4" required {% if object.cambio1 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio1" value="5" id="id_cambio1_5" required {% if object.cambio1 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio2.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio2" value="1" id="id_cambio2_1" required {% if object.cambio2 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio2" value="2" id="id_cambio2_2" required {% if object.cambio2 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio2" value="3" id="id_cambio2_3" required {% if object.cambio2 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio2" value="4" id="id_cambio2_4" required {% if object.cambio2 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio2" value="5" id="id_cambio2_5" required {% if object.cambio2 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio3.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio3" value="1" id="id_cambio3_1" required {% if object.cambio3 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio3" value="2" id="id_cambio3_2" required {% if object.cambio3 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio3" value="3" id="id_cambio3_3" required {% if object.cambio3 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio3" value="4" id="id_cambio3_4" required {% if object.cambio3 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio3" value="5" id="id_cambio3_5" required {% if object.cambio3 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio4.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio4" value="1" id="id_cambio4_1" required {% if object.cambio4 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio4" value="2" id="id_cambio4_2" required {% if object.cambio4 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio4" value="3" id="id_cambio4_3" required {% if object.cambio4 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio4" value="4" id="id_cambio4_4" required {% if object.cambio4 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio4" value="5" id="id_cambio4_5" required {% if object.cambio4 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio5.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio5" value="1" id="id_cambio5_1" required {% if object.cambio5 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio5" value="2" id="id_cambio5_2" required {% if object.cambio5 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio5" value="3" id="id_cambio5_3" required {% if object.cambio5 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio5" value="4" id="id_cambio5_4" required {% if object.cambio5 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio5" value="5" id="id_cambio5_5" required {% if object.cambio5 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio6.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio6" value="1" id="id_cambio6_1" required {% if object.cambio6 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio6" value="2" id="id_cambio6_2" required {% if object.cambio6 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio6" value="3" id="id_cambio6_3" required {% if object.cambio6 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio6" value="4" id="id_cambio6_4" required {% if object.cambio6 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio6" value="5" id="id_cambio6_5" required {% if object.cambio6 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio7.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio7" value="1" id="id_cambio7_1" required {% if object.cambio7 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio7" value="2" id="id_cambio7_2" required {% if object.cambio7 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio7" value="3" id="id_cambio7_3" required {% if object.cambio7 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio7" value="4" id="id_cambio7_4" required {% if object.cambio7 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio7" value="5" id="id_cambio7_5" required {% if object.cambio7 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio8.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio8" value="1" id="id_cambio8_1" required {% if object.cambio8 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio8" value="2" id="id_cambio8_2" required {% if object.cambio8 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio8" value="3" id="id_cambio8_3" required {% if object.cambio8 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio8" value="4" id="id_cambio8_4" required {% if object.cambio8 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio8" value="5" id="id_cambio8_5" required {% if object.cambio8 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio9.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio9" value="1" id="id_cambio9_1" required {% if object.cambio9 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio9" value="2" id="id_cambio9_2" required {% if object.cambio9 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio9" value="3" id="id_cambio9_3" required {% if object.cambio9 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio9" value="4" id="id_cambio9_4" required {% if object.cambio9 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio9" value="5" id="id_cambio9_5" required {% if object.cambio9 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio10.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio10" value="1" id="id_cambio10_1" required {% if object.cambio10 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio10" value="2" id="id_cambio10_2" required {% if object.cambio10 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio10" value="3" id="id_cambio10_3" required {% if object.cambio10 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio10" value="4" id="id_cambio10_4" required {% if object.cambio10 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio10" value="5" id="id_cambio10_5" required {% if object.cambio10 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio11.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio11" value="1" id="id_cambio11_1" required {% if object.cambio11 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio11" value="2" id="id_cambio11_2" required {% if object.cambio11 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio11" value="3" id="id_cambio11_3" required {% if object.cambio11 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio11" value="4" id="id_cambio11_4" required {% if object.cambio11 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio11" value="5" id="id_cambio11_5" required {% if object.cambio11 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio12.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio12" value="1" id="id_cambio12_1" required {% if object.cambio12 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio12" value="2" id="id_cambio12_2" required {% if object.cambio12 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio12" value="3" id="id_cambio12_3" required {% if object.cambio12 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio12" value="4" id="id_cambio12_4" required {% if object.cambio12 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio12" value="5" id="id_cambio12_5" required {% if object.cambio12 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio13.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio13" value="1" id="id_cambio13_1" required {% if object.cambio13 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio13" value="2" id="id_cambio13_2" required {% if object.cambio13 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio13" value="3" id="id_cambio13_3" required {% if object.cambio13 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio13" value="4" id="id_cambio13_4" required {% if object.cambio13 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio13" value="5" id="id_cambio13_5" required {% if object.cambio13 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio14.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio14" value="1" id="id_cambio14_1" required {% if object.cambio14 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio14" value="2" id="id_cambio14_2" required {% if object.cambio14 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio14" value="3" id="id_cambio14_3" required {% if object.cambio14 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio14" value="4" id="id_cambio14_4" required {% if object.cambio14 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio14" value="5" id="id_cambio14_5" required {% if object.cambio14 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio15.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio15" value="1" id="id_cambio15_1" required {% if object.cambio15 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio15" value="2" id="id_cambio15_2" required {% if object.cambio15 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio15" value="3" id="id_cambio15_3" required {% if object.cambio15 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio15" value="4" id="id_cambio15_4" required {% if object.cambio15 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio15" value="5" id="id_cambio15_5" required {% if object.cambio15 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio16.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio16" value="1" id="id_cambio16_1" required {% if object.cambio16 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio16" value="2" id="id_cambio16_2" required {% if object.cambio16 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio16" value="3" id="id_cambio16_3" required {% if object.cambio16 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio16" value="4" id="id_cambio16_4" required {% if object.cambio16 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio16" value="5" id="id_cambio16_5" required {% if object.cambio16 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio17.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio17" value="1" id="id_cambio17_1" required {% if object.cambio17 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio17" value="2" id="id_cambio17_2" required {% if object.cambio17 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio17" value="3" id="id_cambio17_3" required {% if object.cambio17 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio17" value="4" id="id_cambio17_4" required {% if object.cambio17 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio17" value="5" id="id_cambio17_5" required {% if object.cambio17 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio18.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio18" value="1" id="id_cambio18_1" required {% if object.cambio18 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio18" value="2" id="id_cambio18_2" required {% if object.cambio18 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio18" value="3" id="id_cambio18_3" required {% if object.cambio18 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio18" value="4" id="id_cambio18_4" required {% if object.cambio18 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio18" value="5" id="id_cambio18_5" required {% if object.cambio18 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio19.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio19" value="1" id="id_cambio19_1" required {% if object.cambio19 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio19" value="2" id="id_cambio19_2" required {% if object.cambio19 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio19" value="3" id="id_cambio19_3" required {% if object.cambio19 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio19" value="4" id="id_cambio19_4" required {% if object.cambio19 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio19" value="5" id="id_cambio19_5" required {% if object.cambio19 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio20.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio20" value="1" id="id_cambio20_1" required {% if object.cambio20 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio20" value="2" id="id_cambio20_2" required {% if object.cambio20 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio20" value="3" id="id_cambio20_3" required {% if object.cambio20 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio20" value="4" id="id_cambio20_4" required {% if object.cambio20 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio20" value="5" id="id_cambio20_5" required {% if object.cambio20 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio21.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio21" value="1" id="id_cambio21_1" required {% if object.cambio21 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio21" value="2" id="id_cambio21_2" required {% if object.cambio21 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio21" value="3" id="id_cambio21_3" required {% if object.cambio21 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio21" value="4" id="id_cambio21_4" required {% if object.cambio21 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio21" value="5" id="id_cambio21_5" required {% if object.cambio21 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio22.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio22" value="1" id="id_cambio22_1" required {% if object.cambio22 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio22" value="2" id="id_cambio22_2" required {% if object.cambio22 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio22" value="3" id="id_cambio22_3" required {% if object.cambio22 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio22" value="4" id="id_cambio22_4" required {% if object.cambio22 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio22" value="5" id="id_cambio22_5" required {% if object.cambio22 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio23.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio23" value="1" id="id_cambio23_1" required {% if object.cambio23 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio23" value="2" id="id_cambio23_2" required {% if object.cambio23 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio23" value="3" id="id_cambio23_3" required {% if object.cambio23 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio23" value="4" id="id_cambio23_4" required {% if object.cambio23 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio23" value="5" id="id_cambio23_5" required {% if object.cambio23 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio24.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio24" value="1" id="id_cambio24_1" required {% if object.cambio24 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio24" value="2" id="id_cambio24_2" required {% if object.cambio24 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio24" value="3" id="id_cambio24_3" required {% if object.cambio24 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio24" value="4" id="id_cambio24_4" required {% if object.cambio24 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio24" value="5" id="id_cambio24_5" required {% if object.cambio24 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio25.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio25" value="1" id="id_cambio25_1" required {% if object.cambio25 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio25" value="2" id="id_cambio25_2" required {% if object.cambio25 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio25" value="3" id="id_cambio25_3" required {% if object.cambio25 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio25" value="4" id="id_cambio25_4" required {% if object.cambio25 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio25" value="5" id="id_cambio25_5" required {% if object.cambio25 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.cambio26.label}}</td>
+                            <td>
+                                <input onchange="suma()" type="radio" name="cambio26" value="1" id="id_cambio26_1" required {% if object.cambio26 == '1' %} checked {% endif %}/>1
+                                <input onchange="suma()" type="radio" name="cambio26" value="2" id="id_cambio26_2" required {% if object.cambio26 == '2' %} checked {% endif %}/>2
+                                <input onchange="suma()" type="radio" name="cambio26" value="3" id="id_cambio26_3" required {% if object.cambio26 == '3' %} checked {% endif %}/>3
+                                <input onchange="suma()" type="radio" name="cambio26" value="4" id="id_cambio26_4" required {% if object.cambio26 == '4' %} checked {% endif %}/>4
+                                <input onchange="suma()" type="radio" name="cambio26" value="5" id="id_cambio26_5" required {% if object.cambio26 == '5' %} checked {% endif %}/>5
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{form.resultado.label}}</th>
+                            <th>{{form.total.label}}</th>
+                        </tr>
+                        <tr>
+                            <th><input type="text" id="id_resultado" readonly name="resultado" required class="form-control" value="{{object.resultado}}"></th>
+                            <th><input type="text" id="id_total" readonly name="total" required class="form-control" value="{{object.total}}"></th>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <legend> ESCALA DE DETERIORO GLOBAL (GDS)</legend>
+
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td>1 Normal</td>
+                            <td>Ningún deterioro cognoscitivo</td>
+                        </tr>
+                        <tr>
+                            <td>2 Olvidadizo</td>
+                            <td>Muy ligero deterioro cognoscitivo</td>
+                        </tr>
+                        <tr>
+                            <td>3 Confuso</td>
+                            <td>Ligero deterioro cognoscitivo</td>
+                        </tr>
+                        <tr>
+                            <td>4 Bastante confuso</td>
+                            <td>Moderado deterioro cognoscitivo</td>
+                        </tr>
+                        <tr>
+                            <td>5 Demencia temprana</td>
+                            <td>Moderadamente severo deterioro cognoscitivo</td>
+                        </tr>
+                        <tr>
+                            <td>6 Demencia moderada</td>
+                            <td>Severo deterioro cognoscitivo</td>
+                        </tr>
+                        <tr>
+                            <td>7 Demencia severa</td>
+                            <td>Profundo deterioro cognoscitivo</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <p>{{form.severidadgds.label}}{{form.severidadgds.errors}}{{form.severidadgds}}</p>
+
+                    <p >
+                        {{form.dxdemencia.label}}{{form.dxdemencia.errors}}{{form.dxdemencia}}
+                    </p>
+                    <p>
+                        {{form.tiempo.label}}{{form.tiempo.errors}}{{form.tiempo}}
+                    </p>
+
+
+
+
+
+
+
+
+                </div>
+        </div>
+    </div>
+
+    <div >
+        <button class="btn btn-primary" type="submit">Guardar y Continuar</button>
+    </div>
+
+</form>
+
+
+{% endblock %}
+{% block extrajs %}
+<script>
+
+/* function */
+function suma(){
+    var total=0;
+    var elements = document.getElementsByTagName("input");
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].type == 'radio') {
+         total=total+elements[i].checked*elements[i].value;
+
+    }
+
+    }
+    total=total/26;
+    document.getElementById("id_total").value=total;
+    if ( total < 3 ) {
+         document.getElementById("id_resultado").value="Mejoría";
+    }
+    if ( total == 3   ) {
+         document.getElementById("id_resultado").value="Sin cambios";
+    }
+    if ( total > 3 &&  total < 3.5 ) {
+         document.getElementById("id_resultado").value="Declive leve";
+    }
+    if ( total > 3.5 &&  total < 4 ) {
+         document.getElementById("id_resultado").value="Declive moderado";
+    }
+    if ( total > 4 &&  total <= 5 ) {
+         document.getElementById("id_resultado").value="Declive severo";
+    }
+
+
+
+
+    }
+
+</script>
+{% endblock %}

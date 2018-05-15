@@ -10,7 +10,7 @@
 
 
 {% load scripts %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="row">
@@ -308,6 +308,9 @@
                     <label for="{{form.medico_responsable.name}}">{{form.medico_responsable.label}}</label>
                     {{ form.medico_responsable.errors }}
                     {{form.medico_responsable}}
+                    <label>{{form.archivo.label}}</label>
+                    {{form.archivo.errors}}
+                    {{form.archivo}}
 
                 </div>
 

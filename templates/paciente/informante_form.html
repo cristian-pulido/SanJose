@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Informante  {% endblock %}
+{% block content %}
+{% if user.groups.all.0.name == 'Consultor' %}
+<script type="text/javascript">
+        window.location="{% url 'upload-new' %}";
+</script>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+
+    <div class="row">
+        <div >
+                <h1>Formulario Informante </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div >
+                <div class="form-group">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th style="vertical-align: middle;">{{form.fechaentrevista.label}}</th>
+                            <td style="vertical-align: middle;">
+                                {{ form.fechaentrevista.errors }}
+                                <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaentrevista" type="date"  id="id_fechaentrevista" value="{{object.fechaentrevista|date:'Y-m-d'}}">
+                            </td>
+                            <th style="vertical-align: middle;">{{form.neuropsicologa.label}}</th>
+                            <td style="vertical-align: middle;">
+                                {{ form.neuropsicologa.errors }}
+                                {{ form.neuropsicologa }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle;">{{ form.informante.label }}</th>
+                            <td style="vertical-align: middle;">
+                                {{ form.informante.errors }}
+                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
+                            </td>
+                            <th style="vertical-align: middle;">{{ form.parentezco.label }}</th>
+                            <td style="vertical-align: middle;">
+                                {{ form.parentezco.errors }}
+                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle;">{{ form.confiable.label }}</th>
+                            <td  style="vertical-align: middle;">{{ form.confiable.errors }}{{ form.confiable }}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+        </div>
+    </div>
+
+    <div >
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
+</form>
+{% endblock %}
+{% block extrajs %}
+{% endblock %}

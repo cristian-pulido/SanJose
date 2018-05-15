@@ -26,6 +26,9 @@
   <li class="nav-item">
     <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#bold">Checklist BOLD</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#informante">Neuropsicología Informante</a>
+  </li>
 
   {% endif %}
 </ul>
@@ -817,7 +820,8 @@
           <tr>
               <th>Total</th>
               <td>{{object.neurologia.total2}}</td>
-              <td colspan="2">
+              <th>Resultado</th>
+              <td>
                 {% if object.neurologia.total2|add:0 < 8 %}
                     Severa injuria cerebral
                 {% endif %}
@@ -1014,7 +1018,7 @@
                 {% endif %}
               </td>
             </tr>
-          
+
 
           </tbody>
         </table>
@@ -1206,6 +1210,150 @@
       {% endif %}
       {% endif %}
  </div>
+
+<div class="tab-pane"  id="informante">
+      {% if not object.informante or object.informante.fechaentrevista == None %}
+      <p class="text-danger">No se encontro información neuropsicológica </p>
+      {% if user.groups.all.0.name != 'Consultor' %}
+
+       {% if object.edad > 59 %}
+          {% if object.mayor %}
+          <a class="btn btn-primary" href="{% url 'mayor_editar' object.mayor.pk %}">Añadir</a>
+          {% else %}
+          <a class="btn btn-primary" href="{% url 'crear_informante' object.pk %}">Añadir</a>
+          {% endif %}
+
+       {% else %}
+          {% if object.informante %}
+          <a class="btn btn-primary" href="{% url 'informante_editar' object.informante.pk %}">Añadir</a>
+          {% else %}
+          <a class="btn btn-primary" href="{% url 'crear_informante' object.pk %}">Añadir</a>
+          {% endif %}
+
+       {% endif %}
+
+
+      {% endif %}
+    {% endif %}
+
+
+
+      {% if object.informante and object.informante.fechaentrevista != None %}
+
+        {% if object.mayor %}
+          <table class="table table-hover">
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha de entrevista clínica </th>
+              <td>{{ object.mayor.fechaentrevista }} </td>
+              <th>Neuropsicóloga:</th>
+              <td>{{ object.mayor.neuropsicologa }}</td>
+            </tr>
+          <tr>
+            <th>Informante</th>
+            <td>{{ object.mayor.informante }}</td>
+            <th>Parentezco</th>
+            <td>{{ object.mayor.parentezco }}</td>
+          </tr>
+          <tr>
+            <th>Confiable</th>
+            <td colspan="3">{{ object.mayor.confiable }}</td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <legend>S - I.Q.C.O.D.E.</legend>
+            </td>
+          </tr>
+          <tr>
+              <th>Resultado</th>
+              <td>{{object.mayor.resultado}}</td>
+              <th>Total</th>
+              <td>{{object.mayor.total}}</td>
+            </tr>
+          <tr>
+            <td colspan="4">
+              <legend>ESCALA DE DETERIORO GLOBAL (GDS)</legend>
+            </td>
+          </tr>
+          <tr>
+            <th>Severidad GDS:</th>
+            <td colspan="3">
+              {{object.mayor.severidadgds}}
+              {% if object.mayor.severidadgds == "1" %}
+                Normal, Ningún deterioro cognoscitivo
+              {% endif %}
+              {% if object.mayor.severidadgds == "2" %}
+                Olvidadizo, Muy ligero deterioro cognoscitivo
+              {% endif %}
+              {% if object.mayor.severidadgds == "3" %}
+                Confuso, Ligero deterioro cognoscitivo
+              {% endif %}
+              {% if object.mayor.severidadgds == "4" %}
+                Bastante confuso, Moderado deterioro cognoscitivo
+              {% endif %}
+              {% if object.mayor.severidadgds == "5" %}
+                Demencia temprana, Moderadamente severo deterioro cognoscitivo
+              {% endif %}
+              {% if object.mayor.severidadgds == "6" %}
+                Demencia moderada, Severo deterioro cognoscitivo
+              {% endif %}
+              {% if object.mayor.severidadgds == "7" %}
+                Demencia severa, Profundo deterioro cognoscitivo
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Dx Demencia</th>
+            <td>{{object.mayor.dxdemencia}}</td>
+            <th>Tiempo de evolución</th>
+            <td>{{object.mayor.tiempo}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+
+       {% else %}
+        <table class="table table-hover">
+          <tbody>
+            <tr class="table-active">
+              <th>Fecha de entrevista clínica </th>
+              <td>{{ object.informante.fechaentrevista }} </td>
+              <th>Neuropsicóloga:</th>
+              <td>{{ object.informante.neuropsicologa }}</td>
+            </tr>
+          <tr>
+            <th>Informante</th>
+            <td>{{ object.informante.informante }}</td>
+            <th>Parentezco</th>
+            <td>{{ object.informante.parentezco }}</td>
+          </tr>
+          <tr>
+            <th>Confiable</th>
+            <td colspan="3">{{ object.informante.confiable }}</td>
+          </tr>
+          </tbody>
+        </table>
+
+       {% endif %}
+
+
+
+      {% if user.groups.all.0.name != 'Consultor' %}
+
+      {% if object.edad > 59 %}
+          <a class="btn btn-primary" href="{% url 'mayor_editar' object.mayor.pk %}">Editar</a>
+
+       {% else %}
+          <a class="btn btn-primary" href="{% url 'informante_editar' object.informante.pk %}">Editar</a>
+
+       {% endif %}
+
+      {% endif %}
+      {% endif %}
+ </div>
+
+
+
 
 
 </div>

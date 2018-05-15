@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold
+from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
 
 
 def error(request):
@@ -61,5 +61,38 @@ def crearbold(request, pk):
         else:
             b=Bold.objects.create(candidato=c)
             return redirect("/paciente/bold/editar/"+str(b.pk))
+
+
+
+def crearinformante(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        edad=c.edad
+        if edad>59:
+            if hasattr(c, 'mayor'):
+                return redirect("/paciente/mayor/editar/" + str(c.mayor.pk))
+            else:
+                m = Mayor.objects.create(candidato=c)
+                i = Informante.objects.create(candidato=c)
+                return redirect("/paciente/mayor/editar/" + str(m.pk))
+        else:
+            if hasattr(c, 'informante'):
+                return redirect("/paciente/informante/editar/" + str(c.informante.pk))
+            else:
+                i = Informante.objects.create(candidato=c)
+                return redirect("/paciente/informante/editar/" + str(i.pk))
+
+
+
+
+
+
+
+
+
+
+
 
 
