@@ -12,7 +12,7 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment
 
-source /home/ubuntu/.virtualenvs/ambiente1/bin/activate
+source /home/ubuntu/.virtualenvs/ambiente/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
@@ -24,7 +24,7 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 # Start your Django Unicorn
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
 
-exec gunicorn --bind 0.0.0.0:8000 SanJose.wsgi
-
-
+#exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000 
+cd /home/ubuntu/SanJose
+./manage.py runserver 0.0.0.0:8000
 
