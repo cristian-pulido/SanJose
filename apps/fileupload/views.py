@@ -1,5 +1,6 @@
 # encoding: utf-8
 import json
+import os
 from fileinput import filename
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -12,6 +13,7 @@ from apps.paciente.models import Candidato
 from .models import Picture
 from .response import JSONResponse, response_mimetype
 from .serialize import serialize
+import shutil
 
 
 
@@ -36,6 +38,17 @@ class PictureCreateView(CreateView):
                 carga = True
             except:
                 pass
+
+        try:
+            os.mkdir("/home/ubuntu/media/img")
+        except:
+            ""
+        os.mkdir("/home/ubuntu/media/img/sujeto"+str(c.sujeto_numero))
+        name=str(self.object.file)[9:]
+        shutil.copy2("/home/ubuntu/"+self.object.file.url,"/home/ubuntu/media/img/sujeto"+str(c.sujeto_numero)+"/"+name)
+
+
+
         return response
 
     def form_invalid(self, form):

@@ -159,6 +159,7 @@
         </table>
       {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
+      <a class="btn btn-primary" href="{% url 'anonimizar' object.pk%}">Anonimizar</a>
       {% endif %}
       {% endif %}
  </div>
@@ -173,6 +174,7 @@
       {% endif %}
       {% endif %}
     {% endif %}
+
 
 
 

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
 
+from apps.fileupload.models import Picture
+from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
+from programas import anonimizador
 
 def error(request):
     return render(request, 'registration/login-error.html')
@@ -84,6 +86,20 @@ def crearinformante(request, pk):
                 i = Informante.objects.create(candidato=c)
                 return redirect("/paciente/informante/editar/" + str(i.pk))
 
+def anonimizar(request,pk):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        i = Picture.objects.get(pk=pk)
+        n = i.candidato.sujeto_numero
+        ### anonimizador
+        i.anonimo=1
+        i.save()
+        anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(n))
+        i.anonimo = 2
+        i.save()
+        return redirect('login')
 
 
 

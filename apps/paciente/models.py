@@ -108,11 +108,6 @@ class Candidato(models.Model):
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
 
-    def delete(self, *args, **kwargs):
-        """delete -- Remove to leave file."""
-        self.archivo.delete(False)
-        super(Candidato, self).delete(*args, **kwargs)
-
 
     class Meta:
         ordering = [('-inscrito')]

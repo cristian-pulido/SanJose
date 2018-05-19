@@ -47,18 +47,20 @@ def upload_js(per):
             <tr class="template-download fade">
 
                 <td style="vertical-align:middle;">
+                    <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>
                     <p class="name">
                        <a href={%=file.url%}>{%=file.name%}</a>
                     </p>
+                     
                     {% if (file.error) { %}
                         <div><span class="label label-important">{%=locale.fileupload.error%}</span> {%=file.error%}</div>
                     {% } %}
                 </td>
 
-                <td >
+                <td style="vertical-align:middle;">
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
-                <td>
+                <td style="vertical-align:middle;">
                     
                     <form>
                       <button class="btn btn-danger"  formaction={%=file.deleteUrl%}>
@@ -68,19 +70,16 @@ def upload_js(per):
                     </form>
                     
                 </td>
-                <td>                        
+                <td style="vertical-align:middle;">                        
                         <form>
-                          <button class="btn btn-warning"  formaction={%=file.thumbnailUrl%}>
+                          <button class="btn btn-warning"  formaction={%=file.anonimourl%}>
                           <i class="glyphicon glyphicon-download"></i>
-                          Descargar
+                          {%=file.anonimolabel%}
                           </button>
                         </form>
                 </td>
 
-                <td style="vertical-align:middle;">
-                   <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%} </p>
                 
-                </td>
             </tr>
         {% } %}
 
@@ -93,20 +92,20 @@ def upload_js(per):
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
 
-                <td>
+                <td style="vertical-align:middle;">
                     <p class="name">{%=file.name%}</p>
                     {% if (file.error) { %}
                         <div><span class="label label-important">{%=locale.fileupload.error%}</span> {%=file.error%}</div>
                     {% } %}
                 </td>
-                <td>
+                <td style="vertical-align:middle;"> 
                     <p class="size">{%=o.formatFileSize(file.size)%}</p>
                     {% if (!o.files.error) { %}
                         <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                     {% } %}
                 </td>
 
-                <td>
+                <td style="vertical-align:middle;">
                     {% if (!o.files.error && !i && !o.options.autoUpload) { %}
                         <button class="btn btn-primary start">
                             <i class="glyphicon glyphicon-upload"></i>
@@ -127,17 +126,20 @@ def upload_js(per):
 
                 <td style="vertical-align:middle;">
                     <p class="name">
+                        <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>
                        <a href={%=file.url%}>{%=file.name%}</a>
+                       
                     </p>
+                     
                     {% if (file.error) { %}
                         <div><span class="label label-important">{%=locale.fileupload.error%}</span> {%=file.error%}</div>
                     {% } %}
                 </td>
 
-                <td>
+                <td style="vertical-align:middle;">
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
-                <td>
+                <td style="vertical-align:middle;">
                         <form>
                           <button class="btn btn-warning"  formaction={%=file.thumbnailUrl%}>
                           <i class="glyphicon glyphicon-download"></i>
@@ -145,9 +147,8 @@ def upload_js(per):
                           </button>
                         </form>
                 </td>
-                <td style="vertical-align:middle;">
-                   <p style={%=file.color%} class="Verificacion" >{%=file.verificacion%}</p>  
-                </td>
+                
+                
             </tr>
         {% } %}
 

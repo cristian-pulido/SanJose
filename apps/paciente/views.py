@@ -1,5 +1,8 @@
 
 # Create your views here.
+import os
+import shutil
+
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
@@ -26,12 +29,20 @@ class PacienteUpdate(UpdateView):
         if p.estado==0:
             p.estado=1
             p.save()
+        try:
+            shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto'+str(p.sujeto_numero))
+            p.archivo='/img/sujeto'+str(p.sujeto_numero)+"/"+str(p.archivo)[11:]
+            p.save()
+        except:
+            ""
+
         return reverse_lazy('paciente', args=[p.pk])
 
 class IngresoUpdate(UpdateView):
     model = Ingreso
     form_class = IngresoForm
     template_name = 'paciente/ingreso_form.html'
+
     # a donde va dirigido
 
     def get_success_url(self):

@@ -1,6 +1,51 @@
 {% extends 'base/base.html' %}
 {% load staticfiles %}
 
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+
+
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
 {% if user.groups.all.0.name == 'Consultor' %}
@@ -11,6 +56,24 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <div class="modal-wrapper" id="popup">
+   <div class="popup-contenedor">
+      <select name="country" autofocus class="countries order-alpha group-continents group-order-alpha" id="countryId" {% if object.lugar_nacimiento != None %} required {% endif %}>
+                    <option value="">País</option>
+                    </select>
+                    <select name="state" class="states order-alpha" id="stateId">
+                    <option value="">Departamento</option>
+                    </select>
+                    <select name="city" class="cities order-alpha" id="cityId">
+                    <option value="">Ciudad</option>
+                    </select>
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+                    <br>
+      <a class="popup-cerrar" href="#">X</a>
+   </div>
+    </div>
+
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -31,20 +94,22 @@
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
 
+
                     <label for="{{form.lugar_nacimiento.name}}">{{form.lugar_nacimiento.label}}</label>
                     {{ form.lugar_nacimiento.errors }}
-                    <input type="text" name="lugar_nacimiento" maxlength="80" id="id_lugar_nacimiento" class="form-control" readonly required {% if object.lugar_nacimiento != None %} value="{{object.lugar_nacimiento}}" {% endif %}/>
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td><input type="text" name="lugar_nacimiento" maxlength="80" id="id_lugar_nacimiento" class="form-control" readonly required {% if object.lugar_nacimiento != None %} value="{{object.lugar_nacimiento}}" {% endif %}/></td>
+                            <td><a href="#popup" class="popup-link" onclick="cambio('n')">Seleccionar</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                    <br>
 
 
-					<script src="{% static 'js/countries.js' %}"></script>
-					País:   <select id="country" name ="country" {% if object.lugar_nacimiento != None %} required {% endif %} ></select>
-                    Departamento: <select name ="state" id ="state"  style="display:none"></select>
 
-				<script language="javascript">
-					populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
-				</script>
+
 
 
                 </div>
@@ -53,18 +118,18 @@
                 <div class="form-group">
                     <label for="{{form.lugar_residencia.name}}">{{form.lugar_residencia.label}}</label>
                     {{ form.lugar_residencia.errors }}
-                    <input type="text" name="lugar_residencia" maxlength="80" id="id_lugar_residencia" class="form-control" readonly required {% if object.lugar_residencia != None %} value="{{object.lugar_residencia}}" {% endif %}/>
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <td><input type="text" name="lugar_residencia" maxlength="80" id="id_lugar_residencia" class="form-control" readonly required {% if object.lugar_residencia != None %} value="{{object.lugar_residencia}}" {% endif %}/></td>
+                            <td><a href="#popup" class="popup-link" onclick="cambio('r')">Seleccionar</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                    <br>
 
 
-					<script src="{% static 'js/countries.js' %}"></script>
-					País:   <select id="country2" name ="country2" {% if object.lugar_residencia != None %} required {% endif %} ></select>
-                    Departamento: <select name ="state2" id ="state2"  style="display:none"></select>
 
-				<script language="javascript">
-					populateCountries("country2", "state2"); // first parameter is id of country2 drop-down and second parameter is id of state2 drop-down
-				</script>
                 </div>
         </div>
         {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
@@ -298,47 +363,58 @@
 {% endblock %}
 {% block extrajs %}
 <script>
-
+var x=0;
 /* event listener */
 document.getElementsByName("country")[0].addEventListener('change', npais);
 document.getElementsByName("state")[0].addEventListener('change', ndep);
-document.getElementsByName("country2")[0].addEventListener('change', npais2);
-document.getElementsByName("state2")[0].addEventListener('change', ndep2);
+document.getElementsByName("city")[0].addEventListener('change', nc);
 document.getElementsByName("a_patologicos")[0].addEventListener('change', patologicos);
 document.getElementsByName("a_farmaco1")[0].addEventListener('change', far1);
 document.getElementsByName("a_farmaco2")[0].addEventListener('change', far2);
 
 /* function */
-function npais(){
-    var p= document.getElementById("country").value;
-    if ( p == -1 ) {
-        document.getElementById("id_lugar_nacimiento").value = "";
+function cambio(arg){
+    if (arg == 'n'){
+    x=1;
     } else {
-        document.getElementById("id_lugar_nacimiento").value = p;
+    x=0;
     }
-    var d= document.getElementById("state").style="display:inline";
-    var d= document.getElementById("state").required=true;
+    document.getElementById("countryId").value="";
+    document.getElementById("stateId").value="";
+    document.getElementById("cityId").value="";
+}
+function npais(){
+    var p= document.getElementById("countryId").value;
+
+    if ( x == 1){
+    document.getElementById("id_lugar_nacimiento").value = p;
+    } else {
+    document.getElementById("id_lugar_residencia").value = p;
+    }
+    var d= document.getElementById("stateId").required=true;
+    var d= document.getElementById("cityId").required=true;
 }
 function ndep(){
-    var d= document.getElementById("state").value;
-    var p= document.getElementById("country").value;
+    var d= document.getElementById("stateId").value;
+    var p= document.getElementById("countryId").value;
+    if ( x == 1){
     document.getElementById("id_lugar_nacimiento").value = p+", "+d;
+    } else {
+    document.getElementById("id_lugar_residencia").value = p+", "+d;
+    }
+
 
 }
-function npais2(){
-    var p= document.getElementById("country2").value;
-    if ( p == -1 ) {
-        document.getElementById("id_lugar_residencia").value = "";
+function nc(){
+    var d= document.getElementById("stateId").value;
+    var p= document.getElementById("countryId").value;
+    var c= document.getElementById("cityId").value;
+    if ( x == 1){
+    document.getElementById("id_lugar_nacimiento").value = p+", "+d+", "+c;
     } else {
-        document.getElementById("id_lugar_residencia").value = p;
+    document.getElementById("id_lugar_residencia").value = p+", "+d+", "+c;
     }
-    var d= document.getElementById("state2").style="display:inline";
-    var d= document.getElementById("state2").required=true;
-}
-function ndep2(){
-    var d= document.getElementById("state2").value;
-    var p= document.getElementById("country2").value;
-    document.getElementById("id_lugar_residencia").value = p+", "+d;
+
 
 }
 

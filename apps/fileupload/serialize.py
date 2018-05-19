@@ -21,15 +21,8 @@ def order_name(name):
 def veri(estado):
     if estado==0:
         return "Registro Incompleto"
-    elif estado==1:
-        return "Formulario de inclusión cargado"
-    elif estado==2:
-        return "Formulario de ingreso cargado"
-    elif estado==3:
-        return "Formulario UCI cargado"
-    elif estado==4:
-        return "Formulario de radiología cargado"
-
+    else:
+        return ""
 def color(e):
     if e==0:
         return "color:red;"
@@ -47,6 +40,9 @@ def direccion(s):
         return "/paciente/editar/"+str(s.pk)
     else:
         return "/paciente/formularios/"+str(s.pk)
+
+
+
 
 def serialize(instance, file_attr='file'):
     """serialize -- Serialize a Picture instance into a dict.
@@ -70,6 +66,18 @@ def serialize(instance, file_attr='file'):
     else:
         print("")
 
+    urlan=""
+    labelan=""
+    if instance.anonimo == 0:
+        urlan= "/script/anonimizar/"+str(instance.pk)
+        labelan="Anonimizar"
+    elif instance.anonimo ==1:
+        urlan = "#"
+        labelan = "Anonimizando"
+    elif instance.anonimo ==2:
+        urlan = obj.url
+        labelan = "Descargar Anonimizado"
+
 
 
     return {
@@ -84,6 +92,8 @@ def serialize(instance, file_attr='file'):
         'sujeto': n,
         'verificacion': veri(e),
         'color': color(e),
+        'anonimourl': urlan,
+        'anonimolabel': labelan,
     }
 
 
