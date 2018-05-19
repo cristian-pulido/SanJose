@@ -4,7 +4,12 @@ defusedxml==0.5.0
 Django==2.0.4
 gunicorn==19.7.1
 idna==2.6
+nibabel==2.2.1
+numpy==1.14.3
 oauthlib==2.0.7
+patool==1.12
+pkg-resources==0.0.0
+pydicom==1.0.2
 PyJWT==1.6.1
 PyMySQL==0.8.0
 python-social-auth==0.3.6
