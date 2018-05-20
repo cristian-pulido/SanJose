@@ -310,9 +310,16 @@
                     {{form.medico_responsable}}
                     <label>{{form.archivo.label}}</label>
                     {{form.archivo.errors}}
-                    {{form.archivo}}
+
+                    {% if not object.archivo or user.groups.all.0.name == 'Administrador'%}
+                     {{form.archivo}}
+                    {% else %}
+                    Ya cargado.
+                    {{form.archivo.as_hidden}}
+                    {% endif%}
 
                 </div>
+
 
         </div>
 
@@ -397,6 +404,7 @@ function vald(){
 
 
 }
+
 </script>
 
 

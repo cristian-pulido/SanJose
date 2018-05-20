@@ -54,25 +54,31 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </script>
 {% endif %}
 
+
+
+        <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="modal-wrapper" id="popup">
-   <div class="popup-contenedor">
-      <select name="country" autofocus class="countries order-alpha group-continents group-order-alpha" id="countryId" {% if object.lugar_nacimiento != None %} required {% endif %}>
-                    <option value="">País</option>
-                    </select>
-                    <select name="state" class="states order-alpha" id="stateId">
-                    <option value="">Departamento</option>
-                    </select>
-                    <select name="city" class="cities order-alpha" id="cityId">
-                    <option value="">Ciudad</option>
-                    </select>
-                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-                    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
-                    <br>
-      <a class="popup-cerrar" href="#">X</a>
-   </div>
-    </div>
+
 
 
     <div class="row">
@@ -132,7 +138,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                 </div>
         </div>
-        {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
+        {% if not object.archivo  or  user.groups.all.0.name == 'Administrador' %}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.direccion.name}}">{{form.direccion.label}}</label>
@@ -171,6 +177,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     {{form.nombre_acompanante.as_hidden}}
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    {{form.tel1.as_hidden}}
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -334,7 +345,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     <input   {% if object.firma_consentimiento == False %} style="display:none" {% endif  %} class="form-control"  required min="2017-01-01" max="2020-12-31"  name="fechafirma" type="date"  id="id_fechafirma" value="{{object.fechafirma|date:'Y-m-d'}}">
                     <br>
                     <label id="dfirma"  {% if object.firma_consentimiento == False %} style="display:none" {% endif  %}>Cargar Consentimiento</label>
-                    <p><input type="file" name="archivofirma" id="id_archivofirma" accept="application/pdf"  {% if object.firma_consentimiento == False %} style="display:none" {% else%} required value="{{object.archivofirma}}" {% endif  %} /></p>
+                    {% if object.archivofirma %}
+                        Ya cargado
+                    {% else %}
+                     <p><input type="file" name="archivofirma" id="id_archivofirma" accept="application/pdf" {% if object.firma_consentimiento == False %} style="display:none" {% else%} required value="{{object.archivofirma}}" {% endif %} /></p>
+                    {% endif %}
                     <br>
                     <label id="causafirma" {% if object.firma_consentimiento == True %} style="display:none" {% endif  %}>{{form.firma_causa.label}}</label>
                     <input   {% if object.firma_consentimiento == True %} style="display:none" {% else %} value="{{object.firma_causa}}" {% endif  %} class="form-control"   name="firma_causa" type="text"  id="id_firma_causa" >
@@ -342,7 +357,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {{ form.firma_causa.errors }}
                     <br>
                     <label>{{form.archivo.label}}</label>
-                    <p>{{form.archivo}}</p>
+                    {% if not object.archivo or user.groups.all.0.name == 'Administrador'%}
+                     {{form.archivo}}
+                    {% else %}
+                    Ya cargado.
+                    {{form.archivo.as_hidden}}
+                    {% endif%}
                 </div>
         </div>
 
@@ -354,6 +374,24 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 </form>
 
+
+<div class="modal-wrapper" id="popup">
+   <div class="popup-contenedor">
+      <select name="country" autofocus class="countries order-alpha group-continents group-order-alpha" id="countryId" {% if object.lugar_nacimiento != None %} required {% endif %}>
+                    <option value="">País</option>
+                    </select>
+                    <select name="state" class="states order-alpha" id="stateId">
+                    <option value="">Departamento</option>
+                    </select>
+                    <select name="city" class="cities order-alpha" id="cityId">
+                    <option value="">Ciudad</option>
+                    </select>
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+                    <br>
+      <a class="popup-cerrar" href="#">X</a>
+   </div>
+    </div>
 
 
 

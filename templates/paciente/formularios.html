@@ -159,7 +159,7 @@
         </table>
       {% if user.groups.all.0.name != 'Consultor' %}
       <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
-      <a class="btn btn-primary" href="{% url 'anonimizar' object.pk%}">Anonimizar</a>
+
       {% endif %}
       {% endif %}
  </div>
@@ -231,9 +231,14 @@
 
             <tr class="table-success">
               <th>Antecedentes Patológicos</th>
-              <td >{% for p in  object.ingreso.a_patologicos.all %}
+              <td >
+                  {% if object.ingreso.a_patologicos.all|length != 0 %}
+                  {% for p in  object.ingreso.a_patologicos.all %}
                     <p>{% if p.nombre == 'Otro' %}{{object.ingreso.a_patologicos_cual}}{% else %}{{ p }}{% endif%}</p>
                   {% endfor %}
+                  {% else %}
+                  Ninguno
+                  {% endif %}
               </td>
               <th>Antecedentes Familiares relevantes:</th>
               <td >{% if object.ingreso.a_familiares != None %}{{ object.ingreso.a_familiares }}{% else%} Ninguno {% endif %}</td>
@@ -241,6 +246,7 @@
             <tr class="table-secondary">
               <th>Antecedentes quirúrgicos</th>
               <td>
+                  {% if object.ingreso.fecha_craneotomia == None and object.ingreso.causa_quirurgicos == None %} Ninguno {% endif%}
                   {% if object.ingreso.fecha_craneotomia != None %}<p>Craneotomía el {{ object.ingreso.fecha_craneotomia }}</p>{% endif %}
                   {% if object.ingreso.causa_quirurgicos != None %}<p>Otras Causas: {{ object.ingreso.causa_quirurgicos }}</p>{% endif %}
               </td>

@@ -30,22 +30,24 @@ class PictureCreateView(CreateView):
         ## Crear objeto vacio y añadirle la imagen subida
         carga = False
         contador=0
+        try:
+            os.mkdir("/home/ubuntu/media/img")
+        except:
+            ""
         while not carga:
             contador=contador+1
             try:
                 c = Candidato.objects.create(sujeto_numero=contador, inscrito=True, imagen=self.object, ci3=True, ci4=True, estado=0)
                 c.save()
                 carga = True
+                os.mkdir("/home/ubuntu/media/img/sujeto" + str(c.sujeto_numero))
+                name = str(self.object.file)[9:]
+                shutil.copy2("/home/ubuntu/" + self.object.file.url, "/home/ubuntu/media/img/sujeto" + str(c.sujeto_numero) + "/" + name)
+
             except:
                 pass
 
-        try:
-            os.mkdir("/home/ubuntu/media/img")
-        except:
-            ""
-        os.mkdir("/home/ubuntu/media/img/sujeto"+str(c.sujeto_numero))
-        name=str(self.object.file)[9:]
-        shutil.copy2("/home/ubuntu/"+self.object.file.url,"/home/ubuntu/media/img/sujeto"+str(c.sujeto_numero)+"/"+name)
+
 
 
 

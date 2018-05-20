@@ -69,12 +69,12 @@ def serialize(instance, file_attr='file'):
     urlan=""
     labelan=""
     if instance.anonimo == 0:
-        urlan= "/script/anonimizar/"+str(instance.pk)
-        labelan="Anonimizar"
-    elif instance.anonimo ==1:
+        urlan= "#"
+        labelan="Anonimizando"
+    elif instance.anonimo == 1 or instance.anonimo == 2:
         urlan = "#"
         labelan = "Anonimizando"
-    elif instance.anonimo ==2:
+    elif instance.anonimo == 3:
         urlan = obj.url
         labelan = "Descargar Anonimizado"
 

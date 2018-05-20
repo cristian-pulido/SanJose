@@ -76,6 +76,8 @@ def upload_js(per):
                           <i class="glyphicon glyphicon-download"></i>
                           {%=file.anonimolabel%}
                           </button>
+                          
+                          
                         </form>
                 </td>
 
@@ -139,11 +141,11 @@ def upload_js(per):
                 <td style="vertical-align:middle;">
                     <span class="size">{%=o.formatFileSize(file.size)%}</span>
                 </td> 
-                <td style="vertical-align:middle;">
+                <td style="vertical-align:middle;">                        
                         <form>
-                          <button class="btn btn-warning"  formaction={%=file.thumbnailUrl%}>
+                          <button class="btn btn-warning"  formaction={%=file.anonimourl%}>
                           <i class="glyphicon glyphicon-download"></i>
-                          Descargar
+                          {%=file.anonimolabel%}
                           </button>
                         </form>
                 </td>

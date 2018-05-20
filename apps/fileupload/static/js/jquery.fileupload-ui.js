@@ -125,6 +125,7 @@
                             '100%'
                         );
                 }
+
                 return that._trigger('sent', e, data);
             },
             // Callback for successful uploads:
@@ -153,6 +154,7 @@
                                         that._trigger('completed', e, data);
                                         that._trigger('finished', e, data);
                                         deferred.resolve();
+
                                     }
                                 );
                             }
@@ -170,8 +172,10 @@
                             that._trigger('completed', e, data);
                             that._trigger('finished', e, data);
                             deferred.resolve();
+
                         }
                     );
+
                 }
             },
             // Callback for failed (abort or error) uploads:
@@ -255,12 +259,15 @@
                     globalProgressNode = $this.find('.fileupload-progress'),
                     extendedProgressNode = globalProgressNode
                         .find('.progress-extended');
+
                 if (extendedProgressNode.length) {
                     extendedProgressNode.html(
                         ($this.data('blueimp-fileupload') || $this.data('fileupload'))
                             ._renderExtendedProgress(data)
                     );
+
                 }
+
                 globalProgressNode
                     .find('.progress')
                     .attr('aria-valuenow', progress)
@@ -268,6 +275,8 @@
                         'width',
                         progress + '%'
                     );
+
+
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function (e) {
@@ -282,6 +291,7 @@
             },
             // Callback for uploads stop, equivalent to the global ajaxStop event:
             stop: function (e) {
+            window.location.reload(true);
                 var that = $(this).data('blueimp-fileupload') ||
                         $(this).data('fileupload'),
                     deferred = that._addFinishedDeferreds();
@@ -304,6 +314,7 @@
             },
             processstop: function () {
                 $(this).removeClass('fileupload-processing');
+
             },
             // Callback for file deletion:
             destroy: function (e, data) {

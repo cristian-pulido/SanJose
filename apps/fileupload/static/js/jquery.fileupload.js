@@ -186,6 +186,8 @@
                         $(this).fileupload('option', 'autoUpload'))) {
                     data.process().done(function () {
                         data.submit();
+
+
                     });
                 }
             },
@@ -196,22 +198,22 @@
             // submit: function (e, data) {}, // .bind('fileuploadsubmit', func);
 
             // Callback for the start of each file upload request:
-            // send: function (e, data) {}, // .bind('fileuploadsend', func);
+             //send: function (e, data) {}, // .bind('fileuploadsend', func);
 
             // Callback for successful uploads:
-            // done: function (e, data) {}, // .bind('fileuploaddone', func);
+             //done: function (e, data) {}, // .bind('fileuploaddone', func);
 
             // Callback for failed (abort or error) uploads:
             // fail: function (e, data) {}, // .bind('fileuploadfail', func);
 
             // Callback for completed (success, abort or error) requests:
-            // always: function (e, data) {}, // .bind('fileuploadalways', func);
+             //always: function (e, data) {}, // .bind('fileuploadalways', func);
 
             // Callback for upload progress events:
             // progress: function (e, data) {}, // .bind('fileuploadprogress', func);
 
             // Callback for global upload progress events:
-            // progressall: function (e, data) {}, // .bind('fileuploadprogressall', func);
+             //progressall: function (e, data) {}, // .bind('fileuploadprogressall', func);
 
             // Callback for uploads start, equivalent to the global ajaxStart event:
             // start: function (e) {}, // .bind('fileuploadstart', func);
@@ -241,7 +243,7 @@
             // chunkfail: function (e, data) {}, // .bind('fileuploadchunkfail', func);
 
             // Callback for completed (success, abort or error) chunk upload requests:
-            // chunkalways: function (e, data) {}, // .bind('fileuploadchunkalways', func);
+             //chunkalways: function (e, data) {}, // .bind('fileuploadchunkalways', func);
 
             // The plugin options are used as settings object for the ajax calls.
             // The following are jQuery ajax settings required for the file uploads:

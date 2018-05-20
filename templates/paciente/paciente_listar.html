@@ -42,6 +42,7 @@
             <tr class="table-active">
               <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
               <td>{{object.medico_responsable}}</td>
+
               <td>
                   <div  class="custom-control custom-checkbox">
                     <input  class="custom-control-input" {% if object.inscrito == True %} checked="" {% endif %} id="customCheck2" disabled="" type="checkbox">

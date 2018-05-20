@@ -15,7 +15,22 @@ class PacienteCreate(CreateView):
     model = Candidato
     form_class = PacienteForm
     template_name = 'paciente/paciente_form.html'
-    success_url = reverse_lazy('paciente_listar')
+
+    def get_success_url(self):
+        p=self.object
+
+        try:
+            os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
+        except:
+            ""
+        try:
+            shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+            p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
+            p.save()
+        except:
+            ""
+
+        return reverse_lazy('paciente_listar')
 
 
 class PacienteUpdate(UpdateView):
@@ -30,9 +45,20 @@ class PacienteUpdate(UpdateView):
             p.estado=1
             p.save()
         try:
-            shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto'+str(p.sujeto_numero))
-            p.archivo='/img/sujeto'+str(p.sujeto_numero)+"/"+str(p.archivo)[11:]
-            p.save()
+            if hasattr(p, 'picture'):
+                shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+                p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
+                p.save()
+
+            else:
+                try:
+                    os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
+                except:
+                    ""
+                shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+                p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
+                p.save()
+
         except:
             ""
 
@@ -51,6 +77,20 @@ class IngresoUpdate(UpdateView):
         if p.estado==1:
             p.estado=2
             p.save()
+        try:
+            shutil.move('/home/ubuntu/media/' + str(i.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+            i.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivo)[11:]
+            i.save()
+        except:
+            ""
+        try:
+            if i.archivofirma != None:
+                shutil.move('/home/ubuntu/media/' + str(i.archivofirma), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+                i.archivofirma = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivofirma)[11:]
+                i.save()
+
+        except:
+            ""
         return reverse_lazy('paciente', args=[p.pk])
 
 
