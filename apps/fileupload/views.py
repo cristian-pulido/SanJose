@@ -47,10 +47,6 @@ class PictureCreateView(CreateView):
             except:
                 pass
 
-
-
-
-
         return response
 
     def form_invalid(self, form):
