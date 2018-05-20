@@ -103,7 +103,7 @@ class Candidato(models.Model):
     imagen = models.OneToOneField(Picture, blank=True, null=True, on_delete=models.CASCADE)
     estado = models.PositiveIntegerField(null=True, default=1)
     inscrito = models.NullBooleanField(default=False)
-    archivo = models.FileField(null=True, upload_to="Documentos",unique=True)
+    archivo = models.FileField(null=True, upload_to="Documentos")
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
