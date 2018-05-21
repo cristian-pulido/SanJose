@@ -391,6 +391,7 @@
                 <td >{{object.radiologia.ur_tension_sv}}</td>
               </tr>
             {% endif %}
+            {% if object.radiologia.monitoreo == 'SI'%}
             <tr>
               <th colspan="4" style="color:blue;">Monitoreo neurológico</th>
             </tr>
@@ -405,6 +406,7 @@
               <td>{{object.radiologia.me_dosis}}</td>
             {% endif %}
             <tr>
+            {% endif %}
               <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
             </tr>
             <tr>
@@ -497,80 +499,80 @@
     {% endif %}
   </div>
 <div class="tab-pane"  id="uci">
-      {% if not object.uci or object.uci.fechauci == None %}
+      {% if object.get_uci|length == 0 %}
       <p class="text-danger">No se encontro información de  Uci</p>
-    {% if user.groups.all.0.name != 'Consultor' %}
-      {% if object.uci %}
-      <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Añadir</a>
+        {% if user.groups.all.0.name != 'Consultor' %}
+
+          <a class="btn btn-primary" href="{% url 'crear_uci' object.pk %}">Añadir</a>
+
+          {% endif %}
+
       {% else %}
-      <a class="btn btn-primary" href="{% url 'crear_uci' object.pk %}">Añadir</a>
-      {% endif %}
-      {% endif %}
-    {% endif %}
+          {% for uci in object.get_uci %}
+            <ul>
+              {% if uci.fechauci != None %}
+                <h2>{{uci.fechauci}}</h2>
 
-
-
-      {% if object.uci and object.uci.fechauci != None %}
-      <legend>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</legend>
+                <legend>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</legend>
       <table class="table table-hover">
 
           <tbody>
             <tr class="table-active">
               <th>Fecha </th>
-              <td>{{ object.uci.fechauci }} </td>
+              <td>{{ uci.fechauci }} </td>
               <th>Hora</th>
-              <td>{{ object.uci.horauci }} </td>
+              <td>{{ uci.horauci }} </td>
             </tr>
             <tr>
               <th>Glasgow de seguimiento</th>
               <td>
-                <p>Apertura ocular: {{ object.uci.apertura_ocular }}</p>
-                <p>Respuesta motora: {{ object.uci.respuesta_motora }}</p>
-                <p>Respuesta verbal: {{ object.uci.respuesta_verbal }}</p>
+                <p>Apertura ocular: {{ uci.apertura_ocular }}</p>
+                <p>Respuesta motora: {{ uci.respuesta_motora }}</p>
+                <p>Respuesta verbal: {{ uci.respuesta_verbal }}</p>
               </td>
               <th>Glasgow total </th>
-              <td>{{ object.uci.glasgowtotal }}</td>
+              <td>{{ uci.glasgowtotal }}</td>
             </tr>
           <tr>
             <th>Falla orgánica</th>
-            <td>{% if object.uci.fallaorganica == "SI" %} Sí, {{object.uci.fallaorganica_cual}} {% else %} No {% endif %}</td>
+            <td>{% if uci.fallaorganica == "SI" %} Sí, {{uci.fallaorganica_cual}} {% else %} No {% endif %}</td>
             <th>Sepsis</th>
-            <td>{% if object.uci.sepsis == "SI" %} Sí  {% else %} No {% endif %}</td>
+            <td>{% if uci.sepsis == "SI" %} Sí  {% else %} No {% endif %}</td>
           </tr>
           <tr>
             <th>Presión intracraneana</th>
-            <td>{% if object.uci.presion_intracraneana == "SI" %} Sí {% else %} No {% endif %}</td>
+            <td>{% if uci.presion_intracraneana == "SI" %} Sí {% else %} No {% endif %}</td>
             <th>Monitoría PIC</th>
-            <td>{% if object.uci.monitoria_pic == "SI" %} Sí  {% else %} No {% endif %}</td>
+            <td>{% if uci.monitoria_pic == "SI" %} Sí  {% else %} No {% endif %}</td>
           </tr>
           <tr>
             <th>Ventilación mecánica</th>
-            <td>{% if object.uci.ventilacionmecanica == "SI" %} Sí {% else %} No {% endif %}</td>
+            <td>{% if uci.ventilacionmecanica == "SI" %} Sí {% else %} No {% endif %}</td>
             <th>Soporte vasopresor</th>
-            <td>{% if object.uci.soportevasopresor == "SI" %} Sí,
-              con: <p>{% if object.uci.noradrenalina == "SI" %} Noradrenalina >0.5 Mcg Kg Min  {% endif %}</p>
-              <p>{% if object.uci.vasopresina == "SI" %} Vasopresina >2UI IV Hora  {% endif %}</p>
-              <p>{% if object.uci.adrenalina == "SI" %} Adrenalina. {% endif %}</p>
+            <td>{% if uci.soportevasopresor == "SI" %} Sí,
+              con: <p>{% if uci.noradrenalina == "SI" %} Noradrenalina >0.5 Mcg Kg Min  {% endif %}</p>
+              <p>{% if uci.vasopresina == "SI" %} Vasopresina >2UI IV Hora  {% endif %}</p>
+              <p>{% if uci.adrenalina == "SI" %} Adrenalina. {% endif %}</p>
               {% else %} No {% endif %}</td>
           </tr>
           <tr>
             <th>Sedación</th>
-            {% if  object.uci.midazolan == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            {% if  uci.midazolan == "SI"  or  uci.tiopental == "SI" or uci.dexmedetomidina == "SI"  %}
             <td>
-              <p>{% if object.uci.midazolan == "SI" %} Midazolam : {{object.uci.midazolan_dt }} {% endif %} </p>
-              <p>{% if object.uci.tiopental == "SI" %} Tiopental : {{object.uci.tiopental_dt }} {% endif %} </p>
-              <p>{% if object.uci.dexmedetomidina == "SI" %} Dexmedetomidina : {{object.uci.dexmedetomidina_dt }} {% endif %} </p>
+              <p>{% if uci.midazolan == "SI" %} Midazolam : {{uci.midazolan_dt }} {% endif %} </p>
+              <p>{% if uci.tiopental == "SI" %} Tiopental : {{uci.tiopental_dt }} {% endif %} </p>
+              <p>{% if uci.dexmedetomidina == "SI" %} Dexmedetomidina : {{uci.dexmedetomidina_dt }} {% endif %} </p>
             </td>
             {% else %}
             <td>Ninguna</td>
             {% endif %}
 
             <th>Analgesia</th>
-            {% if  object.uci.morfina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            {% if  uci.morfina == "SI"  or  uci.tiopental == "SI" or uci.dexmedetomidina == "SI"  %}
             <td>
-              <p>{% if object.uci.morfina == "SI" %} Morfina : {{object.uci.morfina_dt }} {% endif %} </p>
-              <p>{% if object.uci.hidromorfona == "SI" %} Hidromorfona : {{object.uci.hidromorfona_dt }} {% endif %} </p>
-              <p>{% if object.uci.fentanyl == "SI" %} Fentanyl : {{object.uci.fentanyl_dt }} {% endif %} </p>
+              <p>{% if uci.morfina == "SI" %} Morfina : {{uci.morfina_dt }} {% endif %} </p>
+              <p>{% if uci.hidromorfona == "SI" %} Hidromorfona : {{uci.hidromorfona_dt }} {% endif %} </p>
+              <p>{% if uci.fentanyl == "SI" %} Fentanyl : {{uci.fentanyl_dt }} {% endif %} </p>
             </td>
             {% else %}
             <td>Ninguna</td>
@@ -580,24 +582,24 @@
 
           <tr>
             <th>Anticonvulsivantes</th>
-            {% if  object.uci.fenitoina == "SI"  or  object.uci.topiramato == "SI" or object.uci.acido_valproico == "SI" or object.uci.levetiracetam == "SI" or object.uci.lacosamida == "SI"  %}
+            {% if  uci.fenitoina == "SI"  or  uci.topiramato == "SI" or uci.acido_valproico == "SI" or uci.levetiracetam == "SI" or uci.lacosamida == "SI"  %}
             <td>
-              <p>{% if object.uci.fenitoina == "SI" %} Fenitoina : {{object.uci.fenitoina_dt }} {% endif %} </p>
-              <p>{% if object.uci.topiramato == "SI" %} Topiramato : {{object.uci.topiramato_dt }} {% endif %} </p>
-              <p>{% if object.uci.acido_valproico == "SI" %} Acido valproico : {{object.uci.acido_valproico_dt }} {% endif %} </p>
-              <p>{% if object.uci.levetiracetam == "SI" %} Levetiracetam : {{object.uci.levetiracetam_dt }} {% endif %} </p>
-              <p>{% if object.uci.lacosamida == "SI" %} Lacosamida : {{object.uci.lacosamida_dt }} {% endif %} </p>
+              <p>{% if uci.fenitoina == "SI" %} Fenitoina : {{uci.fenitoina_dt }} {% endif %} </p>
+              <p>{% if uci.topiramato == "SI" %} Topiramato : {{uci.topiramato_dt }} {% endif %} </p>
+              <p>{% if uci.acido_valproico == "SI" %} Acido valproico : {{uci.acido_valproico_dt }} {% endif %} </p>
+              <p>{% if uci.levetiracetam == "SI" %} Levetiracetam : {{uci.levetiracetam_dt }} {% endif %} </p>
+              <p>{% if uci.lacosamida == "SI" %} Lacosamida : {{uci.lacosamida_dt }} {% endif %} </p>
             </td>
             {% else %}
             <td>Ninguna</td>
             {% endif %}
 
             <th>Antipsicóticos</th>
-            {% if  object.uci.clozapina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            {% if  uci.clozapina == "SI"  or  uci.tiopental == "SI" or uci.dexmedetomidina == "SI"  %}
             <td>
-              <p>{% if object.uci.clozapina == "SI" %} Clozapina : {{object.uci.clozapina_dt }} {% endif %} </p>
-              <p>{% if object.uci.haloperidol == "SI" %} Haloperidol : {{object.uci.haloperidol_dt }} {% endif %} </p>
-              <p>{% if object.uci.ketiapina == "SI" %} Ketiapina : {{object.uci.ketiapina_dt }} {% endif %} </p>
+              <p>{% if uci.clozapina == "SI" %} Clozapina : {{uci.clozapina_dt }} {% endif %} </p>
+              <p>{% if uci.haloperidol == "SI" %} Haloperidol : {{uci.haloperidol_dt }} {% endif %} </p>
+              <p>{% if uci.ketiapina == "SI" %} Ketiapina : {{uci.ketiapina_dt }} {% endif %} </p>
             </td>
             {% else %}
             <td>Ninguna</td>
@@ -607,10 +609,10 @@
 
           <tr>
             <th>Moduladores del ánimo</th>
-            {% if  object.uci.carbamacepina == "SI"  or  object.uci.carbonato_litio == "SI" %}
+            {% if  uci.carbamacepina == "SI"  or  uci.carbonato_litio == "SI" %}
             <td colspan="3">
-              <p>{% if object.uci.carbamacepina == "SI" %} Carbamacepina : {{object.uci.carbamacepina_dt }} {% endif %} </p>
-              <p>{% if object.uci.carbonato_litio == "SI" %} Carbonato de Litio : {{object.uci.carbonato_litio_dt }} {% endif %} </p>
+              <p>{% if uci.carbamacepina == "SI" %} Carbamacepina : {{uci.carbamacepina_dt }} {% endif %} </p>
+              <p>{% if uci.carbonato_litio == "SI" %} Carbonato de Litio : {{uci.carbonato_litio_dt }} {% endif %} </p>
             </td>
             {% else %}
             <td colspan="3">Ninguna</td>
@@ -620,48 +622,48 @@
 
           <tr>
             <th>Valorable por Neurología</th>
-            <td colspan="3">{% if object.uci.valorable_neuro == "NO" %} No, {{object.uci.valorable_neuro_causa}} {% else %} Sí {% endif %}</td>
+            <td colspan="3">{% if uci.valorable_neuro == "NO" %} No, {{uci.valorable_neuro_causa}} {% else %} Sí {% endif %}</td>
           </tr>
           <tr>
             <th>Paciente en condiciones de continuar en el estudio</th>
-            <td colspan="3">{% if object.uci.continua_studio == "SI" %} Sí {% else %} No {% endif %}</td>
+            <td colspan="3">{% if uci.continua_studio == "SI" %} Sí {% else %} No {% endif %}</td>
           </tr>
 
           </tbody>
         </table>
 
-        {% if object.uci.fechaegreso != None %}
+        {% if uci.fechaegreso != None %}
         <legend>Evaluación de egreso UCI</legend>
           <table class="table table-hover">
             <tbody>
             <tr>
               <th>Fecha del Egreso de la UCI</th>
-              <td>{{object.uci.fechaegreso}}</td>
+              <td>{{uci.fechaegreso}}</td>
               <th>Hora</th>
-              <td>{{object.uci.horaegreso}}</td>
+              <td>{{uci.horaegreso}}</td>
             </tr>
             <tr>
               <th>Condición de egreso de UCI</th>
-              <td>{{object.uci.condicion_egreso}}</td>
+              <td>{{uci.condicion_egreso}}</td>
               <th>Dx de egreso</th>
-              <td>{{object.uci.dx_egreso}}</td>
+              <td>{{uci.dx_egreso}}</td>
             </tr>
-            {% if object.uci.condicion_egreso == 'Fallecido' %}
+            {% if uci.condicion_egreso == 'Fallecido' %}
             <tr>
               <th>Causa de mortalidad</th>
-              <td>{{object.uci.causa_mortalidad}}</td>
-              <td>Fecha: {{object.uci.fechamortalidad}}</td>
-              <td>Hora: {{object.uci.horamortalidad}}</td>
+              <td>{{uci.causa_mortalidad}}</td>
+              <td>Fecha: {{uci.fechamortalidad}}</td>
+              <td>Hora: {{uci.horamortalidad}}</td>
             </tr>
             <tr>
               <th>Glasgow de egreso UCI</th>
               <td>
-                <p>Apertura ocular: {{ object.uci.apertura_ocular_e }}</p>
-                <p>Respuesta motora: {{ object.uci.respuesta_motora_e }}</p>
-                <p>Respuesta verbal: {{ object.uci.respuesta_verbal_e }}</p>
+                <p>Apertura ocular: {{ uci.apertura_ocular_e }}</p>
+                <p>Respuesta motora: {{ uci.respuesta_motora_e }}</p>
+                <p>Respuesta verbal: {{ uci.respuesta_verbal_e }}</p>
               </td>
               <th>Glasgow total </th>
-              <td>{{ object.uci.glasgowtotal_e }}</td>
+              <td>{{ uci.glasgowtotal_e }}</td>
             </tr>
             {% endif %}
             </tbody>
@@ -670,10 +672,23 @@
         {% endif %}
 
 
-      {% if user.groups.all.0.name != 'Consultor' %}
-      <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Editar</a>
+
+              {% endif %}
+              
+            </ul>
+        {% endfor %}
       {% endif %}
-      {% endif %}
+
+  {% if user.groups.all.0.name != 'Consultor' %}
+
+          <a class="btn btn-primary" href="{% url 'crear_uci' object.pk %}">Añadir Nuevo Seguimiento</a>
+
+          {% endif %}
+
+
+
+
+
  </div>
 
 <div class="tab-pane"  id="neurologia">

@@ -107,6 +107,8 @@ class Candidato(models.Model):
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
+    def get_uci(self):
+        return self.uci_set.all()
 
 
     class Meta:
@@ -162,8 +164,8 @@ class Ingreso(models.Model):
     firma_consentimiento=models.BooleanField(default=True)
     firma_causa=models.CharField(max_length=50, null=True,blank=True)
     fechafirma=models.DateField(null=True,blank=True)
-    archivo = models.FileField(null=True, upload_to="Documentos",unique=True)
-    archivofirma = models.FileField(null=True, upload_to="Documentos",blank=True,unique=True)
+    archivo = models.FileField(null=True, upload_to="Documentos")
+    archivofirma = models.FileField(null=True, upload_to="Documentos",blank=True)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
@@ -241,7 +243,7 @@ class Radiologia(models.Model):
 
 
 class Uci(models.Model):
-    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
     fechauci = models.DateField(null=True)
     horauci = models.TimeField(null=True)
     seleccion_CHOICES = (
