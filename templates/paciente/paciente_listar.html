@@ -29,7 +29,7 @@
               <td>
                   <p><a href="{% url 'paciente_editar' object.pk%}" >Añadir información</a></p>
                   {% if user.groups.all.0.name == 'Administrador' %}
-                  {% if object.inscrito == False%}
+                  {% if not object.imagen %}
                   <p><a href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a></p>
                   {% else%}
                   <p><a href="{% url 'upload-delete' object.imagen.pk%}" >Eliminar</a></p>
@@ -50,7 +50,7 @@
               </td>
 
               {% if user.groups.all.0.name == 'Administrador' %}
-              {% if object.inscrito == False%}
+              {% if not object.imagen %}
               <td><a href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a></td>
               {% else%}
               <td><a href="{% url 'upload-delete' object.imagen.pk%}" >Eliminar</a></td>

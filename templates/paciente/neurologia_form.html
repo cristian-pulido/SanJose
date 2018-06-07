@@ -5,7 +5,7 @@
 {% block content %}
 {% if user.groups.all.0.name == 'Consultor' %}
 <script type="text/javascript">
-        window.location="{% url 'upload-new' %}";
+        window.location="{% url 'paciente_listar' %}";
 </script>
 {% endif %}
 

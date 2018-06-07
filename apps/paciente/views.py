@@ -18,6 +18,11 @@ class PacienteCreate(CreateView):
 
     def get_success_url(self):
         p=self.object
+        criterios_inclusion=p.ci3*1+p.ci4*1
+        criterios_exclusion = p.ce1 * 1 + p.ce2 * 1 + p.ce3 * 1 + p.ce4 * 1
+        if criterios_inclusion == 2 and criterios_exclusion == 0:
+            p.inscrito = True
+            p.save()
 
         try:
             os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
@@ -204,7 +209,7 @@ class MedicoCreate(CreateView):
     model = Medico
     form_class = MedicoForm
     template_name = 'paciente/medico_form.html'
-    success_url = reverse_lazy('upload-new')
+    success_url = reverse_lazy('paciente_listar')
 
 class MedicoList(ListView):
     model = Medico

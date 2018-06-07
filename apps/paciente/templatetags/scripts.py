@@ -10,11 +10,12 @@ register = template.Library()
 
 @register.simple_tag
 def numexcluido():
-    if len(Candidato.objects.filter(inscrito=False))==0:
-        return "E1"
+    if len(Candidato.objects.all())==0:
+        return "P1"
     else:
-        a=Candidato.objects.filter(inscrito=False).last()
-        return "E"+str(int(a.sujeto_numero[1])+1)
+        a=len(Candidato.objects.all())
+        return "P"+str(int(a)+1)
+
 
 
 @register.simple_tag

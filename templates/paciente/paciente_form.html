@@ -4,7 +4,7 @@
 {% block content %}
 {% if user.groups.all.0.name == 'Consultor' %}
 <script type="text/javascript">
-        window.location="{% url 'upload-new' %}";
+        window.location="{% url 'paciente_listar' %}";
 </script>
 {% endif %}
 
@@ -192,12 +192,12 @@
                 <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
                   <div class="form-group">
                     <div class="custom-control custom-radio">
-                      <input id="id_ci_1" name="ci" class="custom-control-input" {% if object.ci == 'ci1' %}  checked="" {% endif %} type="radio" value="ci1">
+                      <input id="id_ci_1" name="ci" required lass="custom-control-input" {% if object.ci == 'ci1' %}  checked="" {% endif %} type="radio" value="ci1">
                       <label class="custom-control-label" for="id_ci_1">Paciente con episodio de parada cadíaca con reanimación exitosa</label>
                     </div>
                       <div><p>ó</p></div>
                     <div class="custom-control custom-radio">
-                      <input id="id_ci_2" name="ci" class="custom-control-input" {% if object.ci == 'ci2' %}  checked="" {% endif %} type="radio" value="ci2">
+                      <input id="id_ci_2" name="ci" required class="custom-control-input" {% if object.ci == 'ci2' %}  checked="" {% endif %} type="radio" value="ci2">
                       <label class="custom-control-label" for="id_ci_2">Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular</label>
                     </div>
                       <div class="form-group">
@@ -320,6 +320,8 @@
 
                 </div>
 
+            {{form.inscrito}}
+
 
         </div>
 
@@ -374,9 +376,30 @@ function valedad(){
 document.getElementsByName("fecha_evento_principal")[0].addEventListener('change', valfecha);
 
 
+
 /* function */
 function valfecha(){
     document.getElementById("id_fecha_ingreso").min = this.value;
+}
+
+</script>
+
+<script>
+/* event listener */
+document.getElementById("id_ce1").addEventListener('change', mexclusion);
+document.getElementById("id_ce2").addEventListener('change', mexclusion);
+document.getElementById("id_ce3").addEventListener('change', mexclusion);
+document.getElementById("id_ce4").addEventListener('change', mexclusion);
+
+function mexclusion(){
+    var c1=document.getElementById("id_ce1").checked;
+    var c2=document.getElementById("id_ce2").checked;
+    var c3=document.getElementById("id_ce3").checked;
+    var c4=document.getElementById("id_ce4").checked;
+    var x= c1*1+c2*1+c3*1+c4*1
+    if ( x > 0 ) {
+       alert("Bajo estas condiciones el sujeto se considera excluído");
+    }
 
 }
 </script>

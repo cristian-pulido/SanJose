@@ -1,5 +1,7 @@
 
 import datetime
+import shutil
+
 from django.db import models
 
 # Create your models here.
@@ -55,7 +57,7 @@ class Medico(models.Model):
 class Candidato(models.Model):
     sujeto_numero = models.CharField(max_length=20, null=True, unique=True)
     fecha_de_registro= models.DateField(null=True)
-    cc = models.PositiveIntegerField(null=True,unique=True)
+    cc = models.PositiveIntegerField(null=True, unique=True)
     nombres = models.CharField(null=True, max_length=70, default="")
     apellidos = models.CharField(null=True, max_length=70, default="")
     edad = models.PositiveIntegerField(null=True)
@@ -83,7 +85,7 @@ class Candidato(models.Model):
     D_especificos = models.TextField(blank=True, null=True)
     ######## criterios de inclusion
     criterios_CHOICES = (
-        ('ci1', 'Paciente con episodio de parada cadíaca con reanimación exitosa'),
+        ('ci1', 'Paciente con episodio de parada cardíaca con reanimación exitosa'),
         ('ci2', 'Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular'),
     )
     ci = models.CharField(choices=criterios_CHOICES, max_length=128, null=True, default='ci1')
@@ -109,6 +111,13 @@ class Candidato(models.Model):
         return '{}'.format(self.sujeto_numero)
     def get_uci(self):
         return self.uci_set.all()
+
+    def delete(self, *args, **kwargs):
+        """delete -- Remove to leave file."""
+        c = self
+        n=c.sujeto_numero
+        shutil.rmtree("/home/ubuntu/media/img/sujeto"+n, ignore_errors=True)
+        super(Candidato, self).delete(*args, **kwargs)
 
 
     class Meta:

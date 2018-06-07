@@ -4,7 +4,7 @@
 {% block content %}
 {% if user.groups.all.0.name != 'Administrador' %}
 <script type="text/javascript">
-        window.location="{% url 'upload-new' %}";
+        window.location="{% url 'paciente_listar' %}";
 </script>
 {% endif %}
 <form method="post">

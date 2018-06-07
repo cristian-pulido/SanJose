@@ -47,7 +47,7 @@
                                     <nav class="navbar navbar-default">
                                         <div class="container-fluid">
                                             <div class="navbar-header">
-                                                <a class="navbar-brand" href={% url "upload-new" %}>Inicio</a>
+                                                <a class="navbar-brand" href={% url "paciente_listar" %}>Inicio</a>
                                             </div>
                                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                             <ul class="nav navbar-nav">
@@ -55,8 +55,7 @@
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sujetos <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
                                                         {% if user.groups.all.0.name != 'Consultor' %}
-															<li><a href={% url "upload-new" %}>Añadir Incluido</a></li>
-															<li><a href={% url "paciente_crear" %}>Añadir Excluido</a></li>
+															<li><a href={% url "paciente_crear" %}>Añadir</a></li>
 														{% endif %}
                                                         <li><a href={% url "paciente_listar" %}>Listar</a></li>
                                                     </ul>
