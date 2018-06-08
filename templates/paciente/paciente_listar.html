@@ -20,7 +20,7 @@
     <a class="nav-link active " data-toggle="tab" href="#seguimiento">Seguimiento</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#admitidos">Admitidos</a>
+    <a class="nav-link" data-toggle="tab" href="#admitidos">Candidatos</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#rechazados">Rechazados</a>
@@ -58,7 +58,7 @@
                                   <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
                                   {% endif %}
                                   <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Establecer Criterios</a>
-                                  <a class="btn btn-primary" href="{% url 'crear_uci' object.pk %}">Añadir seguimiento</a>
+
                               </td>
 
                               {% else %}
@@ -119,7 +119,7 @@
                                   {% if user.groups.all.0.name == 'Administrador' %}
                                   <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
                                   {% endif %}
-                                  <a class="btn btn-primary" href="{% url 'crear_uci' object.pk %}">Añadir seguimiento</a>
+
                               </td>
 
                               {% else %}
