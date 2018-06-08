@@ -48,6 +48,10 @@ class PacienteUpdate(UpdateView):
         p=self.object
         if p.estado==0:
             p.estado=1
+            criterios_inclusion = p.ci3 * 1 + p.ci4 * 1
+            criterios_exclusion = p.ce1 * 1 + p.ce2 * 1 + p.ce3 * 1 + p.ce4 * 1
+            if criterios_inclusion == 2 and criterios_exclusion == 0:
+                p.inscrito = True
             p.save()
         try:
             if hasattr(p, 'picture'):

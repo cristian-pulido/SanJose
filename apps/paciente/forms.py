@@ -22,7 +22,7 @@ class PacienteForm(forms.ModelForm):
         fields = [
             'nombres',
             'apellidos',
-            'edad',
+            'fecha_nacimiento',
             'cc',
             'sexo',
             'sujeto_numero',
@@ -52,7 +52,7 @@ class PacienteForm(forms.ModelForm):
         labels = {
             'nombres': 'Nombres',
             'apellidos': 'Apellidos',
-            'edad': 'Edad',
+            'fecha_nacimiento': 'Fecha de nacimiento',
             'cc': 'C.C',
             'sexo': 'Sexo',
             'sujeto_numero' : "Sujeto #",
@@ -72,7 +72,7 @@ class PacienteForm(forms.ModelForm):
         widgets = {
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Nombres')}),
             'apellidos': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Apellidos')}),
-            'edad': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Edad')}),
+            'fecha_nacimiento': forms.TextInput(attrs={'class': 'form-control'}),
             'cc': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Cédula de Ciudadanía')}),
             'sexo': forms.Select(attrs={'class': 'form-control'}),
             'sujeto_numero': forms.TextInput(attrs={'class': 'form-control'}),

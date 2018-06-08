@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' %}
+{% if user.groups.all.0.name == 'Consultor' or object.estado > 0%}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -13,6 +13,24 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
+    <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
                 <h1>Formulario Candidato</h1>
@@ -21,7 +39,7 @@
     <div class="row">
 
 
-
+        {% if object.estado != 0 %}
 
 
         {% if object.imagen %}
@@ -113,10 +131,25 @@
         {% endif %}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.edad.name}}">{{form.edad.label}}</label>
-                    {{ form.edad.errors }}
-                    <input type="text" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="edad" required id="id_edad" placeholder="Ingrese número entero" class="form-control" {% if object.edad != None %} value="{{object.edad}}" {% endif %}/>
+                    <label for="{{form.fecha_nacimiento.name}}">{{form.fecha_nacimiento.label}}</label>
+                    {{ form.fecha_nacimiento.errors }}
+                    <input class="form-control"  min="1917-01-01" max="1998-12-31" required name="fecha_nacimiento" type="date" placeholder="Elegir fecha" id="id_fecha_nacimiento" value="{{object.fecha_nacimiento|date:'Y-m-d'}}">
                 </div>
+            <script>
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear()-18;
+                 if(dd<10){
+                        dd='0'+dd
+                    }
+                    if(mm<10){
+                        mm='0'+mm
+                    }
+
+                today = yyyy+'-'+mm+'-'+dd;
+                document.getElementById("id_fecha_nacimiento").setAttribute("max", today);
+            </script>
         </div>
 
         <div class="col-md-8 col-md-offset-2">
@@ -186,9 +219,40 @@
 
 
 
-        {% if object.fecha_de_registro == None %}
+
+
 
         <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.medico_responsable.name}}">{{form.medico_responsable.label}}</label>
+                    {{ form.medico_responsable.errors }}
+                    {{form.medico_responsable}}
+                    <label>{{form.archivo.label}}</label>
+                    {{form.archivo.errors}}
+
+                    {% if not object.archivo or user.groups.all.0.name == 'Administrador'%}
+                     {{form.archivo}}
+                    {% else %}
+                    Ya cargado.
+                    {{form.archivo.as_hidden}}
+                    {% endif%}
+
+                </div>
+
+
+
+        </div>
+                {{form.ci.as_hidden}}
+                {{form.ci3.as_hidden}}
+                {{form.ci4.as_hidden}}
+                {{form.ce1.as_hidden}}
+                {{form.ce2.as_hidden}}
+                {{form.ce3.as_hidden}}
+                {{form.ce4.as_hidden}}
+    {% else %}
+
+
+         <div class="col-md-8 col-md-offset-2">
                 <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
                   <div class="form-group">
                     <div class="custom-control custom-radio">
@@ -215,34 +279,6 @@
                   </div>
 
         </div>
-        {% else %}
-        <div class="col-md-8 col-md-offset-2">
-                <legend>Criterios de inclusión  </legend>
-                {% if object.ci == 'ci1'%}
-                    <p>Paciente con episodio de parada cadíaca con reanimación exitosa.</p>
-                   {% elif object.ci == 'ci2'%}
-                     <p>Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular.</p>
-                   {% endif %}
-                   {% if object.ci3 == True %}
-                    <p>Puntaje en escala Glasgow igual o menor a 8 después del evento inicial.</p>
-                   {% endif %}
-                   {% if object.ci4 == True %}
-                    <p>Paciente transportable a un resonador.</p>
-                   {% endif %}
-                {{form.ci.as_hidden}}
-                {{form.ci3.as_hidden}}
-                {{form.ci4.as_hidden}}
-
-        </div>
-
-        {% endif %}
-
-
-        {% if object.inscrito != True %}
-
-
-        {% if object.fecha_de_registro == None %}
-
         <div class="col-md-8 col-md-offset-2">
                 <legend>Criterios de exclusión (al menos 1 se considera excluído)</legend>
                   <div class="form-group">
@@ -255,7 +291,7 @@
                       <div class="form-group">
                             {{ form.ce2.errors }}
                             {{form.ce2}}
-                            <label for="{{form.ce1.name}}">{{form.ce2.label}}</label>
+                            <label for="{{form.ce2.name}}">{{form.ce2.label}}</label>
 
                       </div>
                       <div class="form-group">
@@ -273,65 +309,29 @@
                   </div>
 
         </div>
-        {% else %}
-        <div class="col-md-8 col-md-offset-2">
-                <legend>Criterios de exclusión   </legend>
-                {% if object.ce1 == True %}
-                <p>Diagnóstico de muerte cerebral en las primeras 48 horas del ingreso a UCI.</p>
-               {% endif %}
-               {% if object.ce2 == True %}
-                <p>Destruccion masiva del parénquima cerebral no rescatable por neurocirugía.</p>
-               {% endif %}
-               {% if object.ce3 == True %}
-                <p>Disfunción neurológica y/o neuropsiquiátrica previa.</p>
-               {% endif %}
-               {% if object.ce4 == True %}
-                <p>Decisión de la familia de no participar en estudios de investigación.</p>
-               {% endif %}
-                {{form.ce1.as_hidden}}
-                {{form.ce2.as_hidden}}
-                {{form.ce3.as_hidden}}
-                {{form.ce4.as_hidden}}
 
-        </div>
-
-        {% endif %}
-
-
-
-        {% endif  %}
-
-
-
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.medico_responsable.name}}">{{form.medico_responsable.label}}</label>
-                    {{ form.medico_responsable.errors }}
-                    {{form.medico_responsable}}
-                    <label>{{form.archivo.label}}</label>
-                    {{form.archivo.errors}}
-
-                    {% if not object.archivo or user.groups.all.0.name == 'Administrador'%}
-                     {{form.archivo}}
-                    {% else %}
-                    Ya cargado.
-                    {{form.archivo.as_hidden}}
-                    {% endif%}
-
-                </div>
-
-            {{form.inscrito}}
-
-
-        </div>
+        {{form.nombres.as_hidden}}
+        {{form.apellidos.as_hidden}}
+        {{form.fecha_nacimiento.as_hidden}}
+        {{form.cc.as_hidden}}
+        {{form.sexo.as_hidden}}
+        {{form.sujeto_numero.as_hidden}}
+        {{form.fecha_de_registro.as_hidden}}
+        {{form.HC.as_hidden}}
+        {{form.cama_numero.as_hidden}}
+        {{form.fecha_evento_principal.as_hidden}}
+        {{form.fecha_ingreso.as_hidden}}
+        {{form.G_diagnostico.as_hidden}}
+        {{form.medico_responsable.as_hidden}}
 
 
 
 
+    {% endif%}
     </div>
 
     <div class="col-md-8 col-md-offset-2">
-        <button class="btn btn-primary" type="submit">Guardar</button>
+        <button class="btn btn-primary" id="guardar" type="submit">Guardar</button>
     </div>
 
 </form>
@@ -391,6 +391,7 @@ document.getElementById("id_ce2").addEventListener('change', mexclusion);
 document.getElementById("id_ce3").addEventListener('change', mexclusion);
 document.getElementById("id_ce4").addEventListener('change', mexclusion);
 
+
 function mexclusion(){
     var c1=document.getElementById("id_ce1").checked;
     var c2=document.getElementById("id_ce2").checked;
@@ -402,6 +403,10 @@ function mexclusion(){
     }
 
 }
+
+
+
+
 </script>
 
 
@@ -409,6 +414,7 @@ function mexclusion(){
 <script>
 /* event listener */
 document.getElementsByName("D_neuro_logico_psiquiatrico_previo")[0].addEventListener('change', vald);
+
 
 /* function */
 function vald(){
@@ -424,10 +430,35 @@ function vald(){
         document.getElementById("id_D_especificos").value="";
     }
 
-
-
 }
 
+
+
+</script>
+
+
+<script>
+document.getElementById("guardar").addEventListener('click', resultado);
+function resultado(){
+    var i1=document.getElementById("id_ci_1").checked;
+    var i2=document.getElementById("id_ci_2").checked;
+    var i3=document.getElementById("id_ci3").checked;
+    var i4=document.getElementById("id_ci3").checked;
+    var c1=document.getElementById("id_ce1").checked;
+    var c2=document.getElementById("id_ce2").checked;
+    var c3=document.getElementById("id_ce3").checked;
+    var c4=document.getElementById("id_ce4").checked;
+    var x1= i1*1+i2*1+i3*1+i4*1;
+    var x2= c1*1+c2*1+c3*1+c4*1;
+
+    if ( x1 > 2 && x2 == 0  ) {
+       alert("Resultado: Estado Cambiado a Candidato");
+    }
+    else {
+        alert("Resultado: Estado Cambiado a Excluido");
+    }
+
+}
 </script>
 
 

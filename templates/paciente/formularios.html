@@ -10,13 +10,14 @@
   <li class="nav-item">
     <a class="nav-link active " data-toggle="tab" href="#home">Candidato</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link "  data-toggle="tab" href="#uci">Formato UCI</a>
+  </li>
   {% if object.inscrito == True and object.estado > 0 %}
   <li class="nav-item">
     <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %} href="#estudio">Formato ingreso al estudio</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#uci">Formato UCI</a>
-  </li>
+
   <li class="nav-item">
     <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#neurologia">Formato Neurología</a>
   </li>
@@ -34,13 +35,8 @@
 </ul>
 <div id="myTabContent" class="tab-content" >
   <div class="tab-pane active"  id="home">
-      {% ifequal object.estado  0 %}
-      <p class="text-danger">No se encontro información del Sujeto</p>
-      {% if user.groups.all.0.name != 'Consultor' %}
-      <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
-      {% endif %}
-      {% endifequal %}
-      {% if object.estado  > 0 %}
+
+      {% if object.estado  > -1 %}
       <table class="table table-hover">
 
           <tbody>
@@ -112,6 +108,7 @@
               <td colspan="3">{{ object.D_especificos }}</td>
             </tr>
             {% endif %}
+            {% if object.estado != 0 %}
             <tr class="table-warning">
               <th >Criterios de inclusión</th>
               <td colspan="3">
@@ -129,7 +126,8 @@
                    {% endif %}
               </td>
             </tr>
-            {% if object.inscrito == False %}
+            {% endif %}
+            {% if object.inscrito == False and  object.estado != 0 %}
                 <tr class="table-warning">
                   <th >Criterios de exclusión</th>
                   <td colspan="3">
@@ -152,13 +150,16 @@
             <tr class="table-info">
               <th>Médico Responsable</th>
               <td>{{ object.medico_responsable }}</td>
+              {% if object.estado != 0%}
               <th>Incluido en el estudio</th>
               <td>{% if object.inscrito == True %} Sí {% else %} No {% endif %}</td>
+              {% endif %}
             </tr>
           </tbody>
         </table>
-      {% if user.groups.all.0.name != 'Consultor' %}
-      <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Editar</a>
+
+      {% if user.groups.all.0.name != 'Consultor' and object.estado == 0 %}
+      <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Establecer Criterios</a>
 
       {% endif %}
       {% endif %}
@@ -679,7 +680,7 @@
         {% endfor %}
       {% endif %}
 
-  {% if user.groups.all.0.name != 'Consultor' %}
+  {% if user.groups.all.0.name != 'Consultor' and object.get_uci|length > 0%}
 
           <a class="btn btn-primary" href="{% url 'crear_uci' object.pk %}">Añadir Nuevo Seguimiento</a>
 

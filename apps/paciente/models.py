@@ -60,6 +60,7 @@ class Candidato(models.Model):
     cc = models.PositiveIntegerField(null=True, unique=True)
     nombres = models.CharField(null=True, max_length=70, default="")
     apellidos = models.CharField(null=True, max_length=70, default="")
+    fecha_nacimiento = models.DateField(null=True)
     edad = models.PositiveIntegerField(null=True)
     #######sexo
     hombre = 'Hombre'
@@ -103,7 +104,7 @@ class Candidato(models.Model):
 
     medico_responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     imagen = models.OneToOneField(Picture, blank=True, null=True, on_delete=models.CASCADE)
-    estado = models.PositiveIntegerField(null=True, default=1)
+    estado = models.PositiveIntegerField(null=True, default=0)
     inscrito = models.NullBooleanField(default=False)
     archivo = models.FileField(null=True, upload_to="Documentos")
 

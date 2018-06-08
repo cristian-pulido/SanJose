@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import Group, Permission, User
 
 from apps.fileupload.models import Picture
@@ -15,6 +17,21 @@ def numexcluido():
     else:
         a=len(Candidato.objects.all())
         return "P"+str(int(a)+1)
+
+@register.simple_tag
+def edad():
+    if len(Candidato.objects.all())==0:
+        return ""
+    else:
+        c=Candidato.objects.all()
+        hoy=datetime.now().date()
+        for s in c:
+            nacimiento=s.fecha_nacimiento
+            dt=hoy-nacimiento
+            s.edad=int(dt.days/365)
+            s.save()
+        return ""
+
 
 
 
