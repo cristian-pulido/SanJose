@@ -46,6 +46,9 @@ class PacienteUpdate(UpdateView):
 
     def get_success_url(self):
         p=self.object
+        if p.estado==1:
+            p.estado=2
+            p.save()
         if p.estado==0:
             p.estado=1
             criterios_inclusion = p.ci3 * 1 + p.ci4 * 1

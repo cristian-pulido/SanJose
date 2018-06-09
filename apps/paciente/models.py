@@ -103,10 +103,10 @@ class Candidato(models.Model):
 
 
     medico_responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
-    imagen = models.FileField(null=True, upload_to="Archivos",blank=True)
+    imagen = models.FileField(null=True, upload_to="img",blank=True)
     estado = models.PositiveIntegerField(null=True, default=0)
     inscrito = models.NullBooleanField(default=False)
-    archivo = models.FileField(null=True, upload_to="Documentos")
+    archivo = models.FileField(null=True, upload_to="img")
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
@@ -174,8 +174,8 @@ class Ingreso(models.Model):
     firma_consentimiento=models.BooleanField(default=True)
     firma_causa=models.CharField(max_length=50, null=True,blank=True)
     fechafirma=models.DateField(null=True, blank=True)
-    archivo = models.FileField(null=True, upload_to="Documentos")
-    archivofirma = models.FileField(null=True, upload_to="Documentos", blank=True)
+    archivo = models.FileField(null=True, upload_to="img")
+    archivofirma = models.FileField(null=True, upload_to="img", blank=True)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
