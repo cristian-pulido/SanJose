@@ -6,10 +6,11 @@
 
 
 
+
 <h1  >Lista de Todos los Sujetos </h1>
 
 {% if user.groups.all.0.name != 'Consultor' %}
-<button style="vertical-align: middle;" type="button" onclick="location.href='{% url 'paciente_crear' %}'" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Añadir </button>
+<button style="vertical-align: middle;" type="button" onclick="location.href='{% url 'paciente_crear' %}'" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Añadir Registro</button>
 {% endif %}
 
 

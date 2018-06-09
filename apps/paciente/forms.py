@@ -45,6 +45,7 @@ class PacienteForm(forms.ModelForm):
             'ce4',
             'medico_responsable',
             'archivo',
+            'imagen',
 
 
         ]
@@ -68,6 +69,7 @@ class PacienteForm(forms.ModelForm):
             'D_especificos': 'Especifique diagnóstico',
             'medico_responsable': "Profesional Responsable",
             'archivo': "Documento fisico",
+            'imagen': "Archivo",
              }
         widgets = {
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Nombres')}),
@@ -95,6 +97,7 @@ class PacienteForm(forms.ModelForm):
             'ce4': forms.CheckboxInput(),
             'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
             'archivo': forms.ClearableFileInput(attrs={'accept':'application/pdf'}),
+            'imagen': forms.ClearableFileInput(),
 
 
         }

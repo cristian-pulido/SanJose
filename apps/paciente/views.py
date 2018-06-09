@@ -53,23 +53,28 @@ class PacienteUpdate(UpdateView):
             if criterios_inclusion == 2 and criterios_exclusion == 0:
                 p.inscrito = True
             p.save()
+
         try:
-            if hasattr(p, 'picture'):
-                shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-                p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
-                p.save()
-
-            else:
-                try:
-                    os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
-                except:
-                    ""
-                shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-                p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
-                p.save()
-
+            os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
         except:
             ""
+        try:
+            shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+            p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
+            p.save()
+        except:
+            ""
+        try:
+            shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+            file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+p.sujeto_numero+".txt", "w")
+            file.write(""+p.sujeto_numero)
+            file.close()
+            p.imagen = "/img/sujeto"+ str(p.sujeto_numero)+"/"+p.sujeto_numero+".txt"
+            p.save()
+        except:
+            ""
+
+
 
         return reverse_lazy('paciente', args=[p.pk])
 

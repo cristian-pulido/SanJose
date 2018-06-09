@@ -103,7 +103,7 @@ class Candidato(models.Model):
 
 
     medico_responsable=models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
-    imagen = models.OneToOneField(Picture, blank=True, null=True, on_delete=models.CASCADE)
+    imagen = models.FileField(null=True, upload_to="Archivos",blank=True)
     estado = models.PositiveIntegerField(null=True, default=0)
     inscrito = models.NullBooleanField(default=False)
     archivo = models.FileField(null=True, upload_to="Documentos")
@@ -129,18 +129,18 @@ class Ingreso(models.Model):
     fecha_form = models.DateField(null=True)
     lugar_nacimiento = models.CharField(max_length=80, null=True)
     lugar_residencia = models.CharField(max_length=80, null=True)
-    direccion = models.CharField(max_length=100,null=True)
-    nombre_acompanante = models.CharField(max_length=70,null=True,default="")
+    direccion = models.CharField(max_length=100, null=True)
+    nombre_acompanante = models.CharField(max_length=70,null=True, default="")
     tel1 = models.PositiveIntegerField(null=True)
     tel2 = models.PositiveIntegerField(null=True, blank=True)
     peso =models.PositiveIntegerField(null=True, blank=True)
-    estatura = models.PositiveIntegerField(null=True,blank=True)
+    estatura = models.PositiveIntegerField(null=True, blank=True)
     ####### nivel educativo
     primaria = 'Primaria'
     bachillerato = 'Bachillerato'
     tecnico = 'Técnico'
     profesional = 'Profesional'
-    educativo_choices = ((primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'),(profesional, u'Profesional'))
+    educativo_choices = ((primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'), (profesional, u'Profesional'))
     n_educativo = models.CharField(max_length=20, choices=educativo_choices, null=True)
     ######
     ####### lateralidad
@@ -163,19 +163,19 @@ class Ingreso(models.Model):
 
 
     fecha_craneotomia=models.DateField(blank=True, null=True)
-    causa_quirurgicos = models.CharField(max_length=100,null=True, blank=True)
+    causa_quirurgicos = models.CharField(max_length=100, null=True, blank=True)
 
-    a_toxico_alergenicos= models.CharField(max_length=180,null=True, blank=True)
-    a_farmaco1=models.CharField(max_length=180,null=True, blank=True)
-    a_farmaco1_dosis=models.CharField(max_length=30,null=True, blank=True)
+    a_toxico_alergenicos= models.CharField(max_length=180, null=True, blank=True)
+    a_farmaco1=models.CharField(max_length=180, null=True, blank=True)
+    a_farmaco1_dosis=models.CharField(max_length=30, null=True, blank=True)
     a_farmaco2 = models.CharField(max_length=180, null=True, blank=True)
     a_farmaco2_dosis = models.CharField(max_length=30, null=True, blank=True)
-    a_familiares=models.CharField(max_length=180,null=True, blank=True)
+    a_familiares=models.CharField(max_length=180, null=True, blank=True)
     firma_consentimiento=models.BooleanField(default=True)
     firma_causa=models.CharField(max_length=50, null=True,blank=True)
-    fechafirma=models.DateField(null=True,blank=True)
+    fechafirma=models.DateField(null=True, blank=True)
     archivo = models.FileField(null=True, upload_to="Documentos")
-    archivofirma = models.FileField(null=True, upload_to="Documentos",blank=True)
+    archivofirma = models.FileField(null=True, upload_to="Documentos", blank=True)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
@@ -213,12 +213,12 @@ class Radiologia(models.Model):
     ur_visoscopio_sv = models.CharField(max_length=50, null=True, blank=True)
     ur_tension= models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     ur_tension_sv = models.CharField(max_length=50, null=True, blank=True)
-    monitoreo=models.CharField(max_length=50,null=True, choices=seleccion_CHOICES)
-    pic=models.CharField(max_length=25,null=True,blank=True)
+    monitoreo=models.CharField(max_length=50, null=True, choices=seleccion_CHOICES)
+    pic=models.CharField(max_length=25, null=True, blank=True)
     ppc = models.CharField(max_length=25, null=True, blank=True)
     medicamentos_emergencia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
-    me_cual = models.CharField(max_length=25,null=True,blank=True)
-    me_dosis= models.CharField(max_length=25,null=True,blank=True)
+    me_cual = models.CharField(max_length=25, null=True,blank=True)
+    me_dosis= models.CharField(max_length=25, null=True,blank=True)
     sedacion=models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     sedacion_dt=models.CharField(max_length=25, null=True, blank=True)
     sedacion_sv = models.CharField(max_length=25, null=True, blank=True)
@@ -243,10 +243,10 @@ class Radiologia(models.Model):
     ru_visoscopio_sv = models.CharField(max_length=50, null=True, blank=True)
     ru_tension = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
     ru_tension_sv = models.CharField(max_length=50, null=True, blank=True)
-    tiempo_sesonacia=models.CharField(max_length=50,null=True)
+    tiempo_sesonacia=models.CharField(max_length=50, null=True)
     hora_llegada = models.TimeField(null=True)
     complicaciones = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
-    complicaciones_cuales = models.CharField(max_length=150,null=True,blank=True)
+    complicaciones_cuales = models.CharField(max_length=150, null=True, blank=True)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
@@ -340,7 +340,7 @@ class Uci(models.Model):
 
 class Neurologia(models.Model):
     numero_CHOICES = (
-        ('0','0'),
+        ('0', '0'),
         ('1', '1'),
         ('2', '2'),
         ('3', '3'),
