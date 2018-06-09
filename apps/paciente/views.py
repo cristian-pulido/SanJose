@@ -18,11 +18,6 @@ class PacienteCreate(CreateView):
 
     def get_success_url(self):
         p=self.object
-        criterios_inclusion=p.ci3*1+p.ci4*1
-        criterios_exclusion = p.ce1 * 1 + p.ce2 * 1 + p.ce3 * 1 + p.ce4 * 1
-        if criterios_inclusion == 2 and criterios_exclusion == 0:
-            p.inscrito = True
-            p.save()
 
         try:
             os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
@@ -30,7 +25,7 @@ class PacienteCreate(CreateView):
             ""
         try:
             shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-            p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
+            p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[4:]
             p.save()
         except:
             ""
@@ -57,16 +52,6 @@ class PacienteUpdate(UpdateView):
                 p.inscrito = True
             p.save()
 
-        try:
-            os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
-        except:
-            ""
-        try:
-            shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-            p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[11:]
-            p.save()
-        except:
-            ""
         try:
             shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
             file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+p.sujeto_numero+".txt", "w")
