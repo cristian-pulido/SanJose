@@ -3,12 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/fileupload/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/fileupload/migrations/0002_picture_anonimo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/fileupload/migrations/0003_auto_20180518_2230.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0002_auto_20180520_1715.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0003_auto_20180520_1800.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0004_auto_20180520_1935.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0005_auto_20180607_1641.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0006_auto_20180607_1929.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0007_auto_20180607_1931.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0008_candidato_fecha_nacimiento.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0009_auto_20180609_1415.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0010_auto_20180609_1425.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0011_auto_20180609_1433.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/migrations/0012_auto_20180609_1449.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,22 +32,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="105" column="72" selection-start-line="105" selection-start-column="72" selection-end-line="105" selection-end-column="72" />
-              <folding>
-                <element signature="e#1#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="forms.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
+            <state relative-caret-position="1728">
               <caret line="99" column="49" lean-forward="true" selection-start-line="99" selection-start-column="49" selection-end-line="99" selection-end-column="49" />
               <folding>
                 <element signature="e#1#25#0" expanded="true" />
@@ -84,7 +82,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
@@ -105,35 +103,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="paciente_listar.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="n#style#0;n#button#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="62" lean-forward="true" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
+            <state relative-caret-position="612">
+              <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SanJose/views.py">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="41" column="40" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="693">
+              <caret line="94" selection-start-line="94" selection-end-line="94" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -270,11 +253,11 @@
         <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
         <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_listar.html" />
-        <option value="$PROJECT_DIR$/templates/base/base.html" />
         <option value="$PROJECT_DIR$/apps/paciente/forms.py" />
         <option value="$PROJECT_DIR$/apps/paciente/models.py" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_form.html" />
         <option value="$PROJECT_DIR$/apps/paciente/views.py" />
+        <option value="$PROJECT_DIR$/templates/base/base.html" />
       </list>
     </option>
   </component>
@@ -312,7 +295,36 @@
               <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
               <item name="SanJose" type="462c0819:PsiDirectoryNode" />
               <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="fileupload" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="fileupload" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="fileupload" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="fileupload" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
               <item name="paciente" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="paciente" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
@@ -342,6 +354,12 @@
               <item name="SanJose" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="paciente" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -400,7 +418,7 @@
     <frame x="55" y="24" width="1355" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2709012" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2695195" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
@@ -422,7 +440,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2709012" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2695195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -595,31 +613,10 @@
         <state relative-caret-position="-1694" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="93" selection-start-line="93" selection-end-line="93" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/templates/fileupload/picture_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/fileupload/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
           <caret line="35" column="14" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/templates/upload_base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
@@ -734,23 +731,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="62" lean-forward="true" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="99" column="49" lean-forward="true" selection-start-line="99" selection-start-column="49" selection-end-line="99" selection-end-column="49" />
-          <folding>
-            <element signature="e#1#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="648">
@@ -806,6 +786,44 @@
           <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
           <folding>
             <element signature="e#27#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="94" selection-start-line="94" selection-end-line="94" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/fileupload/templates/fileupload/picture_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/fileupload/templates/upload_base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-693">
+          <caret line="32" selection-start-line="32" selection-end-line="32" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1728">
+          <caret line="99" column="49" lean-forward="true" selection-start-line="99" selection-start-column="49" selection-end-line="99" selection-end-column="49" />
+          <folding>
+            <element signature="e#1#25#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="/static/css/blueimp-gallery.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-	
+
 
 
 
@@ -32,6 +32,7 @@
 		 <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>
 		 {{ user.groups.all.0  }}
 	     {% load scripts %}
+		 {% crearDprevios %}
 		 {% creargrupos %}
 		 {% edad %}
 		 </div>
