@@ -18,6 +18,13 @@ class PacienteCreate(CreateView):
 
     def get_success_url(self):
         p=self.object
+        cantidad=len(Candidato.objects.all())
+        if cantidad == 1:
+            p.sujeto_numero=1
+            p.save()
+        else:
+            C=Candidato.objects.get(sujeto_numero=cantidad-1)
+            p.sujeto_numero=C.sujeto_numero+1
 
         try:
             os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))

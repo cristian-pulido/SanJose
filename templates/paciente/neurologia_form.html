@@ -445,7 +445,7 @@
 
         </tbody>
     </table>
-    <table id="tablee" {% if object.epileptico == "NO" %} style="display:none" {% endif %} class="table table-hover">
+    <table id="tablee" {% if object.epileptico == "NO" or object.epileptico == None %} style="display:none" {% endif %} class="table table-hover">
         <tbody>
             <tr>
                 <th style="vertical-align:middle;">{{form.fechaeeg.label}}</th>

@@ -54,9 +54,9 @@
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.sujeto_numero.name}}">{{form.sujeto_numero.label}}</label>
-                    {{ form.sujeto_numero.errors }}
-                    <input type="text" name="sujeto_numero" {% if object.sujeto_numero %} value="{{object.sujeto_numero}}" {% else %} value="{% numexcluido %}" {% endif %} class="form-control" maxlength="20" required id="id_sujeto_numero" readonly />
+                    <label >Sujeto #</label>
+
+                    {% num %}
 
 
 
@@ -77,14 +77,14 @@
                 <div class="form-group">
                     <label for="{{form.HC.name}}">{{form.HC.label}}</label>
                     {{ form.HC.errors }}
-                    <input type="text" name="HC" required id="id_HC" oninput="this.value = this.value.replace(/[^0-9]/, '')" placeholder="Historia clínica número" class="form-control" {% if object.HC != None %} value="{{object.HC}}" {% endif %}/>
+                    <input type="text" name="HC" autocomplete="off" required id="id_HC" oninput="this.value = this.value.replace(/[^0-9]/, '')" placeholder="Historia clínica número" class="form-control" {% if object.HC != None %} value="{{object.HC}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.cama_numero.name}}">{{form.cama_numero.label}}</label>
                     {{ form.cama_numero.errors }}
-                    <input type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cama_numero" required id="id_cama_numero" placeholder="Ingrese número entero" class="form-control" {% if object.cama_numero != None %} value="{{object.cama_numero}}" {% endif %}/>
+                    <input type="text" maxlength="3" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cama_numero" required id="id_cama_numero" placeholder="Ingrese número entero" class="form-control" {% if object.cama_numero != None %} value="{{object.cama_numero}}" {% endif %}/>
                 </div>
         </div>
         {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
                     {{ form.nombres.errors }}
-                    <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombres" maxlength="70" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombres" maxlength="70" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
 
                 </div>
         </div>
@@ -101,14 +101,14 @@
                 <div class="form-group">
                     <label for="{{form.apellidos.name}}">{{form.apellidos.label}}</label>
                     {{ form.apellidos.errors }}
-                    <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="apellidos" maxlength="70" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="apellidos" maxlength="70" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.cc.name}}">{{form.cc.label}}</label>
                     {{ form.cc.errors }}
-                    <input type="text" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cc" required id="id_cc" placeholder="Ingrese número entero" class="form-control" {% if object.cc != None %} value="{{object.cc}}" {% endif %}/>
+                    <input type="text" autocomplete="off" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cc" required id="id_cc" placeholder="Ingrese número entero" class="form-control" {% if object.cc != None %} value="{{object.cc}}" {% endif %}/>
                 </div>
         </div>
         {% else %}

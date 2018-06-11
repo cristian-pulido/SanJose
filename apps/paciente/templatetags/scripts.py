@@ -11,12 +11,12 @@ from programas import anonimizador
 register = template.Library()
 
 @register.simple_tag
-def numexcluido():
+def num():
     if len(Candidato.objects.all())==0:
-        return "P1"
+        return "1"
     else:
         a=len(Candidato.objects.all())
-        return "P"+str(int(a)+1)
+        return ""+str(int(a)+1)
 
 @register.simple_tag
 def edad():

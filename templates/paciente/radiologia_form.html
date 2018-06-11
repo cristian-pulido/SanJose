@@ -301,7 +301,8 @@
 
 
             <br><br>
-            <table class="table table-hover">
+            <div id="eval" style="display:none">
+                <table class="table table-hover">
               <tbody>
               <tr>
                   <th style="vertical-align:middle;" >{{form.pic.label}}</th>
@@ -322,14 +323,65 @@
 
                   </td >
               </tr>
-              <tr>
+
+
+                  <tr id="me">
                   <th style="vertical-align:middle;" >{{form.me_cual.label}}</th>
                   <td style="vertical-align:middle;">{{form.me_cual.errors}}{{form.me_cual}}</td>
                   <th style="vertical-align:middle;" >{{form.me_dosis.label}}</th>
                   <td style="vertical-align:middle;">{{form.me_dosis.errors}}{{form.me_dosis}}</td>
-              </tr>
+                </tr>
+
               </tbody>
             </table>
+                <script>
+                    document.getElementsByName("monitoreo")[0].addEventListener('change', evaluacion);
+
+                        function evaluacion(){
+                        var x=document.getElementsByName("monitoreo")[0].value;
+                        if ( x == "SI" ){
+                                document.getElementById("eval").style="display:inline";
+                                document.getElementById("id_pic").required=true;
+                                document.getElementById("id_ppc").required=true;
+                                document.getElementById("me").style="display:none";
+
+                        }else {
+                           document.getElementById("eval").style="display:none";
+                           document.getElementById("id_pic").value="";
+                           document.getElementById("id_ppc").value="";
+                           document.getElementById("id_medicamentos_emergencia_2").checked=true;
+                           document.getElementById("id_me_cual").value="";
+                           document.getElementById("id_me_dosis").value="";
+                           document.getElementById("id_pic").required=false;
+                           document.getElementById("id_ppc").required=false;
+                        }
+
+                        }
+
+                </script>
+                <script>
+                    document.getElementsByName("medicamentos_emergencia")[0].addEventListener('change', memer);
+                    document.getElementsByName("medicamentos_emergencia")[1].addEventListener('change', memer);
+
+                        function memer(){
+                        var x=document.getElementsByName("medicamentos_emergencia")[0].checked;
+                        if ( x == true ){
+                                document.getElementById("me").style="display:inline";
+                                document.getElementById("id_me_cual").required=true;
+                                document.getElementById("id_me_dosis").required=true;
+
+                        }else {
+                           document.getElementById("me").style="display:none";
+                           document.getElementById("id_me_cual").value="";
+                           document.getElementById("id_me_dosis").value="";
+                           document.getElementById("id_me_cual").required=false;
+                           document.getElementById("id_me_dosis").required=false;
+                        }
+
+                        }
+
+                </script>
+            </div>
         </div>
 
         <div class="col-md-8 col-md-offset-2">
@@ -406,7 +458,7 @@
 
                   </td>
               </tr>
-              <tr>
+              <tr id="om" style="display:none">
                   <th style="vertical-align:middle;" >{{form.otra_medicacion_cual.label}}</th>
                   <td style="vertical-align:middle;">{{form.otra_medicacion_cual.errors}}{{form.otra_medicacion_cual}}</td>
                   <th style="vertical-align:middle;" >{{form.otra_medicacion_dt.label}}</th>
@@ -414,6 +466,28 @@
               </tr>
               </tbody>
             </table>
+            <script>
+                    document.getElementsByName("otra_medicacion")[0].addEventListener('change', omemer);
+                    document.getElementsByName("otra_medicacion")[1].addEventListener('change', omemer);
+
+                        function omemer(){
+                        var x=document.getElementsByName("otra_medicacion")[0].checked;
+                        if ( x == true ){
+                                document.getElementById("om").style="display:inline";
+                                document.getElementById("id_otra_medicacion_cual").required=true;
+                                document.getElementById("id_otra_medicacion_dt").required=true;
+
+                        }else {
+                           document.getElementById("om").style="display:none";
+                           document.getElementById("id_otra_medicacion_cual").value="";
+                           document.getElementById("id_me_dosis").value="";
+                           document.getElementById("id_otra_medicacion_cual").required=false;
+                           document.getElementById("id_otra_medicacion_dt").required=false;
+                        }
+
+                        }
+
+                </script>
         </div>
 
         <div class="col-md-8 col-md-offset-2">

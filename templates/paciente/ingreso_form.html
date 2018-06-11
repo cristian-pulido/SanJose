@@ -150,21 +150,21 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.nombre_acompanante.name}}">{{form.nombre_acompanante.label}}</label>
-                    <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombre_acompanante" maxlength="70" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombre_acompanante" maxlength="70" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.tel1.name}}">{{form.tel1.label}}</label>
                     {{ form.tel1.errors }}
-                    <input maxlength="10" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel1" required id="id_tel1" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel1 != None %} value="{{object.tel1}}" {% endif %}/>
+                    <input maxlength="10" autocomplete="off" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel1" required id="id_tel1" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel1 != None %} value="{{object.tel1}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.tel2.name}}">{{form.tel2.label}}</label>
                     {{ form.tel2.errors }}
-                    <input  maxlength="10" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel2" id="id_tel2" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel2 != None %} value="{{object.tel2}}" {% endif %}/>
+                    <input  maxlength="10" autocomplete="off" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel2" id="id_tel2" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel2 != None %} value="{{object.tel2}}" {% endif %}/>
                 </div>
         </div>
         {% else %}
