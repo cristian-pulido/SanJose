@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/bold_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/bold_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/informante_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/informante_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/ingreso_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/ingreso_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/mayor_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/mayor_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/medico_eliminar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/medico_eliminar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/neurologia_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/neurologia_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_eliminar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_eliminar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/radiologia_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/radiologia_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/uci_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/uci_form.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="formularios.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="formularios.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="528" column="45" selection-start-line="528" selection-start-column="45" selection-end-line="528" selection-end-column="45" />
+            <state relative-caret-position="453">
+              <caret line="523" column="58" selection-start-line="523" selection-start-column="58" selection-end-line="523" selection-end-column="58" />
               <folding>
                 <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
@@ -64,25 +48,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="radiologia_form.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/radiologia_form.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="37" column="115" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="115" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#5;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#5;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#7;n#tbody#0;n#table#0;n#div#6;n#div#0;n#form#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="bold_form.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/bold_form.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
               <caret line="17" selection-start-line="17" selection-end-line="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="paciente_listar.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -162,7 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>moni</find>
       <find>tiempo</find>
       <find>relajacion</find>
       <find>sv</find>
@@ -178,11 +156,11 @@
       <find>patolo</find>
       <find>object.</find>
       <find>direccion</find>
-      <find />
+      <find>monitoreo ne</find>
       <find>monitoreo</find>
       <find>&quot;E&quot;</find>
       <find>upload-new</find>
-      <find />
+      <find>formato UCI</find>
       <find>nuevo</find>
       <find>excluido</find>
       <find>ci1</find>
@@ -192,6 +170,7 @@
       <find>sujeto_numero</find>
       <find>midazo</find>
       <find>uci</find>
+      <find>#</find>
     </findStrings>
     <replaceStrings>
       <replace>respuesta_verbal_e</replace>
@@ -279,7 +258,6 @@
         <option value="$PROJECT_DIR$/templates/base/base.html" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_form.html" />
         <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
-        <option value="$PROJECT_DIR$/templates/paciente/paciente_listar.html" />
         <option value="$PROJECT_DIR$/templates/paciente/bold_form.html" />
         <option value="$PROJECT_DIR$/templates/paciente/informante_form.html" />
         <option value="$PROJECT_DIR$/templates/paciente/mayor_form.html" />
@@ -287,10 +265,11 @@
         <option value="$PROJECT_DIR$/templates/paciente/uci_form.html" />
         <option value="$PROJECT_DIR$/apps/paciente/views.py" />
         <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
+        <option value="$PROJECT_DIR$/templates/paciente/paciente_listar.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="5">
+  <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="65" />
     <option name="y" value="24" />
     <option name="width" value="1181" />
@@ -754,13 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/radiologia_form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
@@ -777,13 +749,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="18" column="104" selection-start-line="18" selection-start-column="104" selection-end-line="18" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/mayor_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -843,8 +808,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="528" column="45" selection-start-line="528" selection-start-column="45" selection-end-line="528" selection-end-column="45" />
+        <state relative-caret-position="453">
+          <caret line="523" column="58" selection-start-line="523" selection-start-column="58" selection-end-line="523" selection-end-column="58" />
           <folding>
             <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
@@ -856,6 +821,20 @@
             <element signature="n#div#0;n#div#0;n#div#5;n#div#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#div#5;n#div#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/mayor_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
         </state>
       </provider>
     </entry>
