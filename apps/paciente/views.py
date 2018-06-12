@@ -62,9 +62,9 @@ class PacienteUpdate(UpdateView):
         try:
             shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
             file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+p.sujeto_numero+".txt", "w")
-            file.write(""+p.sujeto_numero)
+            file.write(""+str(p.sujeto_numero))
             file.close()
-            p.imagen = "/img/sujeto"+ str(p.sujeto_numero)+"/"+p.sujeto_numero+".txt"
+            p.imagen = "/img/sujeto"+ str(p.sujeto_numero)+"/"+str(p.sujeto_numero)+".txt"
             p.save()
         except:
             ""

@@ -117,7 +117,7 @@ class Candidato(models.Model):
         """delete -- Remove to leave file."""
         c = self
         n=c.sujeto_numero
-        shutil.rmtree("/home/ubuntu/media/img/sujeto"+n, ignore_errors=True)
+        shutil.rmtree("/home/ubuntu/media/img/sujeto"+str(n), ignore_errors=True)
         super(Candidato, self).delete(*args, **kwargs)
 
 
