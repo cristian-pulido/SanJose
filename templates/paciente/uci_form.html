@@ -35,8 +35,8 @@
 
 
         <div class="col-md-8 col-md-offset-2">
-                <h1>Formulario UCI Sujeto#{{ object.candidato.sujeto_numero }}</h1>
-                <h3>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</h3>
+                <h1>Formulario UCI / Seguimientos Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+                <!--<h3>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</h3>-->
         </div>
         <div class="col-md-8 col-md-offset-2">
             <table class="table table-hover">
@@ -243,7 +243,7 @@
               </tr>
               <tr>
                   <th style="vertical-align:middle;" rowspan="3">SEDACIÓN</th>
-                  <th style="vertical-align:middle;" >{{form.midazolan.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.midazolan.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="midazolan" id="id_midazolan" required>
                         <option value="" >---------</option>
@@ -260,7 +260,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.tiopental.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.tiopental.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="tiopental" id="id_tiopental" required>
                         <option value="" >---------</option>
@@ -277,7 +277,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.dexmedetomidina.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.dexmedetomidina.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="dexmedetomidina" id="id_dexmedetomidina" required>
                         <option value="" >---------</option>
@@ -294,7 +294,7 @@
               </tr>
               <tr>
                   <th style="vertical-align:middle;" rowspan="3">ANALGESIA</th>
-                  <th style="vertical-align:middle;" >{{form.morfina.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.morfina.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="morfina" id="id_morfina" required>
                         <option value="" >---------</option>
@@ -311,7 +311,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.hidromorfona.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.hidromorfona.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="hidromorfona" id="id_hidromorfona" required>
                         <option value="" >---------</option>
@@ -328,7 +328,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.fentanyl.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.fentanyl.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="fentanyl" id="id_fentanyl" required>
                         <option value="" >---------</option>
@@ -347,7 +347,7 @@
 
               <tr>
                   <th style="vertical-align:middle;" rowspan="5">ANTICONVULSIVANTES</th>
-                  <th style="vertical-align:middle;" >{{form.fenitoina.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.fenitoina.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="fenitoina" id="id_fenitoina" required>
                         <option value="" >---------</option>
@@ -364,7 +364,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.topiramato.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.topiramato.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="topiramato" id="id_topiramato" required>
                         <option value="" >---------</option>
@@ -381,7 +381,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.acido_valproico.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.acido_valproico.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="acido_valproico" id="id_acido_valproico" required>
                         <option value="" >---------</option>
@@ -397,7 +397,7 @@
                   </td>
               </tr>
               <tr>
-                  <th style="vertical-align:middle;" >{{form.levetiracetam.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.levetiracetam.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="levetiracetam" id="id_levetiracetam" required>
                         <option value="" >---------</option>
@@ -414,7 +414,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.lacosamida.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.lacosamida.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="lacosamida" id="id_lacosamida" required>
                         <option value="" >---------</option>
@@ -432,7 +432,7 @@
 
               <tr>
                   <th style="vertical-align:middle;" rowspan="3">ANTIPSICÓTICOS</th>
-                  <th style="vertical-align:middle;" >{{form.clozapina.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.clozapina.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="clozapina" id="id_clozapina" required>
                         <option value="" >---------</option>
@@ -449,7 +449,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.haloperidol.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.haloperidol.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="haloperidol" id="id_haloperidol" required>
                         <option value="" >---------</option>
@@ -466,7 +466,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.ketiapina.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.ketiapina.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="ketiapina" id="id_ketiapina" required>
                         <option value="" >---------</option>
@@ -485,7 +485,7 @@
 
               <tr>
                   <th style="vertical-align:middle;" rowspan="2">MODULADORES DEL ÁNIMO</th>
-                  <th style="vertical-align:middle;" >{{form.carbamacepina.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.carbamacepina.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="carbamacepina" id="id_carbamacepina" required>
                         <option value="" >---------</option>
@@ -502,7 +502,7 @@
               </tr>
               <tr>
 
-                  <th style="vertical-align:middle;" >{{form.carbonato_litio.label}}</th>
+                  <td style="vertical-align:middle;" >{{form.carbonato_litio.label}}</td>
                   <td style="vertical-align:middle;">
                       <p><select name="carbonato_litio" id="id_carbonato_litio" required>
                         <option value="" >---------</option>

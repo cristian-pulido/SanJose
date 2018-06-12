@@ -23,7 +23,7 @@ class PacienteCreate(CreateView):
             p.sujeto_numero=1
             p.save()
         else:
-            C=Candidato.objects.get(sujeto_numero=cantidad-1)
+            C=Candidato.objects.order_by("sujeto_numero").last()
             p.sujeto_numero=C.sujeto_numero+1
 
         try:

@@ -15,7 +15,7 @@
     <p>Si lo hace los pacientes:</p>
         {% for i in object.get_pacientes %}
             <ul>
-                <td>Sujeto {{i.sujeto_numero}}</td>
+                <td>Sujeto {{i.sujeto_numero|stringformat:"04d"}}</td>
             </ul>
         {% endfor %}
     <p>Quedaran sin médico a cargo.</p>

@@ -12,7 +12,7 @@
 <form  method="post">
     {% csrf_token %}
 
-    <h3>¿Desea eliminar el registro del Sujeto # {{ object.sujeto_numero }}?</h3>
+    <h3>¿Desea eliminar el registro del Sujeto # {{ object.sujeto_numero|stringformat:"04d" }}?</h3>
     <h3>Esto eliminara los registros dependientes.</h3>
 
 

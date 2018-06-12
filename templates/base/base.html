@@ -51,9 +51,10 @@
 											<div class="navbar-header">
 												<a class="navbar-brand" href={% url "paciente_listar" %}>Inicio</a>
 											</div>
+
 										<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 											<ul class="nav navbar-nav">
-												<li class="dropdown">
+												<!--<li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sujetos <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
 														{% if user.groups.all.0.name != 'Consultor' %}
@@ -61,7 +62,7 @@
 														{% endif %}
                                                         <li><a href={% url "paciente_listar" %}>Listar</a></li>
                                                     </ul>
-                                                </li>
+                                                </li>-->
 												<li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profesionales <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">

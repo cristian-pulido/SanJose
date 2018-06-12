@@ -16,7 +16,7 @@ def num():
         return "1"
     else:
         a=len(Candidato.objects.all())
-        return ""+str(int(a)+1)
+        return ""+str((int(a)+1)).zfill(4)
 
 @register.simple_tag
 def edad():

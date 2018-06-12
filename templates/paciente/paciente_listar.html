@@ -23,6 +23,9 @@
     <a class="nav-link" data-toggle="tab" href="#admitidos">Candidatos</a>
   </li>
   <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#incluidos">Incluidos</a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#rechazados">Rechazados</a>
   </li>
 
@@ -37,7 +40,7 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">Id</th>
                       <th scope="col">Médico a cargo </th>
                       {% if user.groups.all.0.name != 'Consultor' %}
                       <th scope="col">Acciones</th>
@@ -49,7 +52,7 @@
                         {% for object in object_list %}
                             {% if object.estado == 0 %}
                             <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
+                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
                               <td>{{object.medico_responsable}}</td>
 
                               {% if user.groups.all.0.name != 'Consultor' %}
@@ -111,7 +114,7 @@
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == True %}
                             <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
+                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
                               <td>{{object.medico_responsable}}</td>
 
                               {% if user.groups.all.0.name != 'Consultor' %}
@@ -152,6 +155,12 @@
             </li>
         </ul>
   </div>
+
+  <div class="tab-pane fade" id="incluidos">
+
+  </div>
+
+
   <div class="tab-pane fade" id="rechazados">
     {% if object_list|length == 0 %}
       <h2>No hay registros de Sujetos</h2>
@@ -172,7 +181,7 @@
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == False %}
                             <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero}}</a></td>
+                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
                               <td>{{object.medico_responsable}}</td>
 
                               {% if user.groups.all.0.name != 'Consultor' %}

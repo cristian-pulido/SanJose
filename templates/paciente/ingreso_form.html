@@ -83,7 +83,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-                <h1>Formulario Ingreso Sujeto #{{ object.candidato.sujeto_numero }}</h1>
+                <h1>Formulario Ingreso Sujeto #{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
         </div>
     </div>
     <div class="row">

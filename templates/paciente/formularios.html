@@ -4,14 +4,14 @@
 
 {% block content %}
 
-<h1>Información Clínica Sujeto # : {{ object.sujeto_numero }}</h1>
+<h1>Información Clínica Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active " data-toggle="tab" href="#home">Candidato</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab" href="#uci">Formato UCI</a>
+    <a class="nav-link "  data-toggle="tab" href="#uci">Formato UCI/Seguimientos</a>
   </li>
   {% if object.inscrito == True and object.estado > 0 %}
   <li class="nav-item">
@@ -512,10 +512,17 @@
           {% for uci in object.get_uci %}
             <ul>
               {% if uci.fechauci != None %}
-                <h2>{{uci.fechauci}}</h2>
-
-                <legend>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</legend>
-      <table class="table table-hover">
+              <div class="container">
+                <br>
+                <div class="panel-group">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse{{ forloop.counter }}">{{uci.fechauci}}</a>
+                      </h4>
+                    </div>
+                    <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
+                      <table class="table table-hover">
 
           <tbody>
             <tr class="table-active">
@@ -670,7 +677,19 @@
             </tbody>
 
           </table>
-        {% endif %}
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+                <!--<legend>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</legend>-->
+              {% endif %}
 
 
 
