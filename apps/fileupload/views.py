@@ -27,28 +27,6 @@ class PictureCreateView(CreateView):
         data = {'files': files}
         response = JSONResponse(data, mimetype=response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
-        ## Crear objeto vacio y añadirle la imagen subida.
-        try:
-            os.mkdir("/home/ubuntu/media/img")
-        except:
-            ""
-        carga = False
-        contador=0
-        while not carga:
-            contador=contador+1
-            try:
-                c = Candidato.objects.create(sujeto_numero=contador, inscrito=True, imagen=self.object, ci3=True, ci4=True, estado=0)
-                c.save()
-                carga = True
-            except:
-                print("error"+str(contador))
-        try:
-            os.mkdir("/home/ubuntu/media/img/sujeto" + str(c.sujeto_numero))
-            name = str(self.object.file)[9:]
-            shutil.copy2("/home/ubuntu/" + self.object.file.url, "/home/ubuntu/media/img/sujeto" + str(c.sujeto_numero) + "/" + name)
-
-        except:
-            ""
 
         return response
 

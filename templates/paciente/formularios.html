@@ -4,11 +4,13 @@
 
 {% block content %}
 
+
+
 <h1>Información Clínica Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active " data-toggle="tab" href="#home">Candidato</a>
+    <a class="nav-link active " data-toggle="tab" href="#home">Demografico</a>
   </li>
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab" href="#uci">Formato UCI/Seguimientos</a>
@@ -18,18 +20,23 @@
     <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %} href="#estudio">Formato ingreso al estudio</a>
   </li>
 
+
+  {% if  object.estado > 1 %}
   <li class="nav-item">
-    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#neurologia">Formato Neurología</a>
+    <a class="nav-link "  data-toggle="tab"   href="#neurologia">Formato Neurología</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#radiologia">Traslado a Radiología</a>
+    <a class="nav-link "  data-toggle="tab"   href="#radiologia">Traslado a Radiología</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#bold">Checklist BOLD</a>
+    <a class="nav-link "  data-toggle="tab"   href="#bold">Checklist BOLD</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " {% if object.inscrito == True and object.estado > 0 %} data-toggle="tab" {% endif %}  href="#informante">Neuropsicología Informante</a>
+    <a class="nav-link "  data-toggle="tab"   href="#informante">Neuropsicología Informante</a>
   </li>
+  {% endif %}
+
+
 
   {% endif %}
 </ul>

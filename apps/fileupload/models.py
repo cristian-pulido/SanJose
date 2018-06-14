@@ -34,9 +34,5 @@ class Picture(models.Model):
 
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""
-        c = self.candidato
-        n=c.sujeto_numero
-        shutil.rmtree("/home/ubuntu/media/img/sujeto"+n, ignore_errors=True)
-        self.candidato.delete()
         self.file.delete(False)
         super(Picture, self).delete(*args, **kwargs)
