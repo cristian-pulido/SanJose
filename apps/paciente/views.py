@@ -3,12 +3,14 @@
 import os
 import shutil
 
+from celery import shared_task
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
     BoldForm, MayorForm, InformanteForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
+from apps.paciente.templatetags.scripts import anonimizar
 
 
 class PacienteCreate(CreateView):
@@ -45,7 +47,6 @@ class PacienteUpdate(UpdateView):
     form_class = PacienteForm
     template_name = 'paciente/paciente_form.html'
     # a donde va dirigido
-
     def get_success_url(self):
         p=self.object
         if p.estado==1:
@@ -61,11 +62,12 @@ class PacienteUpdate(UpdateView):
 
         try:
             shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-            file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+p.sujeto_numero+".txt", "w")
+            file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+str(p.sujeto_numero)+".txt", "w")
             file.write(""+str(p.sujeto_numero))
             file.close()
             p.imagen = "/img/sujeto"+ str(p.sujeto_numero)+"/"+str(p.sujeto_numero)+".txt"
             p.save()
+            anonimizar.delay(p.sujeto_numero)
         except:
             ""
 

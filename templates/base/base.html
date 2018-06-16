@@ -24,6 +24,7 @@
 
 	<title>{% block title %}Document {% endblock %}</title>
 </head>
+
 {% if user.is_authenticated %}
 
 		 <body>
@@ -35,6 +36,7 @@
 		 {% crearDprevios %}
 		 {% creargrupos %}
 		 {% edad %}
+
 		 </div>
 		 <br>
 		 {% if user.groups.all.0.name != 'Invitado' %}

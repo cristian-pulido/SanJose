@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.models import Group, Permission, User
-
+from celery import shared_task
 from apps.fileupload.models import Picture
 from apps.paciente.models import Dprevio, Apatologicos, Candidato
 from django import template
@@ -86,34 +86,13 @@ def creargrupos():
 
     return ""
 
-
-@register.simple_tag
-def anonimizar():
-
+@shared_task
+def anonimizar(sn):
     try:
-        imagenes=Picture.objects.all()
-        for img in imagenes:
-            if img.anonimo == 1:
-                img.anonimo = 2
-                img.save()
-
-            if img.anonimo == 0:
-                img.anonimo = 1
-                img.save()
-
-
-        for img in imagenes:
-            if img.anonimo == 1:
-                n = img.candidato.sujeto_numero
-                ### anonimizador
-                anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(n))
-                img.anonimo = 3
-                img.save()
-
+        anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(sn))
     except:
-        print("")
-
-    return ""
+        ""
+    return "Completo"
 
 
 
