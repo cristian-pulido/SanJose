@@ -40,12 +40,12 @@
                             <th style="vertical-align: middle;">{{ form.informante.label }}</th>
                             <td style="vertical-align: middle;">
                                 {{ form.informante.errors }}
-                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
+                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
                             </td>
                             <th style="vertical-align: middle;">{{ form.parentezco.label }}</th>
                             <td style="vertical-align: middle;">
                                 {{ form.parentezco.errors }}
-                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
+                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
                             </td>
                         </tr>
                         <tr>

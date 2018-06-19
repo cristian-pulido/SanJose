@@ -72,8 +72,8 @@ class Candidato(models.Model):
     cama_numero =models.PositiveIntegerField(null=True)
     fecha_evento_principal = models.DateField(null=True)
     hora_evento_principal = models.TimeField(blank=True, null=True)
-    fecha_ingreso = models.DateField(null=True)
-    hora_ingreso = models.TimeField(blank=True, null=True)
+    fecha_hora_ingreso = models.DateTimeField(null=True)
+
     ######## Grupo diagnostico
     TCE='TCE'
     H_A='Hipoxia/Anoxia'
@@ -106,12 +106,13 @@ class Candidato(models.Model):
     imagen = models.FileField(null=True, upload_to="img",blank=True)
     estado = models.PositiveIntegerField(null=True, default=0)
     inscrito = models.NullBooleanField(default=False)
-    archivo = models.FileField(null=True, upload_to="img")
+    archivo = models.FileField(null=True, upload_to="img", blank=True)
 
     def __str__(self):
         return '{}'.format(self.sujeto_numero)
-    def get_uci(self):
-        return self.uci_set.all()
+
+    def get_seguimiento(self):
+        return self.seguimiento_set.all()
 
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""
@@ -172,7 +173,7 @@ class Ingreso(models.Model):
     firma_consentimiento=models.BooleanField(default=True)
     firma_causa=models.CharField(max_length=50, null=True,blank=True)
     fechafirma=models.DateField(null=True, blank=True)
-    archivo = models.FileField(null=True, upload_to="img")
+    archivo = models.FileField(null=True, upload_to="img", blank=True)
     archivofirma = models.FileField(null=True, upload_to="img", blank=True)
 
     def __str__(self):
@@ -251,7 +252,7 @@ class Radiologia(models.Model):
 
 
 class Uci(models.Model):
-    candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
     fechauci = models.DateField(null=True)
     horauci = models.TimeField(null=True)
     seleccion_CHOICES = (
@@ -626,6 +627,29 @@ class Informante(models.Model):
     totalapatia= models.CharField(max_length=30,null=True,default=0)
     totaldes= models.CharField(max_length=30,null=True,default=0)
     totalfunciones = models.CharField(max_length=30, null=True, default=0)
+
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+
+class Seguimiento(models.Model):
+    candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
+    fechaseguimiento = models.DateField(null=True)
+    seleccion_CHOICES = (
+        ('SI', 'SI'),
+        ('NO', 'NO'),
+    )
+    numero_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+    )
+    apertura_ocular = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
+    respuesta_motora = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
+    respuesta_verbal = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
+    glasgowtotal = models.CharField(max_length=5,null=True,default=0)
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)

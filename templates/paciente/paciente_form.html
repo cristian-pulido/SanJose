@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <label for="{{form.nombres.name}}">{{form.nombres.label}}</label>
                     {{ form.nombres.errors }}
-                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombres" maxlength="70" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="nombres" maxlength="70" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
 
                 </div>
         </div>
@@ -101,7 +101,7 @@
                 <div class="form-group">
                     <label for="{{form.apellidos.name}}">{{form.apellidos.label}}</label>
                     {{ form.apellidos.errors }}
-                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="apellidos" maxlength="70" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="apellidos" maxlength="70" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -172,22 +172,39 @@
                 <div class="form-group">
                     <label for="{{form.hora_evento_principal.name}}">{{form.hora_evento_principal.label}}</label>
                     {{ form.hora_evento_principal.errors }}
+                    <input type="time" step = "60" value="00:00" name="hora_evento_principal" value="{{object.hora_evento_principal}}" class="form-control"  id="id_hora_evento_principal" />
+                </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label for="{{form.fecha_hora_ingreso.name}}">{{form.fecha_hora_ingreso.label}}</label>
+                    {{ form.fecha_hora_ingreso.as_hidden }}
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>Fecha
+                            <td><input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_ingreso" type="date" placeholder="Elegir fecha" id="id_fecha_ingreso" /> </td>
+                            <th>Hora</th>
+                            <td><input type="time" step = "60" value="00:00" name="hora_ingreso" required class="form-control"  id="id_hora_ingreso" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <script>
+                    document.getElementsByName("fecha_ingreso")[0].addEventListener('change', creardatetime);
+                    document.getElementsByName("hora_ingreso")[0].addEventListener('change', creardatetime);
 
-                    <input type="time" step = "1" name="hora_evento_principal" value="{{object.hora_evento_principal}}" class="form-control"  id="id_hora_evento_principal" />
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.fecha_ingreso.name}}">{{form.fecha_ingreso.label}}</label>
-                    {{ form.fecha_ingreso.errors }}
-                    <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_ingreso" type="date" placeholder="Elegir fecha" id="id_fecha_ingreso" value="{{object.fecha_ingreso|date:'Y-m-d'}}">
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.hora_ingreso.name}}">{{form.hora_ingreso.label}}</label>
-                    {{ form.hora_ingreso.errors }}
-                    <input type="time" step = "1" name="hora_ingreso" value="{{object.hora_ingreso}}" class="form-control"  id="id_hora_ingreso" />
+                    /* function */
+                    function creardatetime(){
+                        'use strict';
+                        var f = document.getElementById("id_fecha_ingreso").value;
+                        var h = document.getElementById("id_hora_ingreso").value;
+                        var d = new Date(f+"T"+h+"-05:00");
+                        var m = String(parseInt(d.getMonth())+1)
+                        document.getElementById("id_fecha_hora_ingreso").value=d.getFullYear()+"-"+m+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
+
+                    }
+                    </script>
+
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -253,6 +270,15 @@
 
     {% endif %}
     {% if object.estado == 0 %}
+
+        {% load scripts %}
+          {% tiempo object as t%}
+          {% if t < 48  %}
+          <script type="text/javascript">
+            window.location="{% url 'paciente_listar' %}";
+          </script>
+
+          {% endif %}
 
          <div class="col-md-8 col-md-offset-2">
                 <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
@@ -322,7 +348,7 @@
         {{form.HC.as_hidden}}
         {{form.cama_numero.as_hidden}}
         {{form.fecha_evento_principal.as_hidden}}
-        {{form.fecha_ingreso.as_hidden}}
+        {{form.fecha_hora_ingreso.as_hidden}}
         {{form.G_diagnostico.as_hidden}}
         {{form.medico_responsable.as_hidden}}
         {{form.imagen.as_hidden}}
@@ -353,7 +379,7 @@
         {{form.HC.as_hidden}}
         {{form.cama_numero.as_hidden}}
         {{form.fecha_evento_principal.as_hidden}}
-        {{form.fecha_ingreso.as_hidden}}
+        {{form.fecha_hora_ingreso.as_hidden}}
         {{form.G_diagnostico.as_hidden}}
         {{form.medico_responsable.as_hidden}}
         {{form.ci.as_hidden}}

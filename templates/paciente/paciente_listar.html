@@ -17,13 +17,10 @@
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active " data-toggle="tab" href="#seguimiento">Seguimiento</a>
+    <a class="nav-link active " data-toggle="tab" href="#seguimiento">Observación</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#admitidos">Candidatos</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#incluidos">Incluidos</a>
+    <a class="nav-link" data-toggle="tab" href="#admitidos">Incluidos</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#rechazados">Rechazados</a>
@@ -60,7 +57,13 @@
                                   {% if user.groups.all.0.name == 'Administrador' %}
                                   <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
                                   {% endif %}
+                                  {% load scripts %}
+                                  {% tiempo object as t%}
+                                  {% if t >= 48  %}
                                   <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Establecer Criterios</a>
+                                  {% endif %}
+
+
 
                               </td>
 
@@ -155,70 +158,6 @@
             </li>
         </ul>
   </div>
-
-  <div class="tab-pane fade" id="incluidos">
-
-      {% if object_list|length == 0 %}
-      <h2>No hay registros de Sujetos</h2>
-      {% else %}
-
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">Id</th>
-                      <th scope="col">Médico a cargo </th>
-                      {% if user.groups.all.0.name != 'Consultor' %}
-                      <th style="text-align:right" scope="col">Acciones</th>
-                      {% endif %}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% if object_list %}
-                        {% for object in object_list %}
-                            {% if object.estado == 2 and object.inscrito == True %}
-                            <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
-                              <td>{{object.medico_responsable}}</td>
-
-                              {% if user.groups.all.0.name != 'Consultor' %}
-                              <td style="text-align:right">
-                                  {% if user.groups.all.0.name == 'Administrador' %}
-                                  <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
-                                  {% endif %}
-                              </td>
-
-                              {% else %}
-                              <td></td>
-                              {% endif %}
-                            </tr>
-                            {% endif %}
-                        {% endfor%}
-
-                    {% else %}
-                    <h2>No hay registros de Sujetos</h2>
-
-                    {% endif %}
-                  </tbody>
-                </table>
-        {% endif %}
-
-
-
-        <ul class="pager">
-            <li>
-                {% if page_obj.has_previous %}
-                 <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-                {% endif %}
-                </li>
-            <li>
-                {% if page_obj.has_next %}
-                 <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                {% endif %}
-            </li>
-        </ul>
-
-  </div>
-
 
   <div class="tab-pane fade" id="rechazados">
     {% if object_list|length == 0 %}

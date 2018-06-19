@@ -8,8 +8,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
-    BoldForm, MayorForm, InformanteForm
-from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
+    BoldForm, MayorForm, InformanteForm, SeguimientoForm
+from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
+    Seguimiento
 from apps.paciente.templatetags.scripts import anonimizar
 
 
@@ -27,6 +28,7 @@ class PacienteCreate(CreateView):
         else:
             C=Candidato.objects.order_by("sujeto_numero").last()
             p.sujeto_numero=C.sujeto_numero+1
+            p.save()
 
         try:
             os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
@@ -85,19 +87,16 @@ class IngresoUpdate(UpdateView):
     def get_success_url(self):
         i=self.object
         p=i.candidato
-        if p.estado==1:
-            p.estado=2
-            p.save()
         try:
             shutil.move('/home/ubuntu/media/' + str(i.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-            i.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivo)[11:]
+            i.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivo)[4:]
             i.save()
         except:
             ""
         try:
             if i.archivofirma != None:
                 shutil.move('/home/ubuntu/media/' + str(i.archivofirma), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
-                i.archivofirma = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivofirma)[11:]
+                i.archivofirma = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivofirma)[4:]
                 i.save()
 
         except:
@@ -114,9 +113,6 @@ class UciUpdate(UpdateView):
     def get_success_url(self):
         u=self.object
         p=u.candidato
-        if p.estado==2:
-            p.estado=3
-            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 class NeurologiaUpdate(UpdateView):
@@ -128,9 +124,6 @@ class NeurologiaUpdate(UpdateView):
     def get_success_url(self):
         n=self.object
         p=n.candidato
-        if p.estado==3:
-            p.estado=4
-            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 class RadiologiaUpdate(UpdateView):
@@ -142,9 +135,6 @@ class RadiologiaUpdate(UpdateView):
     def get_success_url(self):
         r=self.object
         p=r.candidato
-        if p.estado==4:
-            p.estado=5
-            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 class BoldUpdate(UpdateView):
@@ -156,9 +146,6 @@ class BoldUpdate(UpdateView):
     def get_success_url(self):
         b=self.object
         p=b.candidato
-        if p.estado==5:
-            p.estado=6
-            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 class MayorUpdate(UpdateView):
@@ -188,11 +175,18 @@ class InformanteUpdate(UpdateView):
     def get_success_url(self):
         i=self.object
         p=i.candidato
-        if p.estado==6:
-            p.estado=7
-            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
+class SeguimientoUpdate(UpdateView):
+    model = Seguimiento
+    form_class = SeguimientoForm
+    template_name = 'paciente/seguimiento_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        s=self.object
+        p=s.candidato
+        return reverse_lazy('paciente', args=[p.pk])
 
 
 

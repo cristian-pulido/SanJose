@@ -1,0 +1,149 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Paciente {% endblock %}
+{% block content %}
+{% if user.groups.all.0.name == 'Consultor' %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+
+
+        <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Seguimiento Diario UCI Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th style="vertical-align:middle;">{{form.fechaseguimiento.label}}</th>
+                    <td style="vertical-align:middle;">
+                        {{ form.fechaseguimiento.errors }}
+                        <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaseguimiento" type="date" placeholder="Elegir fecha" id="id_fechauci" value="{{object.fechaseguimiento|date:'Y-m-d'}}">
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">Glasgow</th>
+                    <th colspan="2">{{form.glasgowtotal.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.apertura_ocular.label}}</td>
+                    <td>
+
+                 {% for o in "1234"|make_list %}
+                    <label onclick="sumar({{o}},'ocular')"  for="id_apertura_ocular_{{o}}">
+                    <input type="radio" name="apertura_ocular" value="{{o}}"  required id="id_apertura_ocular_{{o}}"  {% if object.apertura_ocular == o %} checked="" {% endif %} />{{o}}
+                  </label>
+                  {% endfor %}
+                  {{form.apertura_ocular.errors}}
+
+                    </td>
+                    <td colspan="2" colrow="3" style="vertical-align:middle;">
+                    <input type="text" readonly name="glasgowtotal" placeholder="" size="3" required class="form-control" maxlength="3" id="id_glasgowtotal" value="{{object.glasgowtotal}}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{form.respuesta_motora.label}}</td>
+                    <td>
+
+                          {% for o in "123456"|make_list %}
+                            <label onclick="sumar({{o}},'motora')"  for="id_respuesta_motora_{{o}}">
+                            <input type="radio" name="respuesta_motora" value="{{o}}"  required id="id_respuesta_motora_{{o}}"  {% if object.respuesta_motora == o %} checked="" {% endif %} />{{o}}
+                          </label>
+                          {% endfor %}
+                          {{forms.respuesta_motora.errors}}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{form.respuesta_verbal.label}}</td>
+                    <td>
+
+                          {% for o in "12345"|make_list %}
+                            <label onclick="sumar({{o}},'verbal')" for="id_respuesta_verbal_{{o}}">
+                            <input type="radio" name="respuesta_verbal" value="{{o}}"  required id="id_respuesta_verbal_{{o}}"  {% if object.respuesta_verbal == o %} checked="" {% endif %} />{{o}}
+                          </label>
+                          {% endfor %}
+                          {{forms.respuesta_verbal.errors}}
+
+                    </td>
+                </tr>
+
+              </tbody>
+            </table>
+        </div>
+
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
+    </div>
+</form>
+
+
+<br>
+<br>
+{% endblock %}
+{% block extrajs %}
+
+
+<script>
+function sumar(a,b) {
+    var ao1 =document.getElementById("id_apertura_ocular_1").checked ;
+    var ao2 =document.getElementById("id_apertura_ocular_2").checked ;
+    var ao3 =document.getElementById("id_apertura_ocular_3").checked ;
+    var ao4 =document.getElementById("id_apertura_ocular_4").checked ;
+    var rm1 =document.getElementById("id_respuesta_motora_1").checked ;
+    var rm2 =document.getElementById("id_respuesta_motora_2").checked ;
+    var rm3 =document.getElementById("id_respuesta_motora_3").checked ;
+    var rm4 =document.getElementById("id_respuesta_motora_4").checked ;
+    var rm5 =document.getElementById("id_respuesta_motora_5").checked ;
+    var rm6 =document.getElementById("id_respuesta_motora_6").checked ;
+    var rv1 =document.getElementById("id_respuesta_verbal_1").checked ;
+    var rv2 =document.getElementById("id_respuesta_verbal_2").checked ;
+    var rv3 =document.getElementById("id_respuesta_verbal_3").checked ;
+    var rv4 =document.getElementById("id_respuesta_verbal_4").checked ;
+    var rv5 =document.getElementById("id_respuesta_verbal_5").checked ;
+    var total=0;
+    if (b == 'ocular') {
+    total = total+a+rm1*1+rm2*2+rm3*3+rm4*4+rm5*5+rm6*6+rv1*1+rv2*2+rv3*3+rv4*4+rv5*5;
+    }
+    if (b == 'motora') {
+    total = total+a+ao1*1+ao2*2+ao3*3+ao4*4+rv1*1+rv2*2+rv3*3+rv4*4+rv5*5;
+    }
+    if (b == 'verbal') {
+    total = total+a+ao1*1+ao2*2+ao3*3+ao4*4+rm1*1+rm2*2+rm3*3+rm4*4+rm5*5+rm6*6;
+    }
+
+    document.getElementById("id_glasgowtotal").value = total;
+}
+</script>
+
+
+{% endblock %}

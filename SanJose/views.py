@@ -3,7 +3,7 @@ import datetime
 from django.shortcuts import render, redirect
 
 from apps.fileupload.models import Picture
-from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante
+from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento
 from programas import anonimizador
 
 def error(request):
@@ -85,6 +85,15 @@ def crearinformante(request, pk):
             else:
                 i = Informante.objects.create(candidato=c)
                 return redirect("/paciente/informante/editar/" + str(i.pk))
+
+def crearseguimiento(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+
+        s=Seguimiento.objects.create(candidato=c)
+        return redirect("/paciente/seguimiento/editar/"+str(s.pk))
 
 
 

@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' %}
+{% if user.groups.all.0.name == 'Consultor' or object.fechaegreso != None %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -35,10 +35,12 @@
 
 
         <div class="col-md-8 col-md-offset-2">
-                <h1>Formulario UCI / Seguimientos Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
-                <!--<h3>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</h3>-->
+                <h1>Formulario UCI Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+
+                <h3 {% if object.fechauci != None %} style="display:none" {% endif%}>Seguimiento Unidad de Cuidados intensivos (>48hrs post ingreso)</h3>
+
         </div>
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2" {% if object.fechauci != None %} style="display:none" {% endif%}>
             <table class="table table-hover">
               <tbody>
                 <tr class="table-active">
@@ -552,7 +554,8 @@
 
               </tbody>
             </table>
-
+        </div>
+        <div class="col-md-8 col-md-offset-2" {% if object.fechauci == None %} style="display:none" {% endif%}>
             <br>
             <label>Evaluación de egreso UCI</label><button onclick="salida()" id="bsalida" type="button"  class="btn btn-secondary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
             <span class="help-block">Diligenciar este espacio únicamente al momento de alta del paciente</span>
@@ -593,7 +596,7 @@
 
                 <tr>
                     <th style="vertical-align:middle;" rowspan="3">{{form.dx_egreso.label}}</th>
-                    <td style="vertical-align:middle;" rowspan="3"><input type="text" name="dx_egreso" value="{{object.dx_egreso}}" {% if object.fechaegreso != None %} required {% endif %} class="form-control" id="id_dx_egreso" maxlength="200" /></td>
+                    <td style="vertical-align:middle;" rowspan="3"><input type="text" name="dx_egreso" {% if object.fechaegreso != None %} required {% endif %} class="form-control" id="id_dx_egreso" maxlength="200" /></td>
                     <th  style="vertical-align:middle;"><label id="cmortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" {% else %} style="display:none"  {% endif %}>{{form.causa_mortalidad.label}}</label></th>
                     <td style="vertical-align:middle;"><input type="text"  name="causa_mortalidad" class="form-control" maxlength="200" placeholder="" id="id_causa_mortalidad" {% if object.condicion_egreso == "Fallecido" %} style="display:inline" required value="{{object.causa_mortalidad}}" {% else %} style="display:none"  {% endif %}/></td>
                 </tr>

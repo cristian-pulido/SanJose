@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.contrib.auth.models import Group, Permission, User
 from celery import shared_task
@@ -31,8 +31,13 @@ def edad():
             s.edad=int(dt.days/365)
             s.save()
         return ""
-
-
+@register.simple_tag
+def tiempo(c):
+    entrada=c.fecha_hora_ingreso
+    ahora = datetime.now(timezone.utc)
+    resta=ahora-entrada
+    horas=int(resta.total_seconds()/3600)
+    return horas
 
 
 @register.simple_tag

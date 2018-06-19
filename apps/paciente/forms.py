@@ -1,7 +1,7 @@
 
 from django import forms
 from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, \
-    Informante
+    Informante, Seguimiento
 
 
 class MedicoForm(forms.ModelForm):
@@ -31,8 +31,7 @@ class PacienteForm(forms.ModelForm):
             'cama_numero',
             'fecha_evento_principal',
             'hora_evento_principal',
-            'fecha_ingreso',
-            'hora_ingreso',
+            'fecha_hora_ingreso',
             'G_diagnostico',
             'D_neuro_logico_psiquiatrico_previo',
             'D_especificos',
@@ -62,10 +61,9 @@ class PacienteForm(forms.ModelForm):
             'cama_numero': 'Cama UCI',
             'fecha_evento_principal': "Fecha de evento principal",
             'hora_evento_principal': "Hora de evento principal",
-            'fecha_ingreso': "Fecha de ingreso UCI",
-            'hora_ingreso': "Hora de ingreso UCI",
+            'fecha_hora_ingreso': "Fecha y Hora de ingreso UCI",
             'G_diagnostico': 'Grupo diagnóstico',
-            'D_neuro_logico_psiquiatrico_previo': "Diagnósticos neurológicos/psiquiátricos previos al evento",
+            'D_neuro_logico_psiquiatrico_previo': "Antecedentes neurológicos/psiquiátricos",
             'D_especificos': 'Especifique diagnóstico',
             'medico_responsable': "Profesional Responsable",
             'archivo': "Documento fisico",
@@ -83,8 +81,7 @@ class PacienteForm(forms.ModelForm):
             'cama_numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Ingrese número entero')}),
             'fecha_evento_principal': forms.TextInput(attrs={'class': 'form-control'}),
             'hora_evento_principal': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Formato 24 horas')}),
-            'fecha_ingreso': forms.TextInput(attrs={'class': 'form-control'}),
-            'hora_ingreso': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Formato 24 horas')}),
+            'fecha_hora_ingreso': forms.TextInput(attrs={'class': 'form-control'}),
             'G_diagnostico': forms.Select(attrs={'class': 'form-control'}),
             'D_neuro_logico_psiquiatrico_previo': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'D_especificos': forms.Textarea(attrs={'class': 'form-control', 'autocomplete' :"off"}),
@@ -1024,6 +1021,36 @@ class InformanteForm(forms.ModelForm):
             'transporte':forms.Select(),
             'medicacion':forms.Select(),
             'finanzas':forms.Select(),
+        }
+
+class SeguimientoForm(forms.ModelForm):
+
+    class Meta:
+        model = Seguimiento
+
+        fields = [
+            'fechaseguimiento',
+            'apertura_ocular',
+            'respuesta_motora',
+            'respuesta_verbal',
+            'glasgowtotal',
+                    ]
+
+        labels = {
+            'fechaseguimiento': "Fecha",
+            'apertura_ocular':"Apertura ocular",
+            'respuesta_motora':"Respuesta motora",
+            'respuesta_verbal':"Respuesta verbal",
+            'glasgowtotal':"Glasgow total",
+
+        }
+        widgets = {
+            'fechaseguimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'apertura_ocular' :forms.RadioSelect(),
+            'respuesta_motora':forms.RadioSelect(),
+            'respuesta_verbal':forms.RadioSelect(),
+
+
         }
 
 

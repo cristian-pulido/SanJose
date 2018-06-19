@@ -92,7 +92,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 <div class="form-group">
                     <label for="{{form.fecha_form.name}}">{{form.fecha_form.label}}</label>
                     {{ form.fecha_form.errors }}
-                    <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_form" type="date" placeholder="Elegir fecha" id="id_fecha_form" value="{{object.fecha_form|date:'Y-m-d'}}">
+                    <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" required name="fecha_form" type="date" placeholder="Elegir fecha" id="id_fecha_form" value="{{object.fecha_form|date:'Y-m-d'}}">
                     <div class="help">Cuando se llena este formulario.</div>
                 </div>
         </div>
@@ -150,7 +150,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label for="{{form.nombre_acompanante.name}}">{{form.nombre_acompanante.label}}</label>
-                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/, '')" name="nombre_acompanante" maxlength="70" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="nombre_acompanante" maxlength="70" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
