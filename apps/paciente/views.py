@@ -29,6 +29,12 @@ class PacienteCreate(CreateView):
             C=Candidato.objects.order_by("sujeto_numero").last()
             p.sujeto_numero=C.sujeto_numero+1
             p.save()
+        p.ci=""
+        p.save()
+        Diagnosticos=len(p.D_neuro_logico_psiquiatrico_previo.all())
+        if Diagnosticos > 0:
+            p.estado=1
+            p.save()
 
         try:
             os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))

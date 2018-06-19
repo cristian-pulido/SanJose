@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' %}
+{% if user.groups.all.0.name == 'Consultor' or object.fechaseguimiento != None %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -93,6 +93,64 @@
 
                     </td>
                 </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.fallaorganica.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="fallaorganica" id="id_fallaorganica" required onchange="campo('id_fallaorganica_cual','falla','id_fallaorganica')">
+                        <option value="" >---------</option>
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" >NO</option>
+
+                        </select></p>
+                        {{forms.fallaorganica.errors}}
+
+
+                    </td>
+                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="falla">{{form.fallaorganica_cual.label}}</label></th>
+                    <td style="vertical-align:middle;"><input type="hidden" name="fallaorganica_cual" required class="form-control" maxlength="25" id="id_fallaorganica_cual" /></td>
+                    
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.infeccion.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="infeccion" id="id_infeccion" required onchange="campo('id_infeccion_foco','infeccion','id_infeccion')">
+                        <option value="" >---------</option>
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" >NO</option>
+
+                        </select></p>
+                        {{forms.infeccion.errors}}
+
+
+                    </td>
+                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="infeccion">{{form.infeccion_foco.label}}</label></th>
+                    <td style="vertical-align:middle;"><input type="hidden" name="infeccion_foco" required class="form-control" maxlength="25" id="id_infeccion_foco" /></td>
+                    
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.parada.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="parada" id="id_parada" required onchange="campo('id_parada_tiempo','parada','id_parada')">
+                        <option value="" >---------</option>
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" >NO</option>
+
+                        </select></p>
+                        {{forms.parada.errors}}
+
+
+                    </td>
+                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="parada">{{form.parada_tiempo.label}}</label></th>
+                    <td style="vertical-align:middle;"><input type="hidden" name="parada_tiempo" required class="form-control" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="999" id="id_parada_tiempo" /></td>
+
+                    
+                </tr>
 
               </tbody>
             </table>
@@ -142,6 +200,25 @@ function sumar(a,b) {
     }
 
     document.getElementById("id_glasgowtotal").value = total;
+}
+</script>
+
+<script>
+function campo(a,b,c) {
+    var x=document.getElementById(a);
+    var y=document.getElementById(b);
+    var z=document.getElementById(c).value;
+    if (z == 'SI') {
+        x.class='form-control';
+        x.type='text';
+        y.style="visibility:inline";
+    } else {
+        x.class='form-control';
+        x.type='hidden';
+        y.style="visibility:hidden";
+        x.value="";
+    }
+
 }
 </script>
 

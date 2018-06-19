@@ -1034,6 +1034,12 @@ class SeguimientoForm(forms.ModelForm):
             'respuesta_motora',
             'respuesta_verbal',
             'glasgowtotal',
+            'fallaorganica',
+            'fallaorganica_cual',
+            'infeccion',
+            'infeccion_foco',
+            'parada',
+            'parada_tiempo',
                     ]
 
         labels = {
@@ -1042,6 +1048,12 @@ class SeguimientoForm(forms.ModelForm):
             'respuesta_motora':"Respuesta motora",
             'respuesta_verbal':"Respuesta verbal",
             'glasgowtotal':"Glasgow total",
+            'fallaorganica': 'Falla orgánica',
+            'fallaorganica_cual':'Cual',
+            'infeccion': 'Nueva infección',
+            'infeccion_foco': 'Foco',
+            'parada':'Parada cardíaca',
+            'parada_tiempo':'Tiempo (minutos)'
 
         }
         widgets = {

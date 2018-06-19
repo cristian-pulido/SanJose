@@ -89,7 +89,7 @@ class Candidato(models.Model):
         ('ci1', 'Paciente con episodio de parada cardíaca con reanimación exitosa'),
         ('ci2', 'Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular'),
     )
-    ci = models.CharField(choices=criterios_CHOICES, max_length=128, null=True, default='ci1')
+    ci = models.CharField(choices=criterios_CHOICES, max_length=128, null=True, default='ci1',blank=True)
     ci3 = models.NullBooleanField('Puntaje en escala Glasgow igual o menor a 8 después del evento inicial')
     ci4=models.NullBooleanField("Paciente transportable a un resonador")
 
@@ -650,6 +650,11 @@ class Seguimiento(models.Model):
     respuesta_motora = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
     respuesta_verbal = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
     glasgowtotal = models.CharField(max_length=5,null=True,default=0)
-
+    fallaorganica = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    fallaorganica_cual = models.CharField(max_length=50, null=True, blank=True, default="")
+    infeccion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    infeccion_foco = models.CharField(max_length=50, null=True, blank=True, default="")
+    parada = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    parada_tiempo = models.PositiveIntegerField(null=True,blank=0)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
