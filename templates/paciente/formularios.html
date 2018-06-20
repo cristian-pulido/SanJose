@@ -9,11 +9,11 @@
 <h1>Información Clínica Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item">
+  <li class="nav-item active">
     <a class="nav-link active " data-toggle="tab" href="#home">Demografico</a>
   </li>
   {% if object.inscrito == True and object.estado > 0 %}
-  <li class="nav-item">
+  <li class="nav-item" >
     <a class="nav-link "  data-toggle="tab" href="#estudio">Formato ingreso al estudio</a>
   </li>
   <li class="nav-item">
@@ -31,7 +31,7 @@
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab"   href="#informante">Neuropsicología Informante</a>
   </li>
-  {% if object.uci %}
+  {% if object.uci.fechauci.glasgowtotal != '0' %}
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab" href="#seguimiento">Seguimiento UCI</a>
   </li>
@@ -42,7 +42,7 @@
 <div id="myTabContent" class="tab-content" >
   <div class="tab-pane active"  id="home">
 
-      {% if object.estado  > -1 %}
+
       <table class="table table-hover">
 
           <tbody>
@@ -173,7 +173,7 @@
 
 
       {% endif %}
-      {% endif %}
+
  </div>
   <div class="tab-pane" id="estudio">
     {% if not object.ingreso  or object.ingreso.fecha_form == None %}
@@ -1416,7 +1416,7 @@
  </div>
 
 
-  <div class="tab-pane"  id="seguimiento">
+  <div class="tab-pane"  id="seguimiento" >
       {% if object.get_seguimiento|length == 0 %}
       <p class="text-danger">No Hay registros</p>
         {% if user.groups.all.0.name != 'Consultor' %}
@@ -1428,7 +1428,7 @@
       {% else %}
           {% for seguimiento in object.get_seguimiento %}
             <ul>
-              {% if seguimiento.fechaseguimiento != None %}
+              {% if seguimiento.glasgowtotal != '0' %}
               <div class="container">
                 <br>
                 <div class="panel-group">
@@ -1442,24 +1442,83 @@
                       <table class="table table-hover">
 
           <tbody>
-            <tr class="table-active">
-              <th>Fecha </th>
-              <td>{{ seguimiento.fechaseguimiento }} </td>
-            </tr>
+
             <tr>
-              <th>Glasgow de seguimiento</th>
+              <th style="vertical-align:middle;">Glasgow de seguimiento</th>
               <td>
                 <p>Apertura ocular: {{ seguimiento.apertura_ocular }}</p>
                 <p>Respuesta motora: {{ seguimiento.respuesta_motora }}</p>
                 <p>Respuesta verbal: {{ seguimiento.respuesta_verbal }}</p>
               </td>
-              <th>Glasgow total </th>
-              <td>{{ seguimiento.glasgowtotal }}</td>
+              <th style="vertical-align:middle;">Glasgow total </th>
+              <td style="vertical-align:middle;">{{ seguimiento.glasgowtotal }}</td>
             </tr>
-
-
+            <tr>
+              <th>Falla orgánica</th>
+              <td>
+                {{seguimiento.fallaorganica}}{% if seguimiento.fallaorganica == 'SI'%}, {{seguimiento.fallaorganica_cual}} {% endif %}
+              </td>
+              <th>Nueva infección</th>
+              <td>
+                {{seguimiento.infeccion}}{% if seguimiento.infeccion == 'SI'%}, {{seguimiento.infeccion_foco}} {% endif %}
+              </td>
+            </tr>
+          <tr>
+              <th>Parada cardíaca</th>
+              <td>
+                {{seguimiento.parada}}{% if seguimiento.parada == 'SI'%}, {{seguimiento.parada_tiempo}} minutos {% endif %}
+              </td>
+              <th>Monitoría PIC</th>
+              <td>
+                {{seguimiento.pic}}{% if seguimiento.pic == 'SI'%}, {{seguimiento.pic_numero}} {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th>Ventilación mecánica</th>
+              <td>
+                {{seguimiento.ventilacion}}
+              </td>
+              <th>Soporte vasopresor</th>
+              <td>
+                {{seguimiento.soporte}}{% if seguimiento.soporte == 'SI'%}, {{seguimiento.soporte_cual}} {% endif %}
+              </td>
+            </tr>
+          <tr>
+              <th>Neuroimagen</th>
+              <td>
+                {{seguimiento.neuroimagen}}
+              </td>
+              <th>Neurología</th>
+              <td>
+                {{seguimiento.neurologia}}
+              </td>
+            </tr>
           </tbody>
-        </table>
+          </table>
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+            <th>Medicamento </th>
+            <td>Midazolam</td>
+            <td>Dexmedeto</td>
+            <td>Fentanyl</td>
+            <td>Tiopental</td>
+            <td>Vecuronio</td>
+
+          </tr>
+          <tr>
+            <th>Dosis/dia </th>
+            <td>{{seguimiento.midazolam}}</td>
+            <td>{{seguimiento.dexmedeto}}</td>
+            <td>{{seguimiento.fentanyl}}</td>
+            <td>{{seguimiento.tiopental}}</td>
+            <td>{{seguimiento.vecuronio}}</td>
+
+          </tr>
+
+            </tbody>
+          </table>
+
 
 
 

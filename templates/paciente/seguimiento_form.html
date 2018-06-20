@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' or object.fechaseguimiento != None %}
+{% if user.groups.all.0.name == 'Consultor' or object.glasgowtotal == 0 %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -42,7 +42,7 @@
               <tbody>
                 <tr class="table-active">
                   <th style="vertical-align:middle;">{{form.fechaseguimiento.label}}</th>
-                    <td style="vertical-align:middle;">
+                    <td colspan="3" style="vertical-align:middle;">
                         {{ form.fechaseguimiento.errors }}
                         <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaseguimiento" type="date" placeholder="Elegir fecha" id="id_fechauci" value="{{object.fechaseguimiento|date:'Y-m-d'}}">
                     </td>
@@ -97,11 +97,11 @@
                     <th style="vertical-align:middle;">{{form.fallaorganica.label}}</th>
                     <td style="vertical-align:middle;">
                         <p><select name="fallaorganica" id="id_fallaorganica" required onchange="campo('id_fallaorganica_cual','falla','id_fallaorganica')">
-                        <option value="" >---------</option>
+
 
                         <option  value="SI" >SI</option>
 
-                        <option  value="NO" >NO</option>
+                        <option  value="NO" selected >NO</option>
 
                         </select></p>
                         {{forms.fallaorganica.errors}}
@@ -116,11 +116,11 @@
                     <th style="vertical-align:middle;">{{form.infeccion.label}}</th>
                     <td style="vertical-align:middle;">
                         <p><select name="infeccion" id="id_infeccion" required onchange="campo('id_infeccion_foco','infeccion','id_infeccion')">
-                        <option value="" >---------</option>
+
 
                         <option  value="SI" >SI</option>
 
-                        <option  value="NO" >NO</option>
+                        <option  value="NO" selected>NO</option>
 
                         </select></p>
                         {{forms.infeccion.errors}}
@@ -135,11 +135,11 @@
                     <th style="vertical-align:middle;">{{form.parada.label}}</th>
                     <td style="vertical-align:middle;">
                         <p><select name="parada" id="id_parada" required onchange="campo('id_parada_tiempo','parada','id_parada')">
-                        <option value="" >---------</option>
+
 
                         <option  value="SI" >SI</option>
 
-                        <option  value="NO" >NO</option>
+                        <option  value="NO" selected>NO</option>
 
                         </select></p>
                         {{forms.parada.errors}}
@@ -147,10 +147,143 @@
 
                     </td>
                     <th style="vertical-align:middle;"><label style="visibility:hidden" id="parada">{{form.parada_tiempo.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="parada_tiempo" required class="form-control" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="999" id="id_parada_tiempo" /></td>
+                    <td style="vertical-align:middle;"><input type="hidden" name="parada_tiempo" required class="form-control" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="99" id="id_parada_tiempo" /></td>
 
                     
                 </tr>
+              <tr>
+                    <th style="vertical-align:middle;">{{form.pic.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="pic" id="id_pic" required onchange="campo('id_pic_numero','pic','id_pic')">
+
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" selected>NO</option>
+
+                        </select></p>
+                        {{forms.pic.errors}}
+
+
+                    </td>
+                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="pic">{{form.pic_numero.label}}</label></th>
+                    <td style="vertical-align:middle;"><input type="hidden" name="pic_numero" required class="form-control" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="99" id="id_pic_numero" /></td>
+
+                    
+                </tr>
+              <tr>
+                    <th style="vertical-align:middle;">{{form.ventilacion.label}}</th>
+                    <td colspan="3" style="vertical-align:middle;">
+                        <p><select name="ventilacion" id="id_ventilacion" required >
+
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" selected>NO</option>
+
+                        </select></p>
+                        {{forms.ventilacion.errors}}
+
+
+                    </td>
+
+                    
+                </tr>
+              <tr>
+                    <th style="vertical-align:middle;">{{form.soporte.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="soporte" id="id_soporte" required onchange="campo('id_soporte_cual','soporte','id_soporte')">
+
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" selected>NO</option>
+
+                        </select></p>
+                        {{forms.soporte.errors}}
+
+
+                    </td>
+                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="soporte">{{form.soporte_cual.label}}</label></th>
+                    <td style="vertical-align:middle;"><input type="hidden" name="soporte_cual" required class="form-control" id="id_soporte_cual" /></td>
+
+                    
+                </tr>
+                
+                <tr>
+                    <th style="vertical-align:middle;">{{form.neuroimagen.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="neuroimagen" id="id_neuroimagen" required >
+
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" selected >NO</option>
+
+                        </select></p>
+                        {{forms.neuroimagen.errors}}
+
+
+                    </td>
+                    <th style="vertical-align:middle;">{{form.neurologia.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <p><select name="neurologia" id="id_neurologia" required >
+
+
+                        <option  value="SI" >SI</option>
+
+                        <option  value="NO" selected >NO</option>
+
+                        </select></p>
+                        {{forms.neurologia.errors}}
+
+
+                    </td>
+
+                    
+                </tr>
+
+
+                <tr>
+                    <th style="vertical-align:middle;">{{form.midazolam.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <input type="text" name="midazolam" required value="0" class="form-control" maxlength="20"  id="id_midazolam" />
+                        {{forms.midazolam.errors}}
+                    </td>
+                    <th style="vertical-align:middle;">{{form.dexmedeto.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <input type="text" name="dexmedeto" required value="0" class="form-control" maxlength="20"  id="id_dexmedeto" />
+                        {{forms.dexmedeto.errors}}
+                    </td>
+                    
+
+                </tr>
+                
+                <tr>
+                    <th style="vertical-align:middle;">{{form.fentanyl.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <input type="text" name="fentanyl" required value="0" class="form-control" maxlength="20"  id="id_fentanyl" />
+                        {{forms.fentanyl.errors}}
+                    </td>
+                    <th style="vertical-align:middle;">{{form.tiopental.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <input type="text" name="tiopental" required value="0" class="form-control" maxlength="20"  id="id_tiopental" />
+                        {{forms.tiopental.errors}}
+                    </td>
+                    
+
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.vecuronio.label}}</th>
+                    <td style="vertical-align:middle;">
+                        <input type="text" name="vecuronio" required value="0" class="form-control" maxlength="20"  id="id_vecuronio" />
+                        {{forms.vecuronio.errors}}
+                    </td>
+                    
+                    
+
+                </tr>
+
 
               </tbody>
             </table>

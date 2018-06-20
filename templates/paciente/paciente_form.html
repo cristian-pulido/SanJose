@@ -33,7 +33,7 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-                <h1>Paciente en seguimiento</h1>
+                <h1>{% if object.estado < 1 or not object.estado %} Paciente en Observación {% else %} Sujeto # {% endif %} {{object.sujeto_numero|stringformat:"04d"}}</h1>
         </div>
     </div>
     <div class="row">
@@ -42,22 +42,9 @@
         {% if object.estado != 0 and object.estado != 1  %}
 
 
-        {% if object.imagen %}
-        <div class="col-md-8 col-md-offset-2">
-            <div class="form-group">
-              <label >Imagen</label>
-              <input class="form-control"  value="{{object.imagen}}"  disabled type="text">
-            </div>
-
-        </div>
-        {% endif %}
-
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label >Sujeto #</label>
-
-                    {% num %}
-
+                    <label>Sujeto # {% num %}</label>
 
 
 
@@ -66,7 +53,7 @@
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.fecha_de_registro.name}}">{{form.fecha_de_registro.label}}</label>
+                    <label>{{form.fecha_de_registro.label}}</label>
                     {{ form.fecha_de_registro.errors }}
                     <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_de_registro" type="date" placeholder="Elegir fecha" id="id_fecha_de_registro" value="{{object.fecha_de_registro|date:'Y-m-d'}}">
 
@@ -77,7 +64,7 @@
                 <div class="form-group">
                     <label for="{{form.HC.name}}">{{form.HC.label}}</label>
                     {{ form.HC.errors }}
-                    <input type="text" name="HC" autocomplete="off" required id="id_HC" oninput="this.value = this.value.replace(/[^0-9]/, '')" placeholder="Historia clínica número" class="form-control" {% if object.HC != None %} value="{{object.HC}}" {% endif %}/>
+                    <input type="text" name="HC" maxlength="15" autocomplete="off" required id="id_HC" oninput="this.value = this.value.replace(/[^0-9]/, '')" placeholder="Historia clínica número" class="form-control" {% if object.HC != None %} value="{{object.HC}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
@@ -108,7 +95,7 @@
                 <div class="form-group">
                     <label for="{{form.cc.name}}">{{form.cc.label}}</label>
                     {{ form.cc.errors }}
-                    <input type="text" autocomplete="off" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cc" required id="id_cc" placeholder="Ingrese número entero" class="form-control" {% if object.cc != None %} value="{{object.cc}}" {% endif %}/>
+                    <input type="text" autocomplete="off" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cc" required id="id_cc" placeholder="Ingrese número entero" class="form-control" {% if object.cc != None %} value="{{object.cc}}" {% endif %}/>
                 </div>
         </div>
         {% else %}
@@ -419,6 +406,8 @@ var yyyy = today.getFullYear();
 
 today = yyyy+'-'+mm+'-'+dd;
 document.getElementById("id_fecha_evento_principal").setAttribute("max", today);
+document.getElementById("id_fecha_de_registro").setAttribute("max", today);
+document.getElementById("id_fecha_de_registro").value=today;
 document.getElementById("id_fecha_ingreso").setAttribute("max", today);
 
 
@@ -524,8 +513,21 @@ function resultado(){
         alert("Resultado: Estado Cambiado a Excluido");
     }
 
+    if ( x > 0 ) {
+        alert("Resultado: Estado Cambiado a Excluido");
+    }
+
 }
 </script>
 
+<script>
+document.getElementById("guardar").addEventListener('click', antecedentes);
+function antecedentes(){
+    var x=document.querySelectorAll("option:checked").length-3;
+    if ( x > 0 ) {
+      alert("Resultado: Estado Cambiado a Excluido");
+    }
+}
+</script>
 
 {% endblock %}

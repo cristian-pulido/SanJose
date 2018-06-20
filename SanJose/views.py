@@ -38,6 +38,11 @@ def crearuci(request, pk):
         return redirect('login')
     else:
         c = Candidato.objects.get(pk=pk)
+        if hasattr(c, 'uci'):
+            return redirect("/paciente/uci/editar/" + str(c.uci.pk))
+        else:
+            u=Uci.objects.create(candidato=c)
+            return redirect("/paciente/uci/editar/"+str(u.pk))
 
         u=Uci.objects.create(candidato=c)
         return redirect("/paciente/uci/editar/"+str(u.pk))

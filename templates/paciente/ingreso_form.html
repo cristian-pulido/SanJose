@@ -94,6 +94,21 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {{ form.fecha_form.errors }}
                     <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" required name="fecha_form" type="date" placeholder="Elegir fecha" id="id_fecha_form" value="{{object.fecha_form|date:'Y-m-d'}}">
                     <div class="help">Cuando se llena este formulario.</div>
+                    <script>
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yyyy = today.getFullYear();
+                 if(dd<10){
+                        dd='0'+dd
+                    }
+                    if(mm<10){
+                        mm='0'+mm
+                    }
+
+                today = yyyy+'-'+mm+'-'+dd;
+                document.getElementById("id_fecha_form").value=today;
+            </script>
                 </div>
         </div>
 

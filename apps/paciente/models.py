@@ -5,6 +5,7 @@ import shutil
 from django.db import models
 
 # Create your models here.
+from django.utils import timezone
 
 from apps.fileupload.models import Picture
 
@@ -56,7 +57,7 @@ class Medico(models.Model):
         return '{}'.format(self.nombre)
 class Candidato(models.Model):
     sujeto_numero = models.PositiveIntegerField(null=True, unique=True)
-    fecha_de_registro= models.DateField(null=True)
+    fecha_de_registro= models.DateField(null=True, default=timezone.now)
     cc = models.PositiveIntegerField(null=True, unique=True)
     nombres = models.CharField(null=True, max_length=70, default="")
     apellidos = models.CharField(null=True, max_length=70, default="")
@@ -633,7 +634,7 @@ class Informante(models.Model):
 
 class Seguimiento(models.Model):
     candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
-    fechaseguimiento = models.DateField(null=True)
+    fechaseguimiento = models.DateField(null=True,default=timezone.now)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),
@@ -650,11 +651,23 @@ class Seguimiento(models.Model):
     respuesta_motora = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
     respuesta_verbal = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
     glasgowtotal = models.CharField(max_length=5,null=True,default=0)
-    fallaorganica = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    fallaorganica = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     fallaorganica_cual = models.CharField(max_length=50, null=True, blank=True, default="")
-    infeccion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    infeccion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     infeccion_foco = models.CharField(max_length=50, null=True, blank=True, default="")
-    parada = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
-    parada_tiempo = models.PositiveIntegerField(null=True,blank=0)
+    parada = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    parada_tiempo = models.CharField(max_length=12, null=True,blank=True,default="")
+    pic = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    pic_numero = models.CharField(max_length=12, null=True, blank=True, default="")
+    ventilacion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    soporte = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    soporte_cual = models.CharField(max_length=12, null=True, blank=True, default="")
+    neuroimagen = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    neurologia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    midazolam = models.CharField(max_length=12, null=True, default=0)
+    dexmedeto = models.CharField(max_length=12, null=True, default=0)
+    fentanyl = models.CharField(max_length=12, null=True, default=0)
+    tiopental = models.CharField(max_length=12, null=True, default=0)
+    vecuronio = models.CharField(max_length=12, null=True, default=0)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)

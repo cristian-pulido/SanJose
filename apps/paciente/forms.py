@@ -50,24 +50,24 @@ class PacienteForm(forms.ModelForm):
         ]
 
         labels = {
-            'nombres': 'Nombres',
-            'apellidos': 'Apellidos',
-            'fecha_nacimiento': 'Fecha de nacimiento',
-            'cc': 'C.C',
-            'sexo': 'Sexo',
+            'nombres': 'Nombres*',
+            'apellidos': 'Apellidos*',
+            'fecha_nacimiento': 'Fecha de nacimiento*',
+            'cc': 'C.C*',
+            'sexo': 'Sexo*',
             #'sujeto_numero' : "Sujeto #",
-            'fecha_de_registro' : "Fecha de Registro",
-            'HC': "Historia Clinica",
-            'cama_numero': 'Cama UCI',
-            'fecha_evento_principal': "Fecha de evento principal",
+            'fecha_de_registro' : "Fecha de Registro*",
+            'HC': "Historia Clinica*",
+            'cama_numero': 'Cama UCI*',
+            'fecha_evento_principal': "Fecha de evento principal*",
             'hora_evento_principal': "Hora de evento principal",
-            'fecha_hora_ingreso': "Fecha y Hora de ingreso UCI",
-            'G_diagnostico': 'Grupo diagnóstico',
+            'fecha_hora_ingreso': "Fecha y Hora de ingreso UCI*",
+            'G_diagnostico': 'Grupo diagnóstico*',
             'D_neuro_logico_psiquiatrico_previo': "Antecedentes neurológicos/psiquiátricos",
-            'D_especificos': 'Especifique diagnóstico',
-            'medico_responsable': "Profesional Responsable",
+            'D_especificos': 'Especifique diagnóstico*',
+            'medico_responsable': "Profesional Responsable*",
             'archivo': "Documento fisico",
-            'imagen': "Archivo",
+            'imagen': "Archivo*",
              }
         widgets = {
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Nombres')}),
@@ -1040,7 +1040,21 @@ class SeguimientoForm(forms.ModelForm):
             'infeccion_foco',
             'parada',
             'parada_tiempo',
-                    ]
+            'pic',
+            'pic_numero',
+            'ventilacion',
+            'soporte',
+            'soporte_cual',
+            'neuroimagen',
+            'neurologia',
+            'midazolam',
+            'dexmedeto',
+            'fentanyl',
+            'tiopental',
+            'vecuronio',
+
+
+        ]
 
         labels = {
             'fechaseguimiento': "Fecha",
@@ -1049,11 +1063,23 @@ class SeguimientoForm(forms.ModelForm):
             'respuesta_verbal':"Respuesta verbal",
             'glasgowtotal':"Glasgow total",
             'fallaorganica': 'Falla orgánica',
-            'fallaorganica_cual':'Cual',
+            'fallaorganica_cual':'Cuál',
             'infeccion': 'Nueva infección',
             'infeccion_foco': 'Foco',
             'parada':'Parada cardíaca',
-            'parada_tiempo':'Tiempo (minutos)'
+            'parada_tiempo':'Tiempo (minutos)',
+            'pic':'Monitoría PIC',
+            'pic_numero':'#',
+            'ventilacion':'Ventilación mecánica',
+            'soporte':'Soporte vasopresor',
+            'soporte_cual':'Cuál',
+            'neuroimagen':'Neuroimagen',
+            'neurologia':'Neurología',
+            'midazolam':'Midazolam dosis/dia',
+            'dexmedeto':'Dexmedeto dosis/dia',
+            'fentanyl':'Fentanyl dosis/dia',
+            'tiopental':'Tiopental dosis/dia',
+            'vecuronio':'Vecuronio dosis/dia',
 
         }
         widgets = {
