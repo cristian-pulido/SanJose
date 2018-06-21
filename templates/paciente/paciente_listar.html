@@ -115,7 +115,7 @@
                   <tbody>
                     {% if object_list %}
                         {% for object in object_list %}
-                            {% if object.estado == 1 and object.inscrito == True %}
+                            {% if object.estado > 0 and object.inscrito == True %}
                             <tr class="table-active">
                               <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
                               <td>{{object.medico_responsable}}</td>

@@ -4,6 +4,15 @@
 
 {% block content %}
 
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-danger">
+    {{ message }}
+  </div>
+    {% endfor %}
+</ul>
+{% endif %}
 
 
 <h1>Información Clínica Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
@@ -31,7 +40,7 @@
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab"   href="#informante">Neuropsicología Informante</a>
   </li>
-  {% if object.uci.fechauci.glasgowtotal != '0' %}
+  {% if object.uci and object.uci.glasgowtotal != '0' %}
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab" href="#seguimiento">Seguimiento UCI</a>
   </li>
@@ -641,7 +650,7 @@
           </tbody>
         </table>
 
-        {% if object.uci.fechaegreso != None %}
+        {% if object.uci.glasgowtotal_e != '0' %}
         <legend>Evaluación de egreso UCI</legend>
           <table class="table table-hover">
             <tbody>
@@ -664,6 +673,7 @@
               <td>Fecha: {{object.uci.fechamortalidad}}</td>
               <td>Hora: {{object.uci.horamortalidad}}</td>
             </tr>
+            {% endif %}
             <tr>
               <th>Glasgow de egreso UCI</th>
               <td>
@@ -674,12 +684,12 @@
               <th>Glasgow total </th>
               <td>{{ object.uci.glasgowtotal_e }}</td>
             </tr>
-            {% endif %}
+
             </tbody>
 
           </table>
         {% endif %}
-        {% if user.groups.all.0.name != 'Consultor' and object.uci.fechaegreso == None %}
+        {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' %}
 
         <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Realizar Evaluación de Egreso</a>
 
@@ -1419,7 +1429,7 @@
   <div class="tab-pane"  id="seguimiento" >
       {% if object.get_seguimiento|length == 0 %}
       <p class="text-danger">No Hay registros</p>
-        {% if user.groups.all.0.name != 'Consultor' %}
+        {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' %}
 
           <a class="btn btn-primary" href="{% url 'crear_seguimiento' object.pk %}">Añadir</a>
 
@@ -1536,7 +1546,7 @@
         {% endfor %}
       {% endif %}
 
-  {% if user.groups.all.0.name != 'Consultor' and object.get_seguimiento|length > 0%}
+  {% if user.groups.all.0.name != 'Consultor' and object.get_seguimiento|length > 0 and object.uci.glasgowtotal_e == '0' %}
 
           <a class="btn btn-primary" href="{% url 'crear_seguimiento' object.pk %}">Añadir Nuevo Seguimiento</a>
 

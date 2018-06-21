@@ -1,6 +1,7 @@
 import datetime
 
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento
@@ -96,9 +97,28 @@ def crearseguimiento(request, pk):
         return redirect('login')
     else:
         c = Candidato.objects.get(pk=pk)
+        S = c.seguimiento_set.all()
+        n = len(S)
+        hoy=datetime.date.today()
+        flag = False
+        if n == 0:
+            if hoy == c.uci.fechauci:
+                flag=True
+        else:
+            for seguimiento in S:
+                if hoy == seguimiento.fechaseguimiento:
+                    flag=True
+                    break
+        if flag == True:
+            from django.http import HttpResponse
+            from django.contrib import messages
 
-        s=Seguimiento.objects.create(candidato=c)
-        return redirect("/paciente/seguimiento/editar/"+str(s.pk))
+            messages.add_message(request, messages.INFO, 'Ya existe un seguimiento para hoy de este sujeto.')
+
+            return redirect("/paciente/formularios/"+str(c.pk))
+        else:
+            s=Seguimiento.objects.create(candidato=c)
+            return redirect("/paciente/seguimiento/editar/"+str(s.pk))
 
 
 

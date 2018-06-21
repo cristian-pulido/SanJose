@@ -9,9 +9,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
+    padding-top: 1px; /* Location of the box */
+    bottom: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
@@ -21,6 +20,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 /* Modal Content */
 .modal-content {
+    position: fixed; /* Stay in place */
+    bottom: 0;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -90,25 +91,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.fecha_form.name}}">{{form.fecha_form.label}}</label>
+                    <label >{{form.fecha_form.label}}</label>
                     {{ form.fecha_form.errors }}
                     <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" required name="fecha_form" type="date" placeholder="Elegir fecha" id="id_fecha_form" value="{{object.fecha_form|date:'Y-m-d'}}">
                     <div class="help">Cuando se llena este formulario.</div>
-                    <script>
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth()+1; //January is 0!
-                var yyyy = today.getFullYear();
-                 if(dd<10){
-                        dd='0'+dd
-                    }
-                    if(mm<10){
-                        mm='0'+mm
-                    }
 
-                today = yyyy+'-'+mm+'-'+dd;
-                document.getElementById("id_fecha_form").value=today;
-            </script>
                 </div>
         </div>
 
@@ -116,12 +103,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 <div class="form-group">
 
 
-                    <label for="{{form.lugar_nacimiento.name}}">{{form.lugar_nacimiento.label}}</label>
+                    <label >{{form.lugar_nacimiento.label}}</label>
                     {{ form.lugar_nacimiento.errors }}
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <td><input type="text" name="lugar_nacimiento" maxlength="80" id="id_lugar_nacimiento" class="form-control" readonly required {% if object.lugar_nacimiento != None %} value="{{object.lugar_nacimiento}}" {% endif %}/></td>
+                            <td><input type="text" name="lugar_nacimiento" maxlength="80" id="id_lugar_nacimiento" class="form-control" readonly required value="{{object.lugar_nacimiento}}" /></td>
                             <td><a href="#popup" class="popup-link" onclick="cambio('n')">Seleccionar</a></td>
                         </tr>
                         </tbody>
@@ -137,12 +124,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.lugar_residencia.name}}">{{form.lugar_residencia.label}}</label>
+                    <label>{{form.lugar_residencia.label}}</label>
                     {{ form.lugar_residencia.errors }}
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <td><input type="text" name="lugar_residencia" maxlength="80" id="id_lugar_residencia" class="form-control" readonly required {% if object.lugar_residencia != None %} value="{{object.lugar_residencia}}" {% endif %}/></td>
+                            <td><input type="text" name="lugar_residencia" maxlength="80" id="id_lugar_residencia" class="form-control" readonly required value="{{object.lugar_residencia}}" /></td>
                             <td><a href="#popup" class="popup-link" onclick="cambio('r')">Seleccionar</a></td>
                         </tr>
                         </tbody>
@@ -156,7 +143,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         {% if not object.archivo  or  user.groups.all.0.name == 'Administrador' %}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.direccion.name}}">{{form.direccion.label}}</label>
+                    <label >{{form.direccion.label}}</label>
                     {{ form.direccion.errors }}
                     {{  form.direccion  }}
                 </div>
@@ -164,13 +151,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.nombre_acompanante.name}}">{{form.nombre_acompanante.label}}</label>
-                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="nombre_acompanante" maxlength="70" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
+                    <label >{{form.nombre_acompanante.label}}</label>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="nombre_acompanante" maxlength="50" required id="id_nombre_acompanante" placeholder="Nombre" class="form-control" value="{{object.nombre_acompanante}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.tel1.name}}">{{form.tel1.label}}</label>
+                    <label >{{form.tel1.label}}</label>
                     {{ form.tel1.errors }}
                     <input maxlength="10" autocomplete="off" oninvalid="this.setCustomValidity('número telefonico no válido')" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tel1" required id="id_tel1" placeholder="Ingrese número telefonico" class="form-control" {% if object.tel1 != None %} value="{{object.tel1}}" {% endif %}/>
                 </div>
@@ -207,37 +194,41 @@ body {font-family: Arial, Helvetica, sans-serif;}
         {% endif %}
         <div class="col-md-8 col-md-offset-2">
 
-            <div class="form-group">
-              <label for="{{form.peso.name}}">{{form.peso.label}}</label>
+            <div class="form-group ">
+              <label >{{form.peso.label}}</label>
                 {{ form.peso.errors }}
-                <input maxlength="3" required max="120" type="number" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="peso" id="id_peso" placeholder="Peso en Kilogramos" class="form-control" {% if object.peso != None %} value="{{object.peso}}" {% endif %}/>
+                <input required type="number" class="form-control" name="peso" id="id_peso" oninput="this.value = this.value.replace(/[^0-9]/, '')" placeholder="Peso en Kilogramos" min="40" max="120" {% if object.peso != None %} value="{{object.peso}}" {% endif %} />
             </div>
 
         </div>
+
+
+
+
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.estatura.name}}">{{form.estatura.label}}</label>
+                    <label >{{form.estatura.label}}</label>
                     {{ form.estatura.errors }}
-                    <input maxlength="3" required min="100" max="220" type="number" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="estatura" id="id_estatura" placeholder="estatura en cms " class="form-control" {% if object.estatura != None %} value="{{object.estatura}}" {% endif %}/>
+                    <input required min="100" max="220" class="form-control" type="number" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="estatura" id="id_estatura" placeholder="estatura en cms "  {% if object.estatura != None %} value="{{object.estatura}}" {% endif %}/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.n_educativo.name}}">{{form.n_educativo.label}}</label>
+                    <label >{{form.n_educativo.label}}</label>
                     {{ form.n_educativo.errors }}
                     {{form.n_educativo}}
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.lateralidad.name}}">{{form.lateralidad.label}}</label>
+                    <label >{{form.lateralidad.label}}</label>
                     {{ form.lateralidad.errors }}
                     {{form.lateralidad}}
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.conciencia.name}}">{{form.conciencia.label}}</label>
+                    <label >{{form.conciencia.label}}</label>
                     {{ form.conciencia.errors }}
                     {{form.conciencia}}
                 </div>
@@ -245,14 +236,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.sedado.name}}">{{form.sedado.label}}</label>
+                    <label >{{form.sedado.label}}</label>
                     {{ form.sedado.errors }}
                     {{form.sedado}}
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.a_patologicos.name}}">{{form.a_patologicos.label}}</label>
+                    <label >{{form.a_patologicos.label}}</label>
                     {{ form.a_patologicos.errors }}
                     {{form.a_patologicos}}
                     <div class="help">Mantenga presionado "Control" o "Command" en un Mac, para seleccionar más de una opción.</div>
@@ -283,7 +274,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                  <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                                     <p id="fcraneo" {% if object.fecha_craneotomia == None %} style="display:none" {% endif  %}>{{form.fecha_craneotomia.label}}</p>
                                     &nbsp;&nbsp;{{ form.fecha_craneotomia.errors }}
-                                    <input   {% if object.fecha_craneotomia == None %} style="display:none" {% endif  %} class="form-control"  min="1960-01-01" max="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}"  name="fecha_craneotomia" type="date"  id="id_fecha_craneotomia" value="{{object.fecha_craneotomia|date:'Y-m-d'}}">
+                                    <input   class="form-control" {% if object.fecha_craneotomia == None %} style="display:none" {% endif  %}  min="1960-01-01" max="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}"  name="fecha_craneotomia" type="date"  id="id_fecha_craneotomia" value="{{object.fecha_craneotomia|date:'Y-m-d'}}">
                                 </div>
 
 
@@ -296,7 +287,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                  <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                                     <p id="causaotro" {% if object.causa_quirurgicos == None %} style="display:none" {% endif  %}>{{form.causa_quirurgicos.label}}</p>
                                     &nbsp;&nbsp;{{ form.causa_quirurgicos.errors }}
-                                    <input   {% if object.causa_quirurgicos == None %} style="display:none" {% else %} value="{{object.causa_quirurgicos}}" {% endif  %} class="form-control"   name="causa_quirurgicos" type="text"  id="id_causa_quirurgicos" >
+                                    <input   maxlength="40" {% if object.causa_quirurgicos == None %} style="display:none" {% else %} value="{{object.causa_quirurgicos}}" {% endif  %} class="form-control"   name="causa_quirurgicos" type="text"  id="id_causa_quirurgicos" >
                                 </div>
 
 
@@ -323,15 +314,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     <tbody>
                     <tr>
                         <td style="align:'center'"><b>1</b></td>
-                        <td style="align:'center'"><input type="text" name="a_farmaco1" {% if object.a_farmaco1 != None %} value="{{object.a_farmaco1}}" {% endif  %} maxlength="180" class="form-control" id="id_a_farmaco1" /></td>
+                        <td style="align:'center'"><input type="text" name="a_farmaco1" {% if object.a_farmaco1 != None %} value="{{object.a_farmaco1}}" {% endif  %} maxlength="50" class="form-control" id="id_a_farmaco1" /></td>
                         <th style="align:'center'"><label id="f1" {% if object.a_farmaco1 == None %} style="display:none" {% endif  %}>{{form.a_farmaco1_dosis.label}}</label></th>
-                        <td style="align:'center'"><input   {% if object.a_farmaco1 == None %} style="display:none" {% else %} value="{{object.a_farmaco1_dosis}}" required {% endif  %} class="form-control"   name="a_farmaco1_dosis" type="text"  id="id_a_farmaco1_dosis" ></td>
+                        <td style="align:'center'"><input maxlength="15"  {% if object.a_farmaco1 == None %} style="display:none" {% else %} value="{{object.a_farmaco1_dosis}}" required {% endif  %} class="form-control"   name="a_farmaco1_dosis" type="text"  id="id_a_farmaco1_dosis" ></td>
                     </tr>
                     <tr>
                         <td style="align:'center'"><b>2</b></td>
-                        <td style="align:'center'"><input type="text" name="a_farmaco2" {% if object.a_farmaco2 != None %} value="{{object.a_farmaco2}}" {% endif  %} maxlength="180" class="form-control" id="id_a_farmaco2" /></td>
+                        <td style="align:'center'"><input type="text" name="a_farmaco2" {% if object.a_farmaco2 != None %} value="{{object.a_farmaco2}}" {% endif  %} maxlength="50" class="form-control" id="id_a_farmaco2" /></td>
                         <th style="align:'center'"><label id="f2" {% if object.a_farmaco2 == None %} style="display:none" {% endif  %}>{{form.a_farmaco2_dosis.label}}</label></th>
-                        <td style="align:'center'"><input   {% if object.a_farmaco2 == None %} style="display:none" {% else %} value="{{object.a_farmaco2_dosis}}" required {% endif  %} class="form-control"   name="a_farmaco2_dosis" type="text"  id="id_a_farmaco2_dosis" ></td>
+                        <td style="align:'center'"><input maxlength="15"  {% if object.a_farmaco2 == None %} style="display:none" {% else %} value="{{object.a_farmaco2_dosis}}" required {% endif  %} class="form-control"   name="a_farmaco2_dosis" type="text"  id="id_a_farmaco2_dosis" ></td>
                     </tr>
                     </tbody>
                 </table>
@@ -357,7 +348,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {{ form.fechafirma.errors }}
                     <br>
                     <label id="ffirma" {% if object.firma_consentimiento == False %} style="display:none" {% endif  %}>{{form.fechafirma.label}}</label>
-                    <input   {% if object.firma_consentimiento == False %} style="display:none" {% endif  %} class="form-control"  required min="2017-01-01" max="2020-12-31"  name="fechafirma" type="date"  id="id_fechafirma" value="{{object.fechafirma|date:'Y-m-d'}}">
+                    <input   {% if object.firma_consentimiento == False %} style="display:none" {% endif  %} class="form-control"  required  min="{{object.candidato.fecha_hora_ingreso|date:'Y-m-d'}}"  name="fechafirma" type="date"  id="id_fechafirma" value="{{object.fechafirma|date:'Y-m-d'}}">
                     <br>
                     <label id="dfirma"  {% if object.firma_consentimiento == False %} style="display:none" {% endif  %}>Cargar Consentimiento</label>
                     {% if object.archivofirma %}
@@ -367,7 +358,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {% endif %}
                     <br>
                     <label id="causafirma" {% if object.firma_consentimiento == True %} style="display:none" {% endif  %}>{{form.firma_causa.label}}</label>
-                    <input   {% if object.firma_consentimiento == True %} style="display:none" {% else %} value="{{object.firma_causa}}" {% endif  %} class="form-control"   name="firma_causa" type="text"  id="id_firma_causa" >
+                    <input  maxlength="50" {% if object.firma_consentimiento == True %} style="display:none" {% else %} value="{{object.firma_causa}}" {% endif  %} class="form-control"   name="firma_causa" type="text"  id="id_firma_causa" >
 
                     {{ form.firma_causa.errors }}
                     <br>
@@ -392,19 +383,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <div class="modal-wrapper" id="popup">
    <div class="popup-contenedor">
-      <select name="country" autofocus class="countries order-alpha group-continents group-order-alpha" id="countryId" {% if object.lugar_nacimiento != None %} required {% endif %}>
-                    <option value="">País</option>
-                    </select>
-                    <select name="state" class="states order-alpha" id="stateId">
-                    <option value="">Departamento</option>
-                    </select>
-                    <select name="city" class="cities order-alpha" id="cityId">
-                    <option value="">Ciudad</option>
-                    </select>
-                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-                    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
-                    <br>
-      <a class="popup-cerrar" href="#">X</a>
+      <select name="country" class="countries order-pop presel-CO continent-include-NA-SA" id="countryId">
+        <option value="">País</option>
+    </select>
+    <select name="state" class="states order-alpha" id="stateId">
+        <option value="">Departamento</option>
+    </select>
+    <select name="city" class="cities order-rand limit-pop-10000" id="cityId">
+        <option value="">Ciudad</option>
+    </select>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+        <br>
+      <a class="popup-cerrar" href="#">OK</a>
    </div>
     </div>
 
@@ -432,7 +423,7 @@ function cambio(arg){
     } else {
     x=0;
     }
-    document.getElementById("countryId").value="";
+
     document.getElementById("stateId").value="";
     document.getElementById("cityId").value="";
 }
@@ -591,6 +582,27 @@ function ff(){
 
 </script>
 
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    var fecha=document.getElementById("id_fecha_form").value;
+    if ( fecha == "" ) {
+        document.getElementById("id_fecha_form").value=today;
+    }
+    document.getElementById("id_fecha_form").max=today;
+    document.getElementById("id_fechafirma").max=today;
+
+</script>
 
 
 
