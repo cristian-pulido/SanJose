@@ -99,26 +99,30 @@ def crearseguimiento(request, pk):
         c = Candidato.objects.get(pk=pk)
         S = c.seguimiento_set.all()
         n = len(S)
-        hoy=datetime.date.today()
-        flag = False
+        hoy = datetime.date.today()
+        flag = 0
+        vacio = None
         if n == 0:
             if hoy == c.uci.fechauci:
-                flag=True
+                flag=1
         else:
             for seguimiento in S:
                 if hoy == seguimiento.fechaseguimiento:
-                    flag=True
+                    flag = 1
+                    if seguimiento.glasgowtotal == '0':
+                        flag = 2
+                        vacio = seguimiento
                     break
-        if flag == True:
-            from django.http import HttpResponse
+        if flag == 0:
+            s = Seguimiento.objects.create(candidato=c)
+            return redirect("/paciente/seguimiento/editar/" + str(s.pk))
+        elif flag == 1:
             from django.contrib import messages
-
             messages.add_message(request, messages.INFO, 'Ya existe un seguimiento para hoy de este sujeto.')
-
             return redirect("/paciente/formularios/"+str(c.pk))
         else:
-            s=Seguimiento.objects.create(candidato=c)
-            return redirect("/paciente/seguimiento/editar/"+str(s.pk))
+            return redirect("/paciente/seguimiento/editar/" + str(vacio.pk))
+
 
 
 

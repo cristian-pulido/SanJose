@@ -44,7 +44,7 @@
                   <th style="vertical-align:middle;">{{form.fechaseguimiento.label}}</th>
                     <td colspan="3" style="vertical-align:middle;">
                         {{ form.fechaseguimiento.errors }}
-                        <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaseguimiento" type="date" placeholder="Elegir fecha" id="id_fechauci" value="{{object.fechaseguimiento|date:'Y-m-d'}}">
+                        <input class="form-control"  min="{{object.candidato.uci.fechauci|date:'Y-m-d'}}" max="{{object.fechaseguimiento|date:'Y-m-d'}}" required name="fechaseguimiento" type="date" placeholder="Elegir fecha" id="id_fechauci" value="{{object.fechaseguimiento|date:'Y-m-d'}}">
                     </td>
                 </tr>
                 <tr>
@@ -205,7 +205,7 @@
 
                     </td>
                     <th style="vertical-align:middle;"><label style="visibility:hidden" id="soporte">{{form.soporte_cual.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="soporte_cual" required class="form-control" id="id_soporte_cual" /></td>
+                    <td style="vertical-align:middle;"><input type="hidden" name="soporte_cual" required maxlength="25" class="form-control" id="id_soporte_cual" /></td>
 
                     
                 </tr>

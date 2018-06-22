@@ -634,7 +634,7 @@ class Informante(models.Model):
 
 class Seguimiento(models.Model):
     candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
-    fechaseguimiento = models.DateField(null=True,default=timezone.now)
+    fechaseguimiento = models.DateField(null=True, default=timezone.now)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),

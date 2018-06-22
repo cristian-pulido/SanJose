@@ -1436,120 +1436,210 @@
           {% endif %}
 
       {% else %}
-          {% for seguimiento in object.get_seguimiento %}
-            <ul>
-              {% if seguimiento.glasgowtotal != '0' %}
-              <div class="container">
-                <br>
+
+      <div class="container">
+        <h4>Filtrar por fecha</h4>
+  <form class="form-inline" action="">
+    <div class="form-group">
+      <label>Desde:</label>
+      <input id="inicio" type="date" class="form-control" min="{{object.uci.fechauci|date:'Y-m-d'}}" value="{{object.uci.fechauci|date:'Y-m-d'}}">
+    </div>
+    <div class="form-group">
+      <label>Hasta:</label>
+      <input id="fin" type="date" class="form-control">
+    </div>
+  </form>
+
+  <script type="text/javascript">
+var ahora = new Date();
+var dd = ahora.getDate();
+var mm = ahora.getMonth()+1; //January is 0!
+var yyyy = ahora.getFullYear();
+
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("inicio").max=today;
+document.getElementById("fin").min=document.getElementById("inicio").value;
+document.getElementById("fin").max=today;
+document.getElementById("fin").value=today;
+
+document.getElementById("inicio").addEventListener('change', validari);
+document.getElementById("fin").addEventListener('change', validarf);
+document.getElementById("inicio").addEventListener('change', listar);
+
+/* function */
+function validari(){
+    var minposible=document.getElementById("inicio").min;
+    var maxposible=document.getElementById("inicio").max;
+    var inicio=document.getElementById("inicio").value;
+    var fin=document.getElementById("fin").value;
+    if(inicio<minposible){
+      document.getElementById("inicio").value=minposible;
+    }
+    if(inicio>maxposible){
+      document.getElementById("inicio").value=maxposible;
+    }
+    if(inicio>fin){
+      document.getElementById("fin").value=inicio;
+    }
+    document.getElementById("fin").min=inicio;
+}
+function validarf(){
+    var minposible=document.getElementById("fin").min;
+    var maxposible=document.getElementById("fin").max;
+    var fin=document.getElementById("fin").value;
+    if(fin<minposible){
+      document.getElementById("fin").value=minposible;
+    }
+    if(fin>maxposible){
+      document.getElementById("fin").value=maxposible;
+    }
+}
+</script>
+        <br>
+        {% for seguimiento in object.get_seguimiento %}
+        {% if seguimiento.glasgowtotal != '0' %}
+        <div id="s{{ forloop.counter }}" class="container"></div>
+        <br>
+            <script type="text/javascript">
+
+                document.getElementById("inicio").addEventListener('change', listar);
+                document.getElementById("fin").addEventListener('change', listar);
+
+
+                function listar() {
+                var x="{{forloop.counter}}";
+                var inicio=new Date(document.getElementById("inicio").value);
+                inicio.setDate(inicio.getDate()+1);
+                var fin=new Date(document.getElementById("fin").value);
+                fin.setDate(fin.getDate()+1);
+                var fecha = new Date("{{seguimiento.fechaseguimiento|date:'M d, Y'}}");
+
+
+
+                if(fecha<=inicio || fecha>=fin){
+                document.getElementById("s"+x).style="display:none";
+                }
+                else{
+                document.getElementById("s"+x).style="display:block";
+                }
+                var HTMLContent =`
                 <div class="panel-group">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse_{{ forloop.counter }}">{{seguimiento.fechaseguimiento}}</a>
-                      </h4>
-                    </div>
-                    <div id="collapse_{{ forloop.counter }}" class="panel-collapse collapse">
-                      <table class="table table-hover">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse`+x+`">{{seguimiento.fechaseguimiento}}</a>
+                          </h4>
+                        </div>
+                        <div id="collapse`+x+`" class="panel-collapse collapse">
 
-          <tbody>
+                        <table class="table table-hover">
 
-            <tr>
-              <th style="vertical-align:middle;">Glasgow de seguimiento</th>
-              <td>
-                <p>Apertura ocular: {{ seguimiento.apertura_ocular }}</p>
-                <p>Respuesta motora: {{ seguimiento.respuesta_motora }}</p>
-                <p>Respuesta verbal: {{ seguimiento.respuesta_verbal }}</p>
-              </td>
-              <th style="vertical-align:middle;">Glasgow total </th>
-              <td style="vertical-align:middle;">{{ seguimiento.glasgowtotal }}</td>
-            </tr>
-            <tr>
-              <th>Falla orgánica</th>
-              <td>
-                {{seguimiento.fallaorganica}}{% if seguimiento.fallaorganica == 'SI'%}, {{seguimiento.fallaorganica_cual}} {% endif %}
-              </td>
-              <th>Nueva infección</th>
-              <td>
-                {{seguimiento.infeccion}}{% if seguimiento.infeccion == 'SI'%}, {{seguimiento.infeccion_foco}} {% endif %}
-              </td>
-            </tr>
-          <tr>
-              <th>Parada cardíaca</th>
-              <td>
-                {{seguimiento.parada}}{% if seguimiento.parada == 'SI'%}, {{seguimiento.parada_tiempo}} minutos {% endif %}
-              </td>
-              <th>Monitoría PIC</th>
-              <td>
-                {{seguimiento.pic}}{% if seguimiento.pic == 'SI'%}, {{seguimiento.pic_numero}} {% endif %}
-              </td>
-            </tr>
-            <tr>
-              <th>Ventilación mecánica</th>
-              <td>
-                {{seguimiento.ventilacion}}
-              </td>
-              <th>Soporte vasopresor</th>
-              <td>
-                {{seguimiento.soporte}}{% if seguimiento.soporte == 'SI'%}, {{seguimiento.soporte_cual}} {% endif %}
-              </td>
-            </tr>
-          <tr>
-              <th>Neuroimagen</th>
-              <td>
-                {{seguimiento.neuroimagen}}
-              </td>
-              <th>Neurología</th>
-              <td>
-                {{seguimiento.neurologia}}
-              </td>
-            </tr>
-          </tbody>
-          </table>
-          <table class="table table-hover">
-            <tbody>
-            <tr>
-            <th>Medicamento </th>
-            <td>Midazolam</td>
-            <td>Dexmedeto</td>
-            <td>Fentanyl</td>
-            <td>Tiopental</td>
-            <td>Vecuronio</td>
+                        <tbody>
 
-          </tr>
-          <tr>
-            <th>Dosis/dia </th>
-            <td>{{seguimiento.midazolam}}</td>
-            <td>{{seguimiento.dexmedeto}}</td>
-            <td>{{seguimiento.fentanyl}}</td>
-            <td>{{seguimiento.tiopental}}</td>
-            <td>{{seguimiento.vecuronio}}</td>
+                          <tr>
+                            <th style="vertical-align:middle;">Glasgow de seguimiento</th>
+                            <td>
+                              <p>Apertura ocular: {{ seguimiento.apertura_ocular }}</p>
+                              <p>Respuesta motora: {{ seguimiento.respuesta_motora }}</p>
+                              <p>Respuesta verbal: {{ seguimiento.respuesta_verbal }}</p>
+                            </td>
+                            <th style="vertical-align:middle;">Glasgow total </th>
+                            <td style="vertical-align:middle;">{{ seguimiento.glasgowtotal }}</td>
+                          </tr>
+                          <tr>
+                            <th>Falla orgánica</th>
+                            <td>
+                              {{seguimiento.fallaorganica}}{% if seguimiento.fallaorganica == 'SI'%}, {{seguimiento.fallaorganica_cual}} {% endif %}
+                            </td>
+                            <th>Nueva infección</th>
+                            <td>
+                              {{seguimiento.infeccion}}{% if seguimiento.infeccion == 'SI'%}, {{seguimiento.infeccion_foco}} {% endif %}
+                            </td>
+                          </tr>
+                        <tr>
+                            <th>Parada cardíaca</th>
+                            <td>
+                              {{seguimiento.parada}}{% if seguimiento.parada == 'SI'%}, {{seguimiento.parada_tiempo}} minutos {% endif %}
+                            </td>
+                            <th>Monitoría PIC</th>
+                            <td>
+                              {{seguimiento.pic}}{% if seguimiento.pic == 'SI'%}, {{seguimiento.pic_numero}} {% endif %}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Ventilación mecánica</th>
+                            <td>
+                              {{seguimiento.ventilacion}}
+                            </td>
+                            <th>Soporte vasopresor</th>
+                            <td>
+                              {{seguimiento.soporte}}{% if seguimiento.soporte == 'SI'%}, {{seguimiento.soporte_cual}} {% endif %}
+                            </td>
+                          </tr>
+                        <tr>
+                            <th>Neuroimagen</th>
+                            <td>
+                              {{seguimiento.neuroimagen}}
+                            </td>
+                            <th>Neurología</th>
+                            <td>
+                              {{seguimiento.neurologia}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        </table>
+                        <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                          <th>Medicamento </th>
+                          <td>Midazolam</td>
+                          <td>Dexmedeto</td>
+                          <td>Fentanyl</td>
+                          <td>Tiopental</td>
+                          <td>Vecuronio</td>
 
-          </tr>
+                        </tr>
+                        <tr>
+                          <th>Dosis/dia </th>
+                          <td>{{seguimiento.midazolam}}</td>
+                          <td>{{seguimiento.dexmedeto}}</td>
+                          <td>{{seguimiento.fentanyl}}</td>
+                          <td>{{seguimiento.tiopental}}</td>
+                          <td>{{seguimiento.vecuronio}}</td>
 
-            </tbody>
-          </table>
+                        </tr>
+
+                          </tbody>
+                        </table>
 
 
-
-
-                    </div>
-                  </div>
+                        </div>
+                      </div>
                 </div>
-              </div>
+                `;
 
+                document.getElementById("s"+x).innerHTML = (HTMLContent);
 
-
-
-              {% endif %}
-
-            </ul>
+                }
+                listar()
+            </script>
+        {% endif %}
         {% endfor %}
+
+
       {% endif %}
 
   {% if user.groups.all.0.name != 'Consultor' and object.get_seguimiento|length > 0 and object.uci.glasgowtotal_e == '0' %}
-
+          <br>
+          <div class="container">
           <a class="btn btn-primary" href="{% url 'crear_seguimiento' object.pk %}">Añadir Nuevo Seguimiento</a>
-
+          </div>
           {% endif %}
 
 
