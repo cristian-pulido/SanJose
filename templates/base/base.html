@@ -28,7 +28,7 @@
 
 {% if user.is_authenticated %}
 
-		 <body>
+		 <body oncopy="return false" onpaste="return false">
 
 		 <div class="container" style="text-align:left;">
 		 <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>

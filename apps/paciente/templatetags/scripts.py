@@ -94,7 +94,11 @@ def creargrupos():
 @shared_task
 def anonimizar(sn):
     try:
-        anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(sn))
+        anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(sn)+"/imagenes")
+        zip_name="/home/ubuntu/media/img/sujeto"+str(sn)+"/"+str(sn)
+        carpeta="/home/ubuntu/media/img/sujeto"+str(sn)+"/imagenes"
+        import shutil
+        shutil.make_archive(zip_name,'zip',carpeta)
     except:
         ""
     return "Completo"

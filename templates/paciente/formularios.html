@@ -380,36 +380,36 @@
               <th colspan="4" style="color:blue;">Monitoreo de transporte UCI - Radiología</th>
             </tr>
             <tr>
-              <td></td><th>Signos vitales</th>
+              <td></td><th colspan="2">Signos vitales</th>
             </tr>
             {% if object.radiologia.ur_pulsoximetro == 'SI' %}
               <tr>
                 <td>Pulsoxímetro</td>
-                <td>{{object.radiologia.ur_pulsoximetro_sv}}</td>
+                <td colspan="2">{{object.radiologia.ur_pulsoximetro_sv}}%</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ur_frecuencia_cardiaca == 'SI' %}
               <tr>
                 <td >Frecuencia cardíaca</td>
-                <td >{{object.radiologia.ur_frecuencia_cardiaca_sv}}</td>
+                <td colspan="2">{{object.radiologia.ur_frecuencia_cardiaca_sv}} latidos/min</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ur_frecuencia_respiratoria == 'SI' %}
               <tr>
                 <td >Frecuencia respiratoria</td>
-                <td >{{object.radiologia.ur_frecuencia_respiratoria_sv}}</td>
+                <td colspan="2">{{object.radiologia.ur_frecuencia_respiratoria_sv}} respiraciones/min</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ur_visoscopio == 'SI' %}
               <tr>
                 <td >Visoscopio</td>
-                <td >{{object.radiologia.ur_visoscopio_sv}}</td>
+                <td colspan="2">{{object.radiologia.ur_visoscopio_sv}}</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ur_tension == 'SI' %}
               <tr>
                 <td >Tensión arterial</td>
-                <td >{{object.radiologia.ur_tension_sv}}</td>
+                <td colspan="2">{{object.radiologia.ur_tension_sv}} mmhg</td>
               </tr>
             {% endif %}
             {% if object.radiologia.monitoreo == 'SI'%}
@@ -431,29 +431,46 @@
               <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
             </tr>
             <tr>
-              <td></td><th>Dosis total</th><th>Signos vitales</th>
+              <td></td><th>Dosis total</th><th colspan="2">Signos vitales</th>
             </tr>
-            {% if object.radiologia.sedacion == 'SI' %}
-              <tr>
+            <tr>
+              {% if object.radiologia.sedacion == 'SI' %}
                 <td >Sedación</td>
                 <td >{{object.radiologia.sedacion_dt}}</td>
-                <td >{{object.radiologia.sedacion_sv}}</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.analgesia == 'SI' %}
-              <tr>
+              {%else%}
+              <td></td><td></td>
+              {% endif %}
+                <td colspan="2">{{object.radiologia.sedacion_sv}}%</td>
+            </tr>
+            <tr>
+              {% if object.radiologia.analgesia == 'SI' %}
                 <td >Analgesia</td>
                 <td >{{object.radiologia.analgesia_dt}}</td>
-                <td >{{object.radiologia.analgesia_sv}}</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.relajacion == 'SI' %}
-              <tr>
-                <td >Relajación</td>
+              {%else%}
+              <td></td><td></td>
+              {% endif %}
+                <td colspan="2">{{object.radiologia.analgesia_sv}} latidos/min</td>
+            </tr>
+            <tr>
+              {% if object.radiologia.relajacion == 'SI' %}
+                <td >relajacion</td>
                 <td >{{object.radiologia.relajacion_dt}}</td>
-                <td >{{object.radiologia.relajacion_sv}}</td>
-              </tr>
-            {% endif %}
+              {%else%}
+              <td></td><td></td>
+              {% endif %}
+                <td colspan="2">{{object.radiologia.relajacion_sv}} respiraciones/min</td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="2">{{object.radiologia.svadicional1}}</td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="2">{{object.radiologia.svadicional2}} mmhg</td>
+            </tr>
+            
+
+
             {% if object.radiologia.otra_medicacion == 'SI' %}
               <th>Otra medicación administrada durante el procedimiento</th>
               <td>{{object.radiologia.otra_medicacion_cual}}</td>
@@ -470,37 +487,37 @@
             {% if object.radiologia.ru_pulsoximetro == 'SI' %}
               <tr>
                 <td>Pulsoxímetro</td>
-                <td>{{object.radiologia.ru_pulsoximetro_sv}}</td>
+                <td colspan="2">{{object.radiologia.ru_pulsoximetro_sv}}%</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ru_frecuencia_cardiaca == 'SI' %}
               <tr>
                 <td >Frecuencia cardíaca</td>
-                <td >{{object.radiologia.ru_frecuencia_cardiaca_sv}}</td>
+                <td colspan="2">{{object.radiologia.ru_frecuencia_cardiaca_sv}} latidos/min</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ru_frecuencia_respiratoria == 'SI' %}
               <tr>
                 <td >Frecuencia respiratoria</td>
-                <td >{{object.radiologia.ru_frecuencia_respiratoria_sv}}</td>
+                <td colspan="2">{{object.radiologia.ru_frecuencia_respiratoria_sv}} respiraciones/min</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ru_visoscopio == 'SI' %}
               <tr>
                 <td >Visoscopio</td>
-                <td >{{object.radiologia.ru_visoscopio_sv}}</td>
+                <td colspan="2">{{object.radiologia.ru_visoscopio_sv}}</td>
               </tr>
             {% endif %}
             {% if object.radiologia.ru_tension == 'SI' %}
               <tr>
                 <td >Tensión arterial</td>
-                <td >{{object.radiologia.ru_tension_sv}}</td>
+                <td colspan="2">{{object.radiologia.ru_tension_sv}} mmhg</td>
               </tr>
             {% endif %}
 
           <tr>
             <th>Tiempo de resonancia</th>
-            <td>{{object.radiologia.tiempo_sesonacia}}</td>
+            <td>{{object.radiologia.tiempo_sesonacia}} minutos</td>
             <th>Hora de llegada a UCI</th>
             <td>{{object.radiologia.hora_llegada}}</td>
           </tr>
@@ -1249,12 +1266,16 @@
     </div>
 
 
-
-
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="container">
       {% if user.groups.all.0.name != 'Consultor' %}
 
       <a class="btn btn-primary" href="{% url 'bold_editar' object.bold.pk %}">Editar</a>
       {% endif %}
+      </div>
       {% endif %}
  </div>
 

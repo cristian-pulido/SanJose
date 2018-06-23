@@ -46,7 +46,7 @@
                   <th style="vertical-align:middle;">{{form.fechaneuro.label}}</th>
                     <td style="vertical-align:middle;">
                         {{ form.fechaneuro.errors }}
-                        <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaneuro" type="date"  id="id_fechaneuro" value="{{object.fechaneuro|date:'Y-m-d'}}">
+                        <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" required name="fechaneuro" type="date"  id="id_fechaneuro" value="{{object.fechaneuro|date:'Y-m-d'}}">
                     </td>
                     <th style="vertical-align:middle;">{{form.neurologo.label}}</th>
                     <td style="vertical-align:middle;">
@@ -55,6 +55,27 @@
                 </tr>
 
               </tbody>
+                <script>
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+                    var yyyy = today.getFullYear();
+                     if(dd<10){
+                            dd='0'+dd
+                        }
+                        if(mm<10){
+                            mm='0'+mm
+                        }
+
+                    today = yyyy+'-'+mm+'-'+dd;
+                    var fecha=document.getElementById("id_fechaneuro").value;
+                    if ( fecha == "" ) {
+                        document.getElementById("id_fechaneuro").value=today;
+                    }
+                    document.getElementById("id_fechaneuro").max=today;
+
+
+                </script>
             </table>
 
             <div style=" padding: 25px; border-radius: 19px 19px 19px 19px;-moz-border-radius: 19px 19px 19px 19px;-webkit-border-radius: 19px 19px 19px 19px;border: 1px solid #000000;">
@@ -454,7 +475,7 @@
                     <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" {% if object.epileptico == "SI" %} required {% endif %} name="fechaeeg" type="date"  id="id_fechaeeg" value="{{object.fechaeeg|date:'Y-m-d'}}" />
                 </td>
                 <th style="vertical-align:middle;">{{form.resultadoeeg.label}}</th>
-                <td style="vertical-align:middle;"> <input type="text" name="resultadoeeg" maxlength="200" id="id_resultadoeeg" placeholder="" class="form-control" {% if object.epileptico == "SI" %} value="{{object.resultadoeeg}}" required {% endif %} /></td>
+                <td style="vertical-align:middle;"> <input type="text" name="resultadoeeg" maxlength="20" id="id_resultadoeeg" placeholder="" class="form-control" {% if object.epileptico == "SI" %} value="{{object.resultadoeeg}}" required {% endif %} /></td>
             </tr>
         </tbody>
     </table>
@@ -480,7 +501,7 @@ document.getElementsByName("epileptico")[0].addEventListener('change', e);
 function e(){
     var p= document.getElementById("id_epileptico").value;
     if (p == 'SI') {
-    document.getElementById("tablee").style="display:inline";
+    document.getElementById("tablee").style="display:block";
     document.getElementById("id_fechaeeg").required=true;
     document.getElementById("id_resultadoeeg").required=true;
     } else {

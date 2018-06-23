@@ -58,6 +58,7 @@ class PacienteUpdate(UpdateView):
     def get_success_url(self):
         p=self.object
         if p.estado==1:
+            os.mkdir('/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero) + "/imagenes")
             p.estado=2
             p.save()
         if p.estado==0:
@@ -69,7 +70,8 @@ class PacienteUpdate(UpdateView):
             p.save()
 
         try:
-            shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+
+            shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero)+"/imagenes")
             file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+str(p.sujeto_numero)+".txt", "w")
             file.write(""+str(p.sujeto_numero))
             file.close()

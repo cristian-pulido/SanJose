@@ -42,14 +42,14 @@
                     <tbody>
                         <tr>
                             <th>
-                                <label for="{{form.fecha_procedimiento.name}}">{{form.fecha_procedimiento.label}}</label>
+                                <label">{{form.fecha_procedimiento.label}}</label>
                             </th>
                             <td>
                                 {{ form.fecha_procedimiento.errors }}
-                                <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_procedimiento" type="date"  id="id_fecha_procedimiento" value="{{object.fecha_procedimiento|date:'Y-m-d'}}">
+                                <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" required name="fecha_procedimiento" type="date"  id="id_fecha_procedimiento" value="{{object.fecha_procedimiento|date:'Y-m-d'}}">
                             </td>
                             <th>
-                                <label for="{{form.radiologo.name}}">{{form.radiologo.label}}</label>
+                                <label>{{form.radiologo.label}}</label>
                             </th>
                             <td>
                                 {{form.radiologo}}
@@ -57,7 +57,27 @@
                         </tr>
                     </tbody>
                 </table>
+            <script>
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+                    var yyyy = today.getFullYear();
+                     if(dd<10){
+                            dd='0'+dd
+                        }
+                        if(mm<10){
+                            mm='0'+mm
+                        }
 
+                    today = yyyy+'-'+mm+'-'+dd;
+                    var fecha=document.getElementById("id_fecha_procedimiento").value;
+                    if ( fecha == "" ) {
+                        document.getElementById("id_fecha_procedimiento").value=today;
+                    }
+                    document.getElementById("id_fecha_procedimiento").max=today;
+
+
+                </script>
 
 
         </div>
@@ -82,9 +102,9 @@
                           {{forms.transportable.errors}}
 
                   </td >
-                  <th style="vertical-align:middle;" ><label for="{{form.hora_inicio.name}}">{{form.hora_inicio.label}}</label></th>
+                  <th style="vertical-align:middle;" ><label >{{form.hora_inicio.label}}</label></th>
                   <td style="vertical-align:middle;" >{{ form.hora_inicio.errors }}
-                      <input type="time" step = "1" name="hora_inicio" value="{{object.hora_inicio}}" class="form-control"  id="id_hora_inicio" />
+                      <input type="time" step = "60" name="hora_inicio" value="{{object.hora_inicio}}" class="form-control"  id="id_hora_inicio" />
                   </td>
                 </tr>
                 <tr>
@@ -480,7 +500,7 @@
                         }else {
                            document.getElementById("om").style="display:none";
                            document.getElementById("id_otra_medicacion_cual").value="";
-                           document.getElementById("id_me_dosis").value="";
+                           document.getElementById("id_otra_medicacion_dt").value="";
                            document.getElementById("id_otra_medicacion_cual").required=false;
                            document.getElementById("id_otra_medicacion_dt").required=false;
                         }
@@ -604,11 +624,23 @@
             <tr>
                 <th>{{form.hora_llegada.label}}</th>
                 <td>{{form.hora_llegada.errors}}
-                    <input type="time" step = "1" name="hora_llegada" value="{{object.hora_llegada}}" class="form-control"  id="id_hora_llegada" />
+                    <input type="time" step = "60" name="hora_llegada" value="{{object.hora_llegada}}" class="form-control"  id="id_hora_llegada" />
+                    <script>
+                        document.getElementsByName("hora_inicio")[0].addEventListener('change', hora);
+                        function hora(){
+                        var hi=document.getElementById("id_hora_inicio").value;
+                        var hf=document.getElementById("id_hora_llegada").value;
+                        var hfmin=document.getElementById("id_hora_llegada").min=hi;
+                        if ( hf > hi ){
+                            document.getElementById("id_hora_llegada").value="";
+                        }
+
+                        }
+                    </script>
                 </td>
                 <th><label id="comp" {% if object.complicaciones_cuales == None %} style="display:none" {% endif %}>{{form.complicaciones_cuales.label}}</label></th>
                 <td>{{form.complicaciones_cuales.errors}}
-                    <input class="form-control" name="complicaciones_cuales" id="id_complicaciones_cuales" {% if object.complicaciones_cuales == None %} style="display:none" {% else %} required value="{{object.complicaciones_cuales}}" {% endif %}>
+                    <input class="form-control" maxlength="20" name="complicaciones_cuales" id="id_complicaciones_cuales" {% if object.complicaciones_cuales == None %} style="display:none" {% else %} required value="{{object.complicaciones_cuales}}" {% endif %}>
                 </td>
             </tr>
               </tbody>

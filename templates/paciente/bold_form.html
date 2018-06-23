@@ -16,9 +16,33 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>Checklist BOLD Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
 
-            <label for="{{form.fechaimg.name}}">{{form.fechaimg.label}}</label>
+            <label >{{form.fechaimg.label}}</label>
             {{ form.fechaimg.errors }}
-            <input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaimg" type="date"  id="id_fechaimg" value="{{object.fechaimg|date:'Y-m-d'}}">
+            <input class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" required name="fechaimg" type="date"  id="id_fechaimg" value="{{object.fechaimg|date:'Y-m-d'}}">
+            <script>
+            var ahora = new Date();
+            var dd = ahora.getDate();
+            var mm = ahora.getMonth()+1; //January is 0!
+            var yyyy = ahora.getFullYear();
+
+                if(dd<10){
+                    dd='0'+dd
+                }
+                if(mm<10){
+                    mm='0'+mm
+                }
+
+            today = yyyy+'-'+mm+'-'+dd;
+            var fecha=document.getElementById("id_fechaimg").value;
+            document.getElementById("id_fechaimg").max=today;
+
+
+            if ( fecha == "" ) {
+                document.getElementById("id_fechaimg").value=today;
+            }
+
+
+            </script>
             <legend>Parámetros del protocolo de adquisición de imágenes</legend>
 
                 <div class="left">

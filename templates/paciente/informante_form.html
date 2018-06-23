@@ -22,13 +22,14 @@
     <div class="row">
         <div >
                 <div class="form-group">
-                    <table class="table table-hover">
+                    <table class="table table-hover"  {% if object.candidato.mayor %} style="display:none" {%endif%}>
                         <tbody>
                         <tr>
                             <th style="vertical-align: middle;">{{form.fechaentrevista.label}}</th>
                             <td style="vertical-align: middle;">
                                 {{ form.fechaentrevista.errors }}
-                                <input  class="form-control"  min="2017-01-01" max="2020-12-31" required name="fechaentrevista" type="date"  id="id_fechaentrevista" value="{{object.fechaentrevista|date:'Y-m-d'}}">
+                                <input  class="form-control"  min="{{object.candidato.fecha_de_registro|date:'Y-m-d'}}" max="2020-12-31" required name="fechaentrevista" type="date"  id="id_fechaentrevista" value="{{object.fechaentrevista|date:'Y-m-d'}}">
+
                             </td>
                             <th style="vertical-align: middle;">{{form.neuropsicologa.label}}</th>
                             <td style="vertical-align: middle;">
@@ -40,12 +41,12 @@
                             <th style="vertical-align: middle;">{{ form.informante.label }}</th>
                             <td style="vertical-align: middle;">
                                 {{ form.informante.errors }}
-                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
+                                <input type="text" maxlength="35" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
                             </td>
                             <th style="vertical-align: middle;">{{ form.parentezco.label }}</th>
                             <td style="vertical-align: middle;">
                                 {{ form.parentezco.errors }}
-                                <input type="text" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
+                                <input type="text" maxlength="15" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
                             </td>
                         </tr>
                         <tr>
@@ -899,6 +900,30 @@
 {% endblock %}
 {% block extrajs %}
 <script>
+var ahora = new Date();
+var dd = ahora.getDate();
+var mm = ahora.getMonth()+1; //January is 0!
+var yyyy = ahora.getFullYear();
+
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+
+today = yyyy+'-'+mm+'-'+dd;
+var fecha=document.getElementById("id_fechaentrevista").value;
+document.getElementById("id_fechaentrevista").max=today;
+
+
+if ( fecha == "" ) {
+    document.getElementById("id_fechaentrevista").value=today;
+}
+
+
+</script>
+<script>
 /* function */
 function independencia(s){
     var total=0
@@ -906,11 +931,15 @@ function independencia(s){
     for (var i = 0; i < elements.length; i++) {
         if (elements[i].type == 'radio' && elements[i].checked && parseInt(elements[i].title) < 5 ) {
             total=total+parseInt(elements[i].title);
+    }
+    }
 
-    }
-    }
+
 
     if ( s == 'Hombre' ) {
+            if ( total>=5 ){
+            total=5;
+            }
             document.getElementById("id_totalindependencia").value=total+"/5";
 
     } else {
