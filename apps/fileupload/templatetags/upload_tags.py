@@ -8,7 +8,7 @@ register = template.Library()
 @register.simple_tag
 def img():
     C=Candidato.objects.all()
-    n=C.last*sujeto_numero*2
+    n=C.last().sujeto_numero*2
     A=[0]*n
     for c in C:
         if c.imagen=="":
