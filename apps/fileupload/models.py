@@ -28,7 +28,6 @@ class Picture(models.Model):
         return ('upload-new', )
 
     def save(self, *args, **kwargs):
-        self.slug = self.file.name
         super(Picture, self).save(*args, **kwargs)
 
 

@@ -57,10 +57,7 @@ class PacienteUpdate(UpdateView):
     # a donde va dirigido
     def get_success_url(self):
         p=self.object
-        if p.estado==1:
-            os.mkdir('/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero) + "/imagenes")
-            p.estado=2
-            p.save()
+
         if p.estado==0:
             p.estado=1
             criterios_inclusion = p.ci3 * 1 + p.ci4 * 1
@@ -68,21 +65,6 @@ class PacienteUpdate(UpdateView):
             if criterios_inclusion == 2 and criterios_exclusion == 0:
                 p.inscrito = True
             p.save()
-
-        try:
-
-            shutil.move('/home/ubuntu/media/' + str(p.imagen), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero)+"/imagenes")
-            file = open("/home/ubuntu/media/img/sujeto"+ str(p.sujeto_numero)+"/"+str(p.sujeto_numero)+".txt", "w")
-            file.write(""+str(p.sujeto_numero))
-            file.close()
-            p.imagen = "/img/sujeto"+ str(p.sujeto_numero)+"/"+str(p.sujeto_numero)+".txt"
-            p.save()
-            anonimizar.delay(p.sujeto_numero)
-        except:
-            ""
-
-
-
         return reverse_lazy('paciente', args=[p.pk])
 
 class IngresoUpdate(UpdateView):

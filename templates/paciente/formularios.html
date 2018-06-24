@@ -45,7 +45,11 @@
     <a class="nav-link "  data-toggle="tab" href="#seguimiento">Seguimiento UCI</a>
   </li>
   {% endif %}
-
+    {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen %}
+  <li class="nav-item">
+    <a class="nav-link "  data-toggle="tab"   href="#imagen">Imagen</a>
+  </li>
+    {% endif %}
   {% endif %}
 </ul>
 <div id="myTabContent" class="tab-content" >
@@ -1445,9 +1449,17 @@
       {% endif %}
       {% endif %}
  </div>
+<div class="tab-pane"  id="imagen" >
+    <input id="sn" value="{{object.sujeto_numero}}" hidden>
 
+<iframe src="{% url 'upload-new' %}"
+            marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="no" border="0"
+            frameborder="0" width="800" height="400">
+            </iframe>
 
-  <div class="tab-pane"  id="seguimiento" >
+  </div>
+
+<div class="tab-pane"  id="seguimiento" >
       {% if object.get_seguimiento|length == 0 %}
       <p class="text-danger">No Hay registros</p>
         {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' %}
@@ -1663,14 +1675,20 @@ function validarf(){
           </div>
           {% endif %}
 
-
  </div>
 
 
 
 
 
+
+
+
+
 </div>
+
+</div>
+
 <br>
 <br>
 {% endblock %}

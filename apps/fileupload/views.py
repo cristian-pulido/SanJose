@@ -13,7 +13,7 @@ from apps.paciente.models import Candidato
 from .models import Picture
 from .response import JSONResponse, response_mimetype
 from .serialize import serialize
-import shutil
+from apps.paciente.templatetags.scripts import anonimizar
 
 
 
@@ -27,7 +27,17 @@ class PictureCreateView(CreateView):
         data = {'files': files}
         response = JSONResponse(data, mimetype=response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
-
+        sn=self.object.slug
+        p=Candidato.objects.get(sujeto_numero=int(sn))
+        if p.estado==1:
+            os.mkdir('/home/ubuntu/media/img/sujeto' + str(sn) + "/imagenes")
+            p.estado=2
+            file = open("/home/ubuntu/media/img/sujeto" + str(sn) + "/" + str(sn) + ".txt", "w")
+            file.write("" + str(sn))
+            file.close()
+            p.imagen = "/img/sujeto" + str(sn) + "/" + str(sn) + ".txt"
+            p.save()
+            anonimizar.delay(sn)
         return response
 
     def form_invalid(self, form):

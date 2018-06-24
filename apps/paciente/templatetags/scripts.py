@@ -1,3 +1,4 @@
+import shutil
 from datetime import datetime, timezone
 
 from django.contrib.auth.models import Group, Permission, User
@@ -94,16 +95,16 @@ def creargrupos():
 @shared_task
 def anonimizar(sn):
     try:
-        anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(sn)+"/imagenes")
-        zip_name="/home/ubuntu/media/img/sujeto"+str(sn)+"/"+str(sn)
-        carpeta="/home/ubuntu/media/img/sujeto"+str(sn)+"/imagenes"
-        import shutil
-        shutil.make_archive(zip_name,'zip',carpeta)
+        i = Picture.objects.get(slug=sn)
+        shutil.move('/home/ubuntu' + i.file.url, '/home/ubuntu/media/img/sujeto' + str(sn) + "/imagenes")
+        anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(sn) + "/imagenes")
+        zip_name = "/home/ubuntu/media/img/sujeto" + str(sn) + "/" + str(sn)
+        carpeta = "/home/ubuntu/media/img/sujeto" + str(sn) + "/imagenes"
+        shutil.make_archive(zip_name, 'zip', carpeta)
+        i.file = "/img/sujeto" + str(sn) + "/" + str(sn) + ".zip"
+        i.anonimo = 1
+        i.save()
     except:
         ""
     return "Completo"
-
-
-
-
 

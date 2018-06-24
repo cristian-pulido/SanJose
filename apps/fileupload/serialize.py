@@ -18,29 +18,6 @@ def order_name(name):
 
     return name
 
-def veri(estado):
-    if estado==0:
-        return "Registro Incompleto"
-    else:
-        return ""
-def color(e):
-    if e==0:
-        return "color:red;"
-    else:
-        return "color:black;"
-def eti(S,anterior):
-    if S.estado!=0:
-        return "Sujeto #" + str(S.sujeto_numero)
-    else:
-        return anterior
-
-
-def direccion(s):
-    if s.estado==0:
-        return "/paciente/editar/"+str(s.pk)
-    else:
-        return "/paciente/formularios/"+str(s.pk)
-
 
 
 
@@ -50,50 +27,18 @@ def serialize(instance, file_attr='file'):
     file_attr -- attribute name that contains the FileField or ImageField
     """
     obj = getattr(instance, file_attr)
-    n = ""
-    u=""
-    e=0
-    etiqueta =order_name(obj.name)
-    try:
-        S=instance.candidato
-        n = S.nombres
-        u=direccion(S)
-        e=S.estado
-        etiqueta = eti(S, etiqueta)
-    except:
-        print("")
-
-    else:
-        print("")
-
-    urlan=""
-    labelan=""
-    if instance.anonimo == 0:
-        urlan= "#"
-        labelan="Anonimizando"
-    elif instance.anonimo == 1 or instance.anonimo == 2:
-        urlan = "#"
-        labelan = "Anonimizando"
-    elif instance.anonimo == 3:
-        urlan = obj.url
-        labelan = "Descargar Anonimizado"
-
-
 
     return {
         'pk': instance.pk,
-        'url': u,
-        'name': etiqueta,
+
+        'name': obj.name[9:],
         'type': mimetypes.guess_type(obj.path)[0] or 'image/png',
         'thumbnailUrl': obj.url,
         'size': obj.size,
         'deleteUrl': reverse('upload-delete', args=[instance.pk]),
         'deleteType': 'DELETE',
-        'sujeto': n,
-        'verificacion': veri(e),
-        'color': color(e),
-        'anonimourl': urlan,
-        'anonimolabel': labelan,
+        'sn':instance.slug,
+
     }
 
 

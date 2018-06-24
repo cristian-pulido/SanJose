@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' or object.estado > 1 %}
+{% if user.groups.all.0.name == 'Consultor' or object.estado > 0 %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -345,41 +345,7 @@
 
     {% endif%}
 
-    {% if object.estado == 1 and object.inscrito == True %}
 
-        <div class="col-md-8 col-md-offset-2">
-            <legend>Carga de Archivos </legend>
-
-            <input type="file" name="imagen" id="id_imagen"  required value="{{object.imagen}}"  /></p>
-            <iframe src="{% url 'upload-new' %}"
-            marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="no" border="0"
-            frameborder="0" width="800" height="400">
-            </iframe>
-        </div>
-
-        {{form.nombres.as_hidden}}
-        {{form.apellidos.as_hidden}}
-        {{form.fecha_nacimiento.as_hidden}}
-        {{form.cc.as_hidden}}
-        {{form.sexo.as_hidden}}
-        {{form.sujeto_numero.as_hidden}}
-        {{form.fecha_de_registro.as_hidden}}
-        {{form.HC.as_hidden}}
-        {{form.cama_numero.as_hidden}}
-        {{form.fecha_evento_principal.as_hidden}}
-        {{form.hora_evento_principal.as_hidden}}
-        {{form.fecha_hora_ingreso.as_hidden}}
-        {{form.G_diagnostico.as_hidden}}
-        {{form.medico_responsable.as_hidden}}
-        {{form.ci.as_hidden}}
-        {{form.ci3.as_hidden}}
-        {{form.ci4.as_hidden}}
-        {{form.ce1.as_hidden}}
-        {{form.ce2.as_hidden}}
-        {{form.ce3.as_hidden}}
-        {{form.ce4.as_hidden}}
-
-    {% endif%}
 
 
     </div>

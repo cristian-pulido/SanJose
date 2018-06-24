@@ -10,8 +10,8 @@
 <div class="container">
     <form method="post">
     {% csrf_token %}
-    <h3>¿Desea eliminar el registro del sujeto {{ object.candidato}}?</h3>
-    <h3>Esto eliminara los registros dependientes.</h3>
+    <h3>¿Desea eliminar el archivo del sujeto {{ object.slug}}?</h3>
+
 
     <button class="btn btn-danger" type="submit">Sí, eliminar</button>
     <a class="btn btn-success" href="{% url 'paciente_listar' %}">Cancelar</a>

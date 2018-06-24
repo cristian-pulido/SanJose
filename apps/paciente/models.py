@@ -121,6 +121,11 @@ class Candidato(models.Model):
         n=c.sujeto_numero
         shutil.rmtree("/home/ubuntu/media/img/sujeto"+str(n), ignore_errors=True)
         super(Candidato, self).delete(*args, **kwargs)
+        try:
+            i=Picture.objects.get(slug=str(n))
+            i.delete()
+        except:
+            ""
 
 
 
@@ -184,6 +189,7 @@ class Ingreso(models.Model):
         """delete -- Remove to leave file."""
         self.archivo.delete(False)
         super(Ingreso, self).delete(*args, **kwargs)
+
 
 class Radiologia(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)

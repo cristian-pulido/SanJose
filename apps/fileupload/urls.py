@@ -5,5 +5,5 @@ from apps.fileupload.views import PictureCreateView, PictureDeleteView, PictureL
 urlpatterns = [
     path('new/', PictureCreateView.as_view(), name='upload-new'),
     path('delete/<int:pk>', PictureDeleteView.as_view(), name='upload-delete'),
-    path('view/', PictureListView.as_view(), name='upload-view'),
+    #path('view/', PictureListView.as_view(), name='upload-view'),
 ]
