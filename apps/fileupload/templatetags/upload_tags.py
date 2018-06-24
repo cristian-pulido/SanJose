@@ -8,13 +8,13 @@ register = template.Library()
 @register.simple_tag
 def img():
     C=Candidato.objects.all()
-    n=len(C)*2
+    n=C.last*sujeto_numero*2
     A=[0]*n
     for c in C:
         if c.imagen=="":
-            A[int(c.sujeto_numero)]=0
+            A[int(c.sujeto_numero)-1]=0
         else:
-            A[int(c.sujeto_numero)]=1
+            A[int(c.sujeto_numero)-1]=1
     return A
 @register.simple_tag
 def upload_js(per):
