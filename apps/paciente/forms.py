@@ -1030,6 +1030,7 @@ class SeguimientoForm(forms.ModelForm):
 
         fields = [
             'fechaseguimiento',
+            'medico_responsable',
             'apertura_ocular',
             'respuesta_motora',
             'respuesta_verbal',
@@ -1058,6 +1059,7 @@ class SeguimientoForm(forms.ModelForm):
 
         labels = {
             'fechaseguimiento': "Fecha",
+            'medico_responsable': "Responsable",
             'apertura_ocular':"Apertura ocular",
             'respuesta_motora':"Respuesta motora",
             'respuesta_verbal':"Respuesta verbal",
@@ -1084,6 +1086,7 @@ class SeguimientoForm(forms.ModelForm):
         }
         widgets = {
             'fechaseguimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
             'apertura_ocular' :forms.RadioSelect(),
             'respuesta_motora':forms.RadioSelect(),
             'respuesta_verbal':forms.RadioSelect(),

@@ -114,6 +114,11 @@ class Candidato(models.Model):
 
     def get_seguimiento(self):
         return self.seguimiento_set.all()
+    def get_neuro(self):
+        return self.neurologia_set.all()
+    def get_img(self):
+        i=Picture.objects.get(slug=self.sujeto_numero)
+        return i
 
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""
@@ -363,7 +368,7 @@ class Neurologia(models.Model):
         ('SI', 'SI'),
         ('NO', 'NO'),
     )
-    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
     fechaneuro = models.DateField(null=True)
     neurologo = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     auditiva = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
@@ -624,7 +629,6 @@ class Informante(models.Model):
     frontal38 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
     frontal39 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
     frontal40 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
-    frontal40 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
     frontal41 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
     frontal42 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
     frontal43 = models.CharField(choices=numero_CHOICES, null=True, max_length=50)
@@ -641,6 +645,7 @@ class Informante(models.Model):
 class Seguimiento(models.Model):
     candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
     fechaseguimiento = models.DateField(null=True, default=timezone.now)
+    medico_responsable = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),

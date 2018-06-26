@@ -37,6 +37,7 @@
 
         <div class="col-md-8 col-md-offset-2">
                 <h1>Formato Neurología Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+
         </div>
 
         <div class="col-md-8 col-md-offset-2">
@@ -447,7 +448,8 @@
                        name="estadoconciencia" value="Vigilia sin respuesta" required id="id_estadoconciencia_2" {% if object.estadoconciencia == 'Vigilia sin respuesta' %} checked {% endif %}/>Vigilia sin respuesta
             <input type="radio"  name="estadoconciencia" value="Mínima conciencia" required id="id_estadoconciencia_3" {% if object.estadoconciencia == 'Mínima conciencia' %} checked {% endif %}/> Mínima conciencia
         </tr>
-        <tr>
+
+        <tr {% if object.candidato.get_neuro|length > 1 %} style="display:none" {% endif %}>
             <th>{{form.segunda.label}}</th>
             <td>{{form.segunda}}</td>
             <th>{{form.epileptico.label}}</th>
@@ -479,6 +481,13 @@
             </tr>
         </tbody>
     </table>
+    <script>
+        var x="{{object.candidato.get_neuro|length}}";
+        if ( x == 2 ){
+            document.getElementById("id_segunda").value="NO";
+            document.getElementById("id_epileptico").value="NO";
+        }
+    </script>
 
 
     </div>

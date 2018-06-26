@@ -53,11 +53,22 @@ def crearneurologia(request, pk):
         return redirect('login')
     else:
         c = Candidato.objects.get(pk=pk)
-        if hasattr(c, 'neurologia'):
-            return redirect("/paciente/neurologia/editar/" + str(c.neurologia.pk))
+        neuro=c.neurologia_set.all()
+        if len(neuro) == 0:
+            n = Neurologia.objects.create(candidato=c)
+            return redirect("/paciente/neurologia/editar/" + str(n.pk))
+        elif len(neuro) == 1 and neuro[0].fechaneuro == None :
+            n=neuro[0]
+            return redirect("/paciente/neurologia/editar/" + str(n.pk))
+        elif len(neuro) == 1 and neuro[0].fechaneuro != None and neuro[0].segunda != 'NO':
+            n = Neurologia.objects.create(candidato=c)
+            return redirect("/paciente/neurologia/editar/" + str(n.pk))
+        elif len(neuro) == 2 and neuro[1].fechaneuro == None :
+            n = neuro[1]
+            return redirect("/paciente/neurologia/editar/" + str(n.pk))
         else:
-            n=Neurologia.objects.create(candidato=c)
-            return redirect("/paciente/neurologia/editar/"+str(n.pk))
+            return redirect('login')
+
 
 def crearbold(request, pk):
     if not request.user.is_authenticated:

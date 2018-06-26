@@ -12,7 +12,8 @@
 {% if user.groups.all.0.name != 'Consultor' %}
 <button style="vertical-align: middle;" type="button" onclick="location.href='{% url 'paciente_crear' %}'" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Añadir Registro</button>
 {% endif %}
-
+<br>
+<br>
 
 
 <ul class="nav nav-tabs">
@@ -49,21 +50,27 @@
                         {% for object in object_list %}
                             {% if object.estado == 0 %}
                             <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
-                              <td>{{object.medico_responsable}}</td>
+                              <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
+                              <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
 
                               {% if user.groups.all.0.name != 'Consultor' %}
                               <td style="text-align:right">
-                                  {% if user.groups.all.0.name == 'Administrador' %}
-                                  <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
-                                  {% endif %}
+                                  <form>
                                   {% load scripts %}
                                   {% tiempo object as t%}
                                   {% if t >= 48  %}
-                                  <a class="btn btn-primary" href="{% url 'paciente_editar' object.pk%}">Establecer Criterios</a>
+                                  <button class="btn btn-primary" formaction="{% url 'paciente_editar' object.pk%}">Establecer Criterios</button>
+                                  {% endif %}
+                                  {% if user.groups.all.0.name == 'Administrador' %}
+
+                                  <button class="btn btn-danger"  formaction="{% url 'paciente_eliminar' object.pk%}" title="Eliminar">
+                                  <i class="glyphicon glyphicon-trash"></i>
+
+                                  </button>
+
                                   {% endif %}
 
-
+                                  </form>
 
                               </td>
 
@@ -117,19 +124,32 @@
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == True %}
                             <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
-                              <td>{{object.medico_responsable}}</td>
+                              <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
+                              <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
 
                               {% if user.groups.all.0.name != 'Consultor' %}
                               <td style="text-align:right">
+                                  <form>
+                                    {% if object.get_img and object.get_img.anonimo == 1 %}
+                                  <button class="btn btn-success"  formaction="{{ object.get_img.file.url }}" title="Descargar">
+                                  <i class="glyphicon glyphicon-download"></i>
+                                  </button>
+                                      {% endif %}
                                   {% if user.groups.all.0.name == 'Administrador' %}
-                                  <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
+                                  <button class="btn btn-danger"  formaction="{% url 'paciente_eliminar' object.pk%}" title="Eliminar">
+                                  <i class="glyphicon glyphicon-trash"></i>
+                                  </button>
                                   {% endif %}
+                                    </form>
+
+
 
                               </td>
 
                               {% else %}
-                              <td></td>
+                              <td style="text-align:right">
+                                  {{object.imagen.url}}
+                              </td>
                               {% endif %}
                             </tr>
                             {% endif %}
@@ -166,7 +186,7 @@
 
                 <table class="table table-hover">
                   <thead>
-                    <tr>
+                    <tr style="vertical-align: middle;">
                       <th scope="col">Id</th>
                       <th scope="col">Médico a cargo </th>
                       {% if user.groups.all.0.name != 'Consultor' %}
@@ -179,13 +199,20 @@
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == False %}
                             <tr class="table-active">
-                              <td><a href="{% url 'paciente' object.pk%}" >{{object.sujeto_numero|stringformat:"04d"}}</a></td>
-                              <td>{{object.medico_responsable}}</td>
+                              <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
+                              <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
 
                               {% if user.groups.all.0.name != 'Consultor' %}
                               <td style="text-align:right">
                                   {% if user.groups.all.0.name == 'Administrador' %}
-                                  <a class="btn btn-danger" href="{% url 'paciente_eliminar' object.pk%}" >Eliminar</a>
+                                  <form>
+                                  <button class="btn btn-danger"  formaction="{% url 'paciente_eliminar' object.pk%}" title="Eliminar">
+                                  <i class="glyphicon glyphicon-trash"></i>
+
+                                  </button>
+                                  </form>
+
+
                                   {% endif %}
                               </td>
 

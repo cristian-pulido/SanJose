@@ -42,10 +42,12 @@
               <tbody>
                 <tr class="table-active">
                   <th style="vertical-align:middle;">{{form.fechaseguimiento.label}}</th>
-                    <td colspan="3" style="vertical-align:middle;">
+                    <td style="vertical-align:middle;">
                         {{ form.fechaseguimiento.errors }}
                         <input class="form-control"  min="{{object.candidato.uci.fechauci|date:'Y-m-d'}}" max="{{object.fechaseguimiento|date:'Y-m-d'}}" required name="fechaseguimiento" type="date" placeholder="Elegir fecha" id="id_fechauci" value="{{object.fechaseguimiento|date:'Y-m-d'}}">
                     </td>
+                    <th>{{form.medico_responsable.label}}</th>
+                    <td>{{form.medico_responsable}}</td>
                 </tr>
                 <tr>
                     <th colspan="2">Glasgow</th>
