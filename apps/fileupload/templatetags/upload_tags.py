@@ -1,21 +1,36 @@
 from django import template
 from django.utils.safestring import mark_safe
 
-from apps.paciente.models import Candidato
+from apps.paciente.models import Candidato, Control
 
 register = template.Library()
 
 @register.simple_tag
 def img():
-    C=Candidato.objects.all()
-    n=C.last().sujeto_numero*2
-    A=[0]*n
-    for c in C:
-        if c.imagen=="":
-            A[int(c.sujeto_numero)-1]=0
-        else:
-            A[int(c.sujeto_numero)-1]=1
-    return A
+    n = len(Candidato.objects.all())
+    if n>0:
+        C=Candidato.objects.all()
+        n=C.last().sujeto_numero*2
+        A=[0]*n
+        for c in C:
+            if c.imagen=="":
+                A[int(c.sujeto_numero)-1]=0
+            else:
+                A[int(c.sujeto_numero)-1]=1
+        return A
+@register.simple_tag
+def imgc():
+    n = len(Control.objects.all())
+    if n>0:
+        C=Control.objects.all()
+        n=C.last().numero*2
+        A=[0]*n
+        for c in C:
+            if c.imagen=="":
+                A[int(c.numero)-1]=0
+            else:
+                A[int(c.numero)-1]=1
+        return A
 @register.simple_tag
 def upload_js(per):
     if per=='Administrador':

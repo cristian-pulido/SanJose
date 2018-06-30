@@ -31,7 +31,3 @@ class Picture(models.Model):
         super(Picture, self).save(*args, **kwargs)
 
 
-    def delete(self, *args, **kwargs):
-        """delete -- Remove to leave file."""
-        self.file.delete(False)
-        super(Picture, self).delete(*args, **kwargs)

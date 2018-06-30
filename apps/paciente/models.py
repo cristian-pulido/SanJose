@@ -2,6 +2,7 @@
 import datetime
 import shutil
 
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -124,7 +125,7 @@ class Candidato(models.Model):
         """delete -- Remove to leave file."""
         c = self
         n=c.sujeto_numero
-        shutil.rmtree("/home/ubuntu/media/img/sujeto"+str(n), ignore_errors=True)
+        shutil.rmtree(settings.MEDIA_ROOT+"/img/sujeto"+str(n), ignore_errors=True)
         super(Candidato, self).delete(*args, **kwargs)
         try:
             i=Picture.objects.get(slug=str(n))
@@ -682,3 +683,31 @@ class Seguimiento(models.Model):
     vecuronio = models.CharField(max_length=12, null=True, default=0)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+
+class Control(models.Model):
+    numero = models.PositiveIntegerField(null=True, unique=True)
+    imagen = models.FileField(null=True, upload_to="controles", blank=True)
+
+    class Meta:
+        ordering = ["numero"]
+
+
+    def __str__(self):
+        return '{}'.format(self.numero)
+    def get_img(self):
+        i=Picture.objects.get(slug="c"+str(self.numero))
+        return i
+
+    def delete(self, *args, **kwargs):
+        """delete -- Remove to leave file."""
+        c = self
+        n=c.numero
+        shutil.rmtree(settings.MEDIA_ROOT+"/controles/"+str(n), ignore_errors=True)
+        super(Control, self).delete(*args, **kwargs)
+        try:
+            i=Picture.objects.get(slug="c"+str(n))
+            i.delete()
+        except:
+            ""
+
+

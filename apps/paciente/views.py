@@ -4,13 +4,14 @@ import os
 import shutil
 
 from celery import shared_task
+from django.conf import settings
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
     BoldForm, MayorForm, InformanteForm, SeguimientoForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
-    Seguimiento
+    Seguimiento, Control
 from apps.paciente.templatetags.scripts import anonimizar
 
 
@@ -25,6 +26,10 @@ class PacienteCreate(CreateView):
         if cantidad == 1:
             p.sujeto_numero=1
             p.save()
+            try:
+                os.mkdir(settings.MEDIA_ROOT+"/img")
+            except:
+                ""
         else:
             C=Candidato.objects.order_by("sujeto_numero").last()
             p.sujeto_numero=C.sujeto_numero+1
@@ -37,11 +42,11 @@ class PacienteCreate(CreateView):
             p.save()
 
         try:
-            os.mkdir("/home/ubuntu/media/img/sujeto" + str(p.sujeto_numero))
+            os.mkdir(settings.MEDIA_ROOT+"/img/sujeto" + str(p.sujeto_numero))
         except:
             ""
         try:
-            shutil.move('/home/ubuntu/media/' + str(p.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+            shutil.move(settings.MEDIA_ROOT+'/' + str(p.archivo), settings.MEDIA_ROOT+'/img/sujeto' + str(p.sujeto_numero))
             p.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(p.archivo)[4:]
             p.save()
         except:
@@ -78,14 +83,14 @@ class IngresoUpdate(UpdateView):
         i=self.object
         p=i.candidato
         try:
-            shutil.move('/home/ubuntu/media/' + str(i.archivo), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+            shutil.move(settings.MEDIA_ROOT+'/' + str(i.archivo), settings.MEDIA_ROOT+'/img/sujeto' + str(p.sujeto_numero))
             i.archivo = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivo)[4:]
             i.save()
         except:
             ""
         try:
             if i.archivofirma != None:
-                shutil.move('/home/ubuntu/media/' + str(i.archivofirma), '/home/ubuntu/media/img/sujeto' + str(p.sujeto_numero))
+                shutil.move(settings.MEDIA_ROOT+'/' + str(i.archivofirma), settings.MEDIA_ROOT+'/img/sujeto' + str(p.sujeto_numero))
                 i.archivofirma = '/img/sujeto' + str(p.sujeto_numero) + "/" + str(i.archivofirma)[4:]
                 i.save()
 
@@ -185,15 +190,30 @@ class PacienteView(DetailView):
     model = Candidato
     template_name = 'paciente/formularios.html'
 
+class ControlView(DetailView):
+    model = Control
+    template_name = 'paciente/controles.html'
+
 class PacienteList(ListView):
     model = Candidato
     template_name = 'paciente/paciente_listar.html'
+
+class ControlList(ListView):
+    model = Control
+    template_name = 'paciente/controles_listar.html'
 
 class PacienteDelete(DeleteView):
     model = Candidato
     template_name = 'paciente/paciente_eliminar.html'
     # a donde va dirigido
     success_url = reverse_lazy('paciente_listar')
+
+class ControlDelete(DeleteView):
+    model = Control
+    template_name = 'paciente/control_eliminar.html'
+    # a donde va dirigido
+    success_url = reverse_lazy('controles_listar')
+
 
 class MedicoCreate(CreateView):
     model = Medico

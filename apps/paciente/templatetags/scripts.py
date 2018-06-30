@@ -1,10 +1,12 @@
+import os
 import shutil
 from datetime import datetime, timezone
 
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission, User
 from celery import shared_task
 from apps.fileupload.models import Picture
-from apps.paciente.models import Dprevio, Apatologicos, Candidato
+from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control
 from django import template
 
 from programas import anonimizador
@@ -55,6 +57,14 @@ def crearDprevios():
         for i in range(total):
             Apatologicos.objects.create(nombre=p[i][0])
         return ""
+@register.simple_tag
+def crearmedia():
+    try:
+        os.mkdir(settings.MEDIA_ROOT)
+    except:
+        ""
+    return ""
+
 
 @register.simple_tag
 def creargrupos():
@@ -95,13 +105,31 @@ def creargrupos():
 @shared_task
 def anonimizar(sn):
     i = Picture.objects.get(slug=sn)
-    shutil.move('/home/ubuntu' + i.file.url, '/home/ubuntu/media/img/sujeto' + str(sn) + "/imagenes")
-    anonimizador.dicom_anonymizer("/home/ubuntu/media/img/sujeto" + str(sn) + "/imagenes")
-    zip_name = "/home/ubuntu/media/img/sujeto" + str(sn) + "/" + str(sn)
-    carpeta = "/home/ubuntu/media/img/sujeto" + str(sn) + "/imagenes"
-    shutil.make_archive(zip_name, 'zip', carpeta)
-    i.file = "/img/sujeto" + str(sn) + "/" + str(sn) + ".zip"
-    i.anonimo = 1
-    i.save()
+    if sn[0]=='c':
+        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/controles/' + sn[1:] + "/imagenes")
+        anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes")
+        zip_name = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/" + sn[1:]
+        carpeta = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes"
+        shutil.make_archive(zip_name, 'zip', carpeta)
+        i.file = "/controles/" + sn[1:] + "/" + sn[1:] + ".zip"
+        i.anonimo = 1
+        i.save()
+        c = Control.objects.get(numero=sn[1:])
+        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        f.write("-Anonimizado\n")
+        f.close()
+    else:
+        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/img/sujeto' + str(sn) + "/imagenes")
+        anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes")
+        zip_name = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/" + str(sn)
+        carpeta = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes"
+        shutil.make_archive(zip_name, 'zip', carpeta)
+        i.file = "/img/sujeto" + str(sn) + "/" + str(sn) + ".zip"
+        i.anonimo = 1
+        i.save()
+        c=Candidato.objects.get(sujeto_numero=sn)
+        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        f.write("-Anonimizado\n")
+        f.close()
     return "Completo"
 

@@ -1,10 +1,13 @@
 import datetime
+import os
 
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
-from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento
+from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
+    Control
 from programas import anonimizador
 
 def error(request):
@@ -133,6 +136,32 @@ def crearseguimiento(request, pk):
             return redirect("/paciente/formularios/"+str(c.pk))
         else:
             return redirect("/paciente/seguimiento/editar/" + str(vacio.pk))
+
+def crearcontrol(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        n=len(Control.objects.all())
+        if n==0:
+            try:
+                os.mkdir(settings.MEDIA_ROOT+"/controles")
+            except:
+                ""
+            c=Control.objects.create(numero=1)
+            os.mkdir(settings.MEDIA_ROOT+"/controles/1")
+        else:
+            flag=False
+            i=2
+            while flag==False:
+                try:
+                    c=Control.objects.create(numero=i)
+                    flag=True
+                except:
+                    ""
+                i=i+1
+            os.mkdir(settings.MEDIA_ROOT+"/controles/"+str(c.numero))
+        return redirect("/paciente/controles/"+str(c.pk))
+
 
 
 

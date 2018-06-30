@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Listado de Controles {% endblock %}
+{% block content %}
+<h1>Sujetos Controles</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>&nbsp;&nbsp;&nbsp;Id</th>
+            {% if user.groups.all.0.name != 'Consultor' %}
+            <th>Acciones</th>
+            {% endif %}
+
+        </tr>
+    </thead>
+    <tbody>
+        {% if object_list %}
+        {% for control in object_list %}
+        <tr>
+            <td><form><button class="btn btn-link enabled" formaction="{% url 'control' control.pk %}" title="Ver información">{{control.numero|stringformat:"04d"}}</button></form></td>
+
+            {% if user.groups.all.0.name != 'Consultor' %}
+            <td>
+                <form>
+                {% if control.get_img and control.get_img.anonimo == 1 %}
+                  <button class="btn btn-success"  formaction="{{ control.get_img.file.url }}" title="Descargar">
+                  <i class="glyphicon glyphicon-download"></i>
+                  </button>
+                      {% endif %}
+                {% if user.groups.all.0.name == 'Administrador' %}
+
+                  <button class="btn btn-danger"  formaction="{% url 'control_eliminar' control.pk%}" title="Eliminar">
+                  <i class="glyphicon glyphicon-trash"></i>
+
+                  </button>
+                  </form>
+                  {% endif %}
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor%}
+
+        {% else %}
+        <h1>No hay registros de Controles</h1>
+
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

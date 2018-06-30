@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Información {% endblock %}
+
+{% block content %}
+<h1>Sujeto Control # : {{ object.numero|stringformat:"04d" }}</h1>
+<ul class="nav nav-tabs">
+  <li class="nav-item active">
+    <a class="nav-link active " data-toggle="tab" href="#home">Información</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link "  data-toggle="tab"   href="#imagen">Imagen</a>
+  </li>
+
+</ul>
+<div id="myTabContent" class="tab-content" >
+<div class="tab-pane active"  id="home" >
+
+</div>
+
+
+<div class="tab-pane"  id="imagen" >
+    <input id="sn" value="c{{object.numero}}" hidden>
+
+<iframe src="{% url 'upload-new' %}"
+            marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="no" border="0"
+            frameborder="0" width="800" height="400">
+            </iframe>
+
+  </div>
+</div>
+
+{% endblock%}
