@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source /home/ubuntu/.virtualenvs/ambiente/bin/activate
+source /home/colciencias/.virtualenvs/trabajo/bin/activate
 
 #exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000 
-cd /home/ubuntu/SanJose
+cd /home/colciencias/SanJose
 celery worker -A SanJose --loglevel=INFO

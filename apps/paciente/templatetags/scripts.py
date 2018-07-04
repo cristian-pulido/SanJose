@@ -71,18 +71,18 @@ def creargrupos():
 
     try:
         #permisos
-        p1 = Permission.objects.get(name="Can Add picture")
-        p2 = Permission.objects.get(name="Can Change picture")
-        p3 = Permission.objects.get(name="Can Delete picture")
-        p4 = Permission.objects.get(name="Can Add candidato")
-        p5 = Permission.objects.get(name="Can Change candidato")
-        p6 = Permission.objects.get(name="Can Delete candidato")
-        p7 = Permission.objects.get(name="Can Add medico")
-        p8 = Permission.objects.get(name="Can Change medico")
-        p9 = Permission.objects.get(name="Can Delete medico")
-        p10 = Permission.objects.get(name="Can Add candidato")
-        p11 = Permission.objects.get(name="Can Change candidato")
-        p12 = Permission.objects.get(name="Can Delete candidato")
+        p1 = Permission.objects.get(name="Can add picture")
+        p2 = Permission.objects.get(name="Can change picture")
+        p3 = Permission.objects.get(name="Can delete picture")
+        p4 = Permission.objects.get(name="Can add candidato")
+        p5 = Permission.objects.get(name="Can change candidato")
+        p6 = Permission.objects.get(name="Can delete candidato")
+        p7 = Permission.objects.get(name="Can add medico")
+        p8 = Permission.objects.get(name="Can change medico")
+        p9 = Permission.objects.get(name="Can delete medico")
+        p10 = Permission.objects.get(name="Can add candidato")
+        p11 = Permission.objects.get(name="Can change candidato")
+        p12 = Permission.objects.get(name="Can delete candidato")
 
         ## creacion grupos
         invitado = Group.objects.create(name='Invitado')

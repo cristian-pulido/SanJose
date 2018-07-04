@@ -12,7 +12,7 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment
 
-source /home/ubuntu/.virtualenvs/ambiente/bin/activate
+source /home/colciencias/.virtualenvs/trabajo/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 
@@ -25,6 +25,7 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 # Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
 
 #exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000 
-cd /home/ubuntu/SanJose
-./manage.py runserver 0.0.0.0:8000
+cd /home/colciencias/SanJose
+exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000
+#./manage.py runserver 0.0.0.0:8000
 

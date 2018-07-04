@@ -25,7 +25,7 @@ SECRET_KEY = '-lfe9w8o-55bx)ahc)mf70chus@%$n4*s37yn!c&k$m#vrplez'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-54-94-226-161.sa-east-1.compute.amazonaws.com', '127.0.0.1']
+ALLOWED_HOSTS = ['172.17.29.27', '127.0.0.1','ec2-54-94-226-161.sa-east-1.compute.amazonaws.com']
 
 
 # Application definition
@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'SanJose.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'clinica',
-        'USER': 'root',
-        'PASSWORD': '1234',
+        'NAME': 'colciencias',
+	'USER': 'colciencias',
+	'PASSWORD': 'colciencias',
     }
 }
 
@@ -126,14 +126,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'/home/ubuntu/static')
+STATIC_ROOT = os.path.join(BASE_DIR,'/home/colciencias/static')
 STATICFILES_DIRS = [
     'SanJose/static',
     os.path.join(BASE_DIR, 'static'),
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/ubuntu/media'
+MEDIA_ROOT = '/home/colciencias/media'
 
 
 AUTHENTICATION_BACKENDS = (
