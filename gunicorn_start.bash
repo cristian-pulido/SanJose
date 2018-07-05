@@ -1,10 +1,10 @@
 #!/bin/bash
 
 NAME="SanJose"                                   # Name of the application
-DJANGODIR=/home/ubuntu/SanJose               # Django project directory
-SOCKFILE=/home/ubuntu/django_env/run/gunicorn.sock  # we will communicte using this unix socket
-USER=ubuntu                                         # the user to run as
-GROUP=ubuntu                                        # the group to run as
+DJANGODIR=/home/colciencias/SanJose               # Django project directory
+SOCKFILE=/home/colciencias/django_env/run/gunicorn.sock  # we will communicte using this unix socket
+USER=colciencias                                         # the user to run as
+GROUP=colciencias                                        # the group to run as
 NUM_WORKERS=3                                       # how many worker processes should Gunicorn spawn
 DJANGO_SETTINGS_MODULE=SanJose.settings      # which settings file should Django use
 DJANGO_WSGI_MODULE=SanJose.wsgi              # WSGI module name

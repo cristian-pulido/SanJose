@@ -96,15 +96,13 @@
                           <label  for="id_transportable_1">
                             <input type="radio" name="transportable" value="SI"  required id="id_transportable_1"  {% if object.transportable == 'SI' %} checked="" {% endif %} />SI
                           </label>
-                          <label  for="id_transportable_2">
-                            <input type="radio" name="transportable" value="NO" required id="id_transportable_2"  {% if object.transportable == 'NO' %} checked="" {% endif %}/>NO
-                          </label>
+
                           {{forms.transportable.errors}}
 
                   </td >
                   <th style="vertical-align:middle;" ><label >{{form.hora_inicio.label}}</label></th>
                   <td style="vertical-align:middle;" >{{ form.hora_inicio.errors }}
-                      <input type="time" step = "60" name="hora_inicio" value="{{object.hora_inicio}}" class="form-control"  id="id_hora_inicio" />
+                      <input type="time"  required step = "60" name="hora_inicio" value="{{object.hora_inicio}}" class="form-control"  id="id_hora_inicio" />
                   </td>
                 </tr>
                 <tr>
@@ -624,7 +622,7 @@
             <tr>
                 <th>{{form.hora_llegada.label}}</th>
                 <td>{{form.hora_llegada.errors}}
-                    <input type="time" step = "60" name="hora_llegada" value="{{object.hora_llegada}}" class="form-control"  id="id_hora_llegada" />
+                    <input type="time" step = "60" name="hora_llegada" value="{{object.hora_llegada}}" class="form-control"  id="id_hora_llegada" required/>
                     <script>
                         document.getElementsByName("hora_inicio")[0].addEventListener('change', hora);
                         function hora(){

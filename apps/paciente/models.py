@@ -115,6 +115,8 @@ class Candidato(models.Model):
 
     def get_seguimiento(self):
         return self.seguimiento_set.all()
+    def get_radio(self):
+        return self.cambioradiologia_set.all()
     def get_neuro(self):
         return self.neurologia_set.all()
     def get_img(self):
@@ -385,7 +387,6 @@ class Neurologia(models.Model):
     respiracion = models.CharField(max_length=100, choices=numero_CHOICES, null=True)
     total2=models.CharField(max_length=20,null=True,default=0)
     estadoconciencia=models.CharField(choices=conciencia_CHOICES,max_length=30,null=True)
-    segunda=models.CharField(max_length=20, choices=seleccion_CHOICES, null=True)
     epileptico=models.CharField(max_length=20, choices=seleccion_CHOICES, null=True)
     fechaeeg=models.DateField(null=True,blank=True)
     resultadoeeg=models.CharField(max_length=50, null=True,blank=True,default="")
@@ -709,5 +710,13 @@ class Control(models.Model):
             i.delete()
         except:
             ""
+class Cambioradiologia(models.Model):
+
+    sujeto=models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
+    fecha=models.DateTimeField(auto_now_add=True)
+    razon=models.CharField(max_length=20,null=True)
+
+    def __str__(self):
+        return '{}'.format(self.sujeto.sujeto_numero)
 
 

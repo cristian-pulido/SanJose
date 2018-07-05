@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
-    Control
+    Control, Cambioradiologia
 from programas import anonimizador
 
 def error(request):
@@ -60,17 +60,13 @@ def crearneurologia(request, pk):
         if len(neuro) == 0:
             n = Neurologia.objects.create(candidato=c)
             return redirect("/paciente/neurologia/editar/" + str(n.pk))
-        elif len(neuro) == 1 and neuro[0].fechaneuro == None :
-            n=neuro[0]
-            return redirect("/paciente/neurologia/editar/" + str(n.pk))
-        elif len(neuro) == 1 and neuro[0].fechaneuro != None and neuro[0].segunda != 'NO':
-            n = Neurologia.objects.create(candidato=c)
-            return redirect("/paciente/neurologia/editar/" + str(n.pk))
-        elif len(neuro) == 2 and neuro[1].fechaneuro == None :
-            n = neuro[1]
-            return redirect("/paciente/neurologia/editar/" + str(n.pk))
         else:
-            return redirect('login')
+            n=c.neurologia_set.all().last()
+            if n.fechaneuro == None:
+                return redirect("/paciente/neurologia/editar/" + str(n.pk))
+            else:
+                n=Neurologia.objects.create(candidato=c)
+                return redirect("/paciente/neurologia/editar/" + str(n.pk))
 
 
 def crearbold(request, pk):
@@ -161,6 +157,14 @@ def crearcontrol(request):
                 i=i+1
             os.mkdir(settings.MEDIA_ROOT+"/controles/"+str(c.numero))
         return redirect("/paciente/controles/"+str(c.pk))
+
+def crearradiologiaf(request, pk, razon):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        Cambioradiologia.objects.create(sujeto=c, razon=razon)
+        return redirect("/paciente/formularios/" + str(c.pk))
 
 
 

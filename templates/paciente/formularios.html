@@ -323,14 +323,53 @@
     {% endif %}
   </div>
    <div class="tab-pane" id="radiologia">
+
+
      <form>
+       {% if object.get_radio %}
+
+       <table class="table table-hover">
+         <thead>
+         <tr>
+           <th>Fecha</th>
+           <th>Motivo no transportable</th>
+         </tr>
+         </thead>
+         <tbody>
+         {% for rf in object.get_radio %}
+         <tr>
+         <td>{{rf.fecha}}</td> <td>{{rf.razon}}</td>
+         </tr>
+       {% endfor %}
+         </tbody>
+       </table>
+
+       {% endif %}
+
+
      {% if not object.radiologia or object.radiologia.fecha_procedimiento == None %}
       <p class="text-danger">No se encontro información de  Traslado a Radiología del Sujeto</p>
      {% if user.groups.all.0.name != 'Consultor' %}
+      <label>Transportable   &nbsp;</label><a class="btn btn-primary" onclick="con()" >No</a>
+      <script >
+      function con() {
+
+          var a = prompt("Motivo:", "");
+
+          if (a == null || a == "") {
+
+          } else {
+              var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
+              window.location=url_mask;
+
+          }
+      }
+
+      </script>
       {% if object.radiologia %}
-      <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Añadir</button>
+      <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Si</button>
       {% else %}
-      <button class="btn btn-primary" formaction="{% url 'crear_radiologia' object.pk%}">Añadir</button>
+      <button class="btn btn-primary" formaction="{% url 'crear_radiologia' object.pk%}">Si</button>
       {% endif %}
       {% endif %}
     {% endif %}
@@ -755,17 +794,28 @@
       <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir</button>
       {% endif %}
       </form>
-      
 
-      {% if object.get_neuro|length > 0 and object.get_neuro.0.fechaneuro != None %}
-      <table class="table table-hover">
+      {% if object.get_neuro %}
+
+  <div class="panel-group">
+    <div class="panel panel-default">
+      {% for neuro in object.get_neuro %}
+      {% if neuro.fechaneuro != None %}
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#expand{{ forloop.counter0 }}"><b>{{neuro.fechaneuro}}</b></a>
+        </h4>
+      </div>
+      <div id="expand{{ forloop.counter0 }}" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table class="table table-hover">
 
           <tbody>
             <tr class="table-active">
               <th>Fecha </th>
-              <td>{{ object.get_neuro.0.fechaneuro }} </td>
+              <td>{{ neuro.fechaneuro }} </td>
               <th>Neurólogo</th>
-              <td>{{ object.get_neuro.0.neurologo }} </td>
+              <td>{{ neuro.neurologo }} </td>
             </tr>
             <tr>
               <td colspan="4" style="color:blue">COMA RECOVERY SCALE-REVISED</td>
@@ -773,24 +823,24 @@
           <tr>
             <th>Escala de función auditiva</th>
             <td>
-              ({{object.get_neuro.0.auditiva}})
-              {% if object.get_neuro.0.auditiva == '4' %} Movimiento consistente a la orden
-              {% elif object.get_neuro.0.auditiva == '3' %} Reproduce movimiento a la orden
-              {% elif object.get_neuro.0.auditiva == '2' %} Localiza el sonido
-              {% elif object.get_neuro.0.auditiva == '1' %} Percibe pero no localiza (Sobresalto auditivo)
-              {% elif object.get_neuro.0.auditiva == '0' %} No hay respuesta
+              ({{neuro.auditiva}})
+              {% if neuro.auditiva == '4' %} Movimiento consistente a la orden
+              {% elif neuro.auditiva == '3' %} Reproduce movimiento a la orden
+              {% elif neuro.auditiva == '2' %} Localiza el sonido
+              {% elif neuro.auditiva == '1' %} Percibe pero no localiza (Sobresalto auditivo)
+              {% elif neuro.auditiva == '0' %} No hay respuesta
 
               {% endif %}
             </td>
             <th>Escala de función visual</th>
             <td>
-              ({{object.get_neuro.0.visual}})
-              {% if object.get_neuro.0.visual == '5' %} Reconoce el objeto
-              {% elif object.get_neuro.0.visual == '4' %} Localiza el objeto: alcanza
-              {% elif object.get_neuro.0.visual == '3' %} Seguimiento visual
-              {% elif object.get_neuro.0.visual == '2' %} Fijación visual
-              {% elif object.get_neuro.0.visual == '1' %} Sobresalto visual
-              {% elif object.get_neuro.0.visual == '0' %} No hay respuesta
+              ({{neuro.visual}})
+              {% if neuro.visual == '5' %} Reconoce el objeto
+              {% elif neuro.visual == '4' %} Localiza el objeto: alcanza
+              {% elif neuro.visual == '3' %} Seguimiento visual
+              {% elif neuro.visual == '2' %} Fijación visual
+              {% elif neuro.visual == '1' %} Sobresalto visual
+              {% elif neuro.visual == '0' %} No hay respuesta
 
               {% endif %}
             </td>
@@ -798,24 +848,24 @@
           <tr>
             <th>Escala de función motora</th>
             <td>
-              ({{object.get_neuro.0.motora}})
-              {% if object.get_neuro.0.motora == '6' %} Uso funcional del objeto
-              {% elif object.get_neuro.0.motora == '5' %} Respuesta motora automática
-              {% elif object.get_neuro.0.motora == '4' %} Manipulación de objetos
-              {% elif object.get_neuro.0.motora == '3' %} Localización de estímulos dolorosos
-              {% elif object.get_neuro.0.motora == '2' %} Retirada flexora
-              {% elif object.get_neuro.0.motora == '1' %} Postura anormal
-              {% elif object.get_neuro.0.motora == '0' %} No hay respuesta/flacidez
+              ({{neuro.motora}})
+              {% if neuro.motora == '6' %} Uso funcional del objeto
+              {% elif neuro.motora == '5' %} Respuesta motora automática
+              {% elif neuro.motora == '4' %} Manipulación de objetos
+              {% elif neuro.motora == '3' %} Localización de estímulos dolorosos
+              {% elif neuro.motora == '2' %} Retirada flexora
+              {% elif neuro.motora == '1' %} Postura anormal
+              {% elif neuro.motora == '0' %} No hay respuesta/flacidez
 
               {% endif %}
             </td>
             <th>Escala de función oromotora/verbal</th>
             <td>
-              ({{object.get_neuro.0.verbal}})
-              {% if object.get_neuro.0.verbal == '3' %} Verbalización entendible
-              {% elif object.get_neuro.0.verbal == '2' %} Movimientos orales/vocalizaciones
-              {% elif object.get_neuro.0.verbal == '1' %} Movimientos orales reflejos
-              {% elif object.get_neuro.0.verbal == '0' %} No hay respuesta
+              ({{neuro.verbal}})
+              {% if neuro.verbal == '3' %} Verbalización entendible
+              {% elif neuro.verbal == '2' %} Movimientos orales/vocalizaciones
+              {% elif neuro.verbal == '1' %} Movimientos orales reflejos
+              {% elif neuro.verbal == '0' %} No hay respuesta
 
               {% endif %}
             </td>
@@ -823,27 +873,27 @@
           <tr>
             <th>Escala de comunicación</th>
             <td>
-              ({{object.get_neuro.0.comunicacion}})
-              {% if object.get_neuro.0.comunicacion == '2' %} Funcional: Adecuada
-              {% elif object.get_neuro.0.comunicacion == '1' %} No funcional: Intencional
-              {% elif object.get_neuro.0.comunicacion == '0' %} No hay respuesta
+              ({{neuro.comunicacion}})
+              {% if neuro.comunicacion == '2' %} Funcional: Adecuada
+              {% elif neuro.comunicacion == '1' %} No funcional: Intencional
+              {% elif neuro.comunicacion == '0' %} No hay respuesta
 
               {% endif %}
             </td>
             <th>Escala de nivel de alerta</th>
             <td>
-              ({{object.get_neuro.0.alerta}})
-              {% if object.get_neuro.0.alerta == '3' %} Alerta y atento
-              {% elif object.get_neuro.0.alerta == '2' %} Apertura ocular espontánea
-              {% elif object.get_neuro.0.alerta == '1' %} Apertura ocular con estimulación
-              {% elif object.get_neuro.0.alerta == '0' %} No hay respuesta
+              ({{neuro.alerta}})
+              {% if neuro.alerta == '3' %} Alerta y atento
+              {% elif neuro.alerta == '2' %} Apertura ocular espontánea
+              {% elif neuro.alerta == '1' %} Apertura ocular con estimulación
+              {% elif neuro.alerta == '0' %} No hay respuesta
 
               {% endif %}
             </td>
           </tr>
           <tr>
             <th>Total</th>
-            <td colspan="3">{{ object.get_neuro.0.total1 }}</td>
+            <td colspan="3">{{ neuro.total1 }}</td>
           </tr>
 
           <tr>
@@ -852,53 +902,53 @@
           <tr>
             <th>Apertura ocular</th>
             <td>
-              ({{object.get_neuro.0.aperturaocular}})
-              {% if object.get_neuro.0.aperturaocular == '4' %} Dirige la mirada en respuesta a órdenes
-              {% elif object.get_neuro.0.aperturaocular == '3' %} Espontánea pero no dirige la mirada
-              {% elif object.get_neuro.0.aperturaocular == '2' %} Apertura a estímulos sonoros intensos
-              {% elif object.get_neuro.0.aperturaocular == '1' %} Apertura a estímulos nociceptivos
-              {% elif object.get_neuro.0.aperturaocular == '0' %} Ojos cerrados al dolor
+              ({{neuro.aperturaocular}})
+              {% if neuro.aperturaocular == '4' %} Dirige la mirada en respuesta a órdenes
+              {% elif neuro.aperturaocular == '3' %} Espontánea pero no dirige la mirada
+              {% elif neuro.aperturaocular == '2' %} Apertura a estímulos sonoros intensos
+              {% elif neuro.aperturaocular == '1' %} Apertura a estímulos nociceptivos
+              {% elif neuro.aperturaocular == '0' %} Ojos cerrados al dolor
               {% endif %}
             </td>
             <th>Respuesta Motora</th>
             <td>
-              ({{object.get_neuro.0.respuestamotora}})
-              {% if object.get_neuro.0.respuestamotora == '4' %} Obedece órdenes
-              {% elif object.get_neuro.0.respuestamotora == '3' %} Localiza estímulos dolorosos
-              {% elif object.get_neuro.0.respuestamotora == '2' %} Respuesta flexora al dolor en MMSS (Decorticación y retirada)
-              {% elif object.get_neuro.0.respuestamotora == '1' %} Respuesta extensora al dolor (Descerebración)
-              {% elif object.get_neuro.0.respuestamotora == '0' %} Ninguna o Estado mioclónico generalizado
+              ({{neuro.respuestamotora}})
+              {% if neuro.respuestamotora == '4' %} Obedece órdenes
+              {% elif neuro.respuestamotora == '3' %} Localiza estímulos dolorosos
+              {% elif neuro.respuestamotora == '2' %} Respuesta flexora al dolor en MMSS (Decorticación y retirada)
+              {% elif neuro.respuestamotora == '1' %} Respuesta extensora al dolor (Descerebración)
+              {% elif neuro.respuestamotora == '0' %} Ninguna o Estado mioclónico generalizado
               {% endif %}
             </td>
           </tr>
           <tr>
             <th>Reflejos del Tronco</th>
             <td>
-              ({{object.get_neuro.0.reflejos}})
-              {% if object.get_neuro.0.reflejos == '4' %} Ambos reflejos corneales y fotomotores presentes
-              {% elif object.get_neuro.0.reflejos == '3' %} Reflejo motor ausente unilateral
-              {% elif object.get_neuro.0.reflejos == '2' %} Reflejos corneales <b>o</b> fotomotores ausentes
-              {% elif object.get_neuro.0.reflejos == '1' %} Reflejos corneales <b>y</b> fotomotores ausentes
-              {% elif object.get_neuro.0.reflejos == '0' %} Reflejos corneales, fotomotores y tusígeno ausentes
+              ({{neuro.reflejos}})
+              {% if neuro.reflejos == '4' %} Ambos reflejos corneales y fotomotores presentes
+              {% elif neuro.reflejos == '3' %} Reflejo motor ausente unilateral
+              {% elif neuro.reflejos == '2' %} Reflejos corneales <b>o</b> fotomotores ausentes
+              {% elif neuro.reflejos == '1' %} Reflejos corneales <b>y</b> fotomotores ausentes
+              {% elif neuro.reflejos == '0' %} Reflejos corneales, fotomotores y tusígeno ausentes
               {% endif %}
             </td>
             <th>Respiración</th>
             <td>
-              ({{object.get_neuro.0.respiracion}})
-              {% if object.get_neuro.0.respiracion == '4' %} No intubado, respiración rítmica
-              {% elif object.get_neuro.0.respiracion == '3' %} No intubado, respiración de Cheyene- Stokes
-              {% elif object.get_neuro.0.respiracion == '2' %} No intubado, respiración irregular
-              {% elif object.get_neuro.0.respiracion == '1' %} Intubado, respira por encima de la frecuencia del respirador
-              {% elif object.get_neuro.0.respiracion == '0' %} Intubado, respira a la frecuencia del respirador o apnea
+              ({{neuro.respiracion}})
+              {% if neuro.respiracion == '4' %} No intubado, respiración rítmica
+              {% elif neuro.respiracion == '3' %} No intubado, respiración de Cheyene- Stokes
+              {% elif neuro.respiracion == '2' %} No intubado, respiración irregular
+              {% elif neuro.respiracion == '1' %} Intubado, respira por encima de la frecuencia del respirador
+              {% elif neuro.respiracion == '0' %} Intubado, respira a la frecuencia del respirador o apnea
               {% endif %}
             </td>
           <tr>
               <th>Total</th>
-              <td>{{object.get_neuro.0.total2}}</td>
+              <td>{{neuro.total2}}</td>
               <th>Resultado</th>
               <td>
                 <script>
-                  var x="{{object.get_neuro.0.total2}}";
+                  var x="{{neuro.total2}}";
                   x=parseInt(x);
                   if ( x < 8 ){
                   document.write("Severa injuria cerebral");
@@ -915,206 +965,47 @@
               </td>
             </tr>
           <tr>
-            <th>Dx Estado de conciencia</th>
-            <td colspan="3">{{object.get_neuro.0.estadoconciencia}}</td>
+            <th colspan="2">Dx Estado de conciencia</th>
+            <td colspan="2">{{neuro.estadoconciencia}}</td>
           </tr>
           <tr>
-            <th>
-              Requiere segunda valoración por neurología
-            </th>
-            <td>{{object.get_neuro.0.segunda}}</td>
-            <th>Sospecha de estatus epiléptico no convulsivo</th>
-            <td>{{object.get_neuro.0.epileptico}}</td>
+            <th colspan="2">Sospecha de estatus epiléptico no convulsivo</th>
+            <td colspan="2">{{neuro.epileptico}}</td>
           </tr>
-            {% if object.get_neuro.0.epileptico == "SI" %}
+            {% if neuro.epileptico == "SI" %}
           <tr>
             <th>Toma EEG</th>
-            <td>{{object.get_neuro.0.fechaeeg}}</td>
+            <td>{{neuro.fechaeeg}}</td>
             <th>Resultado EEG</th>
-            <td>{{object.get_neuro.0.resultadoeeg}}</td>
+            <td>{{neuro.resultadoeeg}}</td>
           </tr>
           {% endif %}
 
-          
-          </tbody>
-        </table>
-      {% endif %}
-  
-      {% if object.get_neuro|length == 2 and object.get_neuro.1.fechaneuro != None %}
-      <legend>Segunda Valoración</legend>
-      <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha </th>
-              <td>{{ object.get_neuro.1.fechaneuro }} </td>
-              <th>Neurólogo</th>
-              <td>{{ object.get_neuro.1.neurologo }} </td>
-            </tr>
-            <tr>
-              <td colspan="4" style="color:blue">COMA RECOVERY SCALE-REVISED</td>
-            </tr>
-          <tr>
-            <th>Escala de función auditiva</th>
-            <td>
-              ({{object.get_neuro.1.auditiva}})
-              {% if object.get_neuro.1.auditiva == '4' %} Movimiento consistente a la orden
-              {% elif object.get_neuro.1.auditiva == '3' %} Reproduce movimiento a la orden
-              {% elif object.get_neuro.1.auditiva == '2' %} Localiza el sonido
-              {% elif object.get_neuro.1.auditiva == '1' %} Percibe pero no localiza (Sobresalto auditivo)
-              {% elif object.get_neuro.1.auditiva == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-            <th>Escala de función visual</th>
-            <td>
-              ({{object.get_neuro.1.visual}})
-              {% if object.get_neuro.1.visual == '5' %} Reconoce el objeto
-              {% elif object.get_neuro.1.visual == '4' %} Localiza el objeto: alcanza
-              {% elif object.get_neuro.1.visual == '3' %} Seguimiento visual
-              {% elif object.get_neuro.1.visual == '2' %} Fijación visual
-              {% elif object.get_neuro.1.visual == '1' %} Sobresalto visual
-              {% elif object.get_neuro.1.visual == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Escala de función motora</th>
-            <td>
-              ({{object.get_neuro.1.motora}})
-              {% if object.get_neuro.1.motora == '6' %} Uso funcional del objeto
-              {% elif object.get_neuro.1.motora == '5' %} Respuesta motora automática
-              {% elif object.get_neuro.1.motora == '4' %} Manipulación de objetos
-              {% elif object.get_neuro.1.motora == '3' %} Localización de estímulos dolorosos
-              {% elif object.get_neuro.1.motora == '2' %} Retirada flexora
-              {% elif object.get_neuro.1.motora == '1' %} Postura anormal
-              {% elif object.get_neuro.1.motora == '0' %} No hay respuesta/flacidez
-
-              {% endif %}
-            </td>
-            <th>Escala de función oromotora/verbal</th>
-            <td>
-              ({{object.get_neuro.1.verbal}})
-              {% if object.get_neuro.1.verbal == '3' %} Verbalización entendible
-              {% elif object.get_neuro.1.verbal == '2' %} Movimientos orales/vocalizaciones
-              {% elif object.get_neuro.1.verbal == '1' %} Movimientos orales reflejos
-              {% elif object.get_neuro.1.verbal == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Escala de comunicación</th>
-            <td>
-              ({{object.get_neuro.1.comunicacion}})
-              {% if object.get_neuro.1.comunicacion == '2' %} Funcional: Adecuada
-              {% elif object.get_neuro.1.comunicacion == '1' %} No funcional: Intencional
-              {% elif object.get_neuro.1.comunicacion == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-            <th>Escala de nivel de alerta</th>
-            <td>
-              ({{object.get_neuro.1.alerta}})
-              {% if object.get_neuro.1.alerta == '3' %} Alerta y atento
-              {% elif object.get_neuro.1.alerta == '2' %} Apertura ocular espontánea
-              {% elif object.get_neuro.1.alerta == '1' %} Apertura ocular con estimulación
-              {% elif object.get_neuro.1.alerta == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Total</th>
-            <td colspan="3">{{ object.get_neuro.1.total1 }}</td>
-          </tr>
-
-          <tr>
-              <td colspan="4" style="color:blue">Full Outline of UnResponsiveness FOUR</td>
-            </tr>
-          <tr>
-            <th>Apertura ocular</th>
-            <td>
-              ({{object.get_neuro.1.aperturaocular}})
-              {% if object.get_neuro.1.aperturaocular == '4' %} Dirige la mirada en respuesta a órdenes
-              {% elif object.get_neuro.1.aperturaocular == '3' %} Espontánea pero no dirige la mirada
-              {% elif object.get_neuro.1.aperturaocular == '2' %} Apertura a estímulos sonoros intensos
-              {% elif object.get_neuro.1.aperturaocular == '1' %} Apertura a estímulos nociceptivos
-              {% elif object.get_neuro.1.aperturaocular == '0' %} Ojos cerrados al dolor
-              {% endif %}
-            </td>
-            <th>Respuesta Motora</th>
-            <td>
-              ({{object.get_neuro.1.respuestamotora}})
-              {% if object.get_neuro.1.respuestamotora == '4' %} Obedece órdenes
-              {% elif object.get_neuro.1.respuestamotora == '3' %} Localiza estímulos dolorosos
-              {% elif object.get_neuro.1.respuestamotora == '2' %} Respuesta flexora al dolor en MMSS (Decorticación y retirada)
-              {% elif object.get_neuro.1.respuestamotora == '1' %} Respuesta extensora al dolor (Descerebración)
-              {% elif object.get_neuro.1.respuestamotora == '0' %} Ninguna o Estado mioclónico generalizado
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Reflejos del Tronco</th>
-            <td>
-              ({{object.get_neuro.1.reflejos}})
-              {% if object.get_neuro.1.reflejos == '4' %} Ambos reflejos corneales y fotomotores presentes
-              {% elif object.get_neuro.1.reflejos == '3' %} Reflejo motor ausente unilateral
-              {% elif object.get_neuro.1.reflejos == '2' %} Reflejos corneales <b>o</b> fotomotores ausentes
-              {% elif object.get_neuro.1.reflejos == '1' %} Reflejos corneales <b>y</b> fotomotores ausentes
-              {% elif object.get_neuro.1.reflejos == '0' %} Reflejos corneales, fotomotores y tusígeno ausentes
-              {% endif %}
-            </td>
-            <th>Respiración</th>
-            <td>
-              ({{object.get_neuro.1.respiracion}})
-              {% if object.get_neuro.1.respiracion == '4' %} No intubado, respiración rítmica
-              {% elif object.get_neuro.1.respiracion == '3' %} No intubado, respiración de Cheyene- Stokes
-              {% elif object.get_neuro.1.respiracion == '2' %} No intubado, respiración irregular
-              {% elif object.get_neuro.1.respiracion == '1' %} Intubado, respira por encima de la frecuencia del respirador
-              {% elif object.get_neuro.1.respiracion == '0' %} Intubado, respira a la frecuencia del respirador o apnea
-              {% endif %}
-            </td>
-          <tr>
-              <th>Total</th>
-              <td>{{object.get_neuro.1.total2}}</td>
-              <th>Resultado</th>
-              <td>
-                <script>
-                  var x="{{object.get_neuro.1.total2}}";
-                  x=parseInt(x);
-                  if ( x < 8 ){
-                  document.write("Severa injuria cerebral");
-                  }
-                  if ( x > 7 && x < 13 ){
-                  document.write("Moderada injuria cerebral");
-                  }
-                  if ( x > 12 ){
-                  document.write("Leve injuria cerebral");
-                  }
-
-
-                </script>
-              </td>
-            </tr>
-          <tr>
-            <th>Dx Estado de conciencia</th>
-            <td colspan="3">{{object.get_neuro.1.estadoconciencia}}</td>
-          </tr>
 
           </tbody>
         </table>
+
+        </div>
+
+      </div>
+      <br>
+
       {% endif %}
-  
-  
-      {% if object.get_neuro.0.segunda == 'SI' %}
-      {% if object.get_neuro|length == 1 or object.get_neuro.1.fechaneuro == None %}
+      {% endfor%}
+    </div>
+  </div>
+
+      {% endif %}
+      
+
+
+
+
       <form>
-      <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir segunda valoración</button>
+      <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir nueva valoración neurológica</button>
       </form>
-      {% endif %}
-      {% endif %}
+
+
  </div>
 <div class="tab-pane"  id="bold">
   <form>

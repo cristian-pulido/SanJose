@@ -108,6 +108,9 @@ class UciUpdate(UpdateView):
     def get_success_url(self):
         u=self.object
         p=u.candidato
+        if u.glasgowtotal_e != 0 and p.imagen == "":
+            p.inscrito=False
+            p.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 class NeurologiaUpdate(UpdateView):

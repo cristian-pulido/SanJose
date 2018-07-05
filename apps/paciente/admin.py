@@ -2,9 +2,10 @@ from django.contrib import admin
 
 # Register your models here.
 from apps.paciente.models import Candidato, Dprevio, Medico, Apatologicos, Ingreso, Radiologia, Uci, Neurologia, Bold, \
-    Mayor, Informante, Seguimiento, Control
+    Mayor, Informante, Seguimiento, Control, Cambioradiologia
 
 admin.site.register(Candidato)
+admin.site.register(Cambioradiologia)
 admin.site.register(Control)
 admin.site.register(Ingreso)
 admin.site.register(Radiologia)

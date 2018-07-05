@@ -270,15 +270,8 @@
          <div class="col-md-8 col-md-offset-2">
                 <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
                   <div class="form-group">
-                    <div class="custom-control custom-radio">
-                      <input id="id_ci_1" name="ci" required lass="custom-control-input" {% if object.ci == 'ci1' %}  checked="" {% endif %} type="radio" value="ci1">
-                      <label class="custom-control-label" for="id_ci_1">Paciente con episodio de parada cadíaca con reanimación exitosa</label>
-                    </div>
-                      <div><p>ó</p></div>
-                    <div class="custom-control custom-radio">
-                      <input id="id_ci_2" name="ci" required class="custom-control-input" {% if object.ci == 'ci2' %}  checked="" {% endif %} type="radio" value="ci2">
-                      <label class="custom-control-label" for="id_ci_2">Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular</label>
-                    </div>
+                      {{form.ci}}
+
                       <div class="form-group">
                             {{ form.ci3.errors }}
                             {{form.ci3}}

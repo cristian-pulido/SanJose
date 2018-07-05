@@ -105,12 +105,12 @@
                 <tr>
                     <th style="vertical-align:middle;">{{form.fallaorganica.label}}</th>
                     <td style="vertical-align:middle;">
-                        <p><select name="fallaorganica" id="id_fallaorganica" required>
+                        <p><select name="fallaorganica" id="id_fallaorganica" onchange="falla()" required>
 
                         <option value="" >---------</option>
-                        <option onclick="falla('SI')" value="SI"  {% if object.fallaorganica == 'SI' %} selected {% endif %}>SI</option>
+                        <option value="SI"  {% if object.fallaorganica == 'SI' %} selected {% endif %}>SI</option>
 
-                        <option onclick="falla('NO')"  value="NO" {% if object.fallaorganica == 'NO' %} selected {% endif %}>NO</option>
+                        <option value="NO" {% if object.fallaorganica == 'NO' %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.fallaorganica.errors}}
@@ -175,12 +175,12 @@
               <tr>
                   <th style="vertical-align:middle;">{{form.soportevasopresor.label}}</th>
                   <td style="vertical-align:middle;">
-                      <p><select name="soportevasopresor" id="id_soportevasopresor" required>
-                        <option  onclick="soporte('--')" value="" >---------</option>
+                      <p><select name="soportevasopresor" id="id_soportevasopresor" required onchange="soporte()">
+                        <option value="" >---------</option>
 
-                        <option onclick="soporte('SI')" value="SI"  {% if object.soportevasopresor == 'SI' %} selected {% endif %}>SI</option>
+                        <option value="SI"  {% if object.soportevasopresor == 'SI' %} selected {% endif %}>SI</option>
 
-                        <option onclick="soporte('NO')" value="NO" {% if object.soportevasopresor == 'NO' %} selected {% endif %}>NO</option>
+                        <option value="NO" {% if object.soportevasopresor == 'NO' %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.soportevasopresor.errors}}
@@ -557,7 +557,7 @@
         </div>
         <div class="col-md-8 col-md-offset-2" {% if object.fechauci == None %} style="display:none" {% endif%}>
             <br>
-            <label>Evaluación de egreso UCI</label><button onclick="salida()" id="bsalida" type="button"  class="btn btn-secondary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
+            <label>Evaluación de egreso UCI</label>&nbsp;&nbsp;<button onclick="salida()" id="bsalida" type="button"  class="btn btn-secondary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
             <span class="help-block">Diligenciar este espacio únicamente al momento de alta del paciente</span>
 
             <table {% if object.fechaegreso == None %} style="display:none" {% endif %} class="table table-hover" id="tablaegreso">
@@ -799,7 +799,25 @@ function sumar(a,b) {
     if (b == 'verbal') {
     total = total+a+ao1*1+ao2*2+ao3*3+ao4*4+rm1*1+rm2*2+rm3*3+rm4*4+rm5*5+rm6*6;
     }
-
+    if (total > 7 ) {
+    alert("El valor de Glasgow Total de ingreso no puede ser mayor a 7 en sujetos que ya estan en el estudio.");
+    var ao1 =document.getElementById("id_apertura_ocular_1").checked=false ;
+    var ao2 =document.getElementById("id_apertura_ocular_2").checked=false ;
+    var ao3 =document.getElementById("id_apertura_ocular_3").checked=false ;
+    var ao4 =document.getElementById("id_apertura_ocular_4").checked=false ;
+    var rm1 =document.getElementById("id_respuesta_motora_1").checked=false ;
+    var rm2 =document.getElementById("id_respuesta_motora_2").checked=false ;
+    var rm3 =document.getElementById("id_respuesta_motora_3").checked=false ;
+    var rm4 =document.getElementById("id_respuesta_motora_4").checked=false ;
+    var rm5 =document.getElementById("id_respuesta_motora_5").checked=false ;
+    var rm6 =document.getElementById("id_respuesta_motora_6").checked=false ;
+    var rv1 =document.getElementById("id_respuesta_verbal_1").checked=false ;
+    var rv2 =document.getElementById("id_respuesta_verbal_2").checked=false ;
+    var rv3 =document.getElementById("id_respuesta_verbal_3").checked=false ;
+    var rv4 =document.getElementById("id_respuesta_verbal_4").checked=false ;
+    var rv5 =document.getElementById("id_respuesta_verbal_5").checked=false ;
+    total="";
+    }
     document.getElementById("id_glasgowtotal").value = total;
 }
 </script>
@@ -835,18 +853,18 @@ function sumare(a,b) {
 }
 </script>
 
-
-
 <script>
-function falla(a) {
+
+    function falla() {
+    var a=document.getElementById("id_fallaorganica").value;
     var x=document.getElementById("id_fallaorganica_cual");
     var y=document.getElementById("falla");
+
     if (a == 'SI') {
         x.class='form-control';
         x.type='text';
         y.style="visibility:inline";
-    }
-    if (a == 'NO') {
+    }else {
         x.class='form-control';
         x.type='hidden';
         y.style="visibility:hidden";
@@ -854,6 +872,10 @@ function falla(a) {
     }
 }
 
+</script>
+
+
+<script>
 function salida() {
     var x=document.getElementById("bsalida").textContent;
     if (x == "Realizar evaluación") {
@@ -973,7 +995,9 @@ function muerto() {
 
 
 <script>
-function soporte(a) {
+function soporte() {
+    var a=document.getElementById("id_soportevasopresor").value;
+
     var al1=document.getElementById("vaso1");
     var al2=document.getElementById("vaso1si");
     var al3=document.getElementById("vaso1no");
