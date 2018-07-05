@@ -26,6 +26,6 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 
 #exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000 
 cd /home/colciencias/SanJose
-exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000
-#./manage.py runserver 0.0.0.0:8000
+#exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000
+./manage.py runserver 0.0.0.0:8000
 
