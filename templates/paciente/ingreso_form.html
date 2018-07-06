@@ -54,7 +54,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
         window.location="{% url 'paciente_listar' %}";
 </script>
 {% endif %}
-
+{% if user.groups.all.0.name != 'Administrador' and object.fecha_form != None %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
 
 
         <div class="col-md-8 col-md-offset-2">

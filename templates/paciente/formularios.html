@@ -21,10 +21,13 @@
   <li class="nav-item active">
     <a class="nav-link active " data-toggle="tab" href="#home">Demografico</a>
   </li>
-  {% if object.inscrito == True and object.estado > 0 %}
+
+  {% if object.estado > 0 %}
+  {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False%}
   <li class="nav-item" >
     <a class="nav-link "  data-toggle="tab" href="#estudio">Formato ingreso al estudio</a>
   </li>
+
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab" href="#uci">Formato UCI</a>
   </li>
@@ -45,11 +48,12 @@
     <a class="nav-link "  data-toggle="tab" href="#seguimiento">Seguimiento UCI</a>
   </li>
   {% endif %}
-    {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen %}
+    {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen and object.inscrito == True%}
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab"   href="#imagen">Imagen</a>
   </li>
     {% endif %}
+  {% endif %}
   {% endif %}
 </ul>
 <div id="myTabContent" class="tab-content" >
@@ -195,7 +199,7 @@
     <form>
     {% if not object.ingreso  or object.ingreso.fecha_form == None %}
       <p class="text-danger">No se encontro información de Ingreso del Sujeto</p>
-      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
       {% if object.ingreso %}
       <button class="btn btn-primary" formaction="{% url 'ingreso_editar' object.ingreso.pk %}">Añadir</button>
       {% else %}
@@ -315,7 +319,7 @@
             </tr>
           </tbody>
         </table>
-      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if user.groups.all.0.name == 'Administrador' and object.inscrito == True %}
     <form>
       <button class="btn btn-primary" formaction="{% url 'ingreso_editar' object.ingreso.pk%}">Editar</button>
       </form>
@@ -349,7 +353,7 @@
 
      {% if not object.radiologia or object.radiologia.fecha_procedimiento == None %}
       <p class="text-danger">No se encontro información de  Traslado a Radiología del Sujeto</p>
-     {% if user.groups.all.0.name != 'Consultor' %}
+     {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
       <label>Transportable   &nbsp;</label><a class="btn btn-primary" onclick="con()" >No</a>
       <script >
       function con() {
@@ -582,7 +586,7 @@
 
           </tbody>
         </table>
-     {% if user.groups.all.0.name != 'Consultor' %}
+     {% if user.groups.all.0.name == 'Administrador' and object.inscrito == True %}
      <form>
       <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Editar</button>
      </form>
@@ -592,7 +596,7 @@
 <div class="tab-pane"  id="uci">
       {% if not object.uci %}
       <p class="text-danger">No se encontro información de  Uci</p>
-        {% if user.groups.all.0.name != 'Consultor' %}
+        {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
           <form>
           <button class="btn btn-primary" formaction="{% url 'crear_uci' object.pk %}">Añadir</button>
           </form>
@@ -759,7 +763,7 @@
 
           </table>
         {% endif %}
-        {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' %}
+        {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
 
         <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Realizar Evaluación de Egreso</a>
 
@@ -768,7 +772,7 @@
 
       {% else %}
       <p class="text-danger">No se encontro información de  Uci</p>
-        {% if user.groups.all.0.name != 'Consultor' %}
+        {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
           <form>
           <button class="btn btn-primary" formaction="{% url 'uci_editar' object.uci.pk %}">Añadir</button>
           </form>
@@ -791,7 +795,9 @@
       <form>
       {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %}
       <p class="text-danger">No se encontro información Neurológica del Sujeto</p>
+      {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
       <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir</button>
+      {% endif %}
       {% endif %}
       </form>
 
@@ -801,13 +807,23 @@
     <div class="panel panel-default">
       {% for neuro in object.get_neuro %}
       {% if neuro.fechaneuro != None %}
+
       <div class="panel-heading">
         <h4 class="panel-title">
           <a data-toggle="collapse" href="#expand{{ forloop.counter0 }}"><b>{{neuro.fechaneuro}}</b></a>
-        </h4>
+          {% if neuro.epileptico == "SI" and neuro.fechaeeg == None %}
+          <p style="color:red;">Falta información EEG</p>
+          {% endif%}
+
       </div>
+      </form>
       <div id="expand{{ forloop.counter0 }}" class="panel-collapse collapse">
         <div class="panel-body">
+          {% if neuro.epileptico == "SI" and neuro.fechaeeg == None and user.groups.all.0.name == 'Administrador'%}
+
+          <a type="button" class="btn btn-link" onclick="location.href = '{% url 'neurologia_editar' neuro.pk %}'">Rellenar información EEG</a>
+
+            {% endif%}
           <table class="table table-hover">
 
           <tbody>
@@ -972,7 +988,8 @@
             <th colspan="2">Sospecha de estatus epiléptico no convulsivo</th>
             <td colspan="2">{{neuro.epileptico}}</td>
           </tr>
-            {% if neuro.epileptico == "SI" %}
+
+            {% if neuro.epileptico == "SI" and neuro.fechaeeg != None %}
           <tr>
             <th>Toma EEG</th>
             <td>{{neuro.fechaeeg}}</td>
@@ -996,10 +1013,11 @@
   </div>
 
       
-      
+      {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True and object.get_neuro.0.fechaneuro != None %}
       <form>
       <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir nueva valoración neurológica</button>
       </form>
+      {% endif %}
 	{% endif %}
 
  </div>
@@ -1007,7 +1025,7 @@
   <form>
       {% if not object.bold or object.bold.fechaimg == None %}
       <p class="text-danger">No se encontro información del protocolo</p>
-      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
       {% if object.bold %}
       <button class="btn btn-primary" formaction="{% url 'bold_editar' object.bold.pk %}">Añadir</button>
       {% else %}
@@ -1349,7 +1367,7 @@
       <br>
       <br>
       <div class="container">
-      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if user.groups.all.0.name == 'Administrador' and object.inscrito == True %}
       <form>
       <button class="btn btn-primary" formaction="{% url 'bold_editar' object.bold.pk %}">Editar</button>
       </form>
@@ -1361,7 +1379,7 @@
 <div class="tab-pane"  id="informante">
       {% if not object.informante or object.informante.fechaentrevista == None %}
       <p class="text-danger">No se encontro información neuropsicológica </p>
-      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if user.groups.all.0.name != 'Consultor' and object.inscrito == True %}
   <form>
        {% if object.edad > 59 %}
           {% if object.mayor %}
@@ -1511,7 +1529,7 @@
         </table>
 
 
-      {% if user.groups.all.0.name != 'Consultor' %}
+      {% if user.groups.all.0.name == 'Administrador' and object.inscrito == True %}
       <form>
       {% if object.edad > 59 %}
           <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Editar</button>
@@ -1537,7 +1555,7 @@
 <div class="tab-pane"  id="seguimiento" >
       {% if object.get_seguimiento|length == 0 %}
       <p class="text-danger">No Hay registros</p>
-        {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' %}
+        {% if user.groups.all.0.name != 'Consultor' and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
           <form>
           <button class="btn btn-primary" formaction="{% url 'crear_seguimiento' object.pk %}">Añadir</button>
           </form>
@@ -1747,7 +1765,7 @@ function validarf(){
 
       {% endif %}
 
-  {% if user.groups.all.0.name != 'Consultor' and object.get_seguimiento|length > 0 and object.uci.glasgowtotal_e == '0' %}
+  {% if user.groups.all.0.name != 'Consultor' and object.get_seguimiento|length > 0 and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
           <br>
           <div class="container">
             <form>

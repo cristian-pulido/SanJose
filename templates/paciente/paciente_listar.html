@@ -15,6 +15,16 @@
 <br>
 <br>
 
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success">
+    {{ message }}
+  </div>
+    {% endfor %}
+</ul>
+{% endif %}
+
 
 <ul class="nav nav-tabs">
   <li class="nav-item active">
@@ -40,6 +50,7 @@
                     <tr>
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
+                      <th>Tiempo desde ingreso Uci</th>
                       {% if user.groups.all.0.name != 'Consultor' %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
@@ -49,15 +60,16 @@
                     {% if object_list %}
                         {% for object in object_list %}
                             {% if object.estado == 0 %}
+                            {% load scripts %}
+                            {% tiempo object as t%}
                             <tr class="table-active">
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
-
+                              <td>{{t}} Horas</td>
                               {% if user.groups.all.0.name != 'Consultor' %}
                               <td style="text-align:right">
                                   <form>
-                                  {% load scripts %}
-                                  {% tiempo object as t%}
+
                                   {% if t >= 48  %}
                                   <button class="btn btn-primary" formaction="{% url 'paciente_editar' object.pk%}">Establecer Criterios</button>
                                   {% endif %}
@@ -189,7 +201,7 @@
                     <tr style="vertical-align: middle;">
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
-                      {% if user.groups.all.0.name != 'Consultor' %}
+                      {% if user.groups.all.0.name == 'Administrador' %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
                     </tr>

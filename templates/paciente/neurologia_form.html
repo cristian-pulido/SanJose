@@ -8,6 +8,11 @@
         window.location="{% url 'paciente_listar' %}";
 </script>
 {% endif %}
+{% if user.groups.all.0.name != 'Administrador' and object.fechaneuro != None %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
 
 <form method="post">
     {% csrf_token %}
@@ -449,7 +454,7 @@
             <input type="radio"  name="estadoconciencia" value="Mínima conciencia" required id="id_estadoconciencia_3" {% if object.estadoconciencia == 'Mínima conciencia' %} checked {% endif %}/> Mínima conciencia
         </tr>
 
-        <tr {% if object.candidato.get_neuro|length > 1 %} style="display:none" {% endif %}>
+        <tr >
             <th>{{form.epileptico.label}}</th>
             <td><select name="epileptico" id="id_epileptico" required class="form-control">
                   <option value="">---------</option>
@@ -479,13 +484,7 @@
             </tr>
         </tbody>
     </table>
-    <script>
-        var x="{{object.candidato.get_neuro|length}}";
-        if ( x != 1 ){
 
-            document.getElementById("id_epileptico").value="NO";
-        }
-    </script>
 
 
     </div>
@@ -509,8 +508,6 @@ function e(){
     var p= document.getElementById("id_epileptico").value;
     if (p == 'SI') {
     document.getElementById("tablee").style="display:block";
-    document.getElementById("id_fechaeeg").required=true;
-    document.getElementById("id_resultadoeeg").required=true;
     } else {
     document.getElementById("tablee").style="display:none";
     document.getElementById("id_fechaeeg").required=false;

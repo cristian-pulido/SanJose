@@ -74,7 +74,7 @@
                     <input type="text" maxlength="3" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cama_numero" required id="id_cama_numero" placeholder="Ingrese número entero" class="form-control" {% if object.cama_numero != None %} value="{{object.cama_numero}}" {% endif %}/>
                 </div>
         </div>
-        {% if object.estado == 0 or  user.groups.all.0.name == 'Administrador' %}
+
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label >{{form.nombres.label}}</label>
@@ -98,24 +98,6 @@
                     <input type="text" autocomplete="off" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="cc" required id="id_cc" placeholder="Ingrese número entero" class="form-control" {% if object.cc != None %} value="{{object.cc}}" {% endif %}/>
                 </div>
         </div>
-        {% else %}
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    {{ form.nombres.errors }}
-                    {{  form.nombres.as_hidden  }}
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    {{form.apellidos.as_hidden}}
-                </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    {{form.cc.as_hidden}}
-                </div>
-        </div>
-        {% endif %}
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
                     <label>{{form.fecha_nacimiento.label}}</label>

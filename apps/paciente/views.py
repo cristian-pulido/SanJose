@@ -3,16 +3,16 @@
 import os
 import shutil
 
-from celery import shared_task
 from django.conf import settings
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
+
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
     BoldForm, MayorForm, InformanteForm, SeguimientoForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
     Seguimiento, Control
-from apps.paciente.templatetags.scripts import anonimizar
 
 
 class PacienteCreate(CreateView):
@@ -20,12 +20,16 @@ class PacienteCreate(CreateView):
     form_class = PacienteForm
     template_name = 'paciente/paciente_form.html'
 
+
     def get_success_url(self):
         p=self.object
         cantidad=len(Candidato.objects.all())
         if cantidad == 1:
             p.sujeto_numero=1
             p.save()
+
+
+
             try:
                 os.mkdir(settings.MEDIA_ROOT+"/img")
             except:
@@ -51,6 +55,8 @@ class PacienteCreate(CreateView):
             p.save()
         except:
             ""
+        messages.add_message(self.request, messages.INFO, "Se ha añadido el registro del sujeto "+str(p.sujeto_numero).zfill(4)+".")
+
 
         return reverse_lazy('paciente_listar')
 
@@ -108,9 +114,14 @@ class UciUpdate(UpdateView):
     def get_success_url(self):
         u=self.object
         p=u.candidato
-        if u.glasgowtotal_e != 0 and p.imagen == "":
+        if u.continua_studio == 'NO':
             p.inscrito=False
             p.save()
+            messages.add_message(self.request, messages.INFO,"Sujeto " + str(p.sujeto_numero).zfill(4) + " excluido.")
+        if u.glasgowtotal_e != '0' and p.imagen == "":
+            p.inscrito=False
+            p.save()
+            messages.add_message(self.request, messages.INFO,"Sujeto " + str(p.sujeto_numero).zfill(4) + " excluido por realizar evaluación de egreso sin tener archivos de imagen.")
         return reverse_lazy('paciente', args=[p.pk])
 
 class NeurologiaUpdate(UpdateView):

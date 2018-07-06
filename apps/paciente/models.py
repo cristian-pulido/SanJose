@@ -713,7 +713,7 @@ class Control(models.Model):
 class Cambioradiologia(models.Model):
 
     sujeto=models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
-    fecha=models.DateTimeField(auto_now_add=True)
+    fecha=models.DateTimeField(null=True)
     razon=models.CharField(max_length=20,null=True)
 
     def __str__(self):
