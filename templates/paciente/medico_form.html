@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Profesional {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name != 'Administrador' %}
+{% if not perms.paciente.add_medico %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    <label for="{{form.nombre.name}}">{{form.nombre.label}}</label>
+                    <label>{{form.nombre.label}}</label>
                     {{ form.nombre.errors }}
                     {{form.nombre}}
 

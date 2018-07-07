@@ -135,6 +135,11 @@ class Candidato(models.Model):
         except:
             ""
 
+    class Meta:
+        permissions = (
+            ("can_descargar_candidato", u"puede descargar candidato"),
+        )
+
 
 
 class Ingreso(models.Model):
@@ -197,6 +202,10 @@ class Ingreso(models.Model):
         """delete -- Remove to leave file."""
         self.archivo.delete(False)
         super(Ingreso, self).delete(*args, **kwargs)
+    class Meta:
+        permissions = (
+            ("can_ver_ingreso", u"puede ver ingreso"),
+        )
 
 
 class Radiologia(models.Model):
@@ -264,6 +273,10 @@ class Radiologia(models.Model):
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_radiologia", u"puede ver radiologia"),
+        )
 
 
 class Uci(models.Model):
@@ -351,6 +364,10 @@ class Uci(models.Model):
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_uci", u"puede ver uci"),
+        )
 
 class Neurologia(models.Model):
     numero_CHOICES = (
@@ -392,6 +409,10 @@ class Neurologia(models.Model):
     resultadoeeg=models.CharField(max_length=50, null=True,blank=True,default="")
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_neurologia", u"puede ver neurologia"),
+        )
 
 
 class Bold(models.Model):
@@ -484,6 +505,11 @@ class Bold(models.Model):
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_bold", u"puede ver bold"),
+        )
+
 
 class Mayor(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
@@ -643,6 +669,10 @@ class Informante(models.Model):
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_informante", u"puede ver informante"),
+        )
 
 class Seguimiento(models.Model):
     candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
@@ -684,6 +714,10 @@ class Seguimiento(models.Model):
     vecuronio = models.CharField(max_length=12, null=True, default=0)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_seguimiento", u"puede ver seguimiento"),
+        )
 
 class Control(models.Model):
     numero = models.PositiveIntegerField(null=True, unique=True)
@@ -691,6 +725,11 @@ class Control(models.Model):
 
     class Meta:
         ordering = ["numero"]
+        permissions = (
+            ("can_descargar_control", u"puede descargar control"),
+
+        )
+
 
 
     def __str__(self):
@@ -710,6 +749,8 @@ class Control(models.Model):
             i.delete()
         except:
             ""
+
+
 class Cambioradiologia(models.Model):
 
     sujeto=models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)

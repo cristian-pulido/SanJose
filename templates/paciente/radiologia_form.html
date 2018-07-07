@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' %}
+{% if not perms.paciente.add_radiologia %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -47,7 +47,7 @@
                     <tbody>
                         <tr>
                             <th>
-                                <label">{{form.fecha_procedimiento.label}}</label>
+                                <label>{{form.fecha_procedimiento.label}}</label>
                             </th>
                             <td>
                                 {{ form.fecha_procedimiento.errors }}
@@ -62,27 +62,6 @@
                         </tr>
                     </tbody>
                 </table>
-            <script>
-                    var today = new Date();
-                    var dd = today.getDate();
-                    var mm = today.getMonth()+1; //January is 0!
-                    var yyyy = today.getFullYear();
-                     if(dd<10){
-                            dd='0'+dd
-                        }
-                        if(mm<10){
-                            mm='0'+mm
-                        }
-
-                    today = yyyy+'-'+mm+'-'+dd;
-                    var fecha=document.getElementById("id_fecha_procedimiento").value;
-                    if ( fecha == "" ) {
-                        document.getElementById("id_fecha_procedimiento").value=today;
-                    }
-                    document.getElementById("id_fecha_procedimiento").max=today;
-
-
-                </script>
 
 
         </div>
@@ -99,7 +78,7 @@
                   <td>
 
                           <label  for="id_transportable_1">
-                            <input type="radio" name="transportable" value="SI"  required id="id_transportable_1"  {% if object.transportable == 'SI' %} checked="" {% endif %} />SI
+                            <input type="radio" name="transportable" value="SI"  required id="id_transportable_1" checked />SI
                           </label>
 
                           {{forms.transportable.errors}}
@@ -110,6 +89,44 @@
                       <input type="time"  required step = "60" name="hora_inicio" value="{{object.hora_inicio}}" class="form-control"  id="id_hora_inicio" />
                   </td>
                 </tr>
+                <script>
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+                    var yyyy = today.getFullYear();
+                    var hh = today.getHours();
+                    var min = today.getMinutes();
+
+                    if(dd<10){
+                        dd='0'+dd
+                    }
+                    if(mm<10){
+                        mm='0'+mm
+                    }
+                    if(hh<10){
+                        hh='0'+hh
+                    }
+                    if(min<10){
+                        min='0'+min
+                    }
+
+
+
+                    today = yyyy+'-'+mm+'-'+dd;
+                    hora =  hh+":"+min;
+                    var fecha=document.getElementById("id_fecha_procedimiento").value;
+                    var hour=document.getElementById("id_hora_inicio").value;
+                    if ( fecha == "" ) {
+                        document.getElementById("id_fecha_procedimiento").value=today;
+                    }
+                    if ( hour == "" ) {
+                        document.getElementById("id_hora_inicio").value=hora;
+                    }
+                    document.getElementById("id_fecha_procedimiento").max=today;
+
+
+                </script>
+
                 <tr>
                     <th class="text-primary" style="vertical-align:middle;" colspan="2">PERSONAL DE ACOMPAÑAMIENTO</th>
                     <th class="text-primary" style="vertical-align:middle;" colspan="2">Soporte</th>
@@ -231,10 +248,10 @@
                   <td>
 
                           <label  for="id_ur_pulsoximetro_1">
-                            <input type="radio" name="ur_pulsoximetro" value="SI"  required id="id_ur_pulsoximetro_1" {% if object.ur_pulsoximetro == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ur_pulsoximetro_sv')" type="radio" name="ur_pulsoximetro" value="SI"  required id="id_ur_pulsoximetro_1" {% if object.ur_pulsoximetro == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ur_pulsoximetro_2">
-                            <input type="radio" name="ur_pulsoximetro" value="NO" required id="id_ur_pulsoximetro_2" {% if object.ur_pulsoximetro == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ur_pulsoximetro_sv')" type="radio" name="ur_pulsoximetro" value="NO" required id="id_ur_pulsoximetro_2" {% if object.ur_pulsoximetro == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -247,10 +264,10 @@
                   <td>
 
                           <label  for="id_ur_frecuencia_cardiaca_1">
-                            <input type="radio" name="ur_frecuencia_cardiaca" value="SI"  required id="id_ur_frecuencia_cardiaca_1" {% if object.ur_frecuencia_cardiaca == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ur_frecuencia_cardiaca_sv')" type="radio" name="ur_frecuencia_cardiaca" value="SI"  required id="id_ur_frecuencia_cardiaca_1" {% if object.ur_frecuencia_cardiaca == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ur_frecuencia_cardiaca_2">
-                            <input type="radio" name="ur_frecuencia_cardiaca" value="NO" required id="id_ur_frecuencia_cardiaca_2" {% if object.ur_frecuencia_cardiaca == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ur_frecuencia_cardiaca_sv')" type="radio" name="ur_frecuencia_cardiaca" value="NO" required id="id_ur_frecuencia_cardiaca_2" {% if object.ur_frecuencia_cardiaca == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -263,10 +280,10 @@
                   <td>
 
                           <label  for="id_ur_frecuencia_respiratoria_1">
-                            <input type="radio" name="ur_frecuencia_respiratoria" value="SI"  required id="id_ur_frecuencia_respiratoria_1" {% if object.ur_frecuencia_respiratoria == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ur_frecuencia_respiratoria_sv')" type="radio" name="ur_frecuencia_respiratoria" value="SI"  required id="id_ur_frecuencia_respiratoria_1" {% if object.ur_frecuencia_respiratoria == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ur_frecuencia_respiratoria_2">
-                            <input type="radio" name="ur_frecuencia_respiratoria" value="NO" required id="id_ur_frecuencia_respiratoria_2" {% if object.ur_frecuencia_respiratoria == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ur_frecuencia_respiratoria_sv')" type="radio" name="ur_frecuencia_respiratoria" value="NO" required id="id_ur_frecuencia_respiratoria_2" {% if object.ur_frecuencia_respiratoria == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -279,10 +296,10 @@
                   <td>
 
                           <label  for="id_ur_visoscopio_1">
-                            <input type="radio" name="ur_visoscopio" value="SI"  required id="id_ur_visoscopio_1" {% if object.ur_visoscopio == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ur_visoscopio_sv')" type="radio" name="ur_visoscopio" value="SI"  required id="id_ur_visoscopio_1" {% if object.ur_visoscopio == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ur_visoscopio_2">
-                            <input type="radio" name="ur_visoscopio" value="NO" required id="id_ur_visoscopio_2" {% if object.ur_visoscopio == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ur_visoscopio_sv')" type="radio" name="ur_visoscopio" value="NO" required id="id_ur_visoscopio_2" {% if object.ur_visoscopio == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -295,10 +312,10 @@
                   <td>
 
                           <label for="id_ur_tension_1">
-                            <input type="radio" name="ur_tension" value="SI"  required id="id_ur_tension_1" {% if object.ur_tension == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ur_tension_sv')" type="radio" name="ur_tension" value="SI"  required id="id_ur_tension_1" {% if object.ur_tension == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ur_tension_2">
-                            <input type="radio" name="ur_tension" value="NO" required id="id_ur_tension_2" {% if object.ur_tension == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ur_tension_sv')" type="radio" name="ur_tension" value="NO" required id="id_ur_tension_2" {% if object.ur_tension == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -421,10 +438,10 @@
                   <td>
 
                           <label  for="id_sedacion_1">
-                            <input type="radio" name="sedacion" value="SI"  required id="id_sedacion_1" {% if object.sedacion == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_sedacion_dt')" type="radio" name="sedacion" value="SI"  required id="id_sedacion_1" {% if object.sedacion == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_sedacion_2">
-                            <input type="radio" name="sedacion" value="NO" required id="id_sedacion_2"  {% if object.sedacion == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ sedacion_dt')" type="radio" name="sedacion" value="NO" required id="id_sedacion_2"  {% if object.sedacion == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td>
@@ -436,10 +453,10 @@
                   <td>
 
                           <label  for="id_analgesia_1">
-                            <input type="radio" name="analgesia" value="SI"  required id="id_analgesia_1" {% if object.analgesia == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_analgesia_dt')" type="radio" name="analgesia" value="SI"  required id="id_analgesia_1" {% if object.analgesia == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_analgesia_2">
-                            <input type="radio" name="analgesia" value="NO" required id="id_analgesia_2" {% if object.analgesia == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_analgesia_dt')" type="radio" name="analgesia" value="NO" required id="id_analgesia_2" {% if object.analgesia == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td>
@@ -451,10 +468,10 @@
                   <td rowspan="3">
 
                           <label  for="id_relajacion_1">
-                            <input type="radio" name="relajacion" value="SI"  required id="id_relajacion_1" {% if object.relajacion == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_relajacion_dt')" type="radio" name="relajacion" value="SI"  required id="id_relajacion_1" {% if object.relajacion == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_relajacion_2">
-                            <input type="radio" name="relajacion" value="NO" required id="id_relajacion_2" {% if object.relajacion == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_relajacion_dt')" type="radio" name="relajacion" value="NO" required id="id_relajacion_2" {% if object.relajacion == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td>
@@ -526,10 +543,10 @@
                   <td>
 
                           <label  for="id_ru_pulsoximetro_1">
-                            <input type="radio" name="ru_pulsoximetro" value="SI"  required id="id_ru_pulsoximetro_1"  {% if object.ru_pulsoximetro == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ru_pulsoximetro_sv')" type="radio" name="ru_pulsoximetro" value="SI"  required id="id_ru_pulsoximetro_1"  {% if object.ru_pulsoximetro == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ru_pulsoximetro_2">
-                            <input type="radio" name="ru_pulsoximetro" value="NO" required id="id_ru_pulsoximetro_2" {% if object.ru_pulsoximetro == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ru_pulsoximetro_sv')" type="radio" name="ru_pulsoximetro" value="NO" required id="id_ru_pulsoximetro_2" {% if object.ru_pulsoximetro == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -542,10 +559,10 @@
                   <td>
 
                           <label  for="id_ru_frecuencia_cardiaca_1">
-                            <input type="radio" name="ru_frecuencia_cardiaca" value="SI"  required id="id_ru_frecuencia_cardiaca_1" {% if object.ru_frecuencia_cardiaca == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ru_frecuencia_cardiaca_sv')" type="radio" name="ru_frecuencia_cardiaca" value="SI"  required id="id_ru_frecuencia_cardiaca_1" {% if object.ru_frecuencia_cardiaca == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ru_frecuencia_cardiaca_2">
-                            <input type="radio" name="ru_frecuencia_cardiaca" value="NO" required id="id_ru_frecuencia_cardiaca_2" {% if object.ru_frecuencia_cardiaca == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ru_frecuencia_cardiaca_sv')" type="radio" name="ru_frecuencia_cardiaca" value="NO" required id="id_ru_frecuencia_cardiaca_2" {% if object.ru_frecuencia_cardiaca == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -558,10 +575,10 @@
                   <td>
 
                           <label  for="id_ru_frecuencia_respiratoria_1">
-                            <input type="radio" name="ru_frecuencia_respiratoria" value="SI"  required id="id_ru_frecuencia_respiratoria_1" {% if object.ru_frecuencia_respiratoria == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ru_frecuencia_respiratoria_sv')" type="radio" name="ru_frecuencia_respiratoria" value="SI"  required id="id_ru_frecuencia_respiratoria_1" {% if object.ru_frecuencia_respiratoria == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ru_frecuencia_respiratoria_2">
-                            <input type="radio" name="ru_frecuencia_respiratoria" value="NO" required id="id_ru_frecuencia_respiratoria_2"  {% if object.ru_frecuencia_respiratoria == 'NO' %} checked="" {% endif %}/>NO
+                            <input onclick="requerido('NO','id_ru_frecuencia_respiratoria_sv')" type="radio" name="ru_frecuencia_respiratoria" value="NO" required id="id_ru_frecuencia_respiratoria_2"  {% if object.ru_frecuencia_respiratoria == 'NO' %} checked="" {% endif %}/>NO
                           </label>
 
                   </td >
@@ -574,10 +591,10 @@
                   <td>
 
                           <label  for="id_ru_visoscopio_1">
-                            <input type="radio" name="ru_visoscopio" value="SI"  required id="id_ru_visoscopio_1" {% if object.ru_visoscopio == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ru_visoscopio_sv')" type="radio" name="ru_visoscopio" value="SI"  required id="id_ru_visoscopio_1" {% if object.ru_visoscopio == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ru_visoscopio_2">
-                            <input type="radio" name="ru_visoscopio" value="NO" required id="id_ru_visoscopio_2" {% if object.ru_visoscopio == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ru_visoscopio_sv')" type="radio" name="ru_visoscopio" value="NO" required id="id_ru_visoscopio_2" {% if object.ru_visoscopio == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -590,10 +607,10 @@
                   <td>
 
                           <label  for="id_ru_tension_1">
-                            <input type="radio" name="ru_tension" value="SI"  required id="id_ru_tension_1" {% if object.ru_tension == 'SI' %} checked="" {% endif %} />SI
+                            <input onclick="requerido('SI','id_ru_tension_sv')" type="radio" name="ru_tension" value="SI"  required id="id_ru_tension_1" {% if object.ru_tension == 'SI' %} checked="" {% endif %} />SI
                           </label>
                           <label  for="id_ru_tension_2">
-                            <input type="radio" name="ru_tension" value="NO" required id="id_ru_tension_2" {% if object.ru_tension == 'NO' %} checked="" {% endif %} />NO
+                            <input onclick="requerido('NO','id_ru_tension_sv')" type="radio" name="ru_tension" value="NO" required id="id_ru_tension_2" {% if object.ru_tension == 'NO' %} checked="" {% endif %} />NO
                           </label>
 
                   </td >
@@ -612,22 +629,11 @@
                 <td>{{form.tiempo_sesonacia.errors}}
                 <input maxlength="3" type="text" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="tiempo_sesonacia" required id="id_tiempo_sesonacia" placeholder="Tiempo en minutos" class="form-control" {% if object.tiempo_sesonacia != None %} value="{{object.tiempo_sesonacia}}" {% endif %}/>
                 </td>
-                <th>Complicaciones derivadas del transporte</th>
-                <td>
-
-                          <label  for="id_complicaciones_1">
-                            <input type="radio" name="complicaciones" value="SI"  required id="id_complicaciones_1" {% if object.complicaciones == 'SI' %} checked="" {% endif %} />SI
-                          </label>
-                          <label  for="id_complicaciones_2">
-                            <input type="radio" name="complicaciones" value="NO" required id="id_complicaciones_2" {% if object.complicaciones == 'NO' %} checked="" {% endif %} />NO
-                          </label>
-
-                </td>
-            </tr>
-            <tr>
                 <th>{{form.hora_llegada.label}}</th>
                 <td>{{form.hora_llegada.errors}}
                     <input type="time" step = "60" name="hora_llegada" value="{{object.hora_llegada}}" class="form-control"  id="id_hora_llegada" required/>
+
+                    {% if object.hora_llegada == None %}<a onclick="horaactual()">hora actual</a> {% endif %}
                     <script>
                         document.getElementsByName("hora_inicio")[0].addEventListener('change', hora);
                         function hora(){
@@ -639,8 +645,40 @@
                         }
 
                         }
+
+                    </script>
+                    <script>
+                        function horaactual(){
+                        var today = new Date();
+                        var hh = today.getHours();
+                        var min = today.getMinutes();
+                        if(hh<10){
+                            hh='0'+hh
+                        }
+                        if(min<10){
+                            min='0'+min
+                        }
+                        hora =  hh+":"+min;
+                        document.getElementById("id_hora_llegada").value=hora;
+                        }
+
                     </script>
                 </td>
+
+            </tr>
+            <tr>
+                <th>Complicaciones derivadas del transporte</th>
+                <td>
+
+                          <label  for="id_complicaciones_1">
+                            <input type="radio" name="complicaciones" value="SI"  required id="id_complicaciones_1" {% if object.complicaciones == 'SI' %} checked="" {% endif %} />SI
+                          </label>
+                          <label  for="id_complicaciones_2">
+                            <input type="radio" name="complicaciones" value="NO" required id="id_complicaciones_2" {% if object.complicaciones == 'NO' %} checked="" {% endif %} />NO
+                          </label>
+
+                </td>
+
                 <th><label id="comp" {% if object.complicaciones_cuales == None %} style="display:none" {% endif %}>{{form.complicaciones_cuales.label}}</label></th>
                 <td>{{form.complicaciones_cuales.errors}}
                     <input class="form-control" maxlength="20" name="complicaciones_cuales" id="id_complicaciones_cuales" {% if object.complicaciones_cuales == None %} style="display:none" {% else %} required value="{{object.complicaciones_cuales}}" {% endif %}>
@@ -680,5 +718,16 @@ document.getElementsByName("complicaciones")[1].addEventListener('change', compl
 
     }
 
+</script>
+<script>
+    function requerido(a,b){
+    var campo=document.getElementById(b);
+    if ( a == 'SI'){
+    campo.required=true;
+    }
+    else {
+    campo.required=false;
+    }
+    }
 </script>
 {% endblock %}

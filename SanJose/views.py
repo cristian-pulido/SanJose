@@ -65,8 +65,15 @@ def crearneurologia(request, pk):
             if n.fechaneuro == None:
                 return redirect("/paciente/neurologia/editar/" + str(n.pk))
             else:
-                n=Neurologia.objects.create(candidato=c)
-                return redirect("/paciente/neurologia/editar/" + str(n.pk))
+                hoy=datetime.date.today()
+                if hoy != n.fechaneuro:
+                    n=Neurologia.objects.create(candidato=c)
+                    return redirect("/paciente/neurologia/editar/" + str(n.pk))
+                else:
+                    from django.contrib import messages
+                    messages.add_message(request, messages.INFO, 'Ya existe una evaluacion neurologica para hoy de este sujeto.')
+                    return redirect("/paciente/formularios/" + str(c.pk))
+
 
 
 def crearbold(request, pk):

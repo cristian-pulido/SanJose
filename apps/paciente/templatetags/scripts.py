@@ -68,33 +68,78 @@ def crearmedia():
 
 @register.simple_tag
 def creargrupos():
+    # permisos
 
-    try:
-        #permisos
-        p1 = Permission.objects.get(name="Can add picture")
-        p2 = Permission.objects.get(name="Can change picture")
-        p3 = Permission.objects.get(name="Can delete picture")
-        p4 = Permission.objects.get(name="Can add candidato")
-        p5 = Permission.objects.get(name="Can change candidato")
-        p6 = Permission.objects.get(name="Can delete candidato")
-        p7 = Permission.objects.get(name="Can add medico")
-        p8 = Permission.objects.get(name="Can change medico")
-        p9 = Permission.objects.get(name="Can delete medico")
-        p10 = Permission.objects.get(name="Can add candidato")
-        p11 = Permission.objects.get(name="Can change candidato")
-        p12 = Permission.objects.get(name="Can delete candidato")
+    # imagenes
+    p1 = Permission.objects.get(name="Can add picture")
+    p2 = Permission.objects.get(name="Can change picture")
+    p3 = Permission.objects.get(name="Can delete picture")
 
-        ## creacion grupos
-        invitado = Group.objects.create(name='Invitado')
-        consultor = Group.objects.create(name='Consultor')
-        cargador = Group.objects.create(name='Cargador')
-        cargador.permissions.add(p1, p2, p4, p5, p7, p8, p10, p11)
-        admin=Group.objects.create(name='Administrador')
-        admin.permissions.add(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12)
-    except:
-        print("")
+    # candidato/sujeto
+    s1 = Permission.objects.get(name="Can add candidato")
+    s2 = Permission.objects.get(name="Can change candidato")
+    s3 = Permission.objects.get(name="Can delete candidato")
+    s4 = Permission.objects.get(name="puede descargar candidato")
+
+
+
+    # medico
+    m1 = Permission.objects.get(name="Can add medico")
+    m2 = Permission.objects.get(name="Can change medico")
+    m3 = Permission.objects.get(name="Can delete medico")
+
+    # controles
+    c1 = Permission.objects.get(name="Can add control")
+    c2 = Permission.objects.get(name="Can change control")
+    c3 = Permission.objects.get(name="Can delete control")
+    c4 = Permission.objects.get(name="puede descargar control")
+
+
+    # ingreso
+    i1 = Permission.objects.get(name="Can add ingreso")
+    i2 = Permission.objects.get(name="Can change ingreso")
+    i3 = Permission.objects.get(name="puede ver ingreso")
+    # uci
+    u1 = Permission.objects.get(name="Can add uci")
+    u2 = Permission.objects.get(name="Can change uci")
+    u3 = Permission.objects.get(name="puede ver uci")
+    # neurologia
+    n1 = Permission.objects.get(name="Can add neurologia")
+    n2 = Permission.objects.get(name="Can change neurologia")
+    n3 = Permission.objects.get(name="puede ver neurologia")
+    # radiologia
+    r1 = Permission.objects.get(name="Can add radiologia")
+    r2 = Permission.objects.get(name="Can change radiologia")
+    r3 = Permission.objects.get(name="puede ver radiologia")
+    #bold
+    b1 = Permission.objects.get(name="Can add bold")
+    b2 = Permission.objects.get(name="Can change bold")
+    b3 = Permission.objects.get(name="puede ver bold")
+    # informante
+    inf1 = Permission.objects.get(name="Can add informante")
+    inf2 = Permission.objects.get(name="Can change informante")
+    inf3 = Permission.objects.get(name="puede ver informante")
+    # seguimiento
+    seg1 = Permission.objects.get(name="Can add seguimiento")
+    seg2 = Permission.objects.get(name="Can change seguimiento")
+    seg3 = Permission.objects.get(name="puede ver seguimiento")
+
+
+    ## creacion grupos
+    invitado = Group.objects.get_or_create(name='Invitado')[0]
+    consultor = Group.objects.get_or_create(name='Consultor')[0]
+    cargador = Group.objects.get_or_create(name='Cargador')[0]
+    informante = Group.objects.get_or_create(name='Informante')[0]
+    admin = Group.objects.get_or_create(name='Administrador')[0]
+    sadmin = Group.objects.get_or_create(name='SuperAdministrador')[0]
+
+    sadmin.permissions.add(p1, p2, p3, s1, s2, s3, s4, m1, m2, m3, c1, c2, c3, c4, b1, b2, b3, i1, i2, i3, u1, u2, u3, n1, n2, n3, r1, r2, r3, inf1, inf2, inf3, seg1, seg2, seg3)
+    admin.permissions.add(p1, m1, m2, m3, c1, c2, c3, b1, b2, b3, i1, i2, i3, u1, u2, u3, n1, n2, n3, r1, r2, r3, inf1, inf2, inf3, seg1, seg2, seg3)
+    cargador.permissions.add(s1, s2)
+    informante.permissions.add(p1, s1, s2, i1, i3, u1, u3, n1, n3, r1, r3, b1, b3, inf1, inf3, seg1, seg3)
+
+
     users = User.objects.all()
-    invitado = Group.objects.get(name="Invitado")
     for i in users[1:]:
         if len(i.groups.all()) == 0:
             invitado.user_set.add(i)

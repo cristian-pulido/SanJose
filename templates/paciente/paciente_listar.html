@@ -5,11 +5,7 @@
 
 
 
-
-
-
-
-{% if user.groups.all.0.name != 'Consultor' %}
+{% if perms.paciente.add_candidato %}
 <button style="vertical-align: middle;" type="button" onclick="location.href='{% url 'paciente_crear' %}'" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Añadir Registro</button>
 {% endif %}
 <br>
@@ -24,6 +20,8 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+
 
 
 <ul class="nav nav-tabs">
@@ -51,7 +49,7 @@
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
                       <th>Tiempo desde ingreso Uci</th>
-                      {% if user.groups.all.0.name != 'Consultor' %}
+                      {% if perms.paciente.change_candidato or perms.paciente.delete_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
                     </tr>
@@ -66,14 +64,14 @@
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
                               <td>{{t}} Horas</td>
-                              {% if user.groups.all.0.name != 'Consultor' %}
+                              {% if perms.paciente.change_candidato or perms.paciente.delete_candidato %}
                               <td style="text-align:right">
                                   <form>
 
                                   {% if t >= 48  %}
                                   <button class="btn btn-primary" formaction="{% url 'paciente_editar' object.pk%}">Establecer Criterios</button>
                                   {% endif %}
-                                  {% if user.groups.all.0.name == 'Administrador' %}
+                                  {% if perms.paciente.delete_candidato %}
 
                                   <button class="btn btn-danger"  formaction="{% url 'paciente_eliminar' object.pk%}" title="Eliminar">
                                   <i class="glyphicon glyphicon-trash"></i>
@@ -86,8 +84,7 @@
 
                               </td>
 
-                              {% else %}
-                              <td></td>
+
                               {% endif %}
                             </tr>
                             {% endif %}
@@ -116,6 +113,7 @@
             </li>
         </ul>
   </div>
+
   <div class="tab-pane fade" id="admitidos">
     {% if object_list|length == 0 %}
       <h2>No hay registros de Sujetos</h2>
@@ -126,7 +124,7 @@
                     <tr>
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
-                      {% if user.groups.all.0.name != 'Consultor' %}
+                      {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
                     </tr>
@@ -139,15 +137,15 @@
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
 
-                              {% if user.groups.all.0.name != 'Consultor' %}
+                              {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar %}
                               <td style="text-align:right">
                                   <form>
-                                    {% if object.get_img and object.get_img.anonimo == 1 %}
+                                    {% if object.get_img and object.get_img.anonimo == 1 and perms.paciente.can_descargar_candidato %}
                                   <button class="btn btn-success"  formaction="{{ object.get_img.file.url }}" title="Descargar">
                                   <i class="glyphicon glyphicon-download"></i>
                                   </button>
                                       {% endif %}
-                                  {% if user.groups.all.0.name == 'Administrador' %}
+                                  {% if perms.paciente.delete_candidato %}
                                   <button class="btn btn-danger"  formaction="{% url 'paciente_eliminar' object.pk%}" title="Eliminar">
                                   <i class="glyphicon glyphicon-trash"></i>
                                   </button>
@@ -156,11 +154,6 @@
 
 
 
-                              </td>
-
-                              {% else %}
-                              <td style="text-align:right">
-                                  {{object.imagen.url}}
                               </td>
                               {% endif %}
                             </tr>
@@ -201,7 +194,7 @@
                     <tr style="vertical-align: middle;">
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
-                      {% if user.groups.all.0.name == 'Administrador' %}
+                      {% if perms.paciente.delete_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
                     </tr>
@@ -214,22 +207,14 @@
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
 
-                              {% if user.groups.all.0.name != 'Consultor' %}
+                              {% if perms.paciente.delete_candidato %}
                               <td style="text-align:right">
-                                  {% if user.groups.all.0.name == 'Administrador' %}
                                   <form>
                                   <button class="btn btn-danger"  formaction="{% url 'paciente_eliminar' object.pk%}" title="Eliminar">
                                   <i class="glyphicon glyphicon-trash"></i>
-
                                   </button>
                                   </form>
-
-
-                                  {% endif %}
                               </td>
-
-                              {% else %}
-                              <td></td>
                               {% endif %}
                             </tr>
                             {% endif %}

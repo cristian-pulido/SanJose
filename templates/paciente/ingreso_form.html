@@ -49,7 +49,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' %}
+{% if not perms.paciente.add_ingreso %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -393,7 +393,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <select name="state" class="states order-alpha" id="stateId">
         <option value="">Departamento</option>
     </select>
-    <select name="city" class="cities order-rand limit-pop-10000" id="cityId">
+    <select name="city" class="cities order-rand" id="cityId">
         <option value="">Ciudad</option>
     </select>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

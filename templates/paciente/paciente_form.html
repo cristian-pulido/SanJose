@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' or object.estado > 0 %}
+{% if not perms.paciente.add_candidato or object.estado > 0 %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -155,6 +155,7 @@
                             <td><input class="form-control"  min="2017-01-01" max="2020-12-31" required name="fecha_ingreso" type="date" placeholder="Elegir fecha" id="id_fecha_ingreso" /> </td>
                             <th>Hora</th>
                             <td><input type="time" step = "60" value="00:00" name="hora_ingreso" required class="form-control"  id="id_hora_ingreso" /></td>
+                            <td><a onclick="horaactual()">Hora actual</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -172,6 +173,22 @@
                         document.getElementById("id_fecha_hora_ingreso").value=d.getFullYear()+"-"+m+"-"+d.getDate()+" "+d.getHours()+":"+d.getMinutes();
 
                     }
+                    </script>
+                    <script>
+                        function horaactual(){
+                        var today = new Date();
+                        var hh = today.getHours();
+                        var min = today.getMinutes();
+                        if(hh<10){
+                            hh='0'+hh
+                        }
+                        if(min<10){
+                            min='0'+min
+                        }
+                        hora =  hh+":"+min;
+                        document.getElementById("id_hora_ingreso").value=hora;
+                        }
+
                     </script>
 
                 </div>

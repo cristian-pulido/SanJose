@@ -8,7 +8,7 @@
         <tr>
             <td>#</td>
             <td>Nombre</td>
-            {% if user.groups.all.0.name == 'Administrador' %}
+            {% if perms.paciente.change_medico or perms.paciente.delete_medico %}
             <td>Acciones</td>
             {% endif %}
 
@@ -26,7 +26,7 @@
 
 
 
-                {% if user.groups.all.0.name == 'Administrador' %}
+                {% if perms.paciente.change_medico and perms.paciente.delete_medico %}
                 <a class="btn btn-primary" href="{% url 'medico_editar' medico.pk%}">Editar</a>
                 <a class="btn btn-danger" href="{% url 'medico_eliminar' medico.pk%}">Eliminar</a>
                 {% endif %}

@@ -3,7 +3,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name == 'Consultor' %}
+{% if not perms.paciente.add_neurologia %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>

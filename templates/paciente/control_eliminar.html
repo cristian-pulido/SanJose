@@ -3,7 +3,7 @@
 
 {% block title %} Eliminación registro {% endblock %}
 {% block content %}
-{% if user.groups.all.0.name != 'Administrador' %}
+{% if not perms.paciente.delete_control %}
 <script type="text/javascript">
         window.location="{% url 'controles_listar' %}";
 </script>
