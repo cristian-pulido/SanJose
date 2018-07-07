@@ -170,6 +170,10 @@ def crearradiologiaf(request, pk, razon):
         return redirect('login')
     else:
         c = Candidato.objects.get(pk=pk)
+        e= ' '
+        while '_' in razon:
+            p=razon.find('_')
+            razon=razon[:p]+e+razon[p+1:]
         Cambioradiologia.objects.create(sujeto=c, fecha=datetime.datetime.now(),razon=razon)
         return redirect("/paciente/formularios/" + str(c.pk))
 

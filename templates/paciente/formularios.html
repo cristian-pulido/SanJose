@@ -375,14 +375,15 @@
       function con() {
 
           var a = prompt("Motivo:", "");
+          var n = a.length;
 
-          if (a == null || a == "") {
-
-          } else {
-              var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
-              window.location=url_mask;
-
+          while (n>20 || n == 0 ) {
+              var a = prompt("Motivo:", "");
+              var n = a.length;
           }
+          a=a.replace(/ /g,"_");
+          var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
+          window.location=url_mask;
       }
       </script>
       {% if object.radiologia %}
