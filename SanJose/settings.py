@@ -25,7 +25,7 @@ SECRET_KEY = '-lfe9w8o-55bx)ahc)mf70chus@%$n4*s37yn!c&k$m#vrplez'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.17.29.27', '190.242.38.132','127.0.0.1','ec2-54-94-226-161.sa-east-1.compute.amazonaws.com']
+ALLOWED_HOSTS = ['fucs-cimca.fucsalud.edu.co','172.17.29.27', '190.242.38.132','127.0.0.1','ec2-54-94-226-161.sa-east-1.compute.amazonaws.com']
 
 
 # Application definition
