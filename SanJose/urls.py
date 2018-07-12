@@ -24,13 +24,14 @@ from .views import error, crearingreso, crearradiologia, crearuci, crearneurolog
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('carga/', include('apps.fileupload.urls')),
     path('paciente/', include('apps.paciente.urls')),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
     url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
     url(r'^login-error$', error, name='login-error'),
+    path('report_builder/', include('report_builder.urls')),
     path('script/creari/<int:pk>/', crearingreso, name='crear_ingreso'),
     path('script/crearr/<int:pk>/', crearradiologia, name='crear_radiologia'),
     path('script/crearu/<int:pk>/', crearuci, name='crear_uci'),
@@ -40,6 +41,7 @@ urlpatterns = [
     path('script/crears/<int:pk>/', crearseguimiento, name='crear_seguimiento'),
     path('script/crearrf/<int:pk>/<slug:razon>/', crearradiologiaf, name='crear_rf'),
     path('script/crearm/<int:pk>/', crearmoca, name='crear_moca'),
+
 
 ]
 

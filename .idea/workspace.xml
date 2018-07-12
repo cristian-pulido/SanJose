@@ -3,29 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SanJose/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SanJose/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SanJose/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fileupload/templates/fileupload/eliminar.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/fileupload/templates/fileupload/eliminar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/fileupload/templatetags/upload_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/fileupload/templatetags/upload_tags.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/paciente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/bold_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/bold_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/controles.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/controles.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/controles_listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/controles_listar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/informante_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/informante_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/ingreso_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/ingreso_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/mayor_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/mayor_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/medico_eliminar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/medico_eliminar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/neurologia_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/neurologia_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/radiologia_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/radiologia_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,53 +20,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="control_form.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/control_form.html">
+      <file leaf-file-name="moca_form.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/moca_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="98" column="165" selection-start-line="98" selection-start-column="165" selection-end-line="98" selection-end-column="165" />
+            <state relative-caret-position="270">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
-                <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
+                <element signature="e#2145#2176#0" expanded="true" />
+                <element signature="e#2896#2927#0" expanded="true" />
+                <element signature="e#3494#3525#0" expanded="true" />
+                <element signature="e#3624#3655#0" expanded="true" />
+                <element signature="e#3783#3814#0" expanded="true" />
+                <element signature="e#3913#3944#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="moca_form.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/moca_form.html">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SanJose/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="94" column="165" lean-forward="true" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="165" />
-              <folding>
-                <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="725">
+              <caret line="160" lean-forward="true" selection-start-line="160" selection-end-line="164" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -93,8 +49,8 @@
       <file leaf-file-name="controles.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="85" column="8" lean-forward="true" selection-start-line="21" selection-start-column="2" selection-end-line="85" selection-end-column="8" />
+            <state relative-caret-position="1530">
+              <caret line="85" column="8" selection-start-line="21" selection-start-column="2" selection-end-line="85" selection-end-column="8" />
               <folding>
                 <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -111,20 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SanJose/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="160" column="54" selection-start-line="160" selection-start-column="38" selection-end-line="160" selection-end-column="54" />
+            <state relative-caret-position="649">
+              <caret line="169" lean-forward="true" selection-start-line="169" selection-end-line="169" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -132,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="41" column="63" selection-start-line="41" selection-start-column="63" selection-end-line="41" selection-end-column="63" />
+            <state relative-caret-position="350">
+              <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
               <folding>
                 <element signature="e#631#663#0" expanded="true" />
               </folding>
@@ -144,11 +91,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="formularios.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="89" column="30" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="seguimiento_form.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/seguimiento_form.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" selection-end-line="379" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="formularios.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1368">
-              <caret line="1643" column="28" selection-start-line="1582" selection-start-column="6" selection-end-line="1647" />
+            <state relative-caret-position="1620">
+              <caret line="1574" column="32" selection-start-line="1574" selection-start-column="32" selection-end-line="1574" selection-end-column="32" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#!!top" />
                 <element signature="n#div#1;n#div#0;n#!!top" />
@@ -167,24 +132,15 @@
                 <element signature="n#form#0;n#div#5;n#div#0;n#!!top" />
                 <element signature="n#div#6;n#div#0;n#!!top" />
                 <element signature="n#div#7;n#div#0;n#!!top" />
+                <element signature="n#div#8;n#div#0;n#!!top" />
                 <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#6;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#6;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#8;n#div#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -193,26 +149,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6803">
-              <caret line="353" column="20" selection-start-line="353" selection-start-column="4" selection-end-line="353" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="32" column="66" selection-start-line="32" selection-start-column="66" selection-end-line="32" selection-end-column="66" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/fileupload/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="-521">
+              <caret line="768" column="63" selection-start-line="768" selection-start-column="63" selection-end-line="768" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -229,7 +167,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mayor</find>
       <find>tele</find>
       <find>get_neuro.0</find>
       <find>download</find>
@@ -259,9 +196,9 @@
       <find>form</find>
       <find>Update</find>
       <find>auto</find>
+      <find>object.</find>
     </findStrings>
     <replaceStrings>
-      <replace>independencia</replace>
       <replace>telefono1</replace>
       <replace>4</replace>
       <replace>casa</replace>
@@ -291,6 +228,7 @@
       <replace>neuro</replace>
       <replace>Coordinador</replace>
       <replace>object</replace>
+      <replace>object.moca.</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/templates</dir>
@@ -303,7 +241,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/programa/scripts.py" />
         <option value="$PROJECT_DIR$/templates/paciente/medico_eliminar.html" />
         <option value="$PROJECT_DIR$/apps/fileupload/static/js/jquery.fileupload-image.js" />
         <option value="$PROJECT_DIR$/apps/fileupload/static/js/jquery.fileupload-validate.js" />
@@ -314,7 +251,6 @@
         <option value="$PROJECT_DIR$/apps/fileupload/static/js/jquery.fileupload-ui.js" />
         <option value="$PROJECT_DIR$/SanJose/celery.py" />
         <option value="$PROJECT_DIR$/apps/paciente/task.py" />
-        <option value="$PROJECT_DIR$/SanJose/settings.py" />
         <option value="$PROJECT_DIR$/static/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/templates/paciente/file_upload_parser.php" />
         <option value="$PROJECT_DIR$/apps/fileupload/templates/upload_base.html" />
@@ -339,29 +275,31 @@
         <option value="$PROJECT_DIR$/templates/paciente/ingreso_form.html" />
         <option value="$PROJECT_DIR$/templates/paciente/radiologia_form.html" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_form.html" />
-        <option value="$PROJECT_DIR$/templates/base/base.html" />
         <option value="$PROJECT_DIR$/templates/paciente/controles_listar.html" />
         <option value="$PROJECT_DIR$/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
         <option value="$PROJECT_DIR$/apps/paciente/views.py" />
         <option value="$PROJECT_DIR$/apps/paciente/urls.py" />
-        <option value="$PROJECT_DIR$/apps/paciente/models.py" />
         <option value="$PROJECT_DIR$/apps/paciente/forms.py" />
         <option value="$PROJECT_DIR$/templates/paciente/controles.html" />
-        <option value="$PROJECT_DIR$/SanJose/urls.py" />
-        <option value="$PROJECT_DIR$/templates/paciente/moca_form.html" />
         <option value="$PROJECT_DIR$/templates/paciente/control_form.html" />
         <option value="$PROJECT_DIR$/apps/paciente/admin.py" />
-        <option value="$PROJECT_DIR$/SanJose/views.py" />
         <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
+        <option value="$PROJECT_DIR$/templates/paciente/moca_form.html" />
+        <option value="$PROJECT_DIR$/apps/paciente/models.py" />
+        <option value="$PROJECT_DIR$/templates/paciente/report.html" />
+        <option value="$PROJECT_DIR$/SanJose/views.py" />
+        <option value="$PROJECT_DIR$/templates/base/base.html" />
+        <option value="$PROJECT_DIR$/SanJose/settings.py" />
+        <option value="$PROJECT_DIR$/SanJose/urls.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="55" />
-    <option name="y" value="24" />
-    <option name="width" value="933" />
-    <option name="height" value="1056" />
+    <option name="x" value="534" />
+    <option name="y" value="1" />
+    <option name="width" value="931" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -524,43 +462,24 @@
     <frame x="55" y="-4" width="1865" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945945" weight="0.25461456" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.25352877" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32864866" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32948583" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32864866" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.25461456" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32948583" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32864866" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -571,20 +490,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2556">
-          <caret line="142" column="132" selection-start-line="142" selection-start-column="132" selection-end-line="142" selection-end-column="132" />
-          <folding>
-            <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3384">
@@ -744,13 +649,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/seguimiento_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="61" column="121" selection-start-line="61" selection-start-column="121" selection-end-line="61" selection-end-column="121" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/ingreso_form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7110">
@@ -772,20 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="73" column="89" selection-start-line="73" selection-start-column="89" selection-end-line="73" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/controles_listar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -797,13 +681,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="64" column="65" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="65" />
-          <folding>
-            <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -832,9 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="691">
           <caret line="209" column="21" lean-forward="true" selection-start-line="209" selection-start-column="21" selection-end-line="209" selection-end-column="21" />
-          <folding>
-            <element signature="e#27#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -856,29 +730,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
           <caret line="141" column="112" selection-start-line="141" selection-start-column="112" selection-end-line="141" selection-end-column="112" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/control_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="1764">
           <caret line="98" column="165" selection-start-line="98" selection-start-column="165" selection-end-line="98" selection-end-column="165" />
           <folding>
-            <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
@@ -890,7 +752,7 @@
     <entry file="file://$PROJECT_DIR$/apps/paciente/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -908,37 +770,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="41" column="63" selection-start-line="41" selection-start-column="63" selection-end-line="41" selection-end-column="63" />
-          <folding>
-            <element signature="e#631#663#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6803">
-          <caret line="353" column="20" selection-start-line="353" selection-start-column="4" selection-end-line="353" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="160" column="54" selection-start-line="160" selection-start-column="38" selection-end-line="160" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="85" column="8" lean-forward="true" selection-start-line="21" selection-start-column="2" selection-end-line="85" selection-end-column="8" />
+        <state relative-caret-position="1530">
+          <caret line="85" column="8" selection-start-line="21" selection-start-column="2" selection-end-line="85" selection-end-column="8" />
           <folding>
             <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -954,32 +789,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/moca_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="94" column="165" lean-forward="true" selection-start-line="94" selection-start-column="16" selection-end-line="94" selection-end-column="165" />
-          <folding>
-            <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#2;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#0;n#td#0;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#5;n#tbody#0;n#table#0;n#div#1;n#form#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="1643" column="28" selection-start-line="1582" selection-start-column="6" selection-end-line="1647" />
+        <state relative-caret-position="1620">
+          <caret line="1574" column="32" selection-start-line="1574" selection-start-column="32" selection-end-line="1574" selection-end-column="32" />
           <folding>
             <element signature="n#div#0;n#div#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#!!top" />
@@ -998,24 +811,85 @@
             <element signature="n#form#0;n#div#5;n#div#0;n#!!top" />
             <element signature="n#div#6;n#div#0;n#!!top" />
             <element signature="n#div#7;n#div#0;n#!!top" />
+            <element signature="n#div#8;n#div#0;n#!!top" />
             <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#2;n#tbody#0;n#table#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#6;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#6;n#tbody#0;n#table#0;n#form#0;n#div#8;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#div#8;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/moca_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#2145#2176#0" expanded="true" />
+            <element signature="e#2896#2927#0" expanded="true" />
+            <element signature="e#3494#3525#0" expanded="true" />
+            <element signature="e#3624#3655#0" expanded="true" />
+            <element signature="e#3783#3814#0" expanded="true" />
+            <element signature="e#3913#3944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-521">
+          <caret line="768" column="63" selection-start-line="768" selection-start-column="63" selection-end-line="768" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/seguimiento_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" selection-end-line="379" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/report.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SanJose/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="649">
+          <caret line="169" lean-forward="true" selection-start-line="169" selection-end-line="169" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="89" column="30" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SanJose/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="160" lean-forward="true" selection-start-line="160" selection-end-line="164" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="e#631#663#0" expanded="true" />
           </folding>
         </state>
       </provider>

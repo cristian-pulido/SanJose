@@ -33,6 +33,9 @@ class Dprevio(models.Model):
 
     def __str__(self):
         return '{}'.format(self.nombre)
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
+
 
 class Apatologicos(models.Model):
     hta='HTA'
@@ -47,7 +50,8 @@ class Apatologicos(models.Model):
 
     def __str__(self):
         return '{}'.format(self.nombre)
-
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 class Medico(models.Model):
     nombre = models.CharField(max_length=70)
@@ -56,6 +60,8 @@ class Medico(models.Model):
         return self.candidato_set.all()
     def __str__(self):
         return '{}'.format(self.nombre)
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 class Candidato(models.Model):
     sujeto_numero = models.PositiveIntegerField(null=True, unique=True)
     fecha_de_registro= models.DateField(null=True, default=timezone.now)
@@ -140,6 +146,8 @@ class Candidato(models.Model):
             ("can_descargar_candidato", u"puede descargar candidato"),
         )
 
+    class ReportBuilder:
+        exclude = ('nombres','apellidos','cc','imagen','id', 'archivo', )  # Lists or tuple of excluded fields
 
 
 class Ingreso(models.Model):
@@ -206,6 +214,8 @@ class Ingreso(models.Model):
         permissions = (
             ("can_ver_ingreso", u"puede ver ingreso"),
         )
+    class ReportBuilder:
+        exclude = ('id','archivo','archivofirma','direccion' )  # Lists or tuple of excluded fields
 
 
 class Radiologia(models.Model):
@@ -277,6 +287,8 @@ class Radiologia(models.Model):
         permissions = (
             ("can_ver_radiologia", u"puede ver radiologia"),
         )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 
 class Uci(models.Model):
@@ -368,6 +380,8 @@ class Uci(models.Model):
         permissions = (
             ("can_ver_uci", u"puede ver uci"),
         )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 class Neurologia(models.Model):
     numero_CHOICES = (
@@ -413,6 +427,8 @@ class Neurologia(models.Model):
         permissions = (
             ("can_ver_neurologia", u"puede ver neurologia"),
         )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 
 class Bold(models.Model):
@@ -509,6 +525,8 @@ class Bold(models.Model):
         permissions = (
             ("can_ver_bold", u"puede ver bold"),
         )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 
 class Mayor(models.Model):
@@ -573,6 +591,8 @@ class Mayor(models.Model):
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+    class ReportBuilder:
+        exclude = ('id', 'informante' )  # Lists or tuple of excluded fields
 
 class Informante(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
@@ -673,6 +693,8 @@ class Informante(models.Model):
         permissions = (
             ("can_ver_informante", u"puede ver informante"),
         )
+    class ReportBuilder:
+        exclude = ('id','informante' )  # Lists or tuple of excluded fields
 
 class Seguimiento(models.Model):
     candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
@@ -718,6 +740,8 @@ class Seguimiento(models.Model):
         permissions = (
             ("can_ver_seguimiento", u"puede ver seguimiento"),
         )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 class Moca(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
@@ -741,6 +765,8 @@ class Moca(models.Model):
             ("can_ver_moca", u"puede ver moca"),
 
         )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
 
 
 
@@ -778,6 +804,9 @@ class Control(models.Model):
             ("can_descargar_control", u"puede descargar control"),
 
         )
+    class ReportBuilder:
+        exclude = ('id', 'imagen')  # Lists or tuple of excluded fields
+
 
 
 

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.paciente',
     'social_django',
     'django.contrib.admin',
+    'report_builder',
 ]
 
 MIDDLEWARE = [
@@ -64,10 +65,13 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',  # <- Here
                 'social_django.context_processors.login_redirect', # <- Here
+
             ],
         },
     },
@@ -153,3 +157,11 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='840617295981-o7teu8iuk78nlk71i07du7g4lho0skq5.ap
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QOvCZEt-hODaqt-96wQ6SuqL' #Paste Secret Key
 
 CELERY_BROKER_URL = 'amqp://localhost'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+REPORT_BUILDER_INCLUDE = ['paciente.candidato','paciente.control']
