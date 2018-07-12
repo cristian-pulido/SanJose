@@ -1,0 +1,172 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Control {% endblock %}
+{% block content %}
+{% if not perms.paciente.add_control %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
+
+
+{% load scripts %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
+
+    <div class="col-md-8 col-md-offset-2">
+        <h1> Información Sujeto de Control </h1>
+
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <th>{{form.fecha.label}} (Hoy)</th>
+                <td colspan="3"><input class="form-control" required type="date" name="fecha" id="id_fecha" value="{{object.fecha|date:'Y-m-d'}}" /></td>
+            </tr>
+            <tr>
+                <th style="vertical-align: middle;">{{form.fecha_nacimiento.label}}</th>
+                <td><input class="form-control" required type="date" name="fecha_nacimiento" id="id_fecha_nacimiento" value="{{object.fecha_nacimiento|date:'Y-m-d'}}" /></td>
+                <th style="vertical-align: middle;">{{form.sexo.label}}</th>
+                <td>{{form.sexo}}</td>
+            </tr>
+            <tr>
+                <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
+            </tr>
+
+            <tr>
+                <th style="vertical-align: middle;">{{form.funcion_visoespacial.label}}</th>
+                <td>{{form.funcion_visoespacial}}</td>
+                <th style="vertical-align: middle;">{{form.identificacion.label}}</th>
+                <td>{{form.identificacion}}</td>
+            </tr>
+            <tr>
+                <th style="vertical-align: middle;">Atención</th>
+                <td>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.atencion_numero.label}}</td><td>{{form.atencion_numero}}</td>
+                        </tr>
+                        <tr><td style="vertical-align: middle;">{{form.atencion_letras.label}}</td><td>{{form.atencion_letras}}</td></tr>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.atencion_resta.label}}</td><td>{{form.atencion_resta}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <th style="vertical-align: middle;">Lenguaje</th>
+                <td>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td style="vertical-align: middle;">{{form.lenguaje_repite.label}}</td><td>{{form.lenguaje_repite}}</td>
+                        </tr>
+                        <tr><td style="vertical-align: middle;">{{form.lenguaje_fluidez.label}}</td><td>{{form.lenguaje_fluidez}}</td></tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <th style="vertical-align: middle;">{{form.abstraccion.label}}</th>
+                <td>{{form.abstraccion}}</td>
+                <th style="vertical-align: middle;">{{form.recuerdo.label}}</th>
+                <td>{{form.recuerdo}}</td>
+            </tr>
+            <tr>
+                <th style="vertical-align: middle;">{{form.orientacion.label}}</th>
+                <td>{{form.orientacion}}</td>
+                <th style="vertical-align: middle;">{{form.total.label}}</th>
+                <td><input class="form-control" name="total" id="id_total" readonly required {% if object.total != None %} value="{{object.total}}" {% endif%}> </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" id="guardar" type="submit">Guardar</button>
+    </div>
+
+</form>
+<br>
+<br>
+{% endblock %}
+{% block extrajs %}
+
+<script>
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var pppp = today.getFullYear();
+var yyyy = today.getFullYear()-18;
+var aaaa = today.getFullYear()-100;
+ if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+today = pppp+'-'+mm+'-'+dd;
+var fecha=document.getElementById("id_fecha").value;
+if ( fecha == "" ) {
+    document.getElementById("id_fecha").value=today;
+}
+document.getElementById("id_fecha").setAttribute("max", today);
+
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("id_fecha_nacimiento").setAttribute("max", today);
+today = aaaa+'-'+mm+'-'+dd;
+document.getElementById("id_fecha_nacimiento").setAttribute("min", today);
+</script>
+<script>
+    document.getElementById("id_funcion_visoespacial").addEventListener('change', sumar);
+    document.getElementById("id_identificacion").addEventListener('change', sumar);
+    document.getElementById("id_atencion_numero").addEventListener('change', sumar);
+    document.getElementById("id_atencion_letras").addEventListener('change', sumar);
+    document.getElementById("id_atencion_resta").addEventListener('change', sumar);
+    document.getElementById("id_lenguaje_repite").addEventListener('change', sumar);
+    document.getElementById("id_lenguaje_fluidez").addEventListener('change', sumar);
+    document.getElementById("id_abstraccion").addEventListener('change', sumar);
+    document.getElementById("id_recuerdo").addEventListener('change', sumar);
+    document.getElementById("id_orientacion").addEventListener('change', sumar);
+
+
+    function sumar(){
+    var s1=document.getElementById("id_funcion_visoespacial").value*1;
+    var s2=document.getElementById("id_identificacion").value*1;
+    var s3=document.getElementById("id_atencion_numero").value*1;
+    var s4=document.getElementById("id_atencion_letras").value*1;
+    var s5=document.getElementById("id_atencion_resta").value*1;
+    var s6=document.getElementById("id_lenguaje_repite").value*1;
+    var s7=document.getElementById("id_lenguaje_fluidez").value*1;
+    var s8=document.getElementById("id_abstraccion").value*1;
+    var s9=document.getElementById("id_recuerdo").value*1;
+    var s10=document.getElementById("id_orientacion").value*1;
+
+    var t= s1+s2+s3+s4+s5+s6+s7+s8+s9+s10;
+    document.getElementById("id_total").value=t;
+
+    }
+</script>
+{% endblock %}

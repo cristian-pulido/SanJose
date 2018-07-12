@@ -71,7 +71,7 @@
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Controles <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
 														{% if perms.paciente.add_control %}
-                                                        <li><a href={% url "crear_control" %}>Añadir</a></li>
+                                                        <li><a href={% url "control_crear" %}>Añadir</a></li>
 														{% endif %}
 														<li><a href={% url "controles_listar" %}>Lista</a></li>
                                                     </ul>
@@ -121,7 +121,7 @@
 		 {% else %}
 		 <div class="container">
 			 <h1>Bienvenido</h1>
-			 <p>Su cuenta a sido creada satisfactoriamente comuniquese con el administrador al correo <a href="#">cpulido@unal.edu.co</a> identificandose para
+			 <p>Su cuenta a sido creada satisfactoriamente comuniquese con el Coordinador al correo <a href="#">cpulido@unal.edu.co</a> identificandose para
 			 otorgarle los correspondientes permisos para el uso de la plataforma.</p>
 			<a href={% url "logout"%}>Salir</a>
 		 </div>

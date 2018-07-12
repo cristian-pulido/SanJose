@@ -2,6 +2,7 @@
 # Create your views here.
 import os
 import shutil
+from datetime import datetime
 
 from django.conf import settings
 from django.contrib import messages
@@ -10,9 +11,9 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
-    BoldForm, MayorForm, InformanteForm, SeguimientoForm
+    BoldForm, MayorForm, InformanteForm, SeguimientoForm, ControlForm, MocaForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
-    Seguimiento, Control
+    Seguimiento, Control, Moca
 
 
 class PacienteCreate(CreateView):
@@ -197,6 +198,16 @@ class SeguimientoUpdate(UpdateView):
         p=s.candidato
         return reverse_lazy('paciente', args=[p.pk])
 
+class MocaUpdate(UpdateView):
+    model = Moca
+    form_class = MocaForm
+    template_name = 'paciente/moca_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        b=self.object
+        p=b.candidato
+        return reverse_lazy('paciente', args=[p.pk])
 
 
 
@@ -251,5 +262,50 @@ class MedicoDelete(DeleteView):
     template_name = 'paciente/medico_eliminar.html'
     # a donde va dirigido
     success_url = reverse_lazy('medico_listar')
+
+
+class ControlCreate(CreateView):
+    model = Control
+    form_class = ControlForm
+    template_name = 'paciente/control_form.html'
+
+
+    def get_success_url(self):
+        c=self.object
+        cantidad=len(Control.objects.all())
+        if cantidad == 1:
+            c.numero=1
+            c.save()
+            try:
+                os.mkdir(settings.MEDIA_ROOT + "/controles")
+            except:
+                ""
+            os.mkdir(settings.MEDIA_ROOT + "/controles/1")
+        else:
+            flag = False
+            i = 2
+            while flag == False:
+                try:
+                    c.numero=i
+                    c.save()
+                    flag = True
+                except:
+                    ""
+                i = i + 1
+            os.mkdir(settings.MEDIA_ROOT + "/controles/" + str(c.numero))
+        nacimiento = c.fecha_nacimiento
+        hoy = datetime.now().date()
+        dt = hoy - nacimiento
+        c.edad = int(dt.days / 365)
+        c.save()
+        messages.add_message(self.request, messages.INFO,"Se ha añadido el registro del control " + str(c.numero).zfill(4) + ".")
+        return reverse_lazy('controles_listar')
+
+class ControlUpdate(UpdateView):
+    model = Control
+    form_class = ControlForm
+    template_name = 'paciente/control_form.html'
+    success_url = reverse_lazy('controles_listar')
+
 
 

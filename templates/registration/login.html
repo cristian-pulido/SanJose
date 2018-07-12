@@ -71,7 +71,7 @@ window.location="{% url 'paciente_listar' %}";
 {% if form.errors %}
 <h1 style="color:red; text-align:center" >Usuario o Contraseña Incorrectos</h1>
 {% endif %}
-<li><input type="user" name="username" autofocus id="id_username" required class="input" placeholder="Usuario"/><span class="icon"><i class="fa fa-user"></i></span></li>
+<li><input type="user" name="username" autofocus autocomplete="off" id="id_username" required class="input" placeholder="Usuario"/><span class="icon"><i class="fa fa-user"></i></span></li>
 {{ form.username.errors }}
 <li><input type="password" name="password" required id="id_password" class="input" placeholder="Contraseña"/><span class="icon"><i class="fa fa-lock"></i></span></li>
 {{ form.password.errors }}

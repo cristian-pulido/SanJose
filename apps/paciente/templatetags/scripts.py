@@ -123,20 +123,23 @@ def creargrupos():
     seg1 = Permission.objects.get(name="Can add seguimiento")
     seg2 = Permission.objects.get(name="Can change seguimiento")
     seg3 = Permission.objects.get(name="puede ver seguimiento")
-
+    # moca
+    mo1 = Permission.objects.get(name="Can add moca")
+    mo2 = Permission.objects.get(name="Can change moca")
+    mo3 = Permission.objects.get(name="puede ver moca")
 
     ## creacion grupos
     invitado = Group.objects.get_or_create(name='Invitado')[0]
     consultor = Group.objects.get_or_create(name='Consultor')[0]
-    cargador = Group.objects.get_or_create(name='Cargador')[0]
+    residente = Group.objects.get_or_create(name='Residente')[0]
     informante = Group.objects.get_or_create(name='Informante')[0]
-    admin = Group.objects.get_or_create(name='Administrador')[0]
+    admin = Group.objects.get_or_create(name='Coordinador')[0]
     sadmin = Group.objects.get_or_create(name='SuperAdministrador')[0]
 
-    sadmin.permissions.add(p1, p2, p3, s1, s2, s3, s4, m1, m2, m3, c1, c2, c3, c4, b1, b2, b3, i1, i2, i3, u1, u2, u3, n1, n2, n3, r1, r2, r3, inf1, inf2, inf3, seg1, seg2, seg3)
-    admin.permissions.add(p1, m1, m2, m3, c1, c2, c3, b1, b2, b3, i1, i2, i3, u1, u2, u3, n1, n2, n3, r1, r2, r3, inf1, inf2, inf3, seg1, seg2, seg3)
-    cargador.permissions.add(s1, s2)
-    informante.permissions.add(p1, s1, s2, i1, i3, u1, u3, n1, n3, r1, r3, b1, b3, inf1, inf3, seg1, seg3)
+    sadmin.permissions.add(p1, p2, p3, s1, s2, s3, s4, m1, m2, m3, c1, c2, c3, c4, b1, b2, b3, i1, i2, i3, u1, u2, u3, n1, n2, n3, r1, r2, r3, inf1, inf2, inf3, seg1, seg2, seg3, mo1, mo2, mo3)
+    admin.permissions.add(p1, m1, m2, m3, c1, c2, c3, b1, b2, b3, i1, i2, i3, u1, u2, u3, n1, n2, n3, r1, r2, r3, inf1, inf2, inf3, seg1, seg2, seg3, mo1, mo2, mo3)
+    residente.permissions.add(s1, s2)
+    informante.permissions.add(p1, s1, s2, i1, i3, u1, u3, n1, n3, r1, r3, b1, b3, inf1, inf3, seg1, seg3, mo1, mo3)
 
 
     users = User.objects.all()

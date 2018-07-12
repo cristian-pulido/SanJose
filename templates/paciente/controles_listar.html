@@ -2,7 +2,22 @@
 
 {% block title %} Listado de Controles {% endblock %}
 {% block content %}
+
+
+
 <h1>Sujetos Controles</h1>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success">
+    {{ message }}
+  </div>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <table class="table table-hover">
     <thead>
         <tr>

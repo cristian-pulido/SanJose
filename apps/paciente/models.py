@@ -719,9 +719,58 @@ class Seguimiento(models.Model):
             ("can_ver_seguimiento", u"puede ver seguimiento"),
         )
 
+class Moca(models.Model):
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    fecha=models.DateField(null=True)
+    funcion_visoespacial=models.CharField(max_length=1,null=True)
+    identificacion = models.CharField(max_length=1, null=True)
+    atencion_numero = models.CharField(max_length=1, null=True)
+    atencion_letras = models.CharField(max_length=1, null=True)
+    atencion_resta = models.CharField(max_length=1, null=True)
+    lenguaje_repite = models.CharField(max_length=1, null=True)
+    lenguaje_fluidez = models.CharField(max_length=1, null=True)
+    abstraccion = models.CharField(max_length=1, null=True)
+    recuerdo = models.CharField(max_length=1, null=True)
+    orientacion = models.CharField(max_length=1, null=True)
+    total= models.CharField(max_length=2, null=True)
+
+
+    class Meta:
+
+        permissions = (
+            ("can_ver_moca", u"puede ver moca"),
+
+        )
+
+
+
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+
+
 class Control(models.Model):
     numero = models.PositiveIntegerField(null=True, unique=True)
     imagen = models.FileField(null=True, upload_to="controles", blank=True)
+    fecha_nacimiento = models.DateField(null=True)
+    fecha = models.DateField(null=True)
+    edad=models.PositiveIntegerField(null=True)
+    #######sexo
+    hombre = 'Hombre'
+    mujer = 'Mujer'
+    Sexo_choices = ((hombre, u'Hombre'), (mujer, u'Mujer'))
+    sexo = models.CharField(max_length=9, choices=Sexo_choices, null=True)
+    funcion_visoespacial=models.CharField(max_length=1,null=True)
+    identificacion = models.CharField(max_length=1, null=True)
+    atencion_numero = models.CharField(max_length=1, null=True)
+    atencion_letras = models.CharField(max_length=1, null=True)
+    atencion_resta = models.CharField(max_length=1, null=True)
+    lenguaje_repite = models.CharField(max_length=1, null=True)
+    lenguaje_fluidez = models.CharField(max_length=1, null=True)
+    abstraccion = models.CharField(max_length=1, null=True)
+    recuerdo = models.CharField(max_length=1, null=True)
+    orientacion = models.CharField(max_length=1, null=True)
+    total= models.CharField(max_length=2, null=True)
+
 
     class Meta:
         ordering = ["numero"]

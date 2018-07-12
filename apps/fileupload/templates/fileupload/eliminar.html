@@ -1,7 +1,7 @@
 {% extends 'upload_base.html' %}
 
 {% block content %}
-{% if user.groups.all.0.name != 'Administrador' %}
+{% if user.groups.all.0.name != 'Coordinador' %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>

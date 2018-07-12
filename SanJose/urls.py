@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.contrib.auth import views
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
-    crearseguimiento, crearcontrol, crearradiologiaf
+    crearseguimiento, crearradiologiaf, crearmoca
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -38,9 +38,8 @@ urlpatterns = [
     path('script/crearb/<int:pk>/', crearbold, name='crear_bold'),
     path('script/crearinf/<int:pk>/', crearinformante, name='crear_informante'),
     path('script/crears/<int:pk>/', crearseguimiento, name='crear_seguimiento'),
-    path('script/crearc/', crearcontrol, name='crear_control'),
     path('script/crearrf/<int:pk>/<slug:razon>/', crearradiologiaf, name='crear_rf'),
-
+    path('script/crearm/<int:pk>/', crearmoca, name='crear_moca'),
 
 ]
 

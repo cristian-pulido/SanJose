@@ -18,6 +18,77 @@
 <div id="myTabContent" class="tab-content" >
 <div class="tab-pane active"  id="home" >
 
+
+  <table class="table table-hover">
+  <tbody>
+  <tr>
+      <th style="vertical-align: middle;">Fecha de Evaluación</th>
+      <td>{{object.fecha}}</td>
+      <th style="vertical-align: middle;">Sexo</th>
+      <td>{{object.sexo}}</td>
+  </tr>
+  <tr>
+      <th style="vertical-align: middle;">Fecha de Nacimiento</th>
+      <td>{{object.fecha_nacimiento}}</td>
+      <th>Edad</th>
+      <td >{{object.edad}} años</td>
+  </tr>
+  <tr>
+      <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
+  </tr>
+
+  <tr>
+      <th style="vertical-align: middle;">Función visoespacial</th>
+      <td>{{object.funcion_visoespacial}}/5</td>
+      <th style="vertical-align: middle;">Identificación</th>
+      <td>{{object.identificacion}}/3</td>
+  </tr>
+  <tr>
+      <th style="vertical-align: middle;">Atención</th>
+      <td>
+          <table>
+              <tbody>
+              <tr>
+                  <td style="vertical-align: middle;">Número</td><td>{{object.atencion_numero}}/2</td>
+              </tr>
+              <tr><td style="vertical-align: middle;">Letras</td><td>{{object.atencion_letras}}/1</td></tr>
+              <tr>
+                  <td style="vertical-align: middle;">Resta</td><td>{{object.atencion_resta}}/3</td>
+              </tr>
+              </tbody>
+          </table>
+      </td>
+      <th style="vertical-align: middle;">Lenguaje</th>
+      <td>
+          <table>
+              <tbody>
+              <tr>
+                  <td style="vertical-align: middle;">Repite</td><td>{{object.lenguaje_repite}}/2</td>
+              </tr>
+              <tr><td style="vertical-align: middle;">Fluidez</td><td>{{object.lenguaje_fluidez}}/1</td></tr>
+              </tbody>
+          </table>
+      </td>
+  </tr>
+  <tr>
+      <th style="vertical-align: middle;">Abstracción</th>
+      <td>{{object.abstraccion}}/2</td>
+      <th style="vertical-align: middle;">Recuerdo Diferido</th>
+      <td>{{object.recuerdo}}/5</td>
+  </tr>
+  <tr>
+      <th style="vertical-align: middle;">Orientación</th>
+      <td>{{object.orientacion}}/6</td>
+      <th style="vertical-align: middle;">Total</th>
+      <td>{{object.total}}/30</td>
+  </tr>
+  </tbody>
+</table>
+{% if perms.paciente.change_control%}
+    <form>
+      <button class="btn btn-primary" formaction="{% url 'control_editar' object.pk%}">Editar</button>
+    </form>
+{% endif %}
 </div>
 
 

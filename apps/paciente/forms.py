@@ -1,7 +1,7 @@
 
 from django import forms
 from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, \
-    Informante, Seguimiento
+    Informante, Seguimiento, Control, Moca
 
 
 class MedicoForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class MedicoForm(forms.ModelForm):
         model = Medico
         fields = ['nombre',]
         labels = {'nombre': "Nombre",}
-        widgets = {'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Nombre')}),}
+        widgets = {'nombre': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off",'placeholder': ('Nombre')}),}
 
 
 class PacienteForm(forms.ModelForm):
@@ -25,7 +25,6 @@ class PacienteForm(forms.ModelForm):
             'fecha_nacimiento',
             'cc',
             'sexo',
-            #'sujeto_numero',
             'fecha_de_registro',
             'HC',
             'cama_numero',
@@ -55,7 +54,7 @@ class PacienteForm(forms.ModelForm):
             'fecha_nacimiento': 'Fecha de nacimiento*',
             'cc': 'C.C*',
             'sexo': 'Sexo*',
-            #'sujeto_numero' : "Sujeto #",
+
             'fecha_de_registro' : "Fecha de Registro*",
             'HC': "Historia Clinica*",
             'cama_numero': 'Cama UCI*',
@@ -75,7 +74,7 @@ class PacienteForm(forms.ModelForm):
             'fecha_nacimiento': forms.TextInput(attrs={'class': 'form-control'}),
             'cc': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Cédula de Ciudadanía')}),
             'sexo': forms.Select(attrs={'class': 'form-control'}),
-            #'sujeto_numero': forms.TextInput(attrs={'class': 'form-control'}),
+
             'fecha_de_registro': forms.TextInput(attrs={'class': 'form-control'}),
             'HC':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Historia clínica número')}),
             'cama_numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Ingrese número entero')}),
@@ -1088,6 +1087,116 @@ class SeguimientoForm(forms.ModelForm):
             'respuesta_motora':forms.RadioSelect(),
             'respuesta_verbal':forms.RadioSelect(),
 
+
+        }
+
+class MocaForm(forms.ModelForm):
+
+    class Meta:
+        model = Moca
+
+        fields = [
+            'fecha',
+            'funcion_visoespacial',
+            'identificacion',
+            'atencion_numero',
+            'atencion_letras',
+            'atencion_resta',
+            'lenguaje_repite',
+            'lenguaje_fluidez',
+            'abstraccion',
+            'recuerdo',
+            'orientacion',
+            'total',
+
+        ]
+
+        labels = {
+            'fecha':"Fecha",
+            'funcion_visoespacial':'Función visoespacial',
+            'identificacion':'Identificación',
+            'atencion_numero':'Número',
+            'atencion_letras':'Letras',
+            'atencion_resta':'Resta',
+            'lenguaje_repite':'Repite',
+            'lenguaje_fluidez':'Fluidez',
+            'abstraccion':'Abstracción',
+            'recuerdo':'Recuerdo Diferido',
+            'orientacion':'Orientación',
+            'total':'Total',
+
+        }
+        widgets = {
+            'fecha': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'funcion_visoespacial': forms.TextInput(attrs={'class': 'form-control', 'size' : '4','placeholder': ('valor entre 0 y 5'),'oninput':"this.value = this.value.replace(/[^0-5]/, '')"}),
+            'identificacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'atencion_numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'atencion_letras': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'atencion_resta': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'lenguaje_repite': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'lenguaje_fluidez': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'abstraccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'recuerdo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 5'),'oninput': "this.value = this.value.replace(/[^0-5]/, '')"}),
+            'orientacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+
+        }
+
+
+
+class ControlForm(forms.ModelForm):
+
+    class Meta:
+        model = Control
+
+        fields = [
+            'fecha',
+            'fecha_nacimiento',
+            'sexo',
+            'funcion_visoespacial',
+            'identificacion',
+            'atencion_numero',
+            'atencion_letras',
+            'atencion_resta',
+            'lenguaje_repite',
+            'lenguaje_fluidez',
+            'abstraccion',
+            'recuerdo',
+            'orientacion',
+            'total',
+
+        ]
+
+        labels = {
+            'fecha':"Fecha",
+            'fecha_nacimiento':'Fecha de Nacimiento',
+            'sexo':'Sexo',
+            'funcion_visoespacial':'Función visoespacial',
+            'identificacion':'Identificación',
+            'atencion_numero':'Número',
+            'atencion_letras':'Letras',
+            'atencion_resta':'Resta',
+            'lenguaje_repite':'Repite',
+            'lenguaje_fluidez':'Fluidez',
+            'abstraccion':'Abstracción',
+            'recuerdo':'Recuerdo Diferido',
+            'orientacion':'Orientación',
+            'total':'Total',
+
+        }
+        widgets = {
+            'fecha': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'fecha_nacimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'sexo': forms.Select(attrs={'class': 'form-control'}),
+            'funcion_visoespacial': forms.TextInput(attrs={'class': 'form-control', 'size' : '4','placeholder': ('valor entre 0 y 5'),'oninput':"this.value = this.value.replace(/[^0-5]/, '')"}),
+            'identificacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'atencion_numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'atencion_letras': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'atencion_resta': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'lenguaje_repite': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'lenguaje_fluidez': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'abstraccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'recuerdo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 5'),'oninput': "this.value = this.value.replace(/[^0-5]/, '')"}),
+            'orientacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
 
         }
 

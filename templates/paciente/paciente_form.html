@@ -233,7 +233,7 @@
                     <label>{{form.archivo.label}}</label>
                     {{form.archivo.errors}}
 
-                    {% if not object.archivo or user.groups.all.0.name == 'Administrador'%}
+                    {% if not object.archivo or user.groups.all.0.name == 'Coordinador'%}
                      {{form.archivo}}
                     {% else %}
                     Ya cargado.

@@ -8,7 +8,7 @@
         window.location="{% url 'paciente_listar' %}";
 </script>
 {% endif %}
-{% if user.groups.all.0.name != 'Administrador' and object.fechaneuro != None %}
+{% if user.groups.all.0.name != 'Coordinador' and object.fechaneuro != None %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>

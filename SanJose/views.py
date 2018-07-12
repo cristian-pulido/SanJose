@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
-    Control, Cambioradiologia
+    Control, Cambioradiologia, Moca
 from programas import anonimizador
 
 def error(request):
@@ -140,30 +140,6 @@ def crearseguimiento(request, pk):
         else:
             return redirect("/paciente/seguimiento/editar/" + str(vacio.pk))
 
-def crearcontrol(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    else:
-        n=len(Control.objects.all())
-        if n==0:
-            try:
-                os.mkdir(settings.MEDIA_ROOT+"/controles")
-            except:
-                ""
-            c=Control.objects.create(numero=1)
-            os.mkdir(settings.MEDIA_ROOT+"/controles/1")
-        else:
-            flag=False
-            i=2
-            while flag==False:
-                try:
-                    c=Control.objects.create(numero=i)
-                    flag=True
-                except:
-                    ""
-                i=i+1
-            os.mkdir(settings.MEDIA_ROOT+"/controles/"+str(c.numero))
-        return redirect("/paciente/controles/"+str(c.pk))
 
 def crearradiologiaf(request, pk, razon):
     if not request.user.is_authenticated:
@@ -176,6 +152,20 @@ def crearradiologiaf(request, pk, razon):
             razon=razon[:p]+e+razon[p+1:]
         Cambioradiologia.objects.create(sujeto=c, fecha=datetime.datetime.now(),razon=razon)
         return redirect("/paciente/formularios/" + str(c.pk))
+
+def crearmoca(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        if hasattr(c,'uci') and c.uci.condicion_egreso == 'Vivo':
+            if hasattr(c, 'moca'):
+                return redirect("/paciente/moca/editar/" + str(c.moca.pk))
+            else:
+                m = Moca.objects.create(candidato=c)
+                return redirect("/paciente/moca/editar/" + str(m.pk))
+        else:
+            return redirect('login')
 
 
 

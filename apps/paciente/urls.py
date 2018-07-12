@@ -3,12 +3,15 @@ from django.urls import path
 
 from apps.paciente.views import PacienteCreate, PacienteUpdate, MedicoCreate, MedicoList, MedicoUpdate, MedicoDelete, \
     PacienteList, PacienteView, PacienteDelete, IngresoUpdate, RadiologiaUpdate, UciUpdate, NeurologiaUpdate, \
-    BoldUpdate, MayorUpdate, InformanteUpdate, SeguimientoUpdate, ControlView, ControlList, ControlDelete
+    BoldUpdate, MayorUpdate, InformanteUpdate, SeguimientoUpdate, ControlView, ControlList, ControlDelete, \
+    ControlCreate, ControlUpdate, MocaUpdate
 
 urlpatterns = [
 
     path('nuevo', PacienteCreate.as_view(), name='paciente_crear'),
+    path('control', ControlCreate.as_view(), name='control_crear'),
     path('editar/<int:pk>/', PacienteUpdate.as_view(), name='paciente_editar'),
+    path('control/editar/<int:pk>/', ControlUpdate.as_view(), name='control_editar'),
     path('formularios/<slug:pk>', PacienteView.as_view(), name='paciente'),
     path('controles/<slug:pk>', ControlView.as_view(), name='control'),
     path('listar/', PacienteList.as_view(), name='paciente_listar'),
@@ -27,6 +30,7 @@ urlpatterns = [
     path('mayor/editar/<int:pk>/', MayorUpdate.as_view(), name='mayor_editar'),
     path('informante/editar/<int:pk>/', InformanteUpdate.as_view(), name='informante_editar'),
     path('seguimiento/editar/<int:pk>/', SeguimientoUpdate.as_view(), name='seguimiento_editar'),
+    path('moca/editar/<int:pk>/', MocaUpdate.as_view(), name='moca_editar'),
 
 
 ]

@@ -33,7 +33,7 @@ def imgc():
         return A
 @register.simple_tag
 def upload_js(per):
-    if per=='Administrador':
+    if per=='Coordinador':
         return mark_safe("""
         <!-- The template to display files available for upload -->
         <script id="template-upload" type="text/x-tmpl">
