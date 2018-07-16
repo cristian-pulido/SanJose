@@ -10,7 +10,7 @@ class MedicoForm(forms.ModelForm):
         model = Medico
         fields = ['nombre',]
         labels = {'nombre': "Nombre",}
-        widgets = {'nombre': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off",'placeholder': ('Nombre')}),}
+        widgets = {'nombre': forms.TextInput(attrs={'class': 'form-control','oninput':"this.value = this.value.replace(/[^a-zA-ZñÑ\sáéíóúüàè]/, '')", 'autocomplete' :"off",'placeholder': ('Nombre')}),}
 
 
 class PacienteForm(forms.ModelForm):
@@ -141,7 +141,7 @@ class IngresoForm(forms.ModelForm):
             'fecha_form':"Fecha*",
             'lugar_nacimiento':"Lugar de nacimiento*",
             'lugar_residencia': "Lugar de residencia*",
-            'direccion':"Dirección*",
+            'direccion':"Dirección",
             'nombre_acompanante':"Nombre Acompañante*",
             'tel1': "Teléfono de contacto 1*",
             'tel2': "Teléfono de contacto 2",
@@ -171,7 +171,7 @@ class IngresoForm(forms.ModelForm):
             'fecha_form': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Fecha cuando se llena este formulario')}),
             'lugar_nacimiento': forms.TextInput(attrs={'class': 'form-control'}),
             'lugar_residencia': forms.TextInput(attrs={'class': 'form-control'}),
-            'direccion': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off" ,'placeholder': ('Escriba la dirección de residencia')}),
+            'direccion': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off" ,'placeholder': ('Escriba la dirección de residencia (opcional)')}),
             'nombre_acompanante': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'tel1': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'tel2': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),

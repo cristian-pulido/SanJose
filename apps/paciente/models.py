@@ -155,7 +155,7 @@ class Ingreso(models.Model):
     fecha_form = models.DateField(null=True)
     lugar_nacimiento = models.CharField(max_length=80, null=True, default="")
     lugar_residencia = models.CharField(max_length=80, null=True, default="")
-    direccion = models.CharField(max_length=60, null=True)
+    direccion = models.CharField(max_length=60, null=True, blank=True)
     nombre_acompanante = models.CharField(max_length=50,null=True, default="")
     tel1 = models.PositiveIntegerField(null=True)
     tel2 = models.PositiveIntegerField(null=True, blank=True)

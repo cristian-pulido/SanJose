@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label >{{form.nombres.label}}</label>
                     {{ form.nombres.errors }}
-                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="nombres" maxlength="50" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\sáéíóúüàè]/, '')" name="nombres" maxlength="50" required id="id_nombres" placeholder="Nombres" class="form-control" value="{{object.nombres}}"/>
 
                 </div>
         </div>
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label >{{form.apellidos.label}}</label>
                     {{ form.apellidos.errors }}
-                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="apellidos" maxlength="50" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
+                    <input type="text" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\sáéíóúüàè]/, '')" name="apellidos" maxlength="50" required id="id_apellidos" placeholder="apellidos" class="form-control" value="{{object.apellidos}}"/>
                 </div>
         </div>
         <div class="col-md-8 col-md-offset-2">

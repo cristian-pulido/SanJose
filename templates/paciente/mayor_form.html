@@ -68,12 +68,12 @@
                             <th style="vertical-align: middle;">{{ form.informante.label }}</th>
                             <td style="vertical-align: middle;"> 
                                 {{ form.informante.errors }}
-                                <input type="text" maxlength="35" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
+                                <input type="text" maxlength="35" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\sáéíóúüàè]/, '')" name="informante"  required id="id_informante"  class="form-control" value="{{object.informante}}"/>
                             </td>
                             <th style="vertical-align: middle;">{{ form.parentezco.label }}</th>
                             <td style="vertical-align: middle;"> 
                                 {{ form.parentezco.errors }}
-                                <input type="text" maxlength="15" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\s]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
+                                <input type="text" maxlength="15" oninput="this.value = this.value.replace(/[^a-zA-ZñÑ\sáéíóúüàè]/, '')" name="parentezco"  required id="id_parentezco"  class="form-control" value="{{object.parentezco}}"/>
                             </td>
                         </tr>
                         <tr>
