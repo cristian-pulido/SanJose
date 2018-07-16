@@ -24,7 +24,7 @@ from .views import error, crearingreso, crearradiologia, crearuci, crearneurolog
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
-    #path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('carga/', include('apps.fileupload.urls')),
     path('paciente/', include('apps.paciente.urls')),
     url(r'^login/$', views.login, name='login'),

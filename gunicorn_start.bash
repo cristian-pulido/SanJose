@@ -12,7 +12,7 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment
 
-source /home/colciencias/.virtualenvs/trabajo/bin/activate
+source /home/colciencias/Envs/trabajo/bin/activate
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /home/colciencias/.virtualenvs/trabajo/bin/activate
+source /home/colciencias/Envs/trabajo/bin/activate
 
 #exec gunicorn SanJose.wsgi --bind 0.0.0.0:8000 
 cd /home/colciencias/SanJose

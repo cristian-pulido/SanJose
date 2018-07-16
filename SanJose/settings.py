@@ -130,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'/home/colciencias/static')
+STATIC_ROOT = '/home/colciencias/static'
 STATICFILES_DIRS = [
     'SanJose/static',
     os.path.join(BASE_DIR, 'static'),
@@ -165,3 +165,4 @@ REST_FRAMEWORK = {
 }
 
 REPORT_BUILDER_INCLUDE = ['paciente.candidato','paciente.control']
+
