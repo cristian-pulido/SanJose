@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('carga/', include('apps.fileupload.urls')),
     path('paciente/', include('apps.paciente.urls')),
+
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
     url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
