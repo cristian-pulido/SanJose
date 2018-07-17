@@ -21,8 +21,8 @@
   <li class="nav-item active">
     <a class="nav-link active " data-toggle="tab" href="#home">Demografico</a>
   </li>
-
-  {% if object.estado > 0 %}
+  
+  {% if object.estado > 0 and object.D_neuro_logico_psiquiatrico_previo.all|length == 0 %}
   {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False%}
 
   {% if perms.paciente.can_ver_ingreso %}
