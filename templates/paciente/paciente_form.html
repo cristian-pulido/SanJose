@@ -396,7 +396,24 @@ document.getElementsByName("fecha_evento_principal")[0].addEventListener('change
 
 /* function */
 function valfecha(){
-    document.getElementById("id_fecha_ingreso").min = this.value;
+    var x = new Date(String(this.value));
+    x.setMonth(x.getMonth() - 2);
+
+    var dd = x.getDate();
+    var mm = x.getMonth()+1; //January is 0!
+    var yyyy = x.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+
+    x = yyyy+'-'+mm+'-'+dd;
+    alert(x);
+
+    document.getElementById("id_fecha_ingreso").min = x;
 }
 
 </script>
