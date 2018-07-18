@@ -358,7 +358,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     {% if object.archivofirma %}
                         Ya cargado
                     {% else %}
-                     <p><input type="file" name="archivofirma" id="id_archivofirma" accept="application/pdf" {% if object.firma_consentimiento == False %} style="display:none" {% else%} required value="{{object.archivofirma}}" {% endif %} /></p>
+                     <p><input type="file" name="archivofirma" id="id_archivofirma" accept="application/pdf" {% if object.firma_consentimiento == False %} style="display:none" {% else%} value="{{object.archivofirma}}" {% endif %} /></p>
                     {% endif %}
                     <br>
                     <label id="causafirma" {% if object.firma_consentimiento == True %} style="display:none" {% endif  %}>{{form.firma_causa.label}}</label>
@@ -385,7 +385,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </form>
 
 
-<div class="modal-wrapper" id="popup">
+<div class="modal-wrapper" id="popup" style="top:200px">
    <div class="popup-contenedor">
       <select name="country" class="countries order-pop presel-CO continent-include-NA-SA" id="countryId">
         <option value="">País</option>

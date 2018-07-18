@@ -124,7 +124,7 @@
                     <tr>
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
-                      {% if object.uci and user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
+                      {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                         <th scope="col">Seguimiento de hoy</th>
                       {% endif %}
                       {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
@@ -139,7 +139,8 @@
                             <tr class="table-active">
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
-                              {% if object.uci and user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
+                              
+                              {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                                 {% load scripts %}
                                 <td style="vertical-align: middle;" scope="col">
                                     {% checkseguimiento object as check %}
