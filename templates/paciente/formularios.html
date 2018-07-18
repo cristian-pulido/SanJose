@@ -104,7 +104,7 @@
             {% endif %}
             <tr class="table-active">
               <th>Edad Actual</th>
-              <td>{{ object.edad }} </td>
+              <td>{{ object.edad }} Años</td>
               <th>Sexo</th>
               <td>{{ object.sexo }} </td>
             </tr>
@@ -162,7 +162,9 @@
                    {% if object.ci == 'ci1'%}
                     <p>Paciente con episodio de parada cadíaca con reanimación exitosa.</p>
                    {% elif object.ci == 'ci2'%}
-                     <p>Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular.</p>
+                     <p>Paciente con Dx de lesión cerebral aguda de origen traumático.</p>
+                   {% elif object.ci == 'cie'%}
+                     <p>Paciente con Dx de lesión cerebral aguda por evento cerebrovascular.</p>
                    {% endif %}
                    {% if object.ci3 == True %}
                     <p>Puntaje en escala Glasgow igual o menor a 8 después del evento inicial.</p>

@@ -95,7 +95,9 @@ class Candidato(models.Model):
     ######## criterios de inclusion
     criterios_CHOICES = (
         ('ci1', 'Paciente con episodio de parada cardíaca con reanimación exitosa'),
-        ('ci2', 'Paciente con Dx de lesión cerebral aguda de origen traumático o evento cerebrovascular'),
+        ('ci2', 'Paciente con Dx de lesión cerebral aguda de origen traumático'),
+        ('cie', 'Paciente con Dx de lesión cerebral aguda por evento cerebrovascular'),
+
     )
     ci = models.CharField(choices=criterios_CHOICES, max_length=128, null=True, default='ci1',blank=True)
     ci3 = models.NullBooleanField('Puntaje en escala Glasgow igual o menor a 8 después del evento inicial')

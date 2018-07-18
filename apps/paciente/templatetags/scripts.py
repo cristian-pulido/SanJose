@@ -27,10 +27,11 @@ def edad():
         return ""
     else:
         c=Candidato.objects.all()
-        hoy=datetime.now().date()
+        #hoy=datetime.now().date()
         for s in c:
             nacimiento=s.fecha_nacimiento
-            dt=hoy-nacimiento
+            registro = s.fecha_de_registro
+            dt=registro-nacimiento
             s.edad=int(dt.days/365)
             s.save()
         return ""
@@ -189,8 +190,11 @@ def checkseguimiento(o):
             return "Formulario Ingreso UCI cargado"
         else:
             s=o.get_seguimiento()
-            if str(s.last().fechaseguimiento) == hoy and s.last().glasgowtotal != '0':
-                return "si"
+            if len(s) > 0:
+                if str(s.last().fechaseguimiento) == hoy and s.last().glasgowtotal != '0':
+                    return "si"
+                else:
+                    return "no"
             else:
                 return "no"
     else:
