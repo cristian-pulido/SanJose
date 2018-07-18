@@ -181,3 +181,17 @@ def anonimizar(sn):
         f.close()
     return "Completo"
 
+@register.simple_tag
+def checkseguimiento(o):
+    if hasattr(o, 'uci') and o.uci.fechauci != None:
+        hoy = datetime.today().strftime('%Y-%m-%d')
+        if str(o.uci.fechauci) == hoy:
+            return "Formulario Ingreso UCI cargado"
+        else:
+            s=o.get_seguimiento()
+            if str(s.last().fechaseguimiento) == hoy and s.last().glasgowtotal != '0':
+                return "si"
+            else:
+                return "no"
+    else:
+        return "Formulario Ingreso UCI aún no cargado"

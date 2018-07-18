@@ -120,7 +120,7 @@ class Candidato(models.Model):
         return '{}'.format(self.sujeto_numero)
 
     def get_seguimiento(self):
-        return self.seguimiento_set.all()
+        return self.seguimiento_set.all().order_by('fechaseguimiento')
     def get_radio(self):
         return self.cambioradiologia_set.all()
     def get_neuro(self):
