@@ -33,6 +33,17 @@ def edad():
             registro = s.fecha_de_registro
             dt=registro-nacimiento
             s.edad=int(dt.days/365)
+            if s.inscrito == True:
+                g=s.G_diagnostico
+                if g == 'ACV':
+                    s.ci="Paciente con Dx de lesión cerebral aguda por evento cerebrovascular";
+                elif g == 'TCE':
+                    s.ci="Paciente con Dx de lesión cerebral aguda de origen traumático";
+                elif g == 'Hipoxia/Anoxia':
+                    s.ci="Paciente con episodio de parada cardíaca con reanimación exitosa";
+                else:
+                    ""
+
             s.save()
         return ""
 @register.simple_tag

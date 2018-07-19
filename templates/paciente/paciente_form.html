@@ -270,6 +270,20 @@
                 <legend>Criterios de inclusión (Debe cumplir 3 de 4)  </legend>
                   <div class="form-group">
                       {{form.ci}}
+                      <script>
+
+                          var x = "{{object.G_diagnostico}}";
+                          if ( x == 'ACV'){
+                            document.getElementById("id_ci").value="Paciente con Dx de lesión cerebral aguda por evento cerebrovascular";
+                           }
+                           if ( x == 'TCE'){
+                            document.getElementById("id_ci").value="Paciente con Dx de lesión cerebral aguda de origen traumático";
+                           }
+                           if ( x == 'Hipoxia/Anoxia'){
+                            document.getElementById("id_ci").value="Paciente con episodio de parada cardíaca con reanimación exitosa";
+                           }
+
+                      </script>
 
                       <div class="form-group">
                             {{ form.ci3.errors }}
