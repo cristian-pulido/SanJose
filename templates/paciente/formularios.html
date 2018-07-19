@@ -158,8 +158,9 @@
             <tr class="table-warning">
               <th >Criterios de inclusión</th>
               <td colspan="3">
-
+                   {% if object.ci != None %}
                     <p>{{object.ci}}</p>
+                   {% endif %}
                    {% if object.ci3 == True %}
                     <p>Puntaje en escala Glasgow igual o menor a 8 después del evento inicial.</p>
                    {% endif %}
