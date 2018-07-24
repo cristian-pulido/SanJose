@@ -24,7 +24,7 @@
   </li>
   
   {% if object.estado > 0 and object.D_neuro_logico_psiquiatrico_previo.all|length == 0 %}
-  {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False%}
+  {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False and object.ci3 == True and object.ci4 == True %}
 
   {% if perms.paciente.can_ver_ingreso %}
   <li class="nav-item" >
@@ -1763,7 +1763,10 @@ function validarf(){
                           </h4>
                         </div>
                         <div id="collapse`+x+`" class="panel-collapse collapse">
+			{% if perms.paciente.add_seguimiento %}
 
+          <a type="button" class="btn btn-link" onclick="location.href = '{% url 'seguimiento_editar' seguimiento.pk %}'">Editar</a>
+			{% endif%}
                         <table class="table table-hover">
 
                         <tbody>

@@ -2,7 +2,7 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if not perms.paciente.add_seguimiento or object.glasgowtotal != '0' %}
+{% if not perms.paciente.add_seguimiento %}
 <script type="text/javascript">
         window.location="{% url 'paciente_listar' %}";
 </script>
@@ -294,6 +294,7 @@
 
     <div class="col-md-8 col-md-offset-2">
         <button class="btn btn-primary" type="submit">Guardar</button>
+          
     </div>
 
     </div>
