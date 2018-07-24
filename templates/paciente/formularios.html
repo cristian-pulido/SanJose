@@ -1653,6 +1653,7 @@
     </form>
 </div>
 <div class="tab-pane"  id="seguimiento" >
+
       {% if object.get_seguimiento|length == 0 or object.get_seguimiento.0.glasgowtotal == '0' %}
       <p class="text-danger">No Hay registros</p>
         {% if perms.paciente.add_seguimiento and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
@@ -1665,38 +1666,25 @@
 
       <div class="container">
         <h4>Filtrar por fecha</h4>
+
+
   <form class="form-inline" action="">
     <div class="form-group">
       <label>Desde:</label>
-      <input id="inicio" type="date" class="form-control" min="{{object.uci.fechauci|date:'Y-m-d'}}" value="{{object.uci.fechauci|date:'Y-m-d'}}">
+      <input id="inicio" type="date" class="form-control"  min="{{object.seguimiento_set.all.0.fechaseguimiento|date:'Y-m-d'}}" value="{{object.seguimiento_set.all.0.fechaseguimiento|date:'Y-m-d'}}" max="{{object.seguimiento_set.all.last.fechaseguimiento|date:'Y-m-d'}}">
     </div>
     <div class="form-group">
       <label>Hasta:</label>
-      <input id="fin" type="date" class="form-control">
+      <input id="fin" type="date" class="form-control"  min="{{object.seguimiento_set.all.0.fechaseguimiento|date:'Y-m-d'}}" value="{{object.seguimiento_set.all.last.fechaseguimiento|date:'Y-m-d'}}" max="{{object.seguimiento_set.all.last.fechaseguimiento|date:'Y-m-d'}}">
     </div>
   </form>
 
-  <script type="text/javascript">
-var ahora = new Date();
-var dd = ahora.getDate();
-var mm = ahora.getMonth()+1; //January is 0!
-var yyyy = ahora.getFullYear();
 
-    if(dd<10){
-        dd='0'+dd
-    }
-    if(mm<10){
-        mm='0'+mm
-    }
-today = yyyy+'-'+mm+'-'+dd;
-document.getElementById("inicio").max=today;
-document.getElementById("fin").min=document.getElementById("inicio").value;
-document.getElementById("fin").max=today;
-document.getElementById("fin").value=today;
+
+  <script type="text/javascript">
 
 document.getElementById("inicio").addEventListener('change', validari);
 document.getElementById("fin").addEventListener('change', validarf);
-document.getElementById("inicio").addEventListener('change', listar);
 
 /* function */
 function validari(){
@@ -1727,34 +1715,33 @@ function validarf(){
     }
 }
 </script>
-        <br>
-        {% for seguimiento in object.get_seguimiento %}
+<br>
+
+        {% for seguimiento in object.seguimiento_set.all %}
+        <div class="container" id="a{{ forloop.counter }}"></div>
         {% if seguimiento.glasgowtotal != '0' %}
-        <div id="s{{ forloop.counter }}" class="container"></div>
-        <br>
-            <script type="text/javascript">
 
-                document.getElementById("inicio").addEventListener('change', listar);
-                document.getElementById("fin").addEventListener('change', listar);
+        <script type="text/javascript">
+         document.getElementById("inicio").addEventListener('change', mostrar);
+         document.getElementById("fin").addEventListener('change', mostrar);
+         function mostrar() {
+         var x="{{forloop.counter}}";
+         var i=new Date(document.getElementById("inicio").value);
+         var f=new Date(document.getElementById("fin").value);
+         f.setDate(f.getDate()+1);
+         var fa="{{seguimiento.fechaseguimiento|date:'Y'}}";
+         var fm="{{seguimiento.fechaseguimiento|date:'m'}}";
+         var fd="{{seguimiento.fechaseguimiento|date:'d'}}";
+         var d = new Date(fa+","+fm+","+fd);
 
+         if (d>i && d<f){
+          document.getElementById("a"+x).style="display:inline";
+          }
+          else {
+          document.getElementById("a"+x).style="display:none";
+          }
 
-                function listar() {
-                var x="{{forloop.counter}}";
-                var inicio=new Date(document.getElementById("inicio").value);
-                inicio.setDate(inicio.getDate()+1);
-                var fin=new Date(document.getElementById("fin").value);
-                fin.setDate(fin.getDate()+1);
-                var fecha = new Date("{{seguimiento.fechaseguimiento|date:'M d, Y'}}");
-
-
-
-                if(fecha<=inicio || fecha>=fin){
-                document.getElementById("s"+x).style="display:none";
-                }
-                else{
-                document.getElementById("s"+x).style="display:block";
-                }
-                var HTMLContent =`
+          var HTMLContent =`
                 <div class="panel-group">
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -1857,14 +1844,17 @@ function validarf(){
                 </div>
                 `;
 
-                document.getElementById("s"+x).innerHTML = (HTMLContent);
 
-                }
-                listar()
-            </script>
-        {% endif %}
-        {% endfor %}
 
+         document.getElementById("a"+x).innerHTML = (HTMLContent);
+
+         }
+          mostrar();
+        </script>
+        {%endif%}
+    {% endfor %}
+
+        
 
       {% endif %}
 

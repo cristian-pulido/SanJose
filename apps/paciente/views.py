@@ -197,7 +197,7 @@ class SeguimientoUpdate(UpdateView):
         s=self.object
         p=s.candidato
         hoy = datetime.today().strftime('%Y-%m-%d')
-        messages.add_message(self.request, messages.INFO,"Se ha añadido el seguiento del sujeto " + str(p.sujeto_numero).zfill(4) + " para la fecha "+ str(s.fechaseguimiento))
+        messages.add_message(self.request, messages.INFO,"Se ha añadido el seguiento del sujeto " + str(p.sujeto_numero).zfill(4) + " para la fecha "+ s.fechaseguimiento.strftime('%d/%m/%Y'))
         if str(s.fechaseguimiento) == hoy:
             return reverse_lazy('paciente', args=[p.pk])
         else:
