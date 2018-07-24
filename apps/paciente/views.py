@@ -196,7 +196,13 @@ class SeguimientoUpdate(UpdateView):
     def get_success_url(self):
         s=self.object
         p=s.candidato
-        return reverse_lazy('paciente', args=[p.pk])
+        hoy = datetime.today().strftime('%Y-%m-%d')
+        messages.add_message(self.request, messages.INFO,"Se ha añadido el seguiento del sujeto " + str(p.sujeto_numero).zfill(4) + " para la fecha "+ str(s.fechaseguimiento))
+        if str(s.fechaseguimiento) == hoy:
+            return reverse_lazy('paciente', args=[p.pk])
+        else:
+            return reverse_lazy('crear_seguimiento', args=[p.pk])
+
 
 class MocaUpdate(UpdateView):
     model = Moca
