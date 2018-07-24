@@ -202,3 +202,13 @@ def checkseguimiento(o):
             return "Paciente dado de alta"
     else:
         return "Formulario Ingreso UCI aún no cargado"
+
+@register.simple_tag
+def totalincluidos():
+    t=Candidato.objects.filter(inscrito=True)
+    return len(t)
+
+@register.simple_tag
+def totalexcluidos():
+    t=Candidato.objects.filter(inscrito=False)
+    return len(t)

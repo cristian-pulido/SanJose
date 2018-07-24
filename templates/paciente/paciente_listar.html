@@ -118,8 +118,9 @@
     {% if object_list|length == 0 %}
       <h2>No hay registros de Sujetos</h2>
       {% else %}
-
+                <div class="container"><br><p>Total: {% totalincluidos %}</p></div>
                 <table class="table table-hover">
+
                   <thead>
                     <tr>
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
@@ -210,7 +211,7 @@
     {% if object_list|length == 0 %}
       <h2>No hay registros de Sujetos</h2>
       {% else %}
-
+                <div class="container"><br><p>Total: {% totalexcluidos %}</p></div>
                 <table class="table table-hover">
                   <thead>
                     <tr style="vertical-align: middle;">

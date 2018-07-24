@@ -131,6 +131,7 @@ class Candidato(models.Model):
         i=Picture.objects.get(slug=self.sujeto_numero)
         return i
 
+        return len(t)
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""
         c = self
