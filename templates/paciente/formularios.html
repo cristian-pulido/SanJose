@@ -17,9 +17,10 @@
 
 <h1>Información Clínica Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
 
+
 <ul class="nav nav-tabs">
-  <li class="nav-item active">
-    <a class="nav-link active " data-toggle="tab" href="#home">Demografico</a>
+  <li class="nav-item active" >
+    <a class="nav-link active " {% if not object %}style="color:orange" {% endif %} data-toggle="tab" href="#home">Demografico</a>
   </li>
   
   {% if object.estado > 0 and object.D_neuro_logico_psiquiatrico_previo.all|length == 0 %}
@@ -27,32 +28,32 @@
 
   {% if perms.paciente.can_ver_ingreso %}
   <li class="nav-item" >
-    <a class="nav-link "  data-toggle="tab" href="#estudio">Formato ingreso al estudio</a>
+    <a class="nav-link "  data-toggle="tab" href="#estudio" {% if not object.ingreso or object.ingreso.fecha_form == None  %} style="color:orange" {% endif %} >Formato ingreso al estudio</a>
   </li>
   {% endif %}
   {% if perms.paciente.can_ver_uci %}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab" href="#uci">Formato UCI</a>
+    <a class="nav-link "  data-toggle="tab" href="#uci" {% if not object.uci or object.uci.fechauci == None  %} style="color:orange" {% endif %} >Formato UCI</a>
   </li>
   {% endif %}
   {% if perms.paciente.can_ver_neurologia %}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#neurologia">Formato Neurología</a>
+    <a class="nav-link "  data-toggle="tab"   href="#neurologia" {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %} style="color:orange" {% endif %} >Formato Neurología</a>
   </li>
   {% endif %}
   {% if perms.paciente.can_ver_radiologia %}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#radiologia">Traslado a Radiología</a>
+    <a class="nav-link "  data-toggle="tab"   href="#radiologia" {% if not object.radiologia or object.radiologia.fecha_procedimiento == None  %} style="color:orange" {% endif %} >Traslado a Radiología</a>
   </li>
   {% endif %}
   {% if perms.paciente.can_ver_bold %}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#bold">Checklist BOLD</a>
+    <a class="nav-link "  data-toggle="tab"   href="#bold" {% if not object.bold or object.bold.fechaimg == None  %} style="color:orange" {% endif %}>Checklist BOLD</a>
   </li>
   {% endif %}
   {% if perms.paciente.can_ver_informante %}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#informante">Neuropsicología Informante</a>
+    <a class="nav-link "  data-toggle="tab"   href="#informante" {% if not object.informante or object.informante.fechaentrevista == None  %} style="color:orange" {% endif %}>Neuropsicología Informante</a>
   </li>
   {% endif %}
   {% if perms.paciente.can_ver_seguimiento %}
@@ -65,14 +66,14 @@
 {% if perms.fileupload.add_picture %}
     {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen and object.inscrito == True%}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#imagen">Imagen</a>
+    <a class="nav-link "  data-toggle="tab"   href="#imagen" {% if not object.imagen %} style="color:orange" {% endif %} >Imagen</a>
   </li>
     {% endif %}
   {% endif %}
   {% endif %}
   {% if object.uci and object.uci.condicion_egreso == 'Vivo' and perms.paciente.can_ver_moca %}
   <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#moca">Evaluación MOCA</a>
+    <a class="nav-link "  data-toggle="tab"   href="#moca">Neuropsicología Sujeto</a>
   </li>
   {% endif %}
   {% endif %}
@@ -404,7 +405,9 @@
           <tbody>
             <tr class="table-active">
               <th>Fecha de procedimiento</th>
-              <td colspan="3">{{ object.radiologia.fecha_procedimiento }} </td>
+              <td >{{ object.radiologia.fecha_procedimiento }} </td>
+              <th>Anestesiólogo</th>
+              <td>{{ object.radiologia.radiologo }}</td>
             </tr>
 
             <tr>
@@ -734,10 +737,12 @@
             <th>Valorable por Neurología</th>
             <td colspan="3">{% if object.uci.valorable_neuro == "NO" %} No, {{object.uci.valorable_neuro_causa}} {% else %} Sí {% endif %}</td>
           </tr>
+            {% if object.uci.valorable_neuro == "NO" %}
           <tr>
             <th>Paciente en condiciones de continuar en el estudio</th>
             <td colspan="3">{% if object.uci.continua_studio == "SI" %} Sí {% else %} No {% endif %}</td>
           </tr>
+            {% endif %}
 
           </tbody>
         </table>
@@ -781,11 +786,13 @@
 
           </table>
         {% endif %}
+  <form>
         {% if perms.paciente.change_uci and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
 
-        <a class="btn btn-primary" href="{% url 'uci_editar' object.uci.pk %}">Realizar Evaluación de Egreso</a>
+        <button class="btn btn-primary" formaction="{% url 'uci_editar' object.uci.pk %}">Realizar Evaluación de Egreso</button>
 
           {% endif %}
+  </form>
 
 
       {% else %}

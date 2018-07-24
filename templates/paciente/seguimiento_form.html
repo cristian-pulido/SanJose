@@ -333,26 +333,6 @@ function sumar(a,b) {
     if (b == 'verbal') {
     total = total+a+ao1*1+ao2*2+ao3*3+ao4*4+rm1*1+rm2*2+rm3*3+rm4*4+rm5*5+rm6*6;
     }
-    if (total > 8 ) {
-    alert("El valor de Glasgow Total no puede ser mayor a 8 en sujetos que ya estan en el estudio.");
-    var ao1 =document.getElementById("id_apertura_ocular_1").checked=false ;
-    var ao2 =document.getElementById("id_apertura_ocular_2").checked=false ;
-    var ao3 =document.getElementById("id_apertura_ocular_3").checked=false ;
-    var ao4 =document.getElementById("id_apertura_ocular_4").checked=false ;
-    var rm1 =document.getElementById("id_respuesta_motora_1").checked=false ;
-    var rm2 =document.getElementById("id_respuesta_motora_2").checked=false ;
-    var rm3 =document.getElementById("id_respuesta_motora_3").checked=false ;
-    var rm4 =document.getElementById("id_respuesta_motora_4").checked=false ;
-    var rm5 =document.getElementById("id_respuesta_motora_5").checked=false ;
-    var rm6 =document.getElementById("id_respuesta_motora_6").checked=false ;
-    var rv1 =document.getElementById("id_respuesta_verbal_1").checked=false ;
-    var rv2 =document.getElementById("id_respuesta_verbal_2").checked=false ;
-    var rv3 =document.getElementById("id_respuesta_verbal_3").checked=false ;
-    var rv4 =document.getElementById("id_respuesta_verbal_4").checked=false ;
-    var rv5 =document.getElementById("id_respuesta_verbal_5").checked=false ;
-    total="";
-    }
-
     document.getElementById("id_glasgowtotal").value = total;
 }
 </script>

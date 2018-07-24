@@ -2,11 +2,22 @@
 
 {% block title %} Formulario Paciente {% endblock %}
 {% block content %}
-{% if not perms.paciente.add_uci or object.fechaegreso != None %}
-<script type="text/javascript">
-        window.location="{% url 'paciente_listar' %}";
-</script>
+
+{% if object.fechauci == None %}
+    {% if not perms.paciente.add_uci  %}
+    <script type="text/javascript">
+            window.location="{% url 'paciente_listar' %}";
+    </script>
+    {% endif %}
+
+{% elif object.fechaegreso == None %}
+    {% if not perms.paciente.change_uci  %}
+    <script type="text/javascript">
+            window.location="{% url 'paciente_listar' %}";
+    </script>
+    {% endif %}
 {% endif %}
+
 
 <form method="post">
     {% csrf_token %}
@@ -536,28 +547,19 @@
                       <input type="text" {%if object.valorable_neuro == 'NO' %}  style="display:inline" value="{{object.valorable_neuro_causa}}" {% else %} style="display:none"  {% endif %} name="valorable_neuro_causa" id="valorable_neuro_causa" class="form-control"  maxlength="30" />
                   </td>
               </tr>
-              <tr >
-                  <th style="vertical-align:middle;" colspan="2">{{form.continua_studio.label}}</th>
 
-                  <td style="vertical-align:middle;" colspan="2">
-                      <p><select name="continua_studio" id="id_continua_studio" required>
-                        <option value="" >---------</option>
-
-                        <option value="SI"  {% if object.continua_studio == 'SI' %} selected {% endif %}>SI</option>
-
-                        <option value="NO" {% if object.continua_studio == 'NO' %} selected {% endif %}>NO</option>
-
-                        </select></p>
-                  </td>
-
-              </tr>
 
               </tbody>
+
             </table>
+            <div style="display:none" id="continua">
+                  {{form.continua_studio.label}}
+                    {{form.continua_studio}}
+              </div>
         </div>
         <div class="col-md-8 col-md-offset-2" {% if object.fechauci == None %} style="display:none" {% endif%}>
             <br>
-            <label>Evaluación de egreso UCI</label>&nbsp;&nbsp;<button onclick="salida()" id="bsalida" type="button"  class="btn btn-secondary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
+            <label>Evaluación de egreso UCI</label>&nbsp;&nbsp;<button onclick="salida()" id="bsalida" type="button"  class="btn btn-primary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
             <span class="help-block">Diligenciar este espacio únicamente al momento de alta del paciente</span>
 
             <table {% if object.fechaegreso == None %} style="display:none" {% endif %} class="table table-hover" id="tablaegreso">
@@ -758,11 +760,17 @@ function neurologia(){
         document.getElementById("valorable_neuro_causa").style="display:inline";
         document.getElementById("neurocausa").style="display:inline"
         document.getElementById("valorable_neuro_causa").required=true;
+        document.getElementById("id_continua_studio").required=true;
+        document.getElementById("continua").style="display:block";
+        document.getElementById("id_continua_studio").value="";
     } else {
         document.getElementById("valorable_neuro_causa").style="display:none";
         document.getElementById("neurocausa").style="display:none"
         document.getElementById("valorable_neuro_causa").required=false;
         document.getElementById("valorable_neuro_causa").value="";
+        document.getElementById("continua").style="display:none";
+        document.getElementById("id_continua_studio").required=false;
+        document.getElementById("id_continua_studio").value="SI";
     }
 
 
