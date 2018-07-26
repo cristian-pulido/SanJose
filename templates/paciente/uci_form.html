@@ -558,7 +558,7 @@
               </div>
         </div>
         <div class="col-md-8 col-md-offset-2" {% if object.fechauci == None %} style="display:none" {% endif%}>
-            <br>
+	    <br>
             <label>Evaluación de egreso UCI</label>&nbsp;&nbsp;<button onclick="salida()" id="bsalida" type="button"  class="btn btn-primary">{% if object.fechaegreso != None %} Deshacer {% else %}Realizar evaluación{% endif %}</button>
             <span class="help-block">Diligenciar este espacio únicamente al momento de alta del paciente</span>
 
@@ -929,6 +929,7 @@ function salida() {
         document.getElementById("id_condicion_egreso_3").checked=false;
         document.getElementById("id_dx_egreso").required=false;
         document.getElementById("id_dx_egreso").value="";
+	document.getElementById("id_glasgowtotal_e").value="0";
         document.getElementById("id_apertura_ocular_e_1").required=false;
         document.getElementById("id_apertura_ocular_e_1").checked=false;
         document.getElementById("id_apertura_ocular_e_2").required=false;
