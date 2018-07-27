@@ -1699,11 +1699,11 @@
   <form class="form-inline" action="">
     <div class="form-group">
       <label>Desde:</label>
-      <input id="inicio" type="date" class="form-control"  min="{{object.seguimiento_set.all.0.fechaseguimiento|date:'Y-m-d'}}" value="{{object.seguimiento_set.all.0.fechaseguimiento|date:'Y-m-d'}}" max="{{object.seguimiento_set.all.last.fechaseguimiento|date:'Y-m-d'}}">
+      <input id="inicio" type="date" class="form-control"  min="{{object.get_seguimiento.0.fechaseguimiento|date:'Y-m-d'}}" value="{{object.get_seguimiento.0.fechaseguimiento|date:'Y-m-d'}}" max="{{object.get_seguimiento.last.fechaseguimiento|date:'Y-m-d'}}">
     </div>
     <div class="form-group">
       <label>Hasta:</label>
-      <input id="fin" type="date" class="form-control"  min="{{object.seguimiento_set.all.0.fechaseguimiento|date:'Y-m-d'}}" value="{{object.seguimiento_set.all.last.fechaseguimiento|date:'Y-m-d'}}" max="{{object.seguimiento_set.all.last.fechaseguimiento|date:'Y-m-d'}}">
+      <input id="fin" type="date" class="form-control"  min="{{object.get_seguimiento.0.fechaseguimiento|date:'Y-m-d'}}" value="{{object.get_seguimiento.last.fechaseguimiento|date:'Y-m-d'}}" max="{{object.get_seguimiento.last.fechaseguimiento|date:'Y-m-d'}}">
     </div>
   </form>
 
@@ -1745,7 +1745,7 @@ function validarf(){
 </script>
 <br>
 
-        {% for seguimiento in object.seguimiento_set.all %}
+        {% for seguimiento in object.get_seguimiento %}
         <div class="container" id="a{{ forloop.counter }}"></div>
         {% if seguimiento.glasgowtotal != '0' %}
 
