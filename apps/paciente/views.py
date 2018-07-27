@@ -13,7 +13,7 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
     BoldForm, MayorForm, InformanteForm, SeguimientoForm, ControlForm, MocaForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
-    Seguimiento, Control, Moca
+    Seguimiento, Control, Moca, Valorablenps
 
 
 class PacienteCreate(CreateView):
@@ -213,6 +213,7 @@ class MocaUpdate(UpdateView):
     def get_success_url(self):
         b=self.object
         p=b.candidato
+        n = Valorablenps.objects.get_or_create(sujeto=p, valorable=True)
         return reverse_lazy('paciente', args=[p.pk])
 
 

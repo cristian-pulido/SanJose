@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
-    Control, Cambioradiologia, Moca
+    Control, Cambioradiologia, Moca, Valorablenps
 from programas import anonimizador
 
 def error(request):
@@ -153,19 +153,30 @@ def crearradiologiaf(request, pk, razon):
         Cambioradiologia.objects.create(sujeto=c, fecha=datetime.datetime.now(),razon=razon)
         return redirect("/paciente/formularios/" + str(c.pk))
 
+def crearnps(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        n = Valorablenps.objects.get_or_create(sujeto=c,valorable=False,fecha=datetime.datetime.now())
+        return redirect("/paciente/formularios/" + str(c.pk))
+
 def crearmoca(request, pk):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
         c = Candidato.objects.get(pk=pk)
-        if hasattr(c,'uci') and c.uci.condicion_egreso == 'Vivo':
-            if hasattr(c, 'moca'):
-                return redirect("/paciente/moca/editar/" + str(c.moca.pk))
+        n = len(c.moca_set.all())
+        if n != 0:
+            m = c.moca_set.all()
+            if m.last().fecha == None:
+                return redirect("/paciente/moca/editar/" + str(m.last().pk))
             else:
-                m = Moca.objects.create(candidato=c)
-                return redirect("/paciente/moca/editar/" + str(m.pk))
+                nps = Moca.objects.create(candidato=c)
+                return redirect("/paciente/moca/editar/" + str(nps.pk))
         else:
-            return redirect('login')
+            nps = Moca.objects.create(candidato=c)
+            return redirect("/paciente/moca/editar/" + str(nps.pk))
 
 
 

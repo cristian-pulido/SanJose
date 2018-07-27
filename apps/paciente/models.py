@@ -126,7 +126,7 @@ class Candidato(models.Model):
     def get_radio(self):
         return self.cambioradiologia_set.all()
     def get_neuro(self):
-        return self.neurologia_set.all()
+        return self.neurologia_set.all().order_by('fechaneuro')
     def get_img(self):
         i=Picture.objects.get(slug=self.sujeto_numero)
         return i
@@ -506,8 +506,6 @@ class Bold(models.Model):
     t2M=models.BooleanField(default=False)
     flairA=models.BooleanField(default=False)
     flairM=models.BooleanField(default=False)
-    difusionA=models.BooleanField(default=False)
-    difusionM=models.BooleanField(default=False)
     tensorA=models.BooleanField(default=False)
     tensord=models.BooleanField(default=False)
     tensorG=models.BooleanField(default=False)
@@ -747,7 +745,7 @@ class Seguimiento(models.Model):
         exclude = ('id', )  # Lists or tuple of excluded fields
 
 class Moca(models.Model):
-    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    candidato = models.ForeignKey(Candidato, on_delete=models.CASCADE, null=True)
     fecha=models.DateField(null=True)
     funcion_visoespacial=models.CharField(max_length=1,null=True)
     identificacion = models.CharField(max_length=1, null=True)
@@ -763,13 +761,15 @@ class Moca(models.Model):
 
 
     class Meta:
-
+        ordering = ['fecha']
         permissions = (
             ("can_ver_moca", u"puede ver moca"),
 
         )
     class ReportBuilder:
         exclude = ('id', )  # Lists or tuple of excluded fields
+
+
 
 
 
@@ -841,4 +841,11 @@ class Cambioradiologia(models.Model):
     def __str__(self):
         return '{}'.format(self.sujeto.sujeto_numero)
 
+class Valorablenps(models.Model):
 
+    sujeto=models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    valorable=models.BooleanField()
+    fecha = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return '{}'.format(self.sujeto.sujeto_numero)

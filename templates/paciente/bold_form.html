@@ -459,20 +459,7 @@
                     </tr>
                     </tbody>
                 </table >
-                <br>
-                <label>DIFUSIÓN</label>
-                <table class="table table-hover">
-                    <tbody>
-                    <tr>
-                        <td>{{form.difusionA.label}}</td>
-                        <td>{{form.difusionA}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{form.difusionM.label}}</td>
-                        <td>{{form.difusionM}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+
 
             </div>
 
@@ -500,20 +487,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <br>
-                <label>DIFUSSION</label>
-                <table class="table table-hover">
-                    <tbody>
-                    <tr>
-                        <td>{{form.difussionA.label}}</td>
-                        <td>{{form.difussionA}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{form.difussionM.label}}</td>
-                        <td>{{form.difussionM}}</td>
-                    </tr>
-                    </tbody>
-                </table >
+
                 <br>
                 <label>fMRI RESTING</label>
                 <table class="table table-hover">
@@ -544,12 +518,43 @@
 
 
             </div>
+
+            <div class="left">
+                <br>
+                <label>DIFUSSION</label>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>{{form.difussionA.label}}</td>
+                        <td>{{form.difussionA}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{form.difussionM.label}}</td>
+                        <td>{{form.difussionM}}</td>
+                    </tr>
+                    </tbody>
+                </table >
+            </div>
+            <div class="right">
+            <br><br>
+
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <th>{{form.cd.label}}</th>
+                    <td>{{form.cd}}</td>
+                </tr>
+                <tr>
+                    <th>{{form.responsable.label}}</th>
+                    <td>{{form.responsable}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
         </div>
-    
-        <div class="col-md-8 col-md-offset-2">
-        <p>{{form.cd.label}}{{form.cd}}</p>
-        <p>{{form.responsable.label}}{{form.responsable}}</p>
         </div>
+
 
     </div>
 

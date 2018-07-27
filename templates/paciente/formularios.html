@@ -313,7 +313,7 @@
               <th>Dosis total/día</th>
               <td>{{ object.ingreso.a_farmaco1_dosis }}</td>
               {% else %}
-              <td>Ninguno</td>
+              <td colspan="3">Ninguno</td>
               {% endif %}
             </tr>
 
@@ -708,7 +708,7 @@
             {% endif %}
 
             <th>Antipsicóticos</th>
-            {% if  object.uci.clozapina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+            {% if  object.uci.clozapina == "SI"  or  object.uci.haloperidol == "SI" or object.uci.ketiapina == "SI"  %}
             <td>
               <p>{% if object.uci.clozapina == "SI" %} Clozapina : {{object.uci.clozapina_dt }} {% endif %} </p>
               <p>{% if object.uci.haloperidol == "SI" %} Haloperidol : {{object.uci.haloperidol_dt }} {% endif %} </p>
@@ -1271,23 +1271,7 @@
               <td>Sí</td>
             </tr>
             {% endif %}
-            <tr>
-              <th>DIFUSIÓN</th>
-              <td>{% if object.bold.difusionA == False and object.bold.difusionM == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.difusionA == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.difusionM == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
+
             </tbody>
           </table>
 
@@ -1321,23 +1305,6 @@
             </tr>
             {% endif %}
             {% if object.bold.tensorM == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            <tr>
-              <th>DIFUSSION</th>
-              <td>{% if object.bold.difussionA == False and object.bold.difussionM == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.difussionA == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.difussionM == True %}
             <tr>
               <td>Movimiento</td>
               <td>Sí</td>
@@ -1378,7 +1345,23 @@
               <td>Sí</td>
             </tr>
             {% endif %}
-
+            <tr>
+              <th>DIFUSSION</th>
+              <td>{% if object.bold.difussionA == False and object.bold.difussionM == False %}
+                  No {% endif %}</td>
+            </tr>
+            {% if object.bold.difussionA == True %}
+            <tr>
+              <td>Axial</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
+            {% if object.bold.difussionM == True %}
+            <tr>
+              <td>Movimiento</td>
+              <td>Sí</td>
+            </tr>
+            {% endif %}
             </tbody>
           </table>
 
@@ -1387,10 +1370,6 @@
     </div>
 
 
-      <br>
-      <br>
-      <br>
-      <br>
       <div class="container">
       {% if perms.paciente.change_bold and object.inscrito == True %}
       <form>
@@ -1439,16 +1418,19 @@
               <th>Neuropsicóloga:</th>
               <td>{{ object.mayor.neuropsicologa }}</td>
             </tr>
+
           <tr>
-            <th>Informante</th>
-            <td>{{ object.mayor.informante }}</td>
             <th>Parentezco</th>
             <td>{{ object.mayor.parentezco }}</td>
-          </tr>
-          <tr>
             <th>Confiable</th>
-            <td colspan="3">{{ object.mayor.confiable }}</td>
+            <td>{{ object.mayor.confiable }}</td>
           </tr>
+            {% if user.groups.all.0.name == 'Coordinador' %}
+          <tr>
+            <th>Informante</th>
+            <td colspan="3">{{ object.mayor.informante }}</td>
+          </tr>
+            {% endif %}
           <tr>
             <td colspan="4">
               <legend>S - I.Q.C.O.D.E.</legend>
@@ -1577,30 +1559,58 @@
 
   </div>
 <div class="tab-pane"  id="moca">
-    <form>
-      {% if not object.moca or object.moca.fecha == None %}
+  <form>
+
+      {% if not object.valorablenps %}
+
+      {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
       <p class="text-danger">No se encontro información de evaluación MOCA</p>
       {% if perms.paciente.add_moca %}
-      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir</button>
+
+      <label>Valorable por Neuropsicología   &nbsp;</label><a class="btn btn-primary" onclick="nps()" >No</a>
+      <script >
+      function nps() {
+          var url_mask = "{% url 'crear_nps' object.pk %}";
+          window.location=url_mask;
+      }
+      </script>
+      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
       {% endif %}
+      {% endif %}
+      {% elif object.valorablenps and object.valorablenps.valorable == False %}
+      <br>
+      <ul>
+        <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+      </ul>
       {% else %}
-      <table class="table table-hover">
+
+
+    {% if object.moca_set.all %}
+
+  <div class="panel-group">
+    <div class="panel panel-default">
+      {% for moca in object.moca_set.all %}
+      {% if moca.fecha != None %}
+
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}}</b></a></h4>
+      </div>
+
+      <div id="mo{{ forloop.counter0 }}" class="panel-collapse collapse">
+        <div class="panel-body">
+
+          <table class="table table-hover">
       <tbody>
-      <tr>
-          <th style="vertical-align: middle;">Fecha de Evaluación</th>
-          <td colspan="3">{{object.moca.fecha}}</td>
-
-      </tr>
-
-      <tr>
+       <tr>
           <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
       </tr>
 
       <tr>
           <th style="vertical-align: middle;">Función visoespacial</th>
-          <td>{{object.moca.funcion_visoespacial}}/5</td>
+          <td>{{moca.funcion_visoespacial}}/5</td>
           <th style="vertical-align: middle;">Identificación</th>
-          <td>{{object.moca.identificacion}}/3</td>
+          <td>{{moca.identificacion}}/3</td>
       </tr>
       <tr>
           <th style="vertical-align: middle;">Atención</th>
@@ -1608,11 +1618,11 @@
               <table>
                   <tbody>
                   <tr>
-                      <td style="vertical-align: middle;">Número</td><td>{{object.moca.atencion_numero}}/2</td>
+                      <td style="vertical-align: middle;">Número</td><td>{{moca.atencion_numero}}/2</td>
                   </tr>
-                  <tr><td style="vertical-align: middle;">Letras</td><td>{{object.moca.atencion_letras}}/1</td></tr>
+                  <tr><td style="vertical-align: middle;">Letras</td><td>{{moca.atencion_letras}}/1</td></tr>
                   <tr>
-                      <td style="vertical-align: middle;">Resta</td><td>{{object.moca.atencion_resta}}/3</td>
+                      <td style="vertical-align: middle;">Resta</td><td>{{moca.atencion_resta}}/3</td>
                   </tr>
                   </tbody>
               </table>
@@ -1622,33 +1632,48 @@
               <table>
                   <tbody>
                   <tr>
-                      <td style="vertical-align: middle;">Repite</td><td>{{object.moca.lenguaje_repite}}/2</td>
+                      <td style="vertical-align: middle;">Repite</td><td>{{moca.lenguaje_repite}}/2</td>
                   </tr>
-                  <tr><td style="vertical-align: middle;">Fluidez</td><td>{{object.moca.lenguaje_fluidez}}/1</td></tr>
+                  <tr><td style="vertical-align: middle;">Fluidez</td><td>{{moca.lenguaje_fluidez}}/1</td></tr>
                   </tbody>
               </table>
           </td>
       </tr>
       <tr>
           <th style="vertical-align: middle;">Abstracción</th>
-          <td>{{object.moca.abstraccion}}/2</td>
+          <td>{{moca.abstraccion}}/2</td>
           <th style="vertical-align: middle;">Recuerdo Diferido</th>
-          <td>{{object.moca.recuerdo}}/5</td>
+          <td>{{moca.recuerdo}}/5</td>
       </tr>
       <tr>
           <th style="vertical-align: middle;">Orientación</th>
-          <td>{{object.moca.orientacion}}/6</td>
+          <td>{{moca.orientacion}}/6</td>
           <th style="vertical-align: middle;">Total</th>
-          <td>{{object.moca.total}}/30</td>
+          <td>{{moca.total}}/30</td>
       </tr>
       </tbody>
     </table>
 
+        </div>
 
+      </div>
+      <br>
 
-      {% if perms.paciente.change_moca %}
-      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Editar</button>
       {% endif %}
+      {% endfor%}
+    </div>
+  </div>
+
+      <br>
+      {% if perms.paciente.add_moca and object.inscrito == True %}
+      <form>
+      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica</button>
+      </form>
+      {% endif %}
+	{% endif %}
+
+
+
     {% endif %}
     </form>
 </div>
