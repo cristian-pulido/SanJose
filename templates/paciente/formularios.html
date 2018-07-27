@@ -1494,15 +1494,18 @@
               <td>{{ object.informante.neuropsicologa }}</td>
             </tr>
           <tr>
-            <th>Informante</th>
-            <td>{{ object.informante.informante }}</td>
             <th>Parentezco</th>
             <td>{{ object.informante.parentezco }}</td>
-          </tr>
-          <tr>
             <th>Confiable</th>
-            <td colspan="3">{{ object.informante.confiable }}</td>
+            <td>{{ object.informante.confiable }}</td>
           </tr>
+            {% if user.groups.all.0.name == 'Coordinador' %}
+          <tr>
+            <th>Informante</th>
+            <td colspan="3">{{ object.informante.informante }}</td>
+          </tr>
+            {% endif %}
+
           </tbody>
         </table>
 
