@@ -1,6 +1,6 @@
 import os
 import shutil
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission, User
@@ -42,6 +42,16 @@ def tiempo(c):
     resta=ahora-entrada
     horas=int(resta.total_seconds()/3600)
     return horas
+@register.simple_tag
+def tiempoeventoprincipal(c):
+    entrada=c.fecha_evento_principal
+    minimo=entrada+timedelta(days=90)
+    maximo = entrada + timedelta(days=180)
+    ahora = datetime.now().date()
+    if ahora > minimo and ahora < maximo:
+        return True
+    else:
+        return False
 
 
 @register.simple_tag
@@ -205,10 +215,28 @@ def checkseguimiento(o):
 
 @register.simple_tag
 def totalincluidos():
-    t=Candidato.objects.filter(inscrito=True)
-    return len(t)
+    t=len(Candidato.objects.filter(inscrito=True))
+    c=len(Candidato.objects.all())
+    return ""+str(t)+"/"+str(c)
 
 @register.simple_tag
 def totalexcluidos():
-    t=Candidato.objects.filter(inscrito=False)
-    return len(t)
+    t=len(Candidato.objects.filter(inscrito=False))
+    c = len(Candidato.objects.all())
+    return "" + str(t) + "/" + str(c)
+
+@register.simple_tag
+def mexclusion(c):
+    a=len(c.D_neuro_logico_psiquiatrico_previo.all())
+    ce=c.ce1*1+c.ce2*1+c.ce3*1+c.ce4*1
+
+    if a > 0 :
+        return "Antecedentes neurologicos o neuropsiquiátricos"
+    elif ce > 0:
+        return "Cumple criterios de exclusión"
+    elif hasattr(c, 'uci') and c.uci.continua_studio == "NO":
+        return "No pudo continuar en el estudio"
+    elif hasattr(c, 'uci') and c.uci.glasgowtotal_e != "0" and c.imagen == "":
+        return "Imagenes dañadas o muerte anterior a la toma de estas"
+    else:
+        return 0

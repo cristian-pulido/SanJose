@@ -1037,6 +1037,7 @@ class SeguimientoForm(forms.ModelForm):
             'soporte',
             'soporte_cual',
             'neuroimagen',
+            'imgobservacion',
             'neurologia',
             'midazolam',
             'dexmedeto',
@@ -1065,6 +1066,7 @@ class SeguimientoForm(forms.ModelForm):
             'ventilacion':'Ventilación mecánica',
             'soporte':'Soporte vasopresor',
             'soporte_cual':'Cuál',
+            'imgobservacion': "Observación",
             'neuroimagen':'Neuroimagen',
             'neurologia':'Neurología',
             'midazolam':'Midazolam dosis/dia',
@@ -1077,6 +1079,7 @@ class SeguimientoForm(forms.ModelForm):
         widgets = {
             'fechaseguimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
             'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
+            'imgobservacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
             'apertura_ocular' :forms.RadioSelect(),
             'respuesta_motora':forms.RadioSelect(),
             'respuesta_verbal':forms.RadioSelect(),

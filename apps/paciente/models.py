@@ -367,7 +367,7 @@ class Uci(models.Model):
         ('Fallecido', 'Fallecido'),
     )
     condicion_egreso=models.CharField(max_length=100, choices=condicion_CHOICES, null=True,blank=True)
-    dx_egreso=models.CharField(max_length=200,null=True,blank=True,default="")
+    dx_egreso=models.CharField(max_length=230,null=True,blank=True,default="")
     causa_mortalidad=models.CharField(max_length=200,null=True,blank=True)
     fechamortalidad=models.DateField(null=True, blank=True)
     horamortalidad = models.TimeField(null=True, blank=True)
@@ -718,9 +718,9 @@ class Seguimiento(models.Model):
     respuesta_verbal = models.CharField(choices=numero_CHOICES, max_length=5, null=True)
     glasgowtotal = models.CharField(max_length=5,null=True,default=0)
     fallaorganica = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
-    fallaorganica_cual = models.CharField(max_length=50, null=True, blank=True, default="")
+    fallaorganica_cual = models.CharField(max_length=70, null=True, blank=True, default="")
     infeccion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
-    infeccion_foco = models.CharField(max_length=50, null=True, blank=True, default="")
+    infeccion_foco = models.CharField(max_length=70, null=True, blank=True, default="")
     parada = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     parada_tiempo = models.CharField(max_length=12, null=True,blank=True,default="")
     pic = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
@@ -729,6 +729,7 @@ class Seguimiento(models.Model):
     soporte = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     soporte_cual = models.CharField(max_length=12, null=True, blank=True, default="")
     neuroimagen = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
+    imgobservacion = models.CharField(max_length=200,null=True,default="",blank=True)
     neurologia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     midazolam = models.CharField(max_length=12, null=True, default=0)
     dexmedeto = models.CharField(max_length=12, null=True, default=0)
@@ -844,8 +845,18 @@ class Cambioradiologia(models.Model):
 class Valorablenps(models.Model):
 
     sujeto=models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
-    valorable=models.BooleanField()
-    fecha = models.DateTimeField(null=True)
+    valorable=models.NullBooleanField()
+    respuestas = (
+        ('Fallecido','Fallecido'),
+        ('No localizable','No localizable'),
+        ('No colabora','No colabora'),
+        ('EMC', 'EMC'),
+        ('SVSR', 'SVSR'),
+
+    )
+    razon=models.CharField(max_length=100, choices=respuestas, null=True)
+    fecha = models.DateTimeField(null=True,blank=True)
+    fechafallecido = models.DateField(null=True,blank=True)
 
     def __str__(self):
         return '{}'.format(self.sujeto.sujeto_numero)

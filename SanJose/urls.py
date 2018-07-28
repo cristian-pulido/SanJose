@@ -41,7 +41,7 @@ urlpatterns = [
     path('script/crearinf/<int:pk>/', crearinformante, name='crear_informante'),
     path('script/crears/<int:pk>/', crearseguimiento, name='crear_seguimiento'),
     path('script/crearrf/<int:pk>/<slug:razon>/', crearradiologiaf, name='crear_rf'),
-    path('script/crearnps/<int:pk>/', crearnps, name='crear_nps'),
+    path('script/crearnps/<int:pk>/<slug:razon>/<slug:fecha>/', crearnps, name='crear_nps'),
     path('script/crearm/<int:pk>/', crearmoca, name='crear_moca'),
 
 

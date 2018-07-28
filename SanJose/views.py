@@ -153,12 +153,29 @@ def crearradiologiaf(request, pk, razon):
         Cambioradiologia.objects.create(sujeto=c, fecha=datetime.datetime.now(),razon=razon)
         return redirect("/paciente/formularios/" + str(c.pk))
 
-def crearnps(request, pk):
+def crearnps(request, pk, razon, fecha):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
         c = Candidato.objects.get(pk=pk)
-        n = Valorablenps.objects.get_or_create(sujeto=c,valorable=False,fecha=datetime.datetime.now())
+        r=int(razon)
+        choice=""
+        if r == 1:
+            choice="Fallecido"
+        elif r == 2:
+            choice="No localizable"
+        elif r == 3:
+            choice="No colabora"
+        elif r == 4:
+            choice="EMC"
+        else:
+            choice="SVSR"
+        if fecha != "None":
+            n = Valorablenps.objects.create(sujeto=c,valorable=False,fecha=datetime.datetime.now(),razon=choice,fechafallecido=fecha)
+        else:
+            n = Valorablenps.objects.create(sujeto=c, valorable=False, fecha=datetime.datetime.now(), razon=choice)
+        from django.contrib import messages
+        messages.add_message(request, messages.INFO, 'Sujeto #'+str(c.sujeto_numero)+" no valorable por Neuropsicología, causa: "+choice)
         return redirect("/paciente/formularios/" + str(c.pk))
 
 def crearmoca(request, pk):

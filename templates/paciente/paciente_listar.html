@@ -128,6 +128,9 @@
                       {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                         <th scope="col">Seguimiento de hoy</th>
                       {% endif %}
+                      {% if perms.fileupload.add_picture or perms.paciente.can_descargar_candidato %}
+                        <th scope="col">Imágenes Cargadas</th>
+                      {% endif %}
                       {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
@@ -145,8 +148,8 @@
                                 {% load scripts %}
                                 <td style="vertical-align: middle;" scope="col">
                                     {% checkseguimiento object as check %}
-                                    {% if check == 'si'  %} &#9989; {% endif %}
-                                    {% if check == 'no'  %}  &#10060; {% endif %}
+                                    {% if check == 'si'  %}   <span style="color:green" class="glyphicon glyphicon-check" ></span> {% endif %}
+                                    {% if check == 'no'  %}   <span style="color:red" class="glyphicon glyphicon-remove-circle"></span> {% endif %}
                                     {% if check != 'no' and check != 'si'  %}
                                     <p
                                     {% if check == "Formulario Ingreso UCI aún no cargado" %}
@@ -159,6 +162,9 @@
 
                                 </td>
                               {% endif %}
+                                {% if perms.fileupload.add_picture or perms.paciente.can_descargar_candidato %}
+                                    <td scope="col">{% if object.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+                                {% endif %}
 
                               {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar %}
                               <td style="text-align:right">
@@ -217,6 +223,7 @@
                     <tr style="vertical-align: middle;">
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Médico a cargo </th>
+                        <th scope="col">Motivo Exclusión </th>
                       {% if perms.paciente.delete_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
@@ -226,9 +233,13 @@
                     {% if object_list %}
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == False %}
-                            <tr class="table-active">
+                            <tr class="table-active" >
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
+                                <td scope="col" style="vertical-align: middle;">
+
+                                    {% mexclusion object%}
+                                </td>
 
                               {% if perms.paciente.delete_candidato %}
                               <td style="text-align:right">

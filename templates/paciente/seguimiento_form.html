@@ -112,17 +112,17 @@
                         <p><select name="fallaorganica" id="id_fallaorganica" required onchange="campo('id_fallaorganica_cual','falla','id_fallaorganica')">
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.fallaorganica == "SI" %} selected {% endif %}>SI</option>
 
-                        <option  value="NO" selected >NO</option>
+                        <option  value="NO" {% if object.fallaorganica == "NO" %} selected {% endif %} >NO</option>
 
                         </select></p>
                         {{forms.fallaorganica.errors}}
 
 
                     </td>
-                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="falla">{{form.fallaorganica_cual.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="fallaorganica_cual" required class="form-control" maxlength="25" id="id_fallaorganica_cual" /></td>
+                    <th style="vertical-align:middle;"><label {% if object.fallaorganica == "NO" %} style="visibility:hidden" {% endif %}  id="falla">{{form.fallaorganica_cual.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.fallaorganica == "NO" %} type="hidden" {% endif %} name="fallaorganica_cual" required class="form-control" maxlength="70" id="id_fallaorganica_cual" value="{{object.fallaorganica_cual}}"/></td>
                     
                 </tr>
                 <tr>
@@ -131,17 +131,17 @@
                         <p><select name="infeccion" id="id_infeccion" required onchange="campo('id_infeccion_foco','infeccion','id_infeccion')">
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.infeccion == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected>NO</option>
+                        <option  value="NO" {% if object.infeccion == "NO" %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.infeccion.errors}}
 
 
                     </td>
-                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="infeccion">{{form.infeccion_foco.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="infeccion_foco" required class="form-control" maxlength="25" id="id_infeccion_foco" /></td>
+                    <th style="vertical-align:middle;"><label {% if object.infeccion == "NO" %} style="visibility:hidden" {% endif %} id="infeccion">{{form.infeccion_foco.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.infeccion == "NO" %} type="hidden" {% endif %} value="{{object.infeccion_foco}}" name="infeccion_foco" required class="form-control" maxlength="70" id="id_infeccion_foco" /></td>
                     
                 </tr>
                 <tr>
@@ -150,17 +150,17 @@
                         <p><select name="parada" id="id_parada" required onchange="campo('id_parada_tiempo','parada','id_parada')">
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.parada == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected>NO</option>
+                        <option  value="NO" {% if object.parada == "NO" %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.parada.errors}}
 
 
                     </td>
-                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="parada">{{form.parada_tiempo.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="parada_tiempo" required class="form-control" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="99" id="id_parada_tiempo" /></td>
+                    <th style="vertical-align:middle;"><label {% if object.parada == "NO" %} style="visibility:hidden" {% endif %} id="parada">{{form.parada_tiempo.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.parada == "NO" %} type="hidden" {% endif %} value="{{object.parada_tiempo}}" name="parada_tiempo" required class="form-control" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="99" id="id_parada_tiempo" /></td>
 
                     
                 </tr>
@@ -170,17 +170,17 @@
                         <p><select name="pic" id="id_pic" required onchange="campo('id_pic_numero','pic','id_pic')">
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.pic == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected>NO</option>
+                        <option  value="NO" {% if object.pic == "NO" %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.pic.errors}}
 
 
                     </td>
-                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="pic">{{form.pic_numero.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="pic_numero" required class="form-control" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="99" id="id_pic_numero" /></td>
+                    <th style="vertical-align:middle;"><label {% if object.pic == "NO" %} style="visibility:hidden" {% endif %} id="pic">{{form.pic_numero.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.pic == "NO" %} type="hidden" {% endif %} value="{{object.pic_numero}}" name="pic_numero" required class="form-control" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/, '')" max="99" id="id_pic_numero" /></td>
 
                     
                 </tr>
@@ -190,9 +190,9 @@
                         <p><select name="ventilacion" id="id_ventilacion" required >
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.ventilacion == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected>NO</option>
+                        <option  value="NO" {% if object.ventilacion == "NO" %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.ventilacion.errors}}
@@ -208,17 +208,17 @@
                         <p><select name="soporte" id="id_soporte" required onchange="campo('id_soporte_cual','soporte','id_soporte')">
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.soporte == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected>NO</option>
+                        <option  value="NO" {% if object.soporte == "NO" %} selected {% endif %}>NO</option>
 
                         </select></p>
                         {{forms.soporte.errors}}
 
 
                     </td>
-                    <th style="vertical-align:middle;"><label style="visibility:hidden" id="soporte">{{form.soporte_cual.label}}</label></th>
-                    <td style="vertical-align:middle;"><input type="hidden" name="soporte_cual" required maxlength="25" class="form-control" id="id_soporte_cual" /></td>
+                    <th style="vertical-align:middle;"><label {% if object.soporte == "NO" %} style="visibility:hidden" {% endif %} id="soporte">{{form.soporte_cual.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.soporte == "NO" %} type="hidden" {% endif %} value="{{object.soporte_cual}}" name="soporte_cual" required maxlength="25" class="form-control" id="id_soporte_cual" /></td>
 
                     
                 </tr>
@@ -226,26 +226,33 @@
                 <tr>
                     <th style="vertical-align:middle;">{{form.neuroimagen.label}}</th>
                     <td style="vertical-align:middle;">
-                        <p><select name="neuroimagen" id="id_neuroimagen" required >
+                        <p><select name="neuroimagen" id="id_neuroimagen" required onchange="campo('id_imgobservacion','neuroimagen','id_neuroimagen')">
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.neuroimagen == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected >NO</option>
+                        <option  value="NO" {% if object.neuroimagen == "NO" %} selected {% endif %}>NO</option>
 
                         </select></p>
-                        {{forms.neuroimagen.errors}}
+
+                        {{form.neuroimagen.errors}}
 
 
                     </td>
+                    <th style="vertical-align:middle;"><label {% if object.neuroimagen == "NO" %} style="visibility:hidden" {% endif %} id="neuroimagen">{{form.imgobservacion.label}}</label></th>
+                    <td style="vertical-align:middle;"><input {% if object.neuroimagen == "NO" %} type="hidden" {% endif %} value="{{object.imgobservacion}}" name="imgobservacion" required maxlength="100" class="form-control" id="id_imgobservacion" /></td>
+
+                </tr>
+
+                <tr>
                     <th style="vertical-align:middle;">{{form.neurologia.label}}</th>
-                    <td style="vertical-align:middle;">
+                    <td style="vertical-align:middle;" colspan="3">
                         <p><select name="neurologia" id="id_neurologia" required >
 
 
-                        <option  value="SI" >SI</option>
+                        <option  value="SI" {% if object.fallaorganica == "SI" %} selected {% endif %} >SI</option>
 
-                        <option  value="NO" selected >NO</option>
+                        <option  value="NO" {% if object.fallaorganica == "NO" %} selected {% endif %} >NO</option>
 
                         </select></p>
                         {{forms.neurologia.errors}}
@@ -357,6 +364,7 @@ function campo(a,b,c) {
     if (z == 'SI') {
         x.class='form-control';
         x.type='text';
+        x.value="";
         y.style="visibility:inline";
     } else {
         x.class='form-control';
@@ -366,6 +374,8 @@ function campo(a,b,c) {
     }
 
 }
+
+
 </script>
 
 

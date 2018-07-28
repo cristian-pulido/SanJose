@@ -1570,26 +1570,100 @@
       <p class="text-danger">No se encontro información de evaluación MOCA</p>
       {% if perms.paciente.add_moca %}
 
-      <label>Valorable por Neuropsicología   &nbsp;</label><a class="btn btn-primary" onclick="nps()" >No</a>
+      <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
+
+      <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
+      <br>
+      <table>
+        <tbody>
+        <tr>
+          <th><label id="causa" style="display:none">Causa</label></th>
+          <td>
+      <select id="causa_options" style="display:none" onchange="nps()">
+          <option  value="0">Seleccione una opción</option>
+          <option  value="1">Fallecido</option>
+          <option  value="2">No localizable</option>
+          <option  value="3">No colabora</option>
+          <option  value="4">EMC</option>
+          <option  value="5">SVSR</option>
+      </select></td>
+          <td>
+            <label id="labelfecha" style="display:none">Fecha: </label>
+          </td>
+          <td>
+            <input id="datefallecido" type="date" style="display:none" class="form-control" min="{{object.uci.fechaegreso|date:'Y-m-d'}}" onchange="nps()">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+
       <script >
+      function ver() {
+          document.getElementById("nov").style="display:none" ;
+          document.getElementById("siv").style="display:none" ;
+          document.getElementById("causa").style="display:inline" ;
+          document.getElementById("causa_options").style="display:inline" ;
+      }
       function nps() {
-          var url_mask = "{% url 'crear_nps' object.pk %}";
+          var c=document.getElementById("causa_options").value ;
+          var f=document.getElementById("datefallecido").value ;
+          if ( c == 1 && f == "" ){
+          document.getElementById("datefallecido").style="display:inline" ;
+          document.getElementById("labelfecha").style="display:inline" ;
+          var today = new Date();
+          var dd = today.getDate();
+          var mm = today.getMonth()+1; //January is 0!
+          var yyyy = today.getFullYear();
+           if(dd<10){
+                  dd='0'+dd
+              }
+              if(mm<10){
+                  mm='0'+mm
+              }
+
+          today = yyyy+'-'+mm+'-'+dd;
+          document.getElementById("datefallecido").max=today;
+          } else {
+          var url_mask = "{% url 'crear_nps' object.pk 'x' 'y' %}"
+          url_mask=url_mask.replace('x', c.toString());
+          if ( f == "" ){
+          f="None";
+          }
+          url_mask=url_mask.replace('y', f.toString());
           window.location=url_mask;
+          }
       }
       </script>
-      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
       {% endif %}
       {% endif %}
       {% elif object.valorablenps and object.valorablenps.valorable == False %}
       <br>
       <ul>
         <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+        <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
+        {% tiempoeventoprincipal object as tep %}
+        {% if object.valorablenps.razon != "Fallecido" and tep == True %}
+        <br>
+        <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>
+
+        {% endif %}
       </ul>
       {% else %}
 
 
+    <br>
     {% if object.moca_set.all %}
 
+    {% if object.valorablenps and object.valorablenps.razon != "Fallecido" and object.valorablenps.razon != None %}
+
+      <ul>
+        <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+        <li>Causa: {{object.valorablenps.razon}} </li>
+
+      </ul>
+    {% endif %}
   <div class="panel-group">
     <div class="panel panel-default">
       {% for moca in object.moca_set.all %}
@@ -1832,11 +1906,13 @@ function validarf(){
                           </tr>
                         <tr>
                             <th>Neuroimagen</th>
-                            <td>
-                              {{seguimiento.neuroimagen}}
+                            <td colspan="3">
+                              {{seguimiento.neuroimagen}}, {{seguimiento.imgobservacion}}
                             </td>
+                        </tr>
+                        <tr>
                             <th>Neurología</th>
-                            <td>
+                            <td colspan="3">
                               {{seguimiento.neurologia}}
                             </td>
                           </tr>

@@ -213,7 +213,9 @@ class MocaUpdate(UpdateView):
     def get_success_url(self):
         b=self.object
         p=b.candidato
-        n = Valorablenps.objects.get_or_create(sujeto=p, valorable=True)
+        n = Valorablenps.objects.get_or_create(sujeto=p)[0]
+        n.valorable=True
+        n.save()
         return reverse_lazy('paciente', args=[p.pk])
 
 
