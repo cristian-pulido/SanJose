@@ -48,7 +48,7 @@
         {% endif %}
         <!-- The table listing the files available for upload/download -->
         <table role="presentation" class="table table-striped" id="table"><tbody class="files"></tbody></table>
-        <p id="resultado" style="display:none">Archivo Cargado Satisfactoriamente.</p>
+        <p id="resultado" style="display:none"></p>
         <input type="text" name="slug" maxlength="100" id="id_slug" hidden/>
         {% img as my_array %}
 
@@ -60,6 +60,7 @@
             if (a == y && x == 1){
             document.getElementById("carga").style="display:none";
             document.getElementById("resultado").style="display:inline";
+            document.getElementById("resultado").innerHTML="Archivo Cargado Satisfactoriamente "+String(y);
             }
         </script>
 
@@ -76,6 +77,7 @@
             if (a == y && x == 1){
             document.getElementById("carga").style="display:none";
             document.getElementById("resultado").style="display:inline";
+            document.getElementById("resultado").innerHTML="Archivo Cargado Satisfactoriamente "+String(y);
             }
         </script>
 

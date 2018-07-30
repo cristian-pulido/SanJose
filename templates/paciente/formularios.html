@@ -1568,7 +1568,8 @@
 
       {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
       <p class="text-danger">No se encontro información de evaluación MOCA</p>
-      {% if perms.paciente.add_moca %}
+      {% tiempoeventoprincipal object as tep %}
+      {% if perms.paciente.add_moca and tep == True %}
 
       <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
 
@@ -1643,7 +1644,7 @@
       <ul>
         <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
         <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
-        {% tiempoeventoprincipal object as tep %}
+
         {% if object.valorablenps.razon != "Fallecido" and tep == True %}
         <br>
         <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>

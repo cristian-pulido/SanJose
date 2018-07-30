@@ -37,7 +37,7 @@ class PictureCreateView(CreateView):
             file.close()
             c.imagen = "/controles/" + sn[1:] + "/" + sn[1:] + ".txt"
             c.save()
-            anonimizar.delay(sn)
+            anonimizar(sn)
         else:
             p=Candidato.objects.get(sujeto_numero=int(sn))
             if p.estado==1:
@@ -48,7 +48,7 @@ class PictureCreateView(CreateView):
                 file.close()
                 p.imagen = "/img/sujeto" + str(sn) + "/" + str(sn) + ".txt"
                 p.save()
-                anonimizar.delay(sn)
+                anonimizar(sn)
         return response
 
     def form_invalid(self, form):
