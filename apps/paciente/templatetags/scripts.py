@@ -228,10 +228,13 @@ def totalexcluidos():
 @register.simple_tag
 def mexclusion(c):
     a=len(c.D_neuro_logico_psiquiatrico_previo.all())
+    ci=c.ci3*1+c.ci4*1;
     ce=c.ce1*1+c.ce2*1+c.ce3*1+c.ce4*1
 
     if a > 0 :
         return "Antecedentes neurologicos o neuropsiquiátricos"
+    elif ci < 2:
+        return "No cumple los criterios de inclusión"
     elif ce > 0:
         return "Cumple criterios de exclusión"
     elif hasattr(c, 'uci') and c.uci.continua_studio == "NO":
