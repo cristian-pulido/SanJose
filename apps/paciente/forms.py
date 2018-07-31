@@ -1160,24 +1160,27 @@ class ControlForm(forms.ModelForm):
             'recuerdo',
             'orientacion',
             'total',
+            'n_educativo',
 
         ]
 
         labels = {
             'fecha':"Fecha",
-            'fecha_nacimiento':'Fecha de Nacimiento',
-            'sexo':'Sexo',
-            'funcion_visoespacial':'Función visoespacial',
-            'identificacion':'Identificación',
-            'atencion_numero':'Número',
-            'atencion_letras':'Letras',
-            'atencion_resta':'Resta',
-            'lenguaje_repite':'Repite',
-            'lenguaje_fluidez':'Fluidez',
-            'abstraccion':'Abstracción',
-            'recuerdo':'Recuerdo Diferido',
-            'orientacion':'Orientación',
+            'fecha_nacimiento':'Fecha de Nacimiento*',
+            'sexo':'Sexo*',
+            'funcion_visoespacial':'Función visoespacial*',
+            'identificacion':'Identificación*',
+            'atencion_numero':'Número*',
+            'atencion_letras':'Letras*',
+            'atencion_resta':'Resta*',
+            'lenguaje_repite':'Repite*',
+            'lenguaje_fluidez':'Fluidez*',
+            'abstraccion':'Abstracción*',
+            'recuerdo':'Recuerdo Diferido*',
+            'orientacion':'Orientación*',
             'total':'Total',
+            'n_educativo':"Nivel Educativo*",
+
 
         }
         widgets = {
@@ -1194,6 +1197,7 @@ class ControlForm(forms.ModelForm):
             'abstraccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
             'recuerdo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 5'),'oninput': "this.value = this.value.replace(/[^0-5]/, '')"}),
             'orientacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+            'n_educativo': forms.Select(attrs={'class': 'form-control'}),
 
         }
 

@@ -1380,7 +1380,10 @@
       {% endif %}
  </div>
 
-<div class="tab-pane"  id="informante">
+<div class="tab-pane"  id="informante"== True %}
+
+      <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
+>
       {% if not object.informante or object.informante.fechaentrevista == None %}
       <p class="text-danger">No se encontro información neuropsicológica </p>
       {% if perms.paciente.add_informante and object.inscrito == True %}
@@ -1569,10 +1572,7 @@
       {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
       <p class="text-danger">No se encontro información de evaluación MOCA</p>
       {% tiempoeventoprincipal object as tep %}
-      {% if perms.paciente.add_moca and tep == True %}
-
-      <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
-
+      {% if perms.paciente.add_moca and tep
       <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
       <br>
       <table>

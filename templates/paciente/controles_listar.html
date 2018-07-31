@@ -23,6 +23,9 @@
         <tr>
 
             <th>&nbsp;&nbsp;&nbsp;Id</th>
+            {% if perms.fileupload.add_picture or perms.paciente.can_descargar_candidato %}
+            <th scope="col">Imágenes Cargadas</th>
+          {% endif %}
             {% if perms.paciente.delete_control or perms.paciente.can_descargar_control %}
             <th>Acciones</th>
             {% endif %}
@@ -34,6 +37,10 @@
         {% for control in object_list %}
         <tr>
             <td><form><button class="btn btn-link enabled" formaction="{% url 'control' control.pk %}" title="Ver información">{{control.numero|stringformat:"04d"}}</button></form></td>
+
+            {% if perms.fileupload.add_picture or perms.paciente.can_descargar_control %}
+                <td scope="col">{% if control.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+            {% endif %}
 
             {% if perms.paciente.delete_control or perms.paciente.can_descargar_control %}
             <td>

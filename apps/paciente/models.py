@@ -800,7 +800,14 @@ class Control(models.Model):
     recuerdo = models.CharField(max_length=1, null=True)
     orientacion = models.CharField(max_length=1, null=True)
     total= models.CharField(max_length=2, null=True)
-
+    ####### nivel educativo
+    primaria = 'Primaria'
+    bachillerato = 'Bachillerato'
+    tecnico = 'Técnico'
+    profesional = 'Profesional'
+    educativo_choices = (
+    (primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'), (profesional, u'Profesional'))
+    n_educativo = models.CharField(max_length=20, choices=educativo_choices, null=True)
 
     class Meta:
         ordering = ["numero"]
