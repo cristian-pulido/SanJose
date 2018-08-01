@@ -102,8 +102,8 @@
       <file leaf-file-name="formularios.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="1574" column="46" selection-start-line="1574" selection-start-column="46" selection-end-line="1574" selection-end-column="46" />
+            <state relative-caret-position="751">
+              <caret line="1656" column="18" selection-start-line="1656" selection-start-column="18" selection-end-line="1656" selection-end-column="18" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#li#1;n#ul#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#li#2;n#ul#1;n#!!top" expanded="true" />
@@ -126,11 +126,17 @@
                 <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#tr#6;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#div#5;n#div#0;n#!!top" />
-                <element signature="e#54274#54280#0" expanded="true" />
+                <element signature="n#div#6;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#!!top" />
+                <element signature="e#60807#60813#0" expanded="true" />
+                <element signature="n#table#0;n#form#0;n#div#2;n#!!top" />
                 <element signature="n#style#0;n#label#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#label#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
+                <element signature="n#script#0;n#form#0;n#div#2;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" />
                 <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
@@ -145,6 +151,7 @@
                 <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
+                <element signature="n#div#3;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -153,7 +160,7 @@
       <file leaf-file-name="scripts.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
+            <state relative-caret-position="2790">
               <caret line="166" column="18" selection-start-line="166" selection-start-column="18" selection-end-line="166" selection-end-column="18" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -465,22 +472,22 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.1897019" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32864866" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32948583" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32864866" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32948583" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -827,7 +834,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
+        <state relative-caret-position="2790">
           <caret line="166" column="18" selection-start-line="166" selection-start-column="18" selection-end-line="166" selection-end-column="18" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -837,8 +844,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="1574" column="46" selection-start-line="1574" selection-start-column="46" selection-end-line="1574" selection-end-column="46" />
+        <state relative-caret-position="751">
+          <caret line="1656" column="18" selection-start-line="1656" selection-start-column="18" selection-end-line="1656" selection-end-column="18" />
           <folding>
             <element signature="n#style#0;n#a#0;n#li#1;n#ul#1;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#2;n#ul#1;n#!!top" expanded="true" />
@@ -861,11 +868,17 @@
             <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#tr#6;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
             <element signature="n#div#5;n#div#0;n#!!top" />
-            <element signature="e#54274#54280#0" expanded="true" />
+            <element signature="n#div#6;n#div#0;n#!!top" />
+            <element signature="n#div#1;n#!!top" />
+            <element signature="e#60807#60813#0" expanded="true" />
+            <element signature="n#table#0;n#form#0;n#div#2;n#!!top" />
             <element signature="n#style#0;n#label#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#label#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#form#0;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#form#0;n#div#2;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" />
             <element signature="n#style#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#1;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
@@ -880,6 +893,7 @@
             <element signature="n#style#0;n#th#1;n#tr#3;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#form#0;n#div#2;n#!!top" expanded="true" />
+            <element signature="n#div#3;n#!!top" />
           </folding>
         </state>
       </provider>
