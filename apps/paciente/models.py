@@ -165,11 +165,12 @@ class Ingreso(models.Model):
     peso =models.PositiveIntegerField(null=True, blank=True)
     estatura = models.PositiveIntegerField(null=True, blank=True)
     ####### nivel educativo
+    Analfabeta = 'Analfabeta'
     primaria = 'Primaria'
     bachillerato = 'Bachillerato'
     tecnico = 'Técnico'
     profesional = 'Profesional'
-    educativo_choices = ((primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'), (profesional, u'Profesional'))
+    educativo_choices = ((Analfabeta, u'Analfabeta'),(primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'), (profesional, u'Profesional'))
     n_educativo = models.CharField(max_length=20, choices=educativo_choices, null=True)
     ######
     ####### lateralidad
@@ -801,12 +802,13 @@ class Control(models.Model):
     orientacion = models.CharField(max_length=1, null=True)
     total= models.CharField(max_length=2, null=True)
     ####### nivel educativo
+    Analfabeta = 'Analfabeta'
     primaria = 'Primaria'
     bachillerato = 'Bachillerato'
     tecnico = 'Técnico'
     profesional = 'Profesional'
     educativo_choices = (
-    (primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'), (profesional, u'Profesional'))
+        (Analfabeta, u'Analfabeta'),(primaria, u'Primaria'), (bachillerato, u'Bachillerato'), (tecnico, u'Técnico'), (profesional, u'Profesional'))
     n_educativo = models.CharField(max_length=20, choices=educativo_choices, null=True)
 
     class Meta:
@@ -867,3 +869,63 @@ class Valorablenps(models.Model):
 
     def __str__(self):
         return '{}'.format(self.sujeto.sujeto_numero)
+
+class Neuropsi(models.Model):
+    seleccion_CHOICES = (
+        ('SI', 'SI'),
+        ('NO', 'NO'),
+    )
+    evaluacion_CHOICES = (
+        ('Normal Alto', 'Normal Alto'),
+        ('Normal', 'Normal'),
+        ('Moderado', 'Moderado'),
+        ('Severo', 'Severo'),
+    )
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    fecha = models.DateField(null=True)
+    medicado = models.CharField(max_length=12, choices=seleccion_CHOICES, null=True, default="NO")
+    medicado_cual = models.CharField(max_length=180, null=True, blank=True)
+    medicado_dt = models.CharField(max_length=180, null=True, blank=True)
+    imagen = models.TextField(null=True, blank=True)
+    orientacion_tiempo=models.CharField(max_length=1,null=True)
+    orientacion_espacio = models.CharField(max_length=1, null=True)
+    orientacion_persona = models.CharField(max_length=1, null=True)
+    orientacion=models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    atencion_digitos = models.CharField(max_length=1, null=True)
+    atencion_visual = models.CharField(max_length=2, null=True)
+    atencion_20_3 = models.CharField(max_length=1, null=True)
+    atencion = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    codificacion_palabras = models.CharField(max_length=1, null=True)
+    codificacion_figura = models.CharField(max_length=4, null=True)
+    codificacion = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    evocacion_figura = models.CharField(max_length=4, null=True)
+    evocacion_espontanea = models.CharField(max_length=1, null=True)
+    evocacion_claves = models.CharField(max_length=1, null=True)
+    evocacion_reconocimiento = models.CharField(max_length=1, null=True)
+    evocacion = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    lenguaje_denominacion = models.CharField(max_length=1, null=True)
+    lenguaje_repeticion = models.CharField(max_length=1, null=True)
+    lenguaje_comprension = models.CharField(max_length=1, null=True)
+    lenguaje_semantica = models.CharField(max_length=2, null=True)
+    lenguaje_fonologica = models.CharField(max_length=2, null=True)
+    lenguaje = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    lectura_lectura = models.CharField(max_length=1, null=True)
+    lectura_dictado = models.CharField(max_length=1, null=True)
+    lectura_copiado = models.CharField(max_length=1, null=True)
+    lectura = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    conceptual_semejanzas = models.CharField(max_length=1, null=True)
+    conceptual_calculo = models.CharField(max_length=1, null=True)
+    conceptual_secuenciacion = models.CharField(max_length=1, null=True)
+    conceptual = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    motora_mano_der = models.CharField(max_length=1, null=True)
+    motora_mano_izq = models.CharField(max_length=1, null=True)
+    motora_alternos = models.CharField(max_length=1, null=True)
+    motora_reacciones = models.CharField(max_length=1, null=True)
+    motora = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+    resultado = models.CharField(max_length=15, choices=evaluacion_CHOICES, null=True)
+
+    class ReportBuilder:
+        exclude = ('id',)  # Lists or tuple of excluded fields
+
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)

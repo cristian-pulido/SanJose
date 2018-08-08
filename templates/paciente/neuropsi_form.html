@@ -1,0 +1,519 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Neuropsi {% endblock %}
+{% block content %}
+{% if not perms.paciente.add_moca %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
+
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+
+
+        <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
+        <div class="col-md-8 col-md-offset-2">
+                <h1>Evaluación Neuropsicologica Neuropsi del  Sujeto #{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+
+
+
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Observaciones Médicas y Neurológicas</h3></caption>
+                <tbody>
+                <tr>
+                    <th>
+                        {{form.fecha.label}}
+                    </th>
+
+                    <td colspan="5">
+                        <input class="form-control" min="{{object.candidato.moca_set.all.0.fecha|date:'Y-m-d'}}" required name="fecha" type="date" placeholder="Elegir fecha" id="id_fecha" value="{{object.fecha|date:'Y-m-d'}}">
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.medicado.label}}</th>
+                    <th style="vertical-align:middle;">{{form.medicado}}</th>
+                    <th style="vertical-align:middle;">{{form.medicado_cual.label}}</th>
+                    <th style="vertical-align:middle;">{{form.medicado_cual}}</th>
+                    <th style="vertical-align:middle;">{{form.medicado_dt.label}}</th>
+                    <th style="vertical-align:middle;">{{form.medicado_dt}}</th>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;" colspan="6">{{form.imagen.label}}</th>
+                </tr>
+                <tr><td colspan="6">{{form.imagen}}</td></tr>
+
+                </tbody>
+            </table>
+
+
+
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Orientación</h3></caption>
+                <tbody>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.orientacion_tiempo.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.orientacion_tiempo}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.orientacion_espacio.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.orientacion_espacio}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.orientacion_persona.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.orientacion_persona}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Atención y Concentración</h3></caption>
+                <tbody>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.atencion_digitos.label}}
+                    </th>
+                    <td style="vertical-align:middle;" colspan="5">
+                        {{form.atencion_digitos}}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        Total Errores
+                    </th>
+                    <td style="vertical-align:middle;">
+                        <input class="form-control" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="errores" id="id_errores" maxlength="3" required max="240">
+                        <script>
+                            document.getElementsByName("errores")[0].addEventListener('change', vale);
+
+                            function vale(){
+                                var x= document.getElementById("id_errores").value;
+                                if ( x > 240){
+                                document.getElementById("id_errores").value="";
+                            }
+                            }
+
+                        </script>
+                    </td>
+                    <th style="vertical-align:middle;">
+                        Total Aciertos
+                    </th>
+                    <td style="vertical-align:middle;">
+                        <input class="form-control" autocomplete="off" placeholder="Entre 0 y 16" oninput="this.value = this.value.replace(/[^0-9]/, '')" name="aciertos" id="id_aciertos" maxlength="2" required max="16">
+                        <script>
+                            document.getElementsByName("aciertos")[0].addEventListener('change', vala);
+                            document.getElementsByName("errores")[0].addEventListener('change', sum);
+                            document.getElementsByName("aciertos")[0].addEventListener('change', sum);
+                            function vala(){
+                                var x= document.getElementById("id_aciertos").value;
+                                if ( x > 16){
+                                document.getElementById("id_aciertos").value="";
+                            }
+                            }
+                            function sum(){
+                                var x= document.getElementById("id_errores").value;
+                                var y= document.getElementById("id_aciertos").value;
+                                var z= y-x;
+                                if (z < 0){
+                                    z=0;
+                                }
+                                document.getElementById("id_atencion_visual").value=z;
+                            }
+                        </script>
+                    </td>
+
+
+                    <th style="vertical-align:middle;">
+                        {{form.atencion_visual.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.atencion_visual}}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">{{form.atencion_20_3.label}}</th>
+                    <td colspan="5">{{form.atencion_20_3}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Codificación</h3></caption>
+                <tbody>
+                <tr><th colspan="4">{{form.codificacion_palabras.label}}</th></tr>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        1er. ensayo
+                    </th>
+                    <td>
+                        <input class="form-control" autocomplete="off" placeholder="Entre 0 y 6" oninput="this.value = this.value.replace(/[^0-6]/, '')" name="ensayo_1" id="id_ensayo_1" maxlength="1" required>
+                    </td>
+                    <th style="vertical-align:middle;">
+                        2o. ensayo
+                    </th>
+                    <td>
+                        <input class="form-control" autocomplete="off" placeholder="Entre 0 y 6" oninput="this.value = this.value.replace(/[^0-6]/, '')" name="ensayo_2" id="id_ensayo_2" maxlength="1" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        3er. ensayo
+                    </th>
+                    <td>
+                        <input class="form-control" autocomplete="off" placeholder="Entre 0 y 6" oninput="this.value = this.value.replace(/[^0-6]/, '')" name="ensayo_3" id="id_ensayo_3" maxlength="1" required>
+                    </td>
+                    <th style="vertical-align:middle;">
+                        Total Promedio
+                    </th>
+                    <td>
+                        {{form.codificacion_palabras}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="vertical-align:middle;">{{form.codificacion_figura.label}}</th>
+                    <td>{{form.codificacion_figura}}</td>
+
+                </tr>
+                </tbody>
+                <script>
+                    document.getElementsByName("ensayo_1")[0].addEventListener('change', prom);
+                    document.getElementsByName("ensayo_2")[0].addEventListener('change', prom);
+                    document.getElementsByName("ensayo_3")[0].addEventListener('change', prom);
+
+                    function prom(){
+                        var x= document.getElementById("id_ensayo_1").value*1;
+                        var y= document.getElementById("id_ensayo_2").value*1;
+                        var z= document.getElementById("id_ensayo_3").value*1;
+                        var a= (x+y+z)/3;
+                        a=Math.round(a);
+                        document.getElementById("id_codificacion_palabras").value=a;
+                    }
+                </script>
+            </table>
+
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Lenguaje</h3></caption>
+                <tbody>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.lenguaje_denominacion.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lenguaje_denominacion}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.lenguaje_repeticion.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lenguaje_repeticion}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.lenguaje_comprension.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lenguaje_comprension}}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" style="vertical-align:middle;">Fluidez Verbal</th>
+                    <th style="vertical-align:middle;">
+                        {{form.lenguaje_semantica.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lenguaje_semantica}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.lenguaje_fonologica.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lenguaje_fonologica}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table id="lyc" class="table table-hover">
+                <caption style="text-align:left"><h3>Lectura y Escritura</h3></caption>
+                <tbody>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.lectura_lectura.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lectura_lectura}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.lectura_dictado.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lectura_dictado}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.lectura_copiado.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.lectura_copiado}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            {% if object.candidato.ingreso.n_educativo == "Primaria" or object.candidato.ingreso.n_educativo == "Analfabeta" %}
+            <script>
+                document.getElementById("lyc").style="display:none";
+                document.getElementById("id_lectura_lectura").value="0";
+                document.getElementById("id_lectura_dictado").value="0";
+                document.getElementById("id_lectura_copiado").value="0";
+            </script>
+            {% endif %}
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Funciones Ejecutivas</h3></caption>
+                <tbody>
+                <tr>
+                    <th colspan="6" style="vertical-align:middle;">Conceptual</th>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.conceptual_semejanzas.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.conceptual_semejanzas}}
+                    </td>
+
+                    <th style="vertical-align:middle;" id="calculo1">
+                        {{form.conceptual_calculo.label}}
+                    </th>
+                    <td style="vertical-align:middle;" id="calculo2">
+                        {{form.conceptual_calculo}}
+                    </td>
+
+                    <th style="vertical-align:middle;" id="s1">
+                        {{form.conceptual_secuenciacion.label}}
+                    </th>
+                    <td style="vertical-align:middle;" id="s2">
+                        {{form.conceptual_secuenciacion}}
+                    </td>
+
+                    {% if object.candidato.ingreso.n_educativo == "Analfabeta" %}
+                    <script>
+                        document.getElementById("calculo1").style="display:none";
+                        document.getElementById("calculo2").style="display:none";
+                        document.getElementById("id_conceptual_calculo").value="0";
+                    </script>
+                    {% endif %}
+
+                    {% if object.candidato.ingreso.n_educativo == "Primaria" or object.candidato.ingreso.n_educativo == "Analfabeta" %}
+                    <script>
+                        document.getElementById("calculo1").style="display:none";
+                        document.getElementById("calculo2").style="display:none";
+                        document.getElementById("s1").style="display:none";
+                        document.getElementById("s2").style="display:none";
+                        document.getElementById("id_conceptual_calculo").value="0";
+                        document.getElementById("id_conceptual_secuenciacion").value="0";
+                    </script>
+                    {% endif %}
+
+
+
+                </tr>
+                <tr>
+                    <th colspan="6" style="vertical-align:middle;">Funciones Motoras</th>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;" colspan="2">
+                        Cambio de Posición de la Mano
+                    </th>
+
+                    <th style="vertical-align:middle;">
+                        {{form.motora_mano_der.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.motora_mano_der}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.motora_mano_izq.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.motora_mano_izq}}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;" colspan="3">
+                        {{form.motora_alternos.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.motora_alternos}}
+                    </td>
+                    <th style="vertical-align:middle;" >
+                        {{form.motora_reacciones.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.motora_reacciones}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <caption style="text-align:left"><h3>Funciones de Evocación</h3></caption>
+                <tbody>
+
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.evocacion_figura.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.evocacion_figura}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.evocacion_espontanea.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.evocacion_espontanea}}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;">
+                        {{form.evocacion_claves.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.evocacion_claves}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        {{form.evocacion_reconocimiento.label}}
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{form.evocacion_reconocimiento}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+          
+    </div>
+
+    </div>
+</form>
+
+
+<br>
+<br>
+{% endblock %}
+{% block extrajs %}
+
+<script>
+    var ahora = new Date();
+    var dd = ahora.getDate();
+    var mm = ahora.getMonth()+1; //January is 0!
+    var yyyy = ahora.getFullYear();
+
+        if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+
+    today = yyyy+'-'+mm+'-'+dd;
+
+    fecha=document.getElementById("id_fecha").value;
+    document.getElementById("id_fecha").max=today;
+    if ( fecha == "" ) {
+    document.getElementById("id_fecha").value=today;
+    }
+
+</script>
+
+<script>
+    var medicado=document.getElementById("id_medicado").value;
+    if ( medicado == "NO"){
+        document.getElementById("id_medicado_cual").readOnly=true;
+        document.getElementById("id_medicado_dt").readOnly=true;
+    } else {
+        document.getElementById("id_medicado_cual").readOnly=false;
+        document.getElementById("id_medicado_dt").readOnly=false;
+        document.getElementById("id_medicado_cual").required=true;
+        document.getElementById("id_medicado_dt").required=true;
+    }
+
+    document.getElementsByName("medicado")[0].addEventListener('change', med);
+
+    /* function */
+    function med(){
+        var p= document.getElementById("id_medicado").value;
+        if ( p == "NO"){
+        document.getElementById("id_medicado_cual").readOnly=true;
+        document.getElementById("id_medicado_dt").readOnly=true;
+        document.getElementById("id_medicado_cual").value="";
+        document.getElementById("id_medicado_dt").value="";
+        document.getElementById("id_medicado_cual").required=false;
+        document.getElementById("id_medicado_dt").required=false;
+    } else {
+        document.getElementById("id_medicado_cual").readOnly=false;
+        document.getElementById("id_medicado_dt").readOnly=false;
+        document.getElementById("id_medicado_cual").required=true;
+        document.getElementById("id_medicado_dt").required=true;
+    }
+    }
+
+</script>
+
+<script>
+    document.getElementsByName("codificacion_figura")[0].addEventListener('change', valf);
+    function valf(){
+        var x= parseInt(document.getElementById("id_codificacion_figura").value);
+        if ( x > 12 ){
+         document.getElementById("id_codificacion_figura").value="";
+         }
+    }
+</script>
+<script>
+    document.getElementsByName("evocacion_figura")[0].addEventListener('change', valf);
+    function valf(){
+        var x= parseInt(document.getElementById("id_evocacion_figura").value);
+        if ( x > 12 ){
+         document.getElementById("id_evocacion_figura").value="";
+         }
+    }
+</script>
+{% endblock %}

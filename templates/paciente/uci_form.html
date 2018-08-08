@@ -727,12 +727,6 @@ if ( fechai == "" ) {
 if ( horai == "" ) {
     document.getElementById("id_horauci").value=hh+":"+min;
 }
-if ( fechae == "" && fechai != "" ) {
-    document.getElementById("id_fechaegreso").value=today;
-}
-if ( horae == "" && horai != "" ) {
-    document.getElementById("id_horaegreso").value=hh+":"+min;
-}
 document.getElementById("id_fechauci").max=today;
 document.getElementById("id_fechaegreso").max=today;
 document.getElementById("id_fechamortalidad").max=today;
@@ -886,13 +880,42 @@ function sumare(a,b) {
 
 
 <script>
+
+
+var ahora = new Date();
+var dd = ahora.getDate();
+var mm = ahora.getMonth()+1; //January is 0!
+var yyyy = ahora.getFullYear();
+var hh = ahora.getHours();
+var min = ahora.getMinutes();
+
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
+    if(hh<10){
+        hh='0'+hh
+    }
+    if(min<10){
+        min='0'+min
+    }
+
+today = yyyy+'-'+mm+'-'+dd;
+time=hh+":"+min;
+
+
+
 function salida() {
     var x=document.getElementById("bsalida").textContent;
     if (x == "Realizar evaluación") {
         document.getElementById("bsalida").textContent="Deshacer";
         document.getElementById("tablaegreso").style="display:inline";
         document.getElementById("id_fechaegreso").required=true;
+        document.getElementById("id_fechaegreso").value=today;
         document.getElementById("id_horaegreso").required=true;
+        document.getElementById("id_horaegreso").value=time;
         document.getElementById("id_condicion_egreso_1").required=true;
         document.getElementById("id_condicion_egreso_2").required=true;
         document.getElementById("id_condicion_egreso_3").required=true;
@@ -929,7 +952,7 @@ function salida() {
         document.getElementById("id_condicion_egreso_3").checked=false;
         document.getElementById("id_dx_egreso").required=false;
         document.getElementById("id_dx_egreso").value="";
-	document.getElementById("id_glasgowtotal_e").value="0";
+	    document.getElementById("id_glasgowtotal_e").value="0";
         document.getElementById("id_apertura_ocular_e_1").required=false;
         document.getElementById("id_apertura_ocular_e_1").checked=false;
         document.getElementById("id_apertura_ocular_e_2").required=false;

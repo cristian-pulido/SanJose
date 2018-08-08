@@ -2,6 +2,7 @@
 # Create your views here.
 import os
 import shutil
+from collections import Counter
 from datetime import datetime
 
 from django.conf import settings
@@ -11,9 +12,9 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
-    BoldForm, MayorForm, InformanteForm, SeguimientoForm, ControlForm, MocaForm
+    BoldForm, MayorForm, InformanteForm, SeguimientoForm, ControlForm, MocaForm, NeuropsiForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
-    Seguimiento, Control, Moca, Valorablenps
+    Seguimiento, Control, Moca, Valorablenps, Neuropsi
 
 
 class PacienteCreate(CreateView):
@@ -119,6 +120,10 @@ class UciUpdate(UpdateView):
             p.inscrito=False
             p.save()
             messages.add_message(self.request, messages.INFO,"Sujeto " + str(p.sujeto_numero).zfill(4) + " excluido.")
+        if u.glasgowtotal_e == '0' and u.fechaegreso != None:
+            u.fechaegreso = ""
+            u.horaegreso = ""
+            u.save()
         if u.glasgowtotal_e != '0' and p.imagen == "":
             p.inscrito=False
             p.save()
@@ -316,5 +321,1213 @@ class ControlUpdate(UpdateView):
     template_name = 'paciente/control_form.html'
     success_url = reverse_lazy('controles_listar')
 
+class NeuropsiUpdate(UpdateView):
+    model = Neuropsi
+    form_class = NeuropsiForm
+    template_name = 'paciente/neuropsi_form.html'
+
+    def get_success_url(self):
+        n=self.object
+        p=n.candidato
+
+        ## escolaridad 0-Analfabeta  1-4-Primaria  5-9 bachillerato  10-24  tecnico-profesional
+        escolaridad=p.ingreso.n_educativo
+        edad=p.edad
+
+        #resultado
+        resultado=[]
+        ## orientacion
+        orientacion=[]
+        #tiempo
+        tiempo=int(n.orientacion_tiempo)
+        if tiempo == 3:
+            orientacion.append("Normal")
+        elif tiempo == 2:
+            if edad >= 66 :
+                orientacion.append("Normal")
+            elif edad >= 31 and edad <=50:
+                if escolaridad == 'Técnico' or escolaridad == 'Profesional' or escolaridad == 'Bachillerato':
+                    orientacion.append("Severo")
+                else:
+                    orientacion.append("Normal")
+        elif tiempo == 1:
+            if edad >= 31 and edad <=50:
+                orientacion.append("Severo")
+            elif edad >= 66 :
+                if escolaridad == 'Técnico' or escolaridad == 'Profesional':
+                    orientacion.append("Moderado")
+                elif escolaridad == 'Analfabeta':
+                    orientacion.append("Normal")
+        else:
+            orientacion.append("Severo")
+
+        #lugar
+        lugar=int(n.orientacion_espacio)
+        if lugar == 2:
+            orientacion.append("Normal")
+        elif lugar == 1:
+            if edad >= 66 :
+                if escolaridad == 'Técnico' or escolaridad == 'Profesional' or escolaridad == 'Analfabeta':
+                    orientacion.append("Moderado")
+                else:
+                    orientacion.append("Severo")
+            elif edad >= 31 and edad <=50:
+                if escolaridad == 'Técnico' or escolaridad == 'Profesional':
+                    orientacion.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    orientacion.append("Normal")
+                else:
+                    orientacion.append("Severo")
+
+        # persona
+        persona = int(n.orientacion_persona)
+        if lugar == 1:
+            orientacion.append("Normal")
+        else:
+            orientacion.append("Severo")
+
+        n.orientacion=Counter(orientacion).most_common(1)[0][0]
+        resultado.append(n.orientacion)
+
+        ## Atencion y concentracion
+        atencion=[]
+        #digitos
+        digitos=int(n.atencion_digitos)
+        if digitos >= 5:
+            if edad >= 31 and edad <=50 and digitos == 5:
+                if escolaridad == 'Técnico' or escolaridad == 'Profesional' or escolaridad == 'Bachillerato':
+                    atencion.append("Normal")
+            else:
+                atencion.append("Normal Alto")
+        elif digitos == 4 or digitos == 3:
+            if digitos == 4 and escolaridad == 'Primaria':
+                atencion.append("Normal Alto")
+            else:
+                atencion.append("Normal")
+        elif digitos == 2:
+            if escolaridad == 'Profesional':
+                atencion.append("Moderado")
+            elif escolaridad == 'Técnico':
+                if edad >= 66 and edad <= 85:
+                    atencion.append("Moderado")
+            else:
+                atencion.append("Normal")
+        else:
+            if edad >= 66 and edad <= 85 and escolaridad == 'Bachillerato':
+                atencion.append("Moderado")
+            elif edad >= 31 and edad <=50 and escolaridad == 'Analfabeta':
+                atencion.append("Moderado")
+            else:
+                atencion.append("Severo")
+        # deteccion visual
+        visual = int(n.atencion_visual)
+        if visual == 16 :
+            if edad >= 66 and edad <= 85:
+                atencion.append("Normal Alto")
+            elif edad >= 31 and edad <=50:
+                if escolaridad == 'Primaria':
+                    atencion.append("Normal Alto")
+                else:
+                    atencion.append("Normal")
+        elif visual >= 13 and visual <=15:
+            if edad >= 31 and edad <= 50:
+                atencion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Bachillerato':
+                    if visual == 15:
+                        atencion.append("Normal Alto")
+                    else:
+                        atencion.append("Normal")
+                else:
+                    atencion.append("Normal")
+        elif visual >= 7 and visual <=12:
+            if edad >= 66 and edad <= 85:
+                atencion.append("Normal")
+            elif edad >= 31 and edad <=50:
+                if escolaridad == 'Analfabeta':
+                    atencion.append("Normal")
+                elif escolaridad == 'Primaria':
+                    if visual > 8:
+                        atencion.append("Normal")
+                    else:
+                        atencion.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    if visual > 8:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+                elif escolaridad == 'Bachillerato' or escolaridad == 'Profesional':
+                    if visual > 10:
+                        atencion.append("Normal")
+                    else:
+                        atencion.append("Moderado")
+        else:
+            if edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    atencion.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    if visual > 3:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if visual > 1:
+                        atencion.append("Normal")
+                    elif visual == 1:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+                else:
+                    atencion.append("Normal")
+            elif edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if visual == 7:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    atencion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if visual > 4:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+                else:
+                    if visual == 6:
+                        atencion.append("Normal")
+                    elif visual < 6 and visual > 2:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+        # 20-3
+        a_20_3 = int(n.atencion_20_3)
+        if a_20_3 == 4 or a_20_3 == 5:
+            if edad >= 31 and edad <= 50:
+                atencion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if a_20_3 == 4 and escolaridad == 'Bachillerato':
+                    atencion.append("Moderado")
+                else:
+                    atencion.append("Normal")
+        elif a_20_3 == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    atencion.append("Moderado")
+                else:
+                    atencion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    atencion.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    atencion.append("Severo")
+                else:
+                    atencion.append("Moderado")
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    atencion.append("Severo")
+                elif a_20_3 == 2 and ( escolaridad == 'Analfabeta' or escolaridad == 'Primaria'):
+                    atencion.append("Normal")
+                else:
+                    atencion.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    atencion.append("Normal")
+                elif escolaridad == 'Bachillerato' or escolaridad == 'Primaria':
+                    atencion.append("Severo")
+                else:
+                    if a_20_3 == 0:
+                        atencion.append("Severo")
+                    else:
+                        atencion.append("Moderado")
+
+        n.atencion = Counter(atencion).most_common(1)[0][0]
+        resultado.append(n.atencion)
+
+        ## Memoria
+
+        ## codificacion
+        codificacion=[]
+        #palabras
+        palabras=int(n.codificacion_palabras)
+        if palabras == 6:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    codificacion.append("Normal")
+                else:
+                    codificacion.append("Normal Alto")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    codificacion.append("Normal")
+                else:
+                    codificacion.append("Normal Alto")
+        elif palabras == 5 or palabras == 4:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' and palabras == 4:
+                    codificacion.append("Moderado")
+                else:
+                    codificacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    codificacion.append("Normal")
+                else:
+                    if palabras == 5:
+                        codificacion.append("Normal Alto")
+                    else:
+                        codificacion.append("Normal")
+        elif palabras == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' :
+                    codificacion.append("Severo")
+                else:
+                    codificacion.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Primaria':
+                    codificacion.append("Moderado")
+                else:
+                    codificacion.append("Normal")
+        else:
+            if edad >= 31 and edad <= 50:
+                codificacion.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if palabras == 2:
+                    if escolaridad == 'Analfabeta':
+                        codificacion.append("Normal")
+                    elif escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                        codificacion.append("Moderado")
+                    else:
+                        codificacion.append("Severo")
+                else:
+                    codificacion.append("Severo")
+
+                if escolaridad == 'Bachillerato' or escolaridad == 'Primaria':
+                    codificacion.append("Severo")
+                else:
+                    codificacion.append("Normal")
+        # codificacion figura
+        cfigura = int(n.codificacion_figura)
+        if cfigura >= 11 and cfigura <= 12: 
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta':
+                    codificacion.append("Normal Alto")
+                else:
+                    codificacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    codificacion.append("Normal")
+                elif escolaridad == 'Primaria':
+                    if cfigura == 12:
+                        codificacion.append("Normal Alto")
+                    else:
+                        codificacion.append("Normal")
+                else:
+                    codificacion.append("Normal Alto")
+        elif cfigura >= 10 and cfigura < 11:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if cfigura > 10:
+                        codificacion.append("Moderado")
+                    else:
+                        codificacion.append("Severo")
+                else:
+                    codificacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    codificacion.append("Normal Alto")
+                else:
+                    codificacion.append("Normal")
+        elif cfigura >= 8 and cfigura < 10:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
+                    codificacion.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    if cfigura == 8:
+                        codificacion.append("Severo")
+                    else:
+                        codificacion.append("Moderado")
+                else:
+                    codificacion.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Bachillerato':
+                    if cfigura < 9:
+                        codificacion.append("Moderado")
+                    else:
+                        codificacion.append("Normal")
+                else:
+                    codificacion.append("Normal")
+        elif cfigura >= 6 and cfigura < 8:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    codificacion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if cfigura < 7:
+                        codificacion.append("Moderado")
+                    else:
+                        codificacion.append("Normal")
+                else:
+                    codificacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if cfigura == 6:
+                        codificacion.append("Severo")
+                    else:
+                        codificacion.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    codificacion.append("Moderado")
+                else:
+                    codificacion.append("Normal")
+        elif cfigura >= 3 and cfigura < 6:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    codificacion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    codificacion.append("Moderado")
+                else:
+                    if cfigura > 5 :
+                        codificacion.append("Normal")
+                    else:
+                        codificacion.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    codificacion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if cfigura < 4:
+                        codificacion.append("Severo")
+                    else:
+                        codificacion.append("Moderado")
+                else:
+                    if cfigura == 3:
+                        codificacion.append("Moderado")
+                    else:
+                        codificacion.append("Normal")
+                        
+        else:
+            codificacion.append("Severo")
+            
+        n.codificacion = Counter(codificacion).most_common(1)[0][0]
+        resultado.append(n.codificacion)
+
+        ## evocacion
+        evocacion = []
+        # espontanea
+        espontanea = int(n.evocacion_espontanea)
+        if espontanea >= 4 and espontanea <= 6:
+            if edad >= 31 and edad <= 50:
+                evocacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Primaria' or escolaridad == 'Analfabeta':
+                    if espontanea == 6:
+                        evocacion.append("Normal Alto")
+                    else:
+                        evocacion.append("Normal")
+                else:
+                    evocacion.append("Normal")
+        
+        elif espontanea == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    evocacion.append("Moderado")
+                else:
+                    evocacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                evocacion.append("Normal")
+                
+        elif espontanea == 2:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    evocacion.append("Moderado")
+                else:
+                    evocacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                evocacion.append("Normal")
+                
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    evocacion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if espontanea == 1:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Moderado")
+                else:
+                    evocacion.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Primaria' or escolaridad == 'Analfabeta':
+                    evocacion.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    if espontanea == 1:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Severo")
+                else:
+                    if espontanea == 1:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Moderado")
+
+        # claves
+        claves = int(n.evocacion_claves)
+        if claves >= 4 and claves <= 6:
+            if edad >= 31 and edad <= 50:
+                evocacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Primaria':
+                    if claves == 6 or claves == 5:
+                        evocacion.append("Normal Alto")
+                    else:
+                        evocacion.append("Normal")
+                else:
+                    evocacion.append("Normal")
+
+        elif claves == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta':
+                    evocacion.append("Normal")
+                else:
+                    evocacion.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                evocacion.append("Normal")
+
+        elif claves == 2:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Analfabeta':
+                    evocacion.append("Moderado")
+                else:
+                    evocacion.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                evocacion.append("Normal")
+
+        else:
+            if edad >= 31 and edad <= 50:
+                evocacion.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    evocacion.append("Moderado")
+                else:
+                    if claves == 1:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Severo")
+
+        # reconocimiento
+        reconocimiento = int(n.evocacion_reconocimiento)
+        if reconocimiento >= 4 and reconocimiento <= 6:
+            if edad >= 31 and edad <= 50:
+                if reconocimiento == 5 or reconocimiento == 6:
+                    evocacion.append("Normal")
+                elif reconocimiento == 4:
+                    if escolaridad == 'Primaria':
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+                    
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' and reconocimiento == 4:
+                    evocacion.append("Moderado")
+                else:
+                    evocacion.append("Normal")
+                    
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if reconocimiento == 0:
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+                else:
+                    evocacion.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    if reconocimiento < 2:
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+                elif escolaridad == 'Primaria':
+                    if reconocimiento == 3:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Severo")
+                else:
+                    evocacion.append("Severo")
+
+        # evocacion figura
+        efigura = int(n.evocacion_figura)
+        if efigura >= 10 and efigura <= 12:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta':
+                    evocacion.append("Normal Alto")
+                elif escolaridad == 'Primaria':
+                    if efigura == 12:
+                        evocacion.append("Normal Alto")
+                    else:
+                        evocacion.append("Normal")
+                else:
+                    evocacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    evocacion.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    if efigura == 12:
+                        evocacion.append("Normal Alto")
+                    else:
+                        evocacion.append("Normal")
+                elif escolaridad == 'Primaria':
+                    if efigura == 10:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Normal Alto")
+                else:
+                    evocacion.append("Normal Alto")
+        elif efigura >= 6 and efigura < 10:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if efigura > 8:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    if efigura > 7:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Severo")
+                else:
+                    evocacion.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                evocacion.append("Normal")
+        elif efigura >= 3 and efigura < 6:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    evocacion.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if efigura < 5:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Normal")
+                else:
+                    if efigura > 4:
+                        evocacion.append("Normal")
+                    elif efigura == 3:
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Bachillerato':
+                    if efigura > 4:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Moderado")
+                else:
+                    evocacion.append("Normal")
+        else:
+            if edad >= 31 and edad <= 50:
+                evocacion.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if efigura < 2:
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    if efigura == 0:
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+                elif escolaridad == 'Primaria':
+                    if efigura > 1:
+                        evocacion.append("Normal")
+                    elif efigura < 1:
+                        evocacion.append("Severo")
+                    else:
+                        evocacion.append("Moderado")
+                else:
+                    evocacion.append("Moderado")
+
+        n.evocacion = Counter(evocacion).most_common(1)[0][0]
+        resultado.append(n.evocacion)
+        
+        ## Lenguaje
+        lenguaje = []
+        # denominacion
+        denominacion=int(n.lenguaje_denominacion)
+        if denominacion == 8 or denominacion == 7:
+            if edad >= 31 and edad <= 50:
+                if denominacion == 8:
+                    lenguaje.append("Normal")
+                else:
+                    if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                lenguaje.append("Normal")
+        elif denominacion == 6:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta':
+                    lenguaje.append("Moderado")
+                else:
+                    lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Bachillerato':
+                    lenguaje.append("Moderado")
+                elif escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
+                else:
+                    lenguaje.append("Severo")
+        else:
+            if edad >= 31 and edad <= 50:
+                lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lenguaje.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    if denominacion < 4:
+                        lenguaje.append("Severo")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    if denominacion == 5:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+
+        # repeticion
+        repeticion = int(n.lenguaje_repeticion)
+        if repeticion == 4:
+            lenguaje.append("Normal")
+        elif repeticion == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
+                else:
+                    lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    lenguaje.append("Moderado")
+                else:
+                    lenguaje.append("Severo")
+        else:
+            lenguaje.append("Severo")
+
+        # comprension
+        comprension = int(n.lenguaje_comprension)
+        if comprension == 6:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta':
+                    lenguaje.append("Normal Alto")
+                else:
+                    lenguaje.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
+                    lenguaje.append("Normal Alto")
+                else:
+                    lenguaje.append("Normal")
+        elif comprension == 5:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    lenguaje.append("Moderado")
+                else:
+                    lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    lenguaje.append("Normal Alto")
+                elif escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lenguaje.append("Severo")
+                else:
+                    lenguaje.append("Normal")
+        elif comprension == 4 or comprension == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    lenguaje.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if comprension == 4:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    lenguaje.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    lenguaje.append("Normal")
+                elif escolaridad == 'Bachillerato' or escolaridad == 'Primaria':
+                    if comprension == 4:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    lenguaje.append("Severo")
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad != 'Analfabeta':
+                    lenguaje.append("Severo")
+                else:
+                    if comprension == 2:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad != 'Analfabeta':
+                    lenguaje.append("Severo")
+                else:
+                    if comprension == 2:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+
+        # semantica
+        semantica = int(n.lenguaje_semantica)
+        if semantica >= 30:
+            lenguaje.append("Normal Alto")
+        elif semantica >= 25 and semantica < 30:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
+                    lenguaje.append("Normal Alto")
+                else:
+                    lenguaje.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if semantica < 27:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Normal Alto")
+                else:
+                    lenguaje.append("Normal Alto")
+        elif semantica >= 15 or semantica < 25:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    lenguaje.append("Normal")
+                elif escolaridad == 'Primaria':
+                    if semantica > 20:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+                else:
+                    if semantica > 18:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    if semantica > 17:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+                else:
+                    lenguaje.append("Normal")
+                    
+        elif semantica >= 10 or semantica < 15:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lenguaje.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    if semantica > 11:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    lenguaje.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
+                else:
+                    if semantica > 11:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if semantica > 7:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    lenguaje.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if semantica > 6:
+                        lenguaje.append("Normal")
+                    elif semantica < 4:
+                        lenguaje.append("Severo")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    if semantica > 4:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if semantica > 5:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    if semantica > 3:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if semantica > 8:
+                        lenguaje.append("Normal")
+                    elif semantica < 4:
+                        lenguaje.append("Severo")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    if semantica > 3:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+
+        # fonologica
+        fonologica = int(n.lenguaje_fonologica)
+        if fonologica > 20:
+            if escolaridad != 'Analfabeta':
+                lenguaje.append("Normal Alto")
+        elif fonologica >= 9 and fonologica <= 20:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lenguaje.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    if fonologica > 18:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+                elif escolaridad == 'Primaria':
+                    if fonologica > 11:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lenguaje.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    if fonologica > 16:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+                elif escolaridad == 'Primaria':
+                    if fonologica > 12:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+                else:
+                    print("")
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if fonologica > 3:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    if fonologica > 3:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if fonologica > 0:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if fonologica > 6:
+                        lenguaje.append("Normal")
+                    elif fonologica < 2:
+                        lenguaje.append("Severo")
+                    else:
+                        lenguaje.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    if fonologica > 4:
+                        lenguaje.append("Normal")
+                    elif fonologica < 1:
+                        lenguaje.append("Severo")
+                    else:
+                        lenguaje.append("Moderado")
+                elif escolaridad == 'Primaria':
+                    if fonologica > 1:
+                        lenguaje.append("Normal")
+                    elif fonologica < 1:
+                        lenguaje.append("Severo")
+                    else:
+                        lenguaje.append("Moderado")
+                else:
+                    print("")
+                        
+                        
+        n.lenguaje=Counter(lenguaje).most_common(1)[0][0]
+        resultado.append(n.lenguaje)
+
+        ## Lectura y Escritura
+        lye=[]
+        # lectura
+        lectura=int(n.lectura_lectura)
+        if lectura == 3:
+            lye.append("Normal")
+        elif lectura == 2:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lye.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    lye.append("Normal")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                lye.append("Normal")
+        elif lectura == 1:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lye.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    lye.append("Normal")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lye.append("Normal")
+                elif escolaridad == 'Bachillerato':
+                    lye.append("Moderado")
+                else:
+                    print("")
+        elif lectura == 0:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    lye.append("Severo")
+                elif escolaridad == 'Bachillerato':
+                    lye.append("Moderado")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    lye.append("Severo")
+                else:
+                    print("")
+        # dictado
+        dictado = int(n.lectura_dictado)
+        if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+            if dictado == 1:
+                lye.append("Normal")
+            else:
+                lye.append("Severo")
+
+        # copiado
+        copiado = int(n.lectura_copiado)
+        if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+            if copiado == 1:
+                lye.append("Normal")
+            else:
+                lye.append("Severo")
+                
+
+        try:
+            n.lectura=Counter(lye).most_common(1)[0][0]
+            resultado.append(n.lectura)
+        except:
+            print("")
+        
+
+        ## Funciones Ejecutivas
+        
+        #Conceptual
+        conceptual=[]
+        #semejanzas
+        semejanzas=int(n.conceptual_semejanzas)
+        if semejanzas == 6 or semejanzas == 5:
+            if edad >= 31 and edad <= 50:
+                conceptual.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Analfabeta':
+                    conceptual.append("Normal Alto")
+                else:
+                    conceptual.append("Normal")
+        elif semejanzas == 4 or semejanzas == 3:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato':
+                    if semejanzas == 4:
+                        conceptual.append("Normal")
+                    else:
+                        conceptual.append("Moderado")
+                elif escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    conceptual.append("Moderado")
+                else:
+                    conceptual.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                conceptual.append("Normal")
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    conceptual.append("Severo")
+                elif escolaridad == 'Primaria':
+                    if semejanzas == 2:
+                        conceptual.append("Normal")
+                    else:
+                        conceptual.append("Moderado")
+                else:
+                    conceptual.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    if semejanzas == 0:
+                        conceptual.append("Severo")
+                    else:
+                        conceptual.append("Moderado")
+                elif escolaridad == 'Bachillerato':
+                    if semejanzas == 2:
+                        conceptual.append("Moderado")
+                    else:
+                        conceptual.append("Severo")
+                else:
+                    conceptual.append("Normal")
+
+        # calculo
+        calculo = int(n.conceptual_calculo)
+        if calculo == 3 or calculo == 2:
+            if escolaridad != 'Analfabeta':
+                conceptual.append("Normal")
+        elif calculo == 1:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    conceptual.append("Moderado")
+                elif escolaridad == 'Primaria':
+                    conceptual.append("Normal")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad != 'Analfabeta':
+                    conceptual.append("Normal")
+        else:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    conceptual.append("Severo")
+                elif escolaridad == 'Primaria':
+                    conceptual.append("Normal")
+                else:
+                    print("")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    conceptual.append("Severo")
+                elif escolaridad == 'Primaria':
+                    conceptual.append("Moderado")
+                else:
+                    print("")
+
+        # secuenciacion
+        secuenciacion = int(n.conceptual_secuenciacion)
+        if escolaridad == 'Técnico' or escolaridad == 'Profesional':
+            if secuenciacion == 1:
+                conceptual.append("Normal")
+            else:
+                conceptual.append("Severo")
+        elif escolaridad == 'Bachillerato':
+            if secuenciacion == 1:
+                conceptual.append("Normal")
+            else:
+                conceptual.append("Moderado")
+        else:
+            print("")
+            
+        n.conceptual= Counter(resultado).most_common(1)[0][0]
+        resultado.append(n.conceptual)
+        
+        ## Motoras
+        motora=[]
+        ## mano derecha
+        mder=int(n.motora_mano_der)
+        
+        if mder == 0:
+            if edad >= 31 and edad <= 50:
+                motora.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Primaria' or escolaridad == "Analfabeta":
+                    motora.append("Moderado")
+                else:
+                    motora.append("Severo")
+        else:
+            motora.append("Normal")
+    
+        ## mano izquierda
+        mizq = int(n.motora_mano_izq)
+    
+        if mizq == 0:
+            if edad >= 31 and edad <= 50:
+                motora.append("Moderado")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    motora.append("Severo")
+                elif escolaridad == 'Primaria':
+                    motora.append("Normal")
+                else:
+                    motora.append("Moderado")
+        else:
+            motora.append("Normal")
+
+        ## movimientos alternos
+        alternos = int(n.motora_alternos)
+
+        if alternos == 2:
+            motora.append("Normal")
+        elif alternos == 1:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                    motora.append("Moderado")
+                else:
+                    motora.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                motora.append("Normal")
+        else:
+            if escolaridad == 'Profesional' or escolaridad == 'Técnico':
+                motora.append("Severo")
+            elif escolaridad == "Analfabeta":
+                motora.append("Normal")
+            elif escolaridad == 'Bachillerato':
+                if edad >= 31 and edad <= 50:
+                    motora.append("Moderado")
+                elif edad >= 66 and edad <= 85:
+                    motora.append("Severo")
+            else:
+                if edad >= 31 and edad <= 50:
+                    motora.append("Moderado")
+                elif edad >= 66 and edad <= 85:
+                    motora.append("Normal")
+
+        ## Reacciones opuestas
+        opuestas=int(n.motora_reacciones)
+
+        if opuestas == 2 or opuestas == 1:
+            if edad >= 31 and edad <= 50:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Primaria':
+                    if opuestas == 2:
+                        motora.append("Normal")
+                    else:
+                        motora.append("Moderado")
+                else:
+                    motora.append("Normal")
+            elif edad >= 66 and edad <= 85:
+                motora.append("Normal")
+        else:
+            if edad >= 31 and edad <= 50:
+                motora.append("Severo")
+            elif edad >= 66 and edad <= 85:
+                if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
+                    motora.append("Severo")
+                else:
+                    motora.append("Moderado")
+
+        n.motora= Counter(motora).most_common(1)[0][0]
+        resultado.append(n.motora)
+
+        n.resultado= Counter(resultado).most_common(1)[0][0]
+        n.save()
+
+
+
+
+        return reverse_lazy('paciente', args=[p.pk])
 
 

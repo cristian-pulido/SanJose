@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
-    Control, Cambioradiologia, Moca, Valorablenps
+    Control, Cambioradiologia, Moca, Valorablenps, Neuropsi
 from programas import anonimizador
 
 def error(request):
@@ -195,7 +195,16 @@ def crearmoca(request, pk):
             nps = Moca.objects.create(candidato=c)
             return redirect("/paciente/moca/editar/" + str(nps.pk))
 
-
+def crearneuropsi(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        if hasattr(c, 'neuropsi'):
+            return redirect("/paciente/neuropsi/editar/" + str(c.neuropsi.pk))
+        else:
+            n = Neuropsi.objects.create(candidato=c)
+            return redirect("/paciente/neuropsi/editar/" + str(n.pk))
 
 
 

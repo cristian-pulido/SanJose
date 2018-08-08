@@ -1,7 +1,7 @@
 
 from django import forms
 from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, \
-    Informante, Seguimiento, Control, Moca
+    Informante, Seguimiento, Control, Moca, Neuropsi
 
 
 class MedicoForm(forms.ModelForm):
@@ -1200,5 +1200,118 @@ class ControlForm(forms.ModelForm):
             'n_educativo': forms.Select(attrs={'class': 'form-control'}),
 
         }
+
+class NeuropsiForm(forms.ModelForm):
+
+    class Meta:
+        model = Neuropsi
+
+        fields = [
+            'fecha',
+            'medicado',
+            'medicado_cual',
+            'medicado_dt',
+            'imagen',
+            'orientacion_tiempo',
+            'orientacion_espacio',
+            'orientacion_persona',
+            'atencion_digitos',
+            'atencion_visual',
+            'atencion_20_3',
+            'codificacion_palabras',
+            'codificacion_figura',
+            'evocacion_figura',
+            'evocacion_espontanea',
+            'evocacion_claves',
+            'evocacion_reconocimiento',
+            'lenguaje_denominacion',
+            'lenguaje_repeticion',
+            'lenguaje_comprension',
+            'lenguaje_semantica',
+            'lenguaje_fonologica',
+            'lectura_lectura',
+            'lectura_dictado',
+            'lectura_copiado',
+            'conceptual_semejanzas',
+            'conceptual_calculo',
+            'conceptual_secuenciacion',
+            'motora_mano_der',
+            'motora_mano_izq',
+            'motora_alternos',
+            'motora_reacciones',
+             ]
+
+        labels = {
+            'fecha':'Fecha',
+            'medicado':"Medicado",
+            'medicado_cual':"Cuál",
+            'medicado_dt':"Dosis Total Diaria",
+            'imagen':"Imagen (Últimos 3 meses)",
+            'orientacion_tiempo':"Tiempo",
+            'orientacion_espacio':"Espacio",
+            'orientacion_persona':"Persona",
+            'atencion_digitos':"Dígitos en Regresión",
+            'atencion_visual':"Detección Visual",
+            'atencion_20_3':"20-3",
+            'codificacion_palabras':"Memoria verbal Espontánea",
+            'codificacion_figura':"Proceso Visoespacial",
+            'evocacion_figura':"Memoria Visoespacial",
+            'evocacion_espontanea':"Memoria Verbal Espontánea",
+            'evocacion_claves':"Por Claves",
+            'evocacion_reconocimiento':"Reconocimiento",
+            'lenguaje_denominacion':"Denominación",
+            'lenguaje_repeticion':"Repetición",
+            'lenguaje_comprension':"Comprensión",
+            'lenguaje_semantica':"Total Semántico",
+            'lenguaje_fonologica':"Total Fonológico",
+            'lectura_lectura':"Lectura",
+            'lectura_dictado':"Dictar",
+            'lectura_copiado':"Copiar",
+            'conceptual_semejanzas':"Semejanzas",
+            'conceptual_calculo':"Cálculo",
+            'conceptual_secuenciacion':"Secuenciación",
+            'motora_mano_der':"Derecha",
+            'motora_mano_izq':"Izquierda",
+            'motora_alternos':"Movimientos alternos de las dos manos",
+            'motora_reacciones':"Reacciones Opuestas",
+
+
+        }
+        widgets = {
+
+            'medicado': forms.Select(attrs={'class': 'form-control'}),
+            'medicado_cual': forms.TextInput(attrs={'class': 'form-control', 'placeholder': (''), 'autocomplete':"off"}),
+            'medicado_dt': forms.TextInput(attrs={'class': 'form-control', 'placeholder': (''), 'autocomplete':"off"}),
+            'imagen': forms.Textarea(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Rellene si es necesario'),'rows':"3",'cols':"50"}),
+            'orientacion_tiempo': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'orientacion_espacio': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'orientacion_persona': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'atencion_digitos': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^023456]/, '')"}),
+            'atencion_visual': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 16'),'readOnly':'true'}),
+            'atencion_20_3': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 5'),'oninput': "this.value = this.value.replace(/[^0-5]/, '')"}),
+            'codificacion_palabras': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'readOnly':'true'}),
+            'codificacion_figura': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 12'),'oninput': "this.value = this.value.replace(/[^0-9.]/, '')"}),
+            'evocacion_figura': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 12'),'oninput': "this.value = this.value.replace(/[^0-9.]/, '')"}),
+            'evocacion_espontanea': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+            'evocacion_claves': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+            'evocacion_reconocimiento': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+            'lenguaje_denominacion': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 8'),'oninput': "this.value = this.value.replace(/[^0-8]/, '')"}),
+            'lenguaje_repeticion': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 4'),'oninput': "this.value = this.value.replace(/[^0-4]/, '')"}),
+            'lenguaje_comprension': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+            'lenguaje_semantica': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': (''),'oninput': "this.value = this.value.replace(/[^0-9]/, '')"}),
+            'lenguaje_fonologica': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': (''),'oninput': "this.value = this.value.replace(/[^0-9]/, '')"}),
+            'lectura_lectura': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'lectura_dictado': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'lectura_copiado': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'conceptual_semejanzas': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
+            'conceptual_calculo': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
+            'conceptual_secuenciacion': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 1'),'oninput': "this.value = this.value.replace(/[^0-1]/, '')"}),
+            'motora_mano_der': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'motora_mano_izq': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'motora_alternos': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+            'motora_reacciones': forms.TextInput(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
+
+        }
+
 
 

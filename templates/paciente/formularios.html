@@ -1679,7 +1679,7 @@
 
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}}</b></a></h4>
+          <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}} &nbsp;&nbsp;  Puntaje MOCA</b></a></h4>
       </div>
 
       <div id="mo{{ forloop.counter0 }}" class="panel-collapse collapse">
@@ -1750,12 +1750,116 @@
   </div>
 
       <br>
-      {% if perms.paciente.add_moca and object.inscrito == True %}
+      {% tiempoeventoprincipal object as tep %}
+      {% if perms.paciente.add_moca and object.inscrito == True and tep %}
       <form>
-      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica</button>
+      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica (MOCA)</button>
       <p>Posible Antes de los 6 meses desde el evento principal. </p>
-      </form>
+
       {% endif %}
+      <br>
+        {% if not object.neuropsi or object.neuropsi.fecha == None %}
+        {% if perms.paciente.add_moca and object.inscrito == True and tep %}
+      <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
+        {% endif %}
+        {% else %}
+
+        <table class="table table-hover">
+                <caption style="text-align:left"><h3>NEUROPSI  {{object.neuropsi.fecha}}</h3></caption>
+                <tbody>
+                <tr>
+                    <th colspan="4">Observaciones médicas y neurológicas</th>
+                </tr>
+
+                <tr>
+                    <th style="vertical-align:middle;">Medicado</th>
+                    <td style="vertical-align:middle;" {% if object.neuropsi.medicado == "NO" %} colspan="3" {% endif %}>
+                      {{object.neuropsi.medicado}}
+                      {% if object.neuropsi.medicado == "SI" %}
+                      {{object.neuropsi.medicado_cual}}
+                      {% endif %}
+                    </td>
+                    {% if object.neuropsi.medicado == "SI" %}
+                    <th>Dosis total dia</th>
+                    <td>{{object.neuropsi.medicado_dt}}</td>
+                    {% endif%}
+                </tr>
+                <tr>
+                    <th style="vertical-align:middle;" >Imagen</th>
+
+                    <td colspan="3">{% if object.neuropsi.imagen != "" %} {{object.neuropsi.imagen}} {% else %} NO {% endif %}</td>
+                </tr>
+                 <tr>
+                    <th colspan="4">Resultados por Bloques</th>
+                </tr>
+                <tr>
+
+                    <th style="vertical-align:middle;">
+                        Orientación
+                    </th>
+
+                    <td style="vertical-align:middle;">
+                        {{object.neuropsi.orientacion}}
+                    </td>
+                    <th style="vertical-align:middle;">
+                        Atención y Concentración
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{object.neuropsi.atencion}}
+                    </td>
+                </tr>
+                <tr>
+                  <th rowspan="2" style="vertical-align:middle;">Memoria</th>
+                  <td>Codificación</td>
+                  <td colspan="2">{{object.neuropsi.codificacion}}</td>
+                </tr>
+                <tr>
+                  <td>Evocación</td>
+                  <td colspan="2">{{object.neuropsi.evocacion}}</td>
+                </tr>
+                <tr>
+
+                    <th style="vertical-align:middle;">
+                        Lenguaje
+                    </th>
+
+                    <td style="vertical-align:middle;">
+                        {{object.neuropsi.lenguaje}}
+                    </td>
+
+                    {% if object.ingreso.n_educativo == "Primaria" or object.ingreso.n_educativo == "Analfabeta" %}
+                    <td colspan="2"></td>
+                    {% else%}
+                    <th style="vertical-align:middle;">
+                        Lectura y Escritura
+                    </th>
+                    <td style="vertical-align:middle;">
+                        {{object.neuropsi.lectura}}
+                    </td>
+                    {% endif %}
+                </tr>
+                <tr>
+                  <th rowspan="2" style="vertical-align:middle;">Funciones Ejecutivas</th>
+                  <td>Conceptual</td>
+                  <td colspan="2">{{object.neuropsi.conceptual}}</td>
+                </tr>
+                <tr>
+                  <td>Funciones Motoras</td>
+                  <td colspan="2">{{object.neuropsi.motora}}</td>
+                </tr>
+
+                <tr>
+                  <th>Resultado</th>
+                  <td colspan="3">{{object.neuropsi.resultado}}</td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+
+        {% endif %}
+        </form>
 	{% endif %}
 
 
