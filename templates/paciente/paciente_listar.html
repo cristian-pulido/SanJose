@@ -128,9 +128,9 @@
                       {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                         <th scope="col">Seguimiento de hoy</th>
                       {% endif %}
-                      {% if perms.fileupload.add_picture or perms.paciente.can_descargar_candidato %}
+
                         <th scope="col">Imágenes Cargadas</th>
-                      {% endif %}
+
                       {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
@@ -162,9 +162,9 @@
 
                                 </td>
                               {% endif %}
-                                {% if perms.fileupload.add_picture or perms.paciente.can_descargar_candidato %}
+
                                     <td scope="col">{% if object.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
-                                {% endif %}
+
 
                               {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar %}
                               <td style="text-align:right">

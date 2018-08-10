@@ -9,7 +9,8 @@ from apps.fileupload.models import Picture
 from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control
 from django import template
 
-from programas import anonimizador
+from programas import anonimizador, definitions
+from programas.dcm2niix import convertir_dcm_2_nii, copytodata
 
 register = template.Library()
 
@@ -165,31 +166,103 @@ def creargrupos():
 def anonimizar(sn):
     i = Picture.objects.get(slug=sn)
     if sn[0]=='c':
-        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/controles/' + sn[1:] + "/imagenes")
-        anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes")
-        zip_name = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/" + sn[1:]
-        carpeta = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes"
-        shutil.make_archive(zip_name, 'zip', carpeta)
-        i.file = "/controles/" + sn[1:] + "/" + sn[1:] + ".zip"
-        i.anonimo = 1
-        i.save()
-        c = Control.objects.get(numero=sn[1:])
+        # shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/controles/' + sn[1:] + "/imagenes")
+        # anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes")
+        # zip_name = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/" + sn[1:]
+        # carpeta = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes"
+        # shutil.make_archive(zip_name, 'zip', carpeta)
+        # i.file = "/controles/" + sn[1:] + "/" + sn[1:] + ".zip"
+        # i.anonimo = 1
+        # i.save()
+        # c = Control.objects.get(numero=sn[1:])
+        # f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        # f.write("-Anonimizado\n")
+        # f.close()
+
+
+        n = str(sn[1:])
+        base_dir = settings.MEDIA_ROOT + "/controles/control" + n
+        folder_dicom = os.path.join(base_dir, "imagenes")
+
+        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, folder_dicom)
+        anonimizador.dicom_anonymizer(folder_dicom)
+        c = Control.objects.get(numero=n)
         f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
         f.write("-Anonimizado\n")
         f.close()
+        i.anonimo = 1
+        i.save()
+
+        folder_nii = os.path.join(base_dir, "nifty")
+        os.mkdir(folder_nii)
+        convertir_dcm_2_nii(base_dir, folder_nii)
+        zip_name = base_dir + "/control" + n + "_dicom"
+        carpeta = folder_dicom
+        shutil.make_archive(zip_name, 'zip', carpeta)
+        shutil.rmtree(folder_dicom)
+
+        zip_name = base_dir + "/control" + n
+        carpeta = folder_nii
+        shutil.make_archive(zip_name, 'zip', carpeta)
+
+        i.file = "/controles/control" + n + "/control" + n + ".zip"
+        i.save()
+        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        f.write("-Conversion Dicom a Nifty\n")
+        f.close()
+        folder_data = definitions.folder_data
+        copytodata(n, folder_data, folder_nii, "control")
+
     else:
-        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/img/sujeto' + str(sn) + "/imagenes")
-        anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes")
-        zip_name = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/" + str(sn)
-        carpeta = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes"
-        shutil.make_archive(zip_name, 'zip', carpeta)
-        i.file = "/img/sujeto" + str(sn) + "/" + str(sn) + ".zip"
-        i.anonimo = 1
-        i.save()
-        c=Candidato.objects.get(sujeto_numero=sn)
+        # shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/img/sujeto' + str(sn) + "/imagenes")
+        # anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes")
+        # zip_name = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/" + str(sn)
+        # carpeta = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes"
+        # shutil.make_archive(zip_name, 'zip', carpeta)
+        # i.file = "/img/sujeto" + str(sn) + "/" + str(sn) + ".zip"
+        # i.anonimo = 1
+        # i.save()
+        # c=Candidato.objects.get(sujeto_numero=sn)
+        # f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        # f.write("-Anonimizado\n")
+        # f.close()
+
+        sn = str(sn)
+        base_dir = settings.MEDIA_ROOT + "/img/sujeto" + sn
+        folder_dicom = os.path.join(base_dir, "imagenes")
+
+        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, folder_dicom)
+        anonimizador.dicom_anonymizer(folder_dicom)
+
+
+        c = Candidato.objects.get(sujeto_numero=sn)
         f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
         f.write("-Anonimizado\n")
         f.close()
+        i.anonimo = 1
+        i.save()
+
+        folder_nii = os.path.join(base_dir, "nifty")
+        os.mkdir(folder_nii)
+        convertir_dcm_2_nii(base_dir, folder_nii)
+        zip_name = base_dir + "/sujeto" + sn + "_dicom"
+        carpeta = folder_dicom
+        shutil.make_archive(zip_name, 'zip', carpeta)
+        shutil.rmtree(folder_dicom)
+
+        zip_name = base_dir + "/sujeto" + sn
+        carpeta = folder_nii
+        shutil.make_archive(zip_name, 'zip', carpeta)
+
+        i.file = "/img/sujeto" + sn + "/sujeto" + sn + ".zip"
+        i.save()
+
+        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        f.write("-Conversion Dicom a Nifty\n")
+        f.close()
+        folder_data = definitions.folder_data
+        copytodata(sn, folder_data, folder_nii,"sujeto")
+
     return "Completo"
 
 @register.simple_tag

@@ -833,7 +833,7 @@ class Control(models.Model):
         """delete -- Remove to leave file."""
         c = self
         n=c.numero
-        shutil.rmtree(settings.MEDIA_ROOT+"/controles/"+str(n), ignore_errors=True)
+        shutil.rmtree(settings.MEDIA_ROOT+"/controles/control"+str(n), ignore_errors=True)
         super(Control, self).delete(*args, **kwargs)
         try:
             i=Picture.objects.get(slug="c"+str(n))

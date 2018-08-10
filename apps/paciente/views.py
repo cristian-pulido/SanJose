@@ -294,7 +294,7 @@ class ControlCreate(CreateView):
                 os.mkdir(settings.MEDIA_ROOT + "/controles")
             except:
                 ""
-            os.mkdir(settings.MEDIA_ROOT + "/controles/1")
+            os.mkdir(settings.MEDIA_ROOT + "/controles/control1")
         else:
             flag = False
             i = 2
@@ -306,7 +306,7 @@ class ControlCreate(CreateView):
                 except:
                     ""
                 i = i + 1
-            os.mkdir(settings.MEDIA_ROOT + "/controles/" + str(c.numero))
+            os.mkdir(settings.MEDIA_ROOT + "/controles/control" + str(c.numero))
         nacimiento = c.fecha_nacimiento
         hoy = datetime.now().date()
         dt = hoy - nacimiento

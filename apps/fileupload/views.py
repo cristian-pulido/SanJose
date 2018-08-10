@@ -31,11 +31,11 @@ class PictureCreateView(CreateView):
         sn=str(self.object.slug)
         if sn[0]=='c':
             c=Control.objects.get(numero=int(sn[1:]))
-            os.mkdir(settings.MEDIA_ROOT+'/controles/' + sn[1:] + "/imagenes")
-            file = open(settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/" + sn[1:] + ".txt", "w")
+            os.mkdir(settings.MEDIA_ROOT+'/controles/control' + sn[1:] + "/imagenes")
+            file = open(settings.MEDIA_ROOT+"/controles/control" + sn[1:] + "/" + sn[1:] + ".txt", "w")
             file.write("" + sn[1:]+"\n")
             file.close()
-            c.imagen = "/controles/" + sn[1:] + "/" + sn[1:] + ".txt"
+            c.imagen = "/controles/control" + sn[1:] + "/" + sn[1:] + ".txt"
             c.save()
             anonimizar.delay(sn)
         else:
