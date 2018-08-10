@@ -135,6 +135,8 @@ def do_change_control(sujeto_numero):
         i.file = "/controles/control" + sn + "/control" + sn + ".zip"
         i.save()
         c = Control.objects.get(numero=sn)
+        c.imagen="/controles/control"+sn+"/"+sn+".txt"
+        c.save()
         f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
         f.write("-Conversion Dicom a Nifty\n")
         f.close()
