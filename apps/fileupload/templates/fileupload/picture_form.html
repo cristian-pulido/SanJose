@@ -53,6 +53,7 @@
         {% img as my_array %}
 
 {% for item in my_array %}
+
         <script type="text/javascript">
             var a="{{ forloop.counter }}";
             var x="{{item}}";
@@ -69,15 +70,19 @@
         {% imgc as myarray %}
 
 {% for item in myarray %}
+
         <script type="text/javascript">
-            var a="{{ forloop.counter }}";
-            var x="{{item}}";
             var y=window.parent.document.getElementById("sn").value;
-            y=y.substring(1, );
-            if (a == y && x == 1){
-            document.getElementById("carga").style="display:none";
-            document.getElementById("resultado").style="display:inline";
-            document.getElementById("resultado").innerHTML="Archivo Cargado Satisfactoriamente "+String(y);
+            if ( y.substring(0,1) == 'c' ){
+                var a="{{ forloop.counter }}";
+                var x="{{item}}";
+                y=y.substring(1, );
+                if (a == y && x == 1){
+                document.getElementById("carga").style="display:none";
+                document.getElementById("resultado").style="display:inline";
+                document.getElementById("resultado").innerHTML="Archivo Cargado Satisfactoriamente "+String(y);
+            }
+
             }
         </script>
 

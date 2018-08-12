@@ -47,8 +47,8 @@
                   <thead>
                     <tr>
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
-                      <th scope="col">Médico a cargo </th>
-                      <th>Tiempo desde ingreso Uci</th>
+                      <th scope="col">Profesional a cargo </th>
+                      <th>Tiempo desde ingreso UCI</th>
                       {% if perms.paciente.change_candidato or perms.paciente.delete_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
@@ -124,7 +124,7 @@
                   <thead>
                     <tr>
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
-                      <th scope="col">Médico a cargo </th>
+                      <th scope="col">Profesional a cargo </th>
                       {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                         <th scope="col">Seguimiento de hoy</th>
                       {% endif %}
@@ -222,7 +222,7 @@
                   <thead>
                     <tr style="vertical-align: middle;">
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
-                      <th scope="col">Médico a cargo </th>
+                      <th scope="col">Profesional a cargo </th>
                         <th scope="col">Motivo Exclusión </th>
                       {% if perms.paciente.delete_candidato %}
                       <th style="text-align:right" scope="col">Acciones</th>
