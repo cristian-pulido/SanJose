@@ -62,7 +62,6 @@ def copytodata(sujeto_numero, folder_data, folder_nii, tipo):
     os.mkdir(folder)
     subfolders = defi.subfolders
     files = [[T1_path(folder_nii)], DWI_path(folder_nii), [rest_path(folder_nii)]]
-
     for i in range(len(subfolders)):
         path_subfolder = os.path.join(folder, subfolders[i])
         os.mkdir(path_subfolder)
@@ -71,8 +70,20 @@ def copytodata(sujeto_numero, folder_data, folder_nii, tipo):
         os.mkdir(path_3d)
         os.mkdir(path_4d)
         for j in files[i]:
-            shutil.copy(j, path_4d)
-            shutil.copy(j,path_3d)
+            if i == 1:
+                ext = os.path.splitext(j)[1]
+                if ext == '.gz':
+                    shutil.copy(j, os.path.join(path_4d,"dwi.nii.gz"))
+                    shutil.copy(j,os.path.join(path_3d,"dwi.nii.gz"))
+                else:
+                    shutil.copy(j, os.path.join(path_4d,"dwi"+ext))
+                    shutil.copy(j,os.path.join(path_3d,"dwi"+ext))
+            elif i == 0:
+                shutil.copy(j, os.path.join(path_4d,"mprage_anonymized.nii.gz"))
+                shutil.copy(j,os.path.join(path_3d,"mprage_anonymized.nii.gz"))
+            else:
+                shutil.copy(j, os.path.join(path_4d,"rest.nii.gz"))
+                shutil.copy(j,os.path.join(path_3d,"rest.nii.gz"))
             lista = os.listdir(path_3d)
             try:
                 file = ""
