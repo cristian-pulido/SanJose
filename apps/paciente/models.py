@@ -728,7 +728,7 @@ class Seguimiento(models.Model):
     pic_numero = models.CharField(max_length=12, null=True, blank=True, default="")
     ventilacion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     soporte = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
-    soporte_cual = models.CharField(max_length=12, null=True, blank=True, default="")
+    soporte_cual = models.CharField(max_length=200, null=True, blank=True, default="")
     neuroimagen = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')
     imgobservacion = models.CharField(max_length=200,null=True,default="",blank=True)
     neurologia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True, default='NO')

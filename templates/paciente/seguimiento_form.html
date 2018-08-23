@@ -218,7 +218,7 @@
 
                     </td>
                     <th style="vertical-align:middle;"><label {% if object.soporte == "NO" %} style="visibility:hidden" {% endif %} id="soporte">{{form.soporte_cual.label}}</label></th>
-                    <td style="vertical-align:middle;"><input {% if object.soporte == "NO" %} type="hidden" {% endif %} value="{{object.soporte_cual}}" name="soporte_cual" required maxlength="25" class="form-control" id="id_soporte_cual" /></td>
+                    <td style="vertical-align:middle;"><input {% if object.soporte == "NO" %} type="hidden" {% endif %} value="{{object.soporte_cual}}" name="soporte_cual" required maxlength="200" class="form-control" id="id_soporte_cual" /></td>
 
                     
                 </tr>
