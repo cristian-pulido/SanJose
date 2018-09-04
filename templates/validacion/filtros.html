@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Listado de Controles {% endblock %}
+{% block content %}
+
+
+
+<h1>Filtros Tag de Imágenes</h1>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-success">
+    {{ message }}
+  </div>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% load scripts_validacion %}
+<br>
+    <form>
+          <button class="btn btn-primary" formaction="{% url 'filtro_crear' %}">Crear filtro</button>
+      </form>
+    <br>
+{% if object_list %}
+        {% get_name_images as imagenes %}
+        {% for images in imagenes %}
+            <ul>
+                <li>{{images}}</li>
+                {% get_tags_images images as tags %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre Tag</th>
+                            <th>Tolerancia</th>
+                            <th>Valor Esperado</th>
+                            <th>Unidades</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                {% for tag in tags %}
+
+
+                    <tbody>
+                        <tr>
+                            <td>{{tag.tag}}</td>
+                            <td>{{tag.precision}}</td>
+                            <td>{{tag.v_esperado}}</td>
+                            <td>{{tag.medidas}}</td>
+                            <td>
+                                <form>
+                                    <button class="btn btn-primary" formaction="{% url 'filtro_editar' tag.pk %}">Editar</button>
+                                    <button class="btn btn-danger" formaction="{% url 'filtro_eliminar' tag.pk %}">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+
+
+                {% endfor %}
+                </table>
+            </ul>
+        {% endfor %}
+{% else %}
+<h3>No se encontro registros.</h3>
+
+{% endif %}
+
+
+
+{% endblock %}

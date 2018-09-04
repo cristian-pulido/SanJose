@@ -3,6 +3,7 @@ import os.path
 import patoolib
 import nibabel as nib
 import pydicom
+import math
 from pydicom.errors import InvalidDicomError
 from nibabel.loadsave import ImageFileError
 
@@ -148,3 +149,40 @@ Example:
     >>> directory_path_test = '/Users/jscs/Downloads/test'
     >>> dicom_anonymizer(directory_path_test)
 """
+
+
+def get_tags_dicom(dicom_dir):
+    lista = []
+    for path, dirs, files in os.walk(dicom_dir):
+        for name in files:
+            file_path = os.path.join(path, name)
+            if dicom_reader(file_path):
+                lista.append(file_path)
+    series={}
+    for dcm in lista:
+        file=pydicom.read_file(dcm)
+        if file.SeriesDescription in series:
+            for f in file:
+                if len(str(f.value)) < 150 and f.keyword != "SeriesDescription":
+                    if f.name in series[file.SeriesDescription] :
+                        if series[file.SeriesDescription][str(f.name)] != [] and str(f.value) != series[file.SeriesDescription][str(f.name)]["v_tag"]:
+                            series[file.SeriesDescription][str(f.name)]=[]
+                    else:
+                        series[file.SeriesDescription][str(f.name)]={"num_tag":str(f.tag),"name_tag":str(f.keyword),"v_tag":str(f.value) }
+
+
+        else:
+            series[file.SeriesDescription]={}
+            for f in file:
+                if len(str(f.value)) < 150 and f.keyword != "SeriesDescription":
+                    series[file.SeriesDescription][str(f.name)]={"num_tag":str(f.tag),"name_tag":str(f.keyword),"v_tag":str(f.value) }
+
+
+    for s in series:
+        eliminacion=[]
+        for tag in series[s]:
+            if series[s][tag] == []:
+                eliminacion.append(tag)
+        for element in eliminacion:
+                series[s].pop(element)
+    return series

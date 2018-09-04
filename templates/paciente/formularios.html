@@ -3,7 +3,7 @@
 {% block title %} Información {% endblock %}
 
 {% block content %}
-
+{% load scripts_validacion %}
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -74,6 +74,14 @@
   {% if object.uci and object.uci.condicion_egreso == 'Vivo' and perms.paciente.can_ver_moca %}
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab"   href="#moca">Neuropsicología Sujeto</a>
+  </li>
+  {% endif %}
+
+
+
+  {% if perms.paciente.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
+  <li class="nav-item">
+    <a class="nav-link "  data-toggle="tab"   href="#verificacionbold" >Validación y Calidad</a>
   </li>
   {% endif %}
   {% endif %}
@@ -380,7 +388,7 @@
           var a = prompt("Motivo:", "");
           var n = a.length;
 
-          while (n>20 || n == 0 ) {
+          while (n>95 || n == 0 ) {
               var a = prompt("Motivo:", "");
               var n = a.length;
           }
@@ -837,11 +845,10 @@
         <h4 class="panel-title">
           <a data-toggle="collapse" href="#expand{{ forloop.counter0 }}"><b>{{neuro.fechaneuro}}</b></a>
           {% if neuro.epileptico == "SI" and neuro.fechaeeg == None %}
-          <p style="color:red;">Falta información EEG</p>
+          <a style="color:red;">Falta información EEG</a>
           {% endif%}
-
+        </h4>
       </div>
-      </form>
       <div id="expand{{ forloop.counter0 }}" class="panel-collapse collapse">
         <div class="panel-body">
           {% if neuro.epileptico == "SI" and neuro.fechaeeg == None and perms.paciente.change_neurologia %}
@@ -1378,6 +1385,244 @@
       {% endif %}
       </div>
       {% endif %}
+ </div>
+
+<div class="tab-pane"  id="verificacionbold">
+
+  <br>
+  <h3>Seleccione una Pestaña</h3>
+
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item active">
+      <a class="nav-link active" data-toggle="tab" href="#imagenes">Imagenes Encontradas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active show" data-toggle="tab" href="#movimiento">Movimiento</a>
+    </li>
+  </ul>
+<div id="v" class="tab-content">
+  <div class="tab-pane active" id="imagenes">
+    <br>
+
+  <legend>Imágenes Obtenidos de los Archivos</legend>
+
+    <br>
+    <form>
+          <button class="btn btn-primary" formaction="{% url 'filtro_listar' %}">Editar o crear filtro para parámetros</button>
+      </form>
+    <br>
+
+
+
+  {% get_images_names_sujeto object.sujeto_numero as imagenes %}
+
+
+
+      {% for imagen in imagenes %}
+
+      {% if imagen.2 == True %}
+      {% get_campos_from_image_sujeto object.sujeto_numero imagen.0 as campos %}
+
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#tipoimg{{ forloop.counter0 }}">{{imagen.0}}  {% if imagen.1 != "" %} ó {{imagen.1}} {%endif%}</a>
+              </h4>
+            </div>
+            <div id="tipoimg{{ forloop.counter0 }}" class="panel-collapse collapse">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th>Ref. Dicom</th>
+                  <th>Nombre</th>
+                  <th>Valor</th>
+                  <th>Valor Esperado</th>
+                  <th>Tolerancia</th>
+                  <th>Validación</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for campo in campos %}
+                <tr>
+                  <td>{{campo.tag.num_tag}}</td>
+                  <td>{{campo.tag.name_tag}}</td>
+                  <td>{{campo.valor}} {{campo.medidas}}</td>
+                  <td>{{campo.v_esperado}} {{campo.medidas}}</td>
+                  <td>{{campo.precision}}%</td>
+                  <td>{% if campo.cumple == True %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+                </tr>
+
+                {% endfor %}
+                </tbody>
+              </table>
+              Nota : Spacing Between Slices medido entre el punto medio de cada corte.
+              <form>
+                <button class="btn btn-primary" formaction="{% url 'vision_img' imagen.3 %}">Ocultar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% else %}
+      <ul>
+        <form>
+        {{imagen.0}} * {% if imagen.1 != "" %} ó {{imagen.1}} {%endif%} &nbsp; &nbsp; <button class="btn btn-primary" formaction="{% url 'vision_img' imagen.3 %}">Mostrar</button>
+          </form>
+      </ul>
+
+      {% endif %}
+      <br>
+      <br>
+      {% endfor %}
+
+
+      *Imágenes encontradas distintas al protocolo de adquisición.
+
+  </div>
+  <div class="tab-pane " id="movimiento">
+
+     <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#funcional">
+            Funcional (Resting)</a>
+          </h4>
+        </div>
+        <div id="funcional" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <h4>Movimiento Medio</h4>
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                <th>Absoluto</th>
+                <td>{{ object.parametrosmotioncorrect.absolute_func }} mm </td>
+                <th>Relativo</th>
+                <td>{{ object.parametrosmotioncorrect.relative_func }} mm</td>
+              </tr>
+              </tbody>
+            </table>
+            <center>
+            <div id="div_func_desplazamiento"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id="div_func_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id="div_func_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+            </center>
+            <h3>Resultados de movimiento aceptables?  </h3>
+          {% if object.parametrosmotioncorrect.aceptado_func == None %}
+
+            <form>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" id="func_si">Si
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" id="func_no">No
+            </label>
+          </form>
+            {% else %}
+            {% if  object.parametrosmotioncorrect.aceptado_func == True %}
+              <span style="color:green" class="glyphicon glyphicon-check" ></span>
+              {% else %}
+              <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#dwi">
+            Dwi (Tensor)</a>
+          </h4>
+        </div>
+        <div id="dwi" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <h4>Movimiento Medio</h4>
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                <th>Absoluto</th>
+                <td>{{ object.parametrosmotioncorrect.absolute_dwi }} mm </td>
+                <th>Relativo</th>
+                <td>{{ object.parametrosmotioncorrect.relative_dwi }} mm</td>
+              </tr>
+              </tbody>
+            </table>
+            <center>
+            <div id="div_dwi_desplazamiento"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id="div_dwi_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id="div_dwi_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+            </center>
+            <h3>Resultados de movimiento aceptables?  </h3>
+            {% if object.parametrosmotioncorrect.aceptado_dwi == None %}
+
+            <form>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" id="dwi_si">Si
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio" id="dwi_no">No
+            </label>
+
+
+              <a class="btn btn-primary" onclick="mov()" >Enviar</a>
+              <script >
+              function mov() {
+
+                  var fs=document.getElementById("func_si").checked;
+                  var ds=document.getElementById("dwi_si").checked;
+                  var v1=0
+                  var v2=0
+                  if ( fs == true ){
+                    v1=1
+                  }
+                  else {
+                    v1=0
+                  }
+                  if ( ds == true ){
+                    v2=1
+                  }
+                  else {
+                    v2=0
+                  }
+                  var url_mask = "{% url 'v_movimiento' 'sujeto' object.sujeto_numero 'x' 'y' %}".replace('x', v1.toString());
+                  url_mask=url_mask.replace('y', v2.toString());
+                  window.location=url_mask;
+
+              }
+              </script>
+            {% else %}
+            {% if  object.parametrosmotioncorrect.aceptado_dwi == True %}
+              <span style="color:green" class="glyphicon glyphicon-check" ></span>
+              {% else %}
+              <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+            {% endif %}
+
+            {% endif %}
+
+
+          </form>
+
+
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="{{object.parametrosmotioncorrect.graphic_desplazamiento_func}}"></script>
+  <script src="{{object.parametrosmotioncorrect.graphic_rotacion_func}}"></script>
+  <script src="{{object.parametrosmotioncorrect.graphic_traslacion_func}}"></script>
+
+  <script src="{{object.parametrosmotioncorrect.graphic_desplazamiento_dwi}}"></script>
+  <script src="{{object.parametrosmotioncorrect.graphic_rotacion_dwi}}"></script>
+  <script src="{{object.parametrosmotioncorrect.graphic_traslacion_dwi}}"></script>
+
+
  </div>
 
 <div class="tab-pane"  id="informante">

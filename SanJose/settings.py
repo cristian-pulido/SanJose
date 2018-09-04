@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.fileupload',
     'apps.paciente',
+    'apps.validacion',
     'social_django',
     'django.contrib.admin',
     'report_builder',

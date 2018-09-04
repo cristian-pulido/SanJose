@@ -7,7 +7,8 @@ from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
-    Control, Cambioradiologia, Moca, Valorablenps, Neuropsi
+    Control, Cambioradiologia, Moca, Valorablenps, Neuropsi, Parametrosmotioncorrect
+from apps.validacion.models import Tipoimagenes
 from programas import anonimizador
 
 def error(request):
@@ -205,6 +206,45 @@ def crearneuropsi(request, pk):
         else:
             n = Neuropsi.objects.create(candidato=c)
             return redirect("/paciente/neuropsi/editar/" + str(n.pk))
+
+def visionimagen(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        i = Tipoimagenes.objects.get(pk=pk)
+        if i.mostrar == True:
+            i.mostrar = False
+        else:
+            i.mostrar = True
+        i.save()
+        return redirect("login")
+
+
+def validarmovimiento(request, tipo,pk,v1,v2):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+
+        if tipo == "sujeto":
+            C=Candidato.objects.get(sujeto_numero=pk)
+            parametros = Parametrosmotioncorrect.objects.get(sujeto=C)
+        else:
+            C = Control.objects.get(numero=pk)
+            parametros = Parametrosmotioncorrect.objects.get(control=C)
+
+        if v1 == '1':
+            parametros.aceptado_func = True
+        else:
+            parametros.aceptado_func = False
+
+        if v2 == '1':
+            parametros.aceptado_dwi = True
+        else:
+            parametros.aceptado_dwi = False
+
+        parametros.save()
+        return redirect("login")
+
 
 
 

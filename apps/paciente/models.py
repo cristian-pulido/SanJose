@@ -9,6 +9,8 @@ from django.db import models
 from django.utils import timezone
 
 from apps.fileupload.models import Picture
+from programas import definitions
+
 
 class Dprevio(models.Model):
     Traumaticos = "Traumáticos"
@@ -131,7 +133,6 @@ class Candidato(models.Model):
         i=Picture.objects.get(slug=self.sujeto_numero)
         return i
 
-        return len(t)
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""
         c = self
@@ -929,3 +930,24 @@ class Neuropsi(models.Model):
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
+
+
+class Parametrosmotioncorrect(models.Model):
+    sujeto = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True, blank=True)
+    control = models.OneToOneField(Control, on_delete=models.CASCADE, null=True, blank=True)
+    absolute_func = models.CharField(max_length=50, null=True)
+    relative_func = models.CharField(max_length=50, null=True)
+    graphic_desplazamiento_func = models.CharField(max_length=300,null=True,blank=True)
+    graphic_rotacion_func= models.CharField(max_length=300,null=True,blank=True)
+    graphic_traslacion_func= models.CharField(max_length=300,null=True,blank=True)
+    aceptado_func = models.NullBooleanField()
+
+    absolute_dwi = models.CharField(max_length=50, null=True)
+    relative_dwi = models.CharField(max_length=50, null=True)
+    graphic_desplazamiento_dwi = models.CharField(max_length=300, null=True, blank=True)
+    graphic_rotacion_dwi = models.CharField(max_length=300, null=True, blank=True)
+    graphic_traslacion_dwi = models.CharField(max_length=300, null=True, blank=True)
+    aceptado_dwi = models.NullBooleanField()
+
+
+

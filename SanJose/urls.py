@@ -18,15 +18,17 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.contrib.auth import views
+from django.views.generic import TemplateView
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
-    crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi
+    crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
     path('admin/', admin.site.urls),
     path('carga/', include('apps.fileupload.urls')),
     path('paciente/', include('apps.paciente.urls')),
+    path('filtro/', include('apps.validacion.urls')),
 
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
@@ -44,6 +46,9 @@ urlpatterns = [
     path('script/crearnps/<int:pk>/<slug:razon>/<slug:fecha>/', crearnps, name='crear_nps'),
     path('script/crearm/<int:pk>/', crearmoca, name='crear_moca'),
     path('script/crearnpsi/<int:pk>/', crearneuropsi, name='crear_neuropsi'),
+    path('script/filtros_img/<slug:pk>/', visionimagen, name='vision_img'),
+    path('script/vmovimiento/<slug:tipo>/<int:pk>/<slug:v1>/<slug:v2>/', validarmovimiento, name='v_movimiento'),
+
 
 
 ]

@@ -2,15 +2,19 @@ import os
 import shutil
 from datetime import datetime, timezone, timedelta
 
+import nibabel
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission, User
 from celery import shared_task
 from apps.fileupload.models import Picture
-from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control
+from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control,  Parametrosmotioncorrect
 from django import template
 
+from apps.validacion.templatetags.scripts_validacion import pass_tags_to_db, campos_a_mostrar
 from programas import anonimizador, definitions
-from programas.dcm2niix import convertir_dcm_2_nii, copytodata
+from programas.anonimizador import get_tags_dicom
+from programas.dcm2niix import convertir_dcm_2_nii, copytodata, rest_path, DWI_path
+from programas.motion_correct_fmri import func_motion_correct
 
 register = template.Library()
 
@@ -140,6 +144,9 @@ def creargrupos():
     mo2 = Permission.objects.get(name="Can change moca")
     mo3 = Permission.objects.get(name="puede ver moca")
 
+    # parametros img
+    #pi3 = Permission.objects.get(name="puede ver parametrosimg")
+
     ## creacion grupos
     invitado = Group.objects.get_or_create(name='Invitado')[0]
     consultor = Group.objects.get_or_create(name='Consultor')[0]
@@ -165,105 +172,111 @@ def creargrupos():
 @shared_task
 def anonimizar(sn):
     i = Picture.objects.get(slug=sn)
-    if sn[0]=='c':
-        # shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/controles/' + sn[1:] + "/imagenes")
-        # anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes")
-        # zip_name = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/" + sn[1:]
-        # carpeta = settings.MEDIA_ROOT+"/controles/" + sn[1:] + "/imagenes"
-        # shutil.make_archive(zip_name, 'zip', carpeta)
-        # i.file = "/controles/" + sn[1:] + "/" + sn[1:] + ".zip"
-        # i.anonimo = 1
-        # i.save()
-        # c = Control.objects.get(numero=sn[1:])
-        # f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
-        # f.write("-Anonimizado\n")
-        # f.close()
+    if sn[0] == 'c':
 
-
+        tipe = "control"
         n = str(sn[1:])
         base_dir = settings.MEDIA_ROOT + "/controles/control" + n
-        folder_dicom = os.path.join(base_dir, "imagenes")
-
-        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, folder_dicom)
-        anonimizador.dicom_anonymizer(folder_dicom)
         c = Control.objects.get(numero=n)
-        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
-        f.write("-Anonimizado\n")
-        f.close()
-        i.anonimo = 1
-        i.save()
+        file_img = "/controles/control" + n + "/control" + n + ".zip"
 
-        folder_nii = os.path.join(base_dir, "nifty")
-        os.mkdir(folder_nii)
-        convertir_dcm_2_nii(base_dir, folder_nii)
-        zip_name = base_dir + "/control" + n + "_dicom"
-        carpeta = folder_dicom
-        shutil.make_archive(zip_name, 'zip', carpeta)
-        shutil.rmtree(folder_dicom)
-
-        zip_name = base_dir + "/control" + n
-        carpeta = folder_nii
-        shutil.make_archive(zip_name, 'zip', carpeta)
-
-        i.file = "/controles/control" + n + "/control" + n + ".zip"
-        i.save()
-        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
-        f.write("-Conversion Dicom a Nifty\n")
-        f.close()
-        folder_data = definitions.folder_data
-        copytodata(n, folder_data, folder_nii, "control")
 
     else:
-        # shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, settings.MEDIA_ROOT+'/img/sujeto' + str(sn) + "/imagenes")
-        # anonimizador.dicom_anonymizer(settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes")
-        # zip_name = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/" + str(sn)
-        # carpeta = settings.MEDIA_ROOT+"/img/sujeto" + str(sn) + "/imagenes"
-        # shutil.make_archive(zip_name, 'zip', carpeta)
-        # i.file = "/img/sujeto" + str(sn) + "/" + str(sn) + ".zip"
-        # i.anonimo = 1
-        # i.save()
-        # c=Candidato.objects.get(sujeto_numero=sn)
-        # f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
-        # f.write("-Anonimizado\n")
-        # f.close()
+        tipe = "sujeto"
+        n = str(sn)
+        base_dir = settings.MEDIA_ROOT + "/img/sujeto" + n
+        c = Candidato.objects.get(sujeto_numero=n)
+        file_img = "/img/sujeto" + n + "/sujeto" + n + ".zip"
 
-        sn = str(sn)
-        base_dir = settings.MEDIA_ROOT + "/img/sujeto" + sn
-        folder_dicom = os.path.join(base_dir, "imagenes")
+    folder_dicom = os.path.join(base_dir, "imagenes")
+    shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, folder_dicom)
+    anonimizador.dicom_anonymizer(folder_dicom)
+    # archive=os.path.join(folder_dicom,os.listdir(folder_dicom)[0])
+    # import zipfile
+    # a=zipfile.ZipFile(archive)
+    # a.extractall(folder_dicom)
+    series=get_tags_dicom(folder_dicom)
+    pass_tags_to_db(sn, series)
+    campos_a_mostrar()
+    f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+    f.write("-Anonimizado\n")
+    f.write("-Verificación Parametros\n")
+    f.close()
+    i.anonimo = 1
+    i.save()
 
-        shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, folder_dicom)
-        anonimizador.dicom_anonymizer(folder_dicom)
+    folder_nii = os.path.join(base_dir, "nifty")
+    os.mkdir(folder_nii)
+    convertir_dcm_2_nii(base_dir, folder_nii)
+    zip_name = os.path.join(base_dir, tipe + n + "_dicom")
+    carpeta = folder_dicom
+    shutil.make_archive(zip_name, 'zip', carpeta)
+    shutil.rmtree(folder_dicom)
+
+    zip_name = os.path.join(base_dir, tipe + n)
+    carpeta = folder_nii
+    shutil.make_archive(zip_name, 'zip', carpeta)
+
+    i.file = file_img
+    i.save()
+
+    f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+    f.write("-Conversion Dicom a Nifty\n")
+    f.close()
+
+    func_result=os.path.join(folder_nii, "func_result")
+    absolute_func, relative_func , paths_html_func= func_motion_correct(rest_path(folder_nii), func_result,n,tipe,"func")
+    os.remove(rest_path(folder_nii))
+    shutil.move(rest_path(func_result), folder_nii)
 
 
-        c = Candidato.objects.get(sujeto_numero=sn)
-        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
-        f.write("-Anonimizado\n")
-        f.close()
-        i.anonimo = 1
-        i.save()
 
-        folder_nii = os.path.join(base_dir, "nifty")
-        os.mkdir(folder_nii)
-        convertir_dcm_2_nii(base_dir, folder_nii)
-        zip_name = base_dir + "/sujeto" + sn + "_dicom"
-        carpeta = folder_dicom
-        shutil.make_archive(zip_name, 'zip', carpeta)
-        shutil.rmtree(folder_dicom)
+    dir_dwi = os.path.join(folder_nii, "dwi_mc")
+    os.mkdir(dir_dwi)
+    shutil.move(DWI_path(folder_nii, False), dir_dwi)
+    os.system("fslsplit " + os.path.join(dir_dwi, os.listdir(dir_dwi)[0]) + " " + dir_dwi + "/vol")
+    os.remove(DWI_path(dir_dwi, False))
+    b0 = os.path.join(dir_dwi, "b0.nii.gz")
+    shutil.move(os.path.join(dir_dwi, "vol0000.nii.gz"), b0)
+    dwi_image_no_b0 = os.path.join(dir_dwi, "TENSOR")
+    os.system("fslmerge -t " + dwi_image_no_b0 + " " + dir_dwi + "/vol* ")
+    volumenes = os.listdir(dir_dwi)
+    for volumen in volumenes:
+        if "vol" in volumen:
+            os.remove(os.path.join(dir_dwi, volumen))
+    dwi_result = os.path.join(folder_nii, "dwi_result")
+    absolute_dwi, relative_dwi, paths_html_dwi = func_motion_correct(DWI_path(dir_dwi, False),
+                                                                     dwi_result,
+                                                                     n, tipe,"dwi")
+    os.system("fslmerge -t " + folder_nii + "/TENSOR" + " " + b0 + " " + DWI_path(dwi_result, False))
+    os.remove(DWI_path(dwi_result, False))
+    shutil.rmtree(dir_dwi)
 
-        zip_name = base_dir + "/sujeto" + sn
-        carpeta = folder_nii
-        shutil.make_archive(zip_name, 'zip', carpeta)
 
-        i.file = "/img/sujeto" + sn + "/sujeto" + sn + ".zip"
-        i.save()
+    P = Parametrosmotioncorrect.objects.create(absolute_func=absolute_func,
+                                               relative_func=relative_func,
+                                               graphic_desplazamiento_func=paths_html_func["desplazamiento"],
+                                               graphic_rotacion_func=paths_html_func["rotaciones"],
+                                               graphic_traslacion_func= paths_html_func["traslaciones"],
+                                               absolute_dwi=absolute_dwi,
+                                               relative_dwi=relative_dwi,
+                                               graphic_desplazamiento_dwi=paths_html_dwi["desplazamiento"],
+                                               graphic_rotacion_dwi=paths_html_dwi["rotaciones"],
+                                               graphic_traslacion_dwi=paths_html_dwi["traslaciones"]
+                                               )
+    setattr(P, tipe, c)
+    P.save()
 
-        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
-        f.write("-Conversion Dicom a Nifty\n")
-        f.close()
-        folder_data = definitions.folder_data
-        copytodata(sn, folder_data, folder_nii,"sujeto")
+    f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+    f.write("-Correccion movimiento\n")
+    f.close()
 
+    folder_data = definitions.folder_data
+    copytodata(n, folder_data, folder_nii, tipe)
     return "Completo"
+
+
+
 
 @register.simple_tag
 def checkseguimiento(o):
