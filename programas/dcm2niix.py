@@ -140,7 +140,7 @@ def do_change(sujeto_numero,tipe):
 
         lista=os.listdir(base_dir)
         for i in lista:
-            if os.path.isdir(os.path.join(base_dir,i)):
+            if os.path.isdir(os.path.join(base_dir,i)) and not "__" in i and not i.startswith('.'):
                 folder_dicom=os.path.join(base_dir,i)
 
 
