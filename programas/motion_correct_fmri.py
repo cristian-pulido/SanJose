@@ -1,9 +1,9 @@
-from plotly.offline import plot
-from plotly.graph_objs import Scatter, Box, Figure, Layout
 import os, shutil
 import nibabel as nib
 from numpy import prod
 import numpy as np
+
+
 
 
 def np2str(a):
@@ -33,6 +33,34 @@ def grafics_plot(arrays, direccion, legends, Title, labelaxes, myDiv):
     f.write("Plotly.newPlot('" + myDiv + "', data, layout);")
 
     f.close()
+
+def signaltonoise(a, axis=0, ddof=0):
+    """
+    The signal-to-noise ratio of the input data.
+    Returns the signal-to-noise ratio of `a`, here defined as the mean
+    divided by the standard deviation.
+    Parameters
+    ----------
+    a : array_like
+        An array_like object containing the sample data.
+    axis : int or None, optional
+        If axis is equal to None, the array is first ravel'd. If axis is an
+        integer, this is the axis over which to operate. Default is 0.
+    ddof : int, optional
+        Degrees of freedom correction for standard deviation. Default is 0.
+    Returns
+    -------
+    s2n : ndarray
+        The mean to standard deviation ratio(s) along `axis`, or 0 where the
+        standard deviation is 0.
+    """
+    a = np.asanyarray(a)
+    m = a.mean(axis)
+    sd = a.std(axis=axis, ddof=ddof)
+    return float(np.where(sd == 0, 0, m/sd))
+
+
+
 
 def func_motion_correct(dir_func, dir_result, sn, tipo, tipoimg):
     if os.path.exists(dir_result):
@@ -166,9 +194,11 @@ def func_motion_correct(dir_func, dir_result, sn, tipo, tipoimg):
     abs_mean_file = dir_result + ".feat/mc/prefiltered_func_data_mcf_abs_mean.rms"
     file = open(abs_mean_file, "r")
     absolute = float(file.read()[:4])
+    file.close()
     relative_mean_file = dir_result + ".feat/mc/prefiltered_func_data_mcf_rel_mean.rms"
     file = open(relative_mean_file, "r")
     relative = float(file.read()[:4])
+    file.close()
     abs_values_file = dir_result + ".feat/mc/prefiltered_func_data_mcf_abs.rms"
     abs_values = []
     with open(abs_values_file) as f:
@@ -215,3 +245,4 @@ def func_motion_correct(dir_func, dir_result, sn, tipo, tipoimg):
 
 
     return absolute, relative, paths_html
+

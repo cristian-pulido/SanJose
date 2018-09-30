@@ -9,6 +9,7 @@ from django.db import models
 from django.utils import timezone
 
 from apps.fileupload.models import Picture
+from apps.validacion.models import Realineacion, Snr
 from programas import definitions
 
 
@@ -132,6 +133,12 @@ class Candidato(models.Model):
     def get_img(self):
         i=Picture.objects.get(slug=self.sujeto_numero)
         return i
+    def get_realineacion(self):
+        realineacion=Realineacion.objects.get(sujeto=self.sujeto_numero)
+        return realineacion
+    def get_snr(self):
+        snr=Snr.objects.get(sujeto=self.sujeto_numero)
+        return snr
 
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""
@@ -829,6 +836,12 @@ class Control(models.Model):
     def get_img(self):
         i=Picture.objects.get(slug="c"+str(self.numero))
         return i
+    def get_realineacion(self):
+        realineacion=Realineacion.objects.get(sujeto="c"+str(self.numero))
+        return realineacion
+    def get_snr(self):
+        snr=Snr.objects.get(sujeto="c"+str(self.numero))
+        return snr
 
     def delete(self, *args, **kwargs):
         """delete -- Remove to leave file."""

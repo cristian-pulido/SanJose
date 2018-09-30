@@ -21,7 +21,7 @@ from django.contrib.auth import views
 from django.views.generic import TemplateView
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
-    crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento
+    crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento, alinear
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -48,6 +48,7 @@ urlpatterns = [
     path('script/crearnpsi/<int:pk>/', crearneuropsi, name='crear_neuropsi'),
     path('script/filtros_img/<slug:pk>/', visionimagen, name='vision_img'),
     path('script/vmovimiento/<slug:tipo>/<int:pk>/<slug:v1>/<slug:v2>/', validarmovimiento, name='v_movimiento'),
+    path('script/alinear/<slug:tipo>/<int:pk>/<slug:img>/<slug:der>/<slug:frente>/<slug:arriba>/<slug:x>/<slug:y>/<slug:z>/<slug:tx>/<slug:ty>/<slug:tz>/<slug:save>/', alinear, name='alinear'),
 
 
 

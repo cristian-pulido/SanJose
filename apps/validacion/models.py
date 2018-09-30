@@ -1,6 +1,7 @@
 
 from django.db import models
 
+
 class Tipoimagenes(models.Model):
     nombre = models.CharField(max_length=75)
     nombre_aux = models.CharField(max_length=75,null=True,blank=True,default="")
@@ -51,5 +52,42 @@ class Campos_defecto(models.Model):
 
     def __str__(self):
         return '{}'.format(self.tag.name_tag)
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
+
+class Realineacion(models.Model):
+    sujeto = models.CharField(max_length=15, null=True, blank=True)
+    structural = models.FileField(upload_to="Archivos",null=True,blank=True)
+    structural_cambio=models.BooleanField(default=False)
+    funcional = models.FileField(upload_to="Archivos",null=True,blank=True)
+    funcional_cambio = models.BooleanField(default=False)
+    tensor = models.FileField(upload_to="Archivos",null=True,blank=True)
+    tensor_cambio = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '{}'.format(self.sujeto)
+    class Meta:
+        permissions = (
+            ("can_ver_alineacion", u"puede ver alineacion"),
+
+        )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields
+
+class Snr(models.Model):
+
+    sujeto = models.CharField(max_length=15, null=True, blank=True)
+    structural=models.CharField(max_length=30, null=True)
+    funcional=models.CharField(max_length=30, null=True)
+    funcional_plot=models.CharField(max_length=300,null=True,blank=True)
+    tensor=models.CharField(max_length=30, null=True)
+    tensor_plot = models.CharField(max_length=300, null=True, blank=True)
+    def __str__(self):
+        return '{}'.format(self.sujeto)
+    class Meta:
+        permissions = (
+            ("can_ver_snr", u"puede ver snr"),
+
+        )
     class ReportBuilder:
         exclude = ('id', )  # Lists or tuple of excluded fields

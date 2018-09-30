@@ -5,19 +5,18 @@
       <change beforePath="$PROJECT_DIR$/.idea/SanJose.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SanJose.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SanJose/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SanJose/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SanJose/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/paciente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/programas/anonimizador.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/programas/dcm2niix.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/programas/definitions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/programas/dcm2niix.py" beforeDir="false" afterPath="$PROJECT_DIR$/programas/dcm2niix.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/programas/definitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/programas/definitions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/programas/motion_correct_fmri.py" beforeDir="false" afterPath="$PROJECT_DIR$/programas/motion_correct_fmri.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/controles.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/controles.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,6 +71,49 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1673653805">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="10" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.20" value="2" />
+          <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.30" value="1" />
+          <entry key="project.open.time.31" value="1" />
+          <entry key="project.open.time.33" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="12" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="html" value="3" />
+          <entry key="py" value="29" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="HTML" value="3" />
+          <entry key="Python" value="29" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="html" value="3341" />
+          <entry key="py" value="3707" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="HTML" value="3341" />
+          <entry key="Python" value="3707" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="SanJose" />
@@ -79,10 +121,168 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1725">
+              <caret line="1407" column="41" lean-forward="true" selection-start-line="1407" selection-start-column="41" selection-end-line="1407" selection-end-column="41" />
+              <folding>
+                <element signature="n#style#0;n#a#0;n#li#1;n#ul#1;n#!!top" expanded="true" />
+                <element signature="n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#!!top" />
+                <element signature="n#div#3;n#div#0;n#!!top" />
+                <element signature="n#div#4;n#div#0;n#!!top" />
+                <element signature="n#div#5;n#div#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#div#1;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#script#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#div#3;n#div#0;n#div#6;n#div#0;n#!!top" />
+                <element signature="n#div#7;n#div#0;n#!!top" />
+                <element signature="n#div#8;n#div#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SanJose/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="839">
+              <caret line="300" column="36" selection-start-line="300" selection-start-column="36" selection-end-line="300" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="137" column="17" selection-start-line="137" selection-start-column="17" selection-end-line="137" selection-end-column="17" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/programas/tools.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="694">
+              <caret line="166" column="29" selection-start-line="165" selection-start-column="4" selection-end-line="166" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-444">
-              <caret line="189" lean-forward="true" selection-start-line="174" selection-start-column="4" selection-end-line="189" />
+            <state relative-caret-position="274">
+              <caret line="229" column="48" selection-start-line="229" selection-start-column="48" selection-end-line="229" selection-end-column="48" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -91,34 +291,23 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/programas/definitions.py">
+        <entry file="file://$PROJECT_DIR$/programas/motion_correct_fmri.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="49" column="59" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
+            <state relative-caret-position="75">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
-                <element signature="e#0#88#0" expanded="true" />
-                <marker date="1535478605226" expanded="true" signature="911:933" ph="..." />
-                <marker date="1535478605226" expanded="true" signature="980:985" ph="..." />
-                <marker date="1535478605226" expanded="true" signature="3357:3362" ph="..." />
+                <element signature="e#0#17#0" expanded="true" />
+                <marker date="1538251759970" expanded="true" signature="2071:2074" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/programas/motion_correct_fmri.py">
+        <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="186" column="38" selection-start-line="186" selection-start-column="38" selection-end-line="186" selection-end-column="38" />
+            <state relative-caret-position="754">
+              <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -126,10 +315,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programas/dcm2niix.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="233" column="21" lean-forward="true" selection-start-line="233" selection-start-column="21" selection-end-line="233" selection-end-column="21" />
+            <state relative-caret-position="724">
+              <caret line="201" column="20" selection-start-line="201" selection-start-column="20" selection-end-line="201" selection-end-column="20" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
+                <marker date="1538271941125" expanded="true" signature="5796:7513" ph="..." />
               </folding>
             </state>
           </provider>
@@ -147,17 +337,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mess</find>
-      <find>difusion</find>
-      <find>object.</find>
-      <find>type=&quot;hidden&quot;</find>
-      <find>ropa</find>
-      <find>n_educa</find>
-      <find>n_ed</find>
-      <find>diagnos</find>
-      <find>text</find>
-      <find>valor e</find>
-      <find>palabras</find>
       <find>codificacion</find>
       <find>espontanea</find>
       <find>claves</find>
@@ -172,22 +351,24 @@
       <find>and edad &lt;=85</find>
       <find>sn</find>
       <find>tiempo desde</find>
-      <find>func</find>
       <find>ses</find>
       <find>vision</find>
       <find>parameters</find>
       <find>series_validate</find>
+      <find>this</find>
+      <find>this.value</find>
+      <find>||</find>
+      <find>100</find>
+      <find>m</find>
+      <find>5</find>
+      <find>der</find>
+      <find>accion</find>
+      <find>funcional</find>
+      <find>funcional_cambio</find>
+      <find>func</find>
+      <find>sujeto</find>
     </findStrings>
     <replaceStrings>
-      <replace>pic</replace>
-      <replace>ventilacion</replace>
-      <replace>vecuronio</replace>
-      <replace>soporte</replace>
-      <replace>carbonato_litio</replace>
-      <replace>20</replace>
-      <replace>relajacion</replace>
-      <replace>get_neuro.1</replace>
-      <replace>neuro</replace>
       <replace>Coordinador</replace>
       <replace>object</replace>
       <replace>object.moca.</replace>
@@ -209,6 +390,15 @@
       <replace>n</replace>
       <replace>Profesional</replace>
       <replace>dwi</replace>
+      <replace>3.1416</replace>
+      <replace>rx</replace>
+      <replace>10</replace>
+      <replace>frente</replace>
+      <replace>tz</replace>
+      <replace>accion_func</replace>
+      <replace>de Difusión</replace>
+      <replace>tensor</replace>
+      <replace>control</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/templates</dir>
@@ -221,8 +411,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/paciente/paciente_eliminar.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/control_eliminar.html" />
         <option value="$PROJECT_DIR$/templates/paciente/mayor_form.html" />
         <option value="$PROJECT_DIR$/templates/paciente/medico_listar.html" />
         <option value="$PROJECT_DIR$/templates/paciente/neurologia_form.html" />
@@ -250,35 +438,37 @@
         <option value="$PROJECT_DIR$/apps/validacion/serialize.py" />
         <option value="$PROJECT_DIR$/SanJose/settings.py" />
         <option value="$PROJECT_DIR$/apps/validacion/templatetags/scripts.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/admin.py" />
         <option value="$PROJECT_DIR$/apps/paciente/admin.py" />
-        <option value="$PROJECT_DIR$/programas/motion_correct_fmri.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/models.py" />
         <option value="$PROJECT_DIR$/templates/base/base.html" />
         <option value="$PROJECT_DIR$/apps/validacion/forms.py" />
         <option value="$PROJECT_DIR$/apps/validacion/urls.py" />
         <option value="$PROJECT_DIR$/templates/validacion/filtro_form.html" />
         <option value="$PROJECT_DIR$/templates/validacion/filtros.html" />
         <option value="$PROJECT_DIR$/apps/validacion/views.py" />
-        <option value="$PROJECT_DIR$/apps/paciente/models.py" />
-        <option value="$PROJECT_DIR$/SanJose/urls.py" />
-        <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
-        <option value="$PROJECT_DIR$/SanJose/views.py" />
         <option value="$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py" />
-        <option value="$PROJECT_DIR$/templates/paciente/controles.html" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_listar.html" />
-        <option value="$PROJECT_DIR$/apps/fileupload/views.py" />
         <option value="$PROJECT_DIR$/programas/anonimizador.py" />
+        <option value="$PROJECT_DIR$/SanJose/urls.py" />
+        <option value="$PROJECT_DIR$/SanJose/views.py" />
         <option value="$PROJECT_DIR$/programas/definitions.py" />
+        <option value="$PROJECT_DIR$/programas/realineacion.py" />
+        <option value="$PROJECT_DIR$/programas/tools.py" />
+        <option value="$PROJECT_DIR$/apps/validacion/admin.py" />
+        <option value="$PROJECT_DIR$/programas/motion_correct_fmri.py" />
+        <option value="$PROJECT_DIR$/apps/paciente/models.py" />
+        <option value="$PROJECT_DIR$/apps/fileupload/views.py" />
+        <option value="$PROJECT_DIR$/apps/validacion/models.py" />
+        <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
+        <option value="$PROJECT_DIR$/templates/paciente/controles.html" />
         <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
         <option value="$PROJECT_DIR$/programas/dcm2niix.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="5">
-    <option name="y" value="24" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="28" />
     <option name="width" value="1147" />
-    <option name="height" value="1056" />
+    <option name="height" value="1024" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -286,7 +476,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -362,6 +551,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -411,10 +601,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1147" height="1056" extended-state="5" />
-    <editor active="true" />
+    <frame x="-1" y="28" width="1922" height="1025" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945945" weight="0.30782917" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.18186611" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -427,13 +616,13 @@
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32948583" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32924107" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.30782917" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.18186611" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -456,21 +645,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/paciente/moca_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/report.html" />
-    <entry file="file://$PROJECT_DIR$/templates/paciente/medico_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/registration/logout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -620,20 +794,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="1285" column="196" lean-forward="true" selection-start-line="1285" selection-start-column="34" selection-end-line="1285" selection-end-column="196" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
@@ -662,13 +822,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="14" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/validacion/filtros.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
@@ -683,69 +836,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="49" column="65" selection-start-line="49" selection-start-column="65" selection-end-line="49" selection-end-column="65" />
-          <folding>
-            <element signature="e#631#663#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13980">
-          <caret line="942" column="17" selection-start-line="942" selection-start-column="4" selection-end-line="942" selection-end-column="17" />
-          <folding>
-            <element signature="e#1#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3135">
-          <caret line="220" selection-start-line="220" selection-end-line="220" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1965">
-          <caret line="1423" column="6" selection-start-line="1423" selection-start-column="6" selection-end-line="1423" selection-end-column="31" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#!!top" />
-            <element signature="n#div#1;n#div#0;n#!!top" />
-            <element signature="n#div#2;n#div#0;n#!!top" />
-            <element signature="n#div#3;n#div#0;n#!!top" />
-            <element signature="n#div#4;n#div#0;n#!!top" />
-            <element signature="n#div#5;n#div#0;n#!!top" />
-            <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#div#7;n#div#0;n#!!top" />
-            <element signature="n#div#8;n#div#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="149" column="43" selection-start-line="149" selection-start-column="43" selection-end-line="149" selection-end-column="43" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#!!top" />
-            <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/validacion/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -756,20 +850,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programas/definitions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/programas/anonimizador.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -777,42 +857,263 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programas/motion_correct_fmri.py">
+    <entry file="file://$PROJECT_DIR$/apps/fileupload/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="186" column="38" selection-start-line="186" selection-start-column="38" selection-end-line="186" selection-end-column="38" />
+        <state relative-caret-position="180">
+          <caret line="16" column="48" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
+        <state relative-caret-position="450">
           <caret line="49" column="59" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="50" column="163" selection-start-line="50" selection-start-column="163" selection-end-line="50" selection-end-column="163" />
           <folding>
-            <element signature="e#0#88#0" expanded="true" />
-            <marker date="1535478605226" expanded="true" signature="911:933" ph="..." />
-            <marker date="1535478605226" expanded="true" signature="980:985" ph="..." />
-            <marker date="1535478605226" expanded="true" signature="3357:3362" ph="..." />
+            <marker date="1537896108091" expanded="true" signature="2947:2949" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/realineacion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1290">
+          <caret line="87" column="41" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19245">
+          <caret line="1285" column="146" selection-start-line="1285" selection-start-column="146" selection-end-line="1285" selection-end-column="193" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/definitions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/fileupload/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="649">
+          <caret line="842" column="55" selection-start-line="842" selection-start-column="55" selection-end-line="842" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/programas/dcm2niix.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="233" column="21" lean-forward="true" selection-start-line="233" selection-start-column="21" selection-end-line="233" selection-end-column="21" />
+        <state relative-caret-position="724">
+          <caret line="201" column="20" selection-start-line="201" selection-start-column="20" selection-end-line="201" selection-end-column="20" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
+            <marker date="1538271941125" expanded="true" signature="5796:7513" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/motion_correct_fmri.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+            <marker date="1538251759970" expanded="true" signature="2071:2074" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-444">
-          <caret line="189" lean-forward="true" selection-start-line="174" selection-start-column="4" selection-end-line="189" />
+        <state relative-caret-position="274">
+          <caret line="229" column="48" selection-start-line="229" selection-start-column="48" selection-end-line="229" selection-end-column="48" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="694">
+          <caret line="166" column="29" selection-start-line="165" selection-start-column="4" selection-end-line="166" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="137" column="17" selection-start-line="137" selection-start-column="17" selection-end-line="137" selection-end-column="17" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SanJose/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="839">
+          <caret line="300" column="36" selection-start-line="300" selection-start-column="36" selection-end-line="300" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1725">
+          <caret line="1407" column="41" lean-forward="true" selection-start-line="1407" selection-start-column="41" selection-end-line="1407" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#li#1;n#ul#1;n#!!top" expanded="true" />
+            <element signature="n#div#0;n#div#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#!!top" />
+            <element signature="n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#4;n#div#0;n#!!top" />
+            <element signature="n#div#5;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#1;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#3;n#div#0;n#div#6;n#div#0;n#!!top" />
+            <element signature="n#div#7;n#div#0;n#!!top" />
+            <element signature="n#div#8;n#div#0;n#!!top" />
           </folding>
         </state>
       </provider>

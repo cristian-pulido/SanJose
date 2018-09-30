@@ -10,11 +10,13 @@ from apps.fileupload.models import Picture
 from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control,  Parametrosmotioncorrect
 from django import template
 
+from apps.validacion.models import Realineacion
 from apps.validacion.templatetags.scripts_validacion import pass_tags_to_db, campos_a_mostrar
 from programas import anonimizador, definitions
 from programas.anonimizador import get_tags_dicom
-from programas.dcm2niix import convertir_dcm_2_nii, copytodata, rest_path, DWI_path
+from programas.dcm2niix import convertir_dcm_2_nii, copytodata, rest_path, DWI_path, T1_path, do_snr
 from programas.motion_correct_fmri import func_motion_correct
+from programas.realineacion import transformaciones, registro
 
 register = template.Library()
 
@@ -224,12 +226,21 @@ def anonimizar(sn):
     f.write("-Conversion Dicom a Nifty\n")
     f.close()
 
+    folder_data = definitions.folder_data
+    copytodata(n, folder_data, folder_nii, tipe)
+
+    structural_result=os.path.join(folder_nii, "structural_result")
+    os.mkdir(structural_result)
+    registro(path_in=T1_path(folder_nii), path_out=T1_path(folder_nii), path_plot=os.path.join(structural_result,"T1_realing.png"))
+
+
+
+
     func_result=os.path.join(folder_nii, "func_result")
     absolute_func, relative_func , paths_html_func= func_motion_correct(rest_path(folder_nii), func_result,n,tipe,"func")
     os.remove(rest_path(folder_nii))
     shutil.move(rest_path(func_result), folder_nii)
-
-
+    registro(path_in=rest_path(folder_nii), path_out=rest_path(folder_nii), path_plot=os.path.join(func_result, "func_realing.png"))
 
     dir_dwi = os.path.join(folder_nii, "dwi_mc")
     os.mkdir(dir_dwi)
@@ -251,6 +262,12 @@ def anonimizar(sn):
     os.system("fslmerge -t " + folder_nii + "/TENSOR" + " " + b0 + " " + DWI_path(dwi_result, False))
     os.remove(DWI_path(dwi_result, False))
     shutil.rmtree(dir_dwi)
+    registro(path_in=DWI_path(folder_nii,False), path_out=DWI_path(folder_nii,False), path_plot=os.path.join(dwi_result, "dwi_realing.png"))
+
+    realineacion = Realineacion.objects.create(sujeto=sn,
+                                               structural=structural_result[23:] + "/T1_realing.png",
+                                               funcional=func_result[23:] + "/func_realing.png",
+                                               tensor=dwi_result[23:] + "/dwi_realing.png")
 
 
     P = Parametrosmotioncorrect.objects.create(absolute_func=absolute_func,
@@ -267,12 +284,17 @@ def anonimizar(sn):
     setattr(P, tipe, c)
     P.save()
 
+    do_snr(sn=n, tipo=tipe, folder_nii=folder_nii, func_result=func_result, dwi_result=dwi_result)
+
     f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
     f.write("-Correccion movimiento\n")
+    f.write("-Registro\n")
+    f.write("-Snr\n")
     f.close()
 
-    folder_data = definitions.folder_data
-    copytodata(n, folder_data, folder_nii, tipe)
+
+
+
     return "Completo"
 
 

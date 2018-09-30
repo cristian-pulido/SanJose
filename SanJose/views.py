@@ -10,6 +10,9 @@ from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia
     Control, Cambioradiologia, Moca, Valorablenps, Neuropsi, Parametrosmotioncorrect
 from apps.validacion.models import Tipoimagenes
 from programas import anonimizador
+from programas.dcm2niix import T1_path, rest_path, DWI_path
+from programas.realineacion import transformaciones
+
 
 def error(request):
     return render(request, 'registration/login-error.html')
@@ -244,6 +247,58 @@ def validarmovimiento(request, tipo,pk,v1,v2):
 
         parametros.save()
         return redirect("login")
+
+
+def alinear(request,tipo,pk,img,der,frente,arriba,x,y,z,tx,ty,tz,save):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        der=float(der.replace('_','.'))
+        frente = float(frente.replace('_','.'))
+        arriba = float(arriba.replace('_','.'))
+        x = float(x.replace('_','.'))
+        y = float(y.replace('_','.'))
+        z = float(z.replace('_','.'))
+        tx = float(tx.replace('_','.'))
+        ty = float(ty.replace('_','.'))
+        tz = float(tz.replace('_','.'))
+        save = int(save)
+        if tipo == "sujeto":
+            C=Candidato.objects.get(pk=pk)
+        else:
+            C = Control.objects.get(pk=pk)
+        R=C.get_realineacion()
+        folder_nii=settings.MEDIA_ROOT+os.path.dirname(os.path.dirname(R.structural.name))
+
+        if img == "structural":
+            img_path=T1_path(folder_nii)
+            out_path=settings.MEDIA_ROOT+R.structural.name
+            t=transformaciones(img_path, out_path,img_path, der, frente, arriba, x, y, z, tx, ty, tz,save)
+            R.structural=R.structural.name
+            R.structural_cambio = bool(save)
+            R.save()
+
+            return redirect(R.structural.url)
+
+        if img == "funcional":
+            img_path=rest_path(folder_nii)
+            out_path=settings.MEDIA_ROOT+R.funcional.name
+            t=transformaciones(img_path, out_path,img_path, der, frente, arriba, x, y, z, tx, ty, tz,save)
+            R.funcional=R.funcional.name
+            R.funcional_cambio = bool(save)
+            R.save()
+
+            return redirect(R.funcional.url)
+
+        if img == "tensor":
+            img_path=DWI_path(folder_nii, False)
+            out_path=settings.MEDIA_ROOT+R.tensor.name
+            t=transformaciones(img_path, out_path,img_path, der, frente, arriba, x, y, z, tx, ty, tz,save)
+            R.tensor=R.tensor.name
+            R.tensor_cambio = bool(save)
+            R.save()
+
+            return redirect(R.tensor.url)
 
 
 

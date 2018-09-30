@@ -6,10 +6,15 @@ import programas.definitions as defi
 from SanJose import settings
 from apps.fileupload.models import Picture
 from apps.paciente.models import Candidato, Control, Parametrosmotioncorrect
+from apps.validacion.models import Snr, Realineacion
 from apps.validacion.templatetags.scripts_validacion import pass_tags_to_db, campos_a_mostrar
 from programas import definitions
 from programas.anonimizador import get_tags_dicom
-from programas.motion_correct_fmri import func_motion_correct
+from programas.motion_correct_fmri import func_motion_correct, signaltonoise, grafics_plot
+import nibabel as nib
+import numpy as np
+
+from programas.realineacion import registro
 
 
 def convertir_dcm_2_nii(folder_dicom, folder_nii):
@@ -60,6 +65,43 @@ def rest_path(folder):
             break
     return path
 
+def do_snr(sn,tipo,folder_nii,func_result,dwi_result):
+    sn=str(sn)
+    if tipo == 'control':
+        n="c"+sn
+    else:
+        n = sn
+
+    structural_img=nib.load(T1_path(folder_nii))
+    structural_data=structural_img.get_data()
+    structural=str(signaltonoise(structural_data,axis=None))[:3]
+
+    js_paths=[os.path.join(func_result,"snr_func.js"),os.path.join(dwi_result,"snr_dwi.js")]
+    funcional_img=nib.load(rest_path(folder_nii))
+    funcional_data=funcional_img.get_data()
+    snr = []
+    for i in range(funcional_data.shape[-1]):
+        vol = funcional_data[:, :, :, i]
+        snr.append(signaltonoise(vol, axis=None))
+    funcional=str(np.mean(snr))[:3]+"±"+str(np.std(snr))[:4]
+    grafics_plot([snr],js_paths[0],["snr"],"Balance Señal Ruido Imagen Funcional",["Tiempo (Volumenes)", "snr"],"div_snr_func")
+
+    tensor_img = nib.load(DWI_path(folder_nii,False))
+    tensor_data = tensor_img.get_data()
+    snr = []
+    for i in range(tensor_data.shape[-1]):
+        vol = tensor_data[:, :, :, i]
+        snr.append(signaltonoise(vol, axis=None))
+    tensor = str(np.mean(snr[1:]))[:3] + " ± " + str(np.std(snr[1:]))[:4]
+    grafics_plot([snr], js_paths[1], ["snr"], "Balance Señal Ruido Imagen de Difusión", ["Direcciones (Volumenes)", "snr"],
+                 "div_snr_dwi")
+    for path in range(len(js_paths)):
+        ind = js_paths[path].index("/media")
+        js_paths[path]=js_paths[path][ind:]
+
+    snr_instance=Snr.objects.create(sujeto=n,structural=structural,funcional=funcional,funcional_plot=js_paths[0],tensor=tensor,tensor_plot=js_paths[1])
+    snr_instance.save()
+
 
 ## copia
 def copytodata(sujeto_numero, folder_data, folder_nii, tipo):
@@ -109,6 +151,57 @@ def copytodata(sujeto_numero, folder_data, folder_nii, tipo):
     print("Finalizado")
 
 
+def do_aling_n_snr(sujeto_numero,tipe):
+    n = str(sujeto_numero)
+    if tipe == 'control':
+
+        base_dir = settings.MEDIA_ROOT + "/controles/control" + n
+        c = Control.objects.get(numero=n)
+
+
+
+    else:
+
+        base_dir = settings.MEDIA_ROOT + "/img/sujeto" + n
+        c = Candidato.objects.get(sujeto_numero=n)
+
+
+    if len(os.listdir(base_dir)) > 2:
+        folder_nii = os.path.join(base_dir, "nifty")
+
+        structural_result = os.path.join(folder_nii, "structural_result")
+        os.mkdir(structural_result)
+        registro(path_in=T1_path(folder_nii), path_out=T1_path(folder_nii),
+                 path_plot=os.path.join(structural_result, "T1_realing.png"))
+
+        func_result = os.path.join(folder_nii, "func_result")
+        registro(path_in=rest_path(folder_nii), path_out=rest_path(folder_nii),
+                 path_plot=os.path.join(func_result, "func_realing.png"))
+
+        dwi_result = os.path.join(folder_nii, "dwi_result")
+        registro(path_in=DWI_path(folder_nii, False), path_out=DWI_path(folder_nii, False),
+                 path_plot=os.path.join(dwi_result, "dwi_realing.png"))
+
+
+        if tipe == "control":
+            sn="c"+n
+        else:
+            sn=n
+        Realineacion.objects.create(sujeto=sn,
+                                    structural=structural_result[23:] + "/T1_realing.png",
+                                    funcional=func_result[23:] + "/func_realing.png",
+                                    tensor=dwi_result[23:] + "/dwi_realing.png")
+
+        do_snr(sn=n, tipo=tipe, folder_nii=folder_nii, func_result=func_result, dwi_result=dwi_result)
+
+        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        f.write("-Registro\n")
+        f.write("-Snr\n")
+        f.close()
+
+    return "completo"
+
+
 ## arreglo sujetos ya cargados
 def do_change(sujeto_numero,tipe):
     n = str(sujeto_numero)
@@ -124,10 +217,6 @@ def do_change(sujeto_numero,tipe):
         base_dir = settings.MEDIA_ROOT + "/img/sujeto" + n
         c = Candidato.objects.get(sujeto_numero=n)
         archive = os.path.join(base_dir, "sujeto" + n + "_dicom.zip")
-
-
-
-
 
 
     if len(os.listdir(base_dir)) > 2:
@@ -167,6 +256,9 @@ def do_change(sujeto_numero,tipe):
         f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
         f.write("-Conversion Dicom a Nifty\n")
         f.close()
+
+        folder_data = definitions.folder_data
+        copytodata(n, folder_data, folder_nii, tipe)
 
         func_result = os.path.join(folder_nii, "func_result")
         absolute_func, relative_func, paths_html_func = func_motion_correct(rest_path(folder_nii), func_result, n, tipe,
@@ -213,8 +305,7 @@ def do_change(sujeto_numero,tipe):
         f.write("-Correccion movimiento\n")
         f.close()
 
-        folder_data = definitions.folder_data
-        copytodata(n, folder_data, folder_nii, tipe)
+
 
     return "Completo"
 
