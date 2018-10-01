@@ -253,7 +253,7 @@ def alinear(request,tipo,pk,img,der,frente,arriba,x,y,z,tx,ty,tz,save):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
-        der=float(der.replace('_','.'))
+        der=-float(der.replace('_','.'))
         frente = float(frente.replace('_','.'))
         arriba = float(arriba.replace('_','.'))
         x = float(x.replace('_','.'))

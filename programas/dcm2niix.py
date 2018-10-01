@@ -74,7 +74,7 @@ def do_snr(sn,tipo,folder_nii,func_result,dwi_result):
 
     structural_img=nib.load(T1_path(folder_nii))
     structural_data=structural_img.get_data()
-    structural=str(signaltonoise(structural_data,axis=None))[:3]
+    structural=str(signaltonoise(structural_data,axis=None))[:4]
 
     js_paths=[os.path.join(func_result,"snr_func.js"),os.path.join(dwi_result,"snr_dwi.js")]
     funcional_img=nib.load(rest_path(folder_nii))
@@ -83,7 +83,7 @@ def do_snr(sn,tipo,folder_nii,func_result,dwi_result):
     for i in range(funcional_data.shape[-1]):
         vol = funcional_data[:, :, :, i]
         snr.append(signaltonoise(vol, axis=None))
-    funcional=str(np.mean(snr))[:3]+"±"+str(np.std(snr))[:4]
+    funcional=str(np.mean(snr))[:4]+"±"+str(np.std(snr))[:4]
     grafics_plot([snr],js_paths[0],["snr"],"Balance Señal Ruido Imagen Funcional",["Tiempo (Volumenes)", "snr"],"div_snr_func")
 
     tensor_img = nib.load(DWI_path(folder_nii,False))
@@ -92,7 +92,7 @@ def do_snr(sn,tipo,folder_nii,func_result,dwi_result):
     for i in range(tensor_data.shape[-1]):
         vol = tensor_data[:, :, :, i]
         snr.append(signaltonoise(vol, axis=None))
-    tensor = str(np.mean(snr[1:]))[:3] + " ± " + str(np.std(snr[1:]))[:4]
+    tensor = str(np.mean(snr[1:]))[:4] + " ± " + str(np.std(snr[1:]))[:4]
     grafics_plot([snr], js_paths[1], ["snr"], "Balance Señal Ruido Imagen de Difusión", ["Direcciones (Volumenes)", "snr"],
                  "div_snr_dwi")
     for path in range(len(js_paths)):
