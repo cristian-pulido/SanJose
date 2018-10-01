@@ -166,7 +166,7 @@
                                     <td scope="col">{% if object.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
 
 
-                              {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar %}
+                              {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
                               <td style="text-align:right">
                                   <form>
                                     {% if object.get_img and object.get_img.anonimo == 1 and perms.paciente.can_descargar_candidato %}
