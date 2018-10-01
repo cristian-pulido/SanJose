@@ -962,5 +962,8 @@ class Parametrosmotioncorrect(models.Model):
     graphic_traslacion_dwi = models.CharField(max_length=300, null=True, blank=True)
     aceptado_dwi = models.NullBooleanField()
 
+    class ReportBuilder:
+        exclude = ('id',)  # Lists or tuple of excluded fields
+
 
 

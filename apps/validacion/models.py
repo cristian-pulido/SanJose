@@ -39,6 +39,7 @@ class Campostagimg(models.Model):
         permissions = (
             ("can_ver_parametrosimg", u"puede ver parametrosimg"),
 
+
         )
     class ReportBuilder:
         exclude = ('id', )  # Lists or tuple of excluded fields

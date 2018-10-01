@@ -1520,8 +1520,9 @@
             <div id="div_func_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
             <div id="div_func_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
             </center>
+
             <h3>Resultados de movimiento aceptables?  </h3>
-          {% if object.parametrosmotioncorrect.aceptado_func == None %}
+          {% if object.parametrosmotioncorrect.aceptado_func == None and perms.paciente.change_parametrosmotioncorrect %}
 
             <form>
             <label class="radio-inline">
@@ -1534,10 +1535,14 @@
             {% else %}
             {% if  object.parametrosmotioncorrect.aceptado_func == True %}
               <span style="color:green" class="glyphicon glyphicon-check" ></span>
-              {% else %}
+              {% elif object.parametrosmotioncorrect.aceptado_func == False %}
               <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+              {%else%}
+              No Determinado
             {% endif %}
             {% endif %}
+
+
           </div>
         </div>
       </div>
@@ -1567,7 +1572,7 @@
             <div id="div_dwi_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
             </center>
             <h3>Resultados de movimiento aceptables?  </h3>
-            {% if object.parametrosmotioncorrect.aceptado_dwi == None %}
+            {% if object.parametrosmotioncorrect.aceptado_dwi == None and perms.paciente.change_parametrosmotioncorrect %}
 
             <form>
             <label class="radio-inline">
@@ -1607,8 +1612,10 @@
             {% else %}
             {% if  object.parametrosmotioncorrect.aceptado_dwi == True %}
               <span style="color:green" class="glyphicon glyphicon-check" ></span>
-              {% else %}
+              {% elif  object.parametrosmotioncorrect.aceptado_dwi == False %}
               <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+              {% else %}
+              No Determinado
             {% endif %}
 
             {% endif %}
@@ -1642,7 +1649,7 @@
     </iframe>
 
 
-    {% if object.get_realineacion.structural_cambio == False %}
+    {% if object.get_realineacion.structural_cambio == False and perms.validacion.realineacion %}
       <table cellspacing="50" width="400" id="movimientos" >
         <caption>Movimientos</caption>
 
@@ -1815,7 +1822,7 @@
     </iframe>
 
 
-    {% if object.get_realineacion.funcional_cambio == False %}
+    {% if object.get_realineacion.funcional_cambio == False and perms.validacion.realineacion %}
       <table cellspacing="50" width="400" id="movimientos_func" >
         <caption>Movimientos</caption>
 
@@ -1988,7 +1995,7 @@
     </iframe>
 
 
-    {% if object.get_realineacion.tensor_cambio == False %}
+    {% if object.get_realineacion.tensor_cambio == False and perms.validacion.realineacion %}
       <table cellspacing="50" width="400" id="movimientos_tensor" >
         <caption>Movimientos</caption>
 
