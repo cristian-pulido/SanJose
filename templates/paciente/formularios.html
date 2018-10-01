@@ -1649,7 +1649,7 @@
     </iframe>
 
 
-    {% if object.get_realineacion.structural_cambio == False and perms.validacion.realineacion %}
+    {% if object.get_realineacion.structural_cambio == False and perms.validacion.change_realineacion %}
       <table cellspacing="50" width="400" id="movimientos" >
         <caption>Movimientos</caption>
 
@@ -1822,7 +1822,7 @@
     </iframe>
 
 
-    {% if object.get_realineacion.funcional_cambio == False and perms.validacion.realineacion %}
+    {% if object.get_realineacion.funcional_cambio == False and perms.validacion.change_realineacion %}
       <table cellspacing="50" width="400" id="movimientos_func" >
         <caption>Movimientos</caption>
 
@@ -1995,7 +1995,7 @@
     </iframe>
 
 
-    {% if object.get_realineacion.tensor_cambio == False and perms.validacion.realineacion %}
+    {% if object.get_realineacion.tensor_cambio == False and perms.validacion.change_realineacion %}
       <table cellspacing="50" width="400" id="movimientos_tensor" >
         <caption>Movimientos</caption>
 

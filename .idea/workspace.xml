@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/apps/paciente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/validacion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/controles.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/controles.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
     </list>
@@ -93,13 +91,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="3544" />
+          <entry key="html" value="3548" />
           <entry key="py" value="3710" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="3544" />
+          <entry key="HTML" value="3548" />
           <entry key="Python" value="3710" />
         </counts>
       </usages-collector>
@@ -113,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="1651" column="61" lean-forward="true" selection-start-line="1651" selection-start-column="61" selection-end-line="1651" selection-end-column="94" />
+            <state relative-caret-position="557">
+              <caret line="1997" column="85" selection-start-line="1997" selection-start-column="85" selection-end-line="1997" selection-end-column="85" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#li#1;n#ul#1;n#!!top" expanded="true" />
                 <element signature="n#div#0;n#div#0;n#!!top" />
@@ -139,7 +137,6 @@
                 <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
-                <element signature="n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
                 <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
@@ -202,8 +199,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="374" column="95" selection-start-line="374" selection-start-column="95" selection-end-line="374" selection-end-column="95" />
+            <state relative-caret-position="1059">
+              <caret line="374" column="89" selection-start-line="374" selection-start-column="89" selection-end-line="374" selection-end-column="89" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
                 <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" />
@@ -977,8 +974,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="1651" column="61" lean-forward="true" selection-start-line="1651" selection-start-column="61" selection-end-line="1651" selection-end-column="94" />
+        <state relative-caret-position="557">
+          <caret line="1997" column="85" selection-start-line="1997" selection-start-column="85" selection-end-line="1997" selection-end-column="85" />
           <folding>
             <element signature="n#style#0;n#a#0;n#li#1;n#ul#1;n#!!top" expanded="true" />
             <element signature="n#div#0;n#div#0;n#!!top" />
@@ -1003,7 +1000,6 @@
             <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
             <element signature="n#script#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
-            <element signature="n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" />
             <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#6;n#div#0;n#!!top" expanded="true" />
@@ -1052,8 +1048,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="374" column="95" selection-start-line="374" selection-start-column="95" selection-end-line="374" selection-end-column="95" />
+        <state relative-caret-position="1059">
+          <caret line="374" column="89" selection-start-line="374" selection-start-column="89" selection-end-line="374" selection-end-column="89" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" />
