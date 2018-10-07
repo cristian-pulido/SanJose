@@ -98,3 +98,5 @@ def get_tags_images(nombre):
     I = Tipoimagenes.objects.get(nombre=nombre)
     C = Campos_defecto.objects.filter(imagen=I)
     return C
+
+

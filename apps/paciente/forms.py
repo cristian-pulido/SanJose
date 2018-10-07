@@ -1,7 +1,8 @@
 
 from django import forms
 from apps.paciente.models import Candidato, Dprevio, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, \
-    Informante, Seguimiento, Control, Moca, Neuropsi
+    Informante, Seguimiento, Control, Moca, Neuropsi, Lectura_resonancia
+
 
 
 class MedicoForm(forms.ModelForm):
@@ -71,18 +72,18 @@ class PacienteForm(forms.ModelForm):
         widgets = {
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Nombres')}),
             'apellidos': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Apellidos')}),
-            'fecha_nacimiento': forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_nacimiento': forms.TextInput(),
             'cc': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Cédula de Ciudadanía')}),
-            'sexo': forms.Select(attrs={'class': 'form-control'}),
+            'sexo': forms.Select(),
 
-            'fecha_de_registro': forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_de_registro': forms.TextInput(),
             'HC':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Historia clínica número')}),
             'cama_numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Ingrese número entero')}),
-            'fecha_evento_principal': forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_evento_principal': forms.TextInput(),
             'hora_evento_principal': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Formato 24 horas')}),
-            'fecha_hora_ingreso': forms.TextInput(attrs={'class': 'form-control'}),
-            'G_diagnostico': forms.Select(attrs={'class': 'form-control'}),
-            'D_neuro_logico_psiquiatrico_previo': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'fecha_hora_ingreso': forms.TextInput(),
+            'G_diagnostico': forms.Select(),
+            'D_neuro_logico_psiquiatrico_previo': forms.SelectMultiple(),
             'D_especificos': forms.Textarea(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'ci': forms.Select(attrs={'class': 'form-control', 'required':'true'}),
             'ci3': forms.CheckboxInput(),
@@ -91,7 +92,7 @@ class PacienteForm(forms.ModelForm):
             'ce2': forms.CheckboxInput(),
             'ce3': forms.CheckboxInput(),
             'ce4': forms.CheckboxInput(),
-            'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
+            'medico_responsable': forms.Select(),
             'archivo': forms.ClearableFileInput(attrs={'accept':'application/pdf'}),
             'imagen': forms.ClearableFileInput(),
 
@@ -169,20 +170,20 @@ class IngresoForm(forms.ModelForm):
              }
         widgets = {
             'fecha_form': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Fecha cuando se llena este formulario')}),
-            'lugar_nacimiento': forms.TextInput(attrs={'class': 'form-control'}),
-            'lugar_residencia': forms.TextInput(attrs={'class': 'form-control'}),
+            'lugar_nacimiento': forms.TextInput(),
+            'lugar_residencia': forms.TextInput(),
             'direccion': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off" ,'placeholder': ('Escriba la dirección de residencia (opcional)')}),
             'nombre_acompanante': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'tel1': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'tel2': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'peso': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Peso en Kilogramos')}),
             'estatura': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Estatura en centimetros')}),
-            'n_educativo': forms.Select(attrs={'class': 'form-control'}),
-            'lateralidad': forms.Select(attrs={'class': 'form-control'}),
-            'conciencia': forms.Select(attrs={'class': 'form-control'}),
+            'n_educativo': forms.Select(),
+            'lateralidad': forms.Select(),
+            'conciencia': forms.Select(),
             'sedado': forms.CheckboxInput(),
-            'a_patologicos': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'a_patologicos_cual': forms.TextInput(attrs={'class': 'form-control'}),
+            'a_patologicos': forms.SelectMultiple(),
+            'a_patologicos_cual': forms.TextInput(),
             'fecha_craneotomia':forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Si se escoge craneotomía')}),
             'causa_quirurgicos': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'a_toxico_alergenicos': forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('Deje en blanco si no se cumple')}),
@@ -284,7 +285,7 @@ class RadiologiaForm(forms.ModelForm):
              }
         widgets = {
             'fecha_procedimiento':forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Fecha de procedimiento')}),
-            'radiologo':forms.Select(attrs={'class': 'form-control'}),
+            'radiologo':forms.Select(),
             'hora_inicio': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Formato 24 horas')}),
             'ur_pulsoximetro_sv':forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('%'), 'oninput':"this.value = this.value.replace(/[^0-9]/, '')"}),
             'ur_frecuencia_cardiaca_sv':forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('latidos/min'), 'oninput':"this.value = this.value.replace(/[^0-9]/, '')"}),
@@ -526,7 +527,7 @@ class NeurologiaForm(forms.ModelForm):
         }
         widgets = {
             'fechaneuro': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
-            'neurologo': forms.Select(attrs={'class': 'form-control'}),
+            'neurologo': forms.Select(),
             'auditiva':forms.RadioSelect(),
             'motora':forms.RadioSelect(),
             'comunicacion':forms.RadioSelect(),
@@ -540,7 +541,7 @@ class NeurologiaForm(forms.ModelForm):
             'respiracion': forms.RadioSelect(),
             'total2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('Suma')}),
             'estadoconciencia': forms.RadioSelect(),
-            'epileptico': forms.Select(attrs={'class': 'form-control'}),
+            'epileptico': forms.Select(),
             'fechaeeg': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
             'resultadoeeg':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off", 'placeholder': ('')}),
         }
@@ -747,7 +748,7 @@ class BoldForm(forms.ModelForm):
             'restingT': forms.Select(choices=[(True, 'Sí'), (False, 'No')]),
             'restingM': forms.Select(choices=[(True, 'Sí'), (False, 'No')]),
             'cd': forms.Select(choices=[(True, 'Sí'), (False, 'No')]),
-            'responsable': forms.Select(attrs={'class': 'form-control'}),
+            'responsable': forms.Select(),
 
         }
 
@@ -835,11 +836,11 @@ class MayorForm(forms.ModelForm):
 
         }
         widgets = {
-            'neuropsicologa': forms.Select(attrs={'class': 'form-control'}),
-            'confiable': forms.Select(attrs={'class': 'form-control'}),
+            'neuropsicologa': forms.Select(),
+            'confiable': forms.Select(),
 
-            'severidadgds': forms.Select(attrs={'class': 'form-control'}),
-            'dxdemencia': forms.Select(attrs={'class': 'form-control'}),
+            'severidadgds': forms.Select(),
+            'dxdemencia': forms.Select(),
             'tiempo':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
         }
 
@@ -1000,9 +1001,9 @@ class InformanteForm(forms.ModelForm):
             'frontal46': "* Puede inciar facilmente las conversaciones",
         }
         widgets = {
-            'neuropsicologa': forms.Select(attrs={'class': 'form-control'}),
-            'confiable': forms.Select(attrs={'class': 'form-control'}),
-            'totalindependencia': forms.TextInput(attrs={'class': 'form-control'}),
+            'neuropsicologa': forms.Select(),
+            'confiable': forms.Select(),
+            'totalindependencia': forms.TextInput(),
             'telefono':forms.Select(),
             'compras':forms.Select(),
             'comida':forms.Select(),
@@ -1044,6 +1045,10 @@ class SeguimientoForm(forms.ModelForm):
             'fentanyl',
             'tiopental',
             'vecuronio',
+            'otro1_nombre',
+            'otro1_dt',
+            'otro2_nombre',
+            'otro2_dt',
 
 
         ]
@@ -1074,15 +1079,23 @@ class SeguimientoForm(forms.ModelForm):
             'fentanyl':'Fentanyl dosis/dia',
             'tiopental':'Tiopental dosis/dia',
             'vecuronio':'Vecuronio dosis/dia',
+             'otro1_nombre':"Nombre",
+             'otro1_dt':"Dosis/dia",
+             'otro2_nombre':"Nombre",
+             'otro2_dt':"Dosis/dia",
 
         }
         widgets = {
             'fechaseguimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
-            'medico_responsable': forms.Select(attrs={'class': 'form-control'}),
+            'medico_responsable': forms.Select(),
             'imgobservacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
             'apertura_ocular' :forms.RadioSelect(),
             'respuesta_motora':forms.RadioSelect(),
             'respuesta_verbal':forms.RadioSelect(),
+            'otro1_nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'otro1_dt': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'otro2_nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
+            'otro2_dt': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
 
 
         }
@@ -1186,7 +1199,7 @@ class ControlForm(forms.ModelForm):
         widgets = {
             'fecha': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
             'fecha_nacimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('')}),
-            'sexo': forms.Select(attrs={'class': 'form-control'}),
+            'sexo': forms.Select(),
             'funcion_visoespacial': forms.TextInput(attrs={'class': 'form-control', 'size' : '4','placeholder': ('valor entre 0 y 5'),'oninput':"this.value = this.value.replace(/[^0-5]/, '')"}),
             'identificacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 3'),'oninput': "this.value = this.value.replace(/[^0-3]/, '')"}),
             'atencion_numero': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
@@ -1197,7 +1210,7 @@ class ControlForm(forms.ModelForm):
             'abstraccion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 2'),'oninput': "this.value = this.value.replace(/[^0-2]/, '')"}),
             'recuerdo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 5'),'oninput': "this.value = this.value.replace(/[^0-5]/, '')"}),
             'orientacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ('valor entre 0 y 6'),'oninput': "this.value = this.value.replace(/[^0-6]/, '')"}),
-            'n_educativo': forms.Select(attrs={'class': 'form-control'}),
+            'n_educativo': forms.Select(),
 
         }
 
@@ -1279,7 +1292,7 @@ class NeuropsiForm(forms.ModelForm):
         }
         widgets = {
 
-            'medicado': forms.Select(attrs={'class': 'form-control'}),
+            'medicado': forms.Select(),
             'medicado_cual': forms.TextInput(attrs={'class': 'form-control', 'placeholder': (''), 'autocomplete':"off"}),
             'medicado_dt': forms.TextInput(attrs={'class': 'form-control', 'placeholder': (''), 'autocomplete':"off"}),
             'imagen': forms.Textarea(attrs={'class': 'form-control', 'autocomplete':"off", 'placeholder': ('Rellene si es necesario'),'rows':"3",'cols':"50"}),
@@ -1315,3 +1328,157 @@ class NeuropsiForm(forms.ModelForm):
 
 
 
+class LecturaresonanciaForm(forms.ModelForm):
+
+    class Meta:
+        model = Lectura_resonancia
+
+        fields = [
+            'fracturas',
+            'fracturas_localizacion',
+            'hemorragia_subaracnoidea',
+            'hemorragia_subaracnoidea_mayor_menor',
+            'hemorragia_subaracnoidea_sangrado',
+            'hemorragia_subaracnoidea_coagulos',
+            'hemorragia_subaracnoidea_hemorragia',
+            'hemorragia_subaracnoidea_cronico',
+            'hematoma_extra',
+            'hematoma_extra_sub_epi',
+            'hematoma_extra_espesor',
+            'hematoma_extra_agudo',
+            'hematoma_intra',
+            'hematoma_intra_mayor_menor',
+            'hematoma_intra_localizacion',
+            'contusion',
+            'contusion_hemorragica',
+            'contusion_cortical',
+            'contusion_localizacion',
+            'contusion_diametro',
+            'linea',
+            'linea_tipo',
+            'linea_lateralizacion',
+            'herniacion',
+            'herniacion_tipo',
+            'oclusion',
+            'oclusion_tipo',
+            'oclusion_localizacion',
+            'edema',
+            'edema_tipo',
+            'edema_localizacion',
+            'infarto_isquemia',
+            'infarto_isquemia_localizacion',
+            'lesion_subcortical',
+            'lesion_calloso',
+            'lsion_dorsolateral',
+            'ventriculomegalia',
+            'vectriculomegalia_actividad',
+            'lesiones_asociadas',
+            'lesiones_asociadas_descripcion',
+            'atrofia',
+            'atrofia_descripcion',
+            'cambios',
+            'cambios_localizacion',
+            'impresion',
+
+
+        ]
+
+        labels = {
+            'fracturas':"Fracturas",
+            'fracturas_localizacion':"Localización",
+            'hemorragia_subaracnoidea':"Hemorragia subaracnoidea",
+            # 'hemorragia_subaracnoidea_mayor_menor':"",
+            'hemorragia_subaracnoidea_sangrado':"Sangrado en capa de menor de 1 mm de espesor",
+            'hemorragia_subaracnoidea_coagulos':"Coágulos localizados mayores de 1 mm",
+            'hemorragia_subaracnoidea_hemorragia':"Hemorragia intraparenquimatosas o intraventicular",
+            'hemorragia_subaracnoidea_cronico':"Crónico",
+            'hematoma_extra':"Hematoma extra axial",
+            # 'hematoma_extra_sub_epi':"",
+            'hematoma_extra_espesor':"Espesor: (en mm)",
+            'hematoma_extra_agudo':"Agudo",
+            'hematoma_intra':"Hematoma intra axial",
+            # 'hematoma_intra_mayor_menor':"",
+            'hematoma_intra_localizacion':"Localización",
+            'contusion':"Contusión",
+            # 'contusion_hemorragica':"",
+            # 'contusion_cortical':"",
+            'contusion_localizacion':"Localización",
+            'contusion_diametro':"Diámetro mayor: (en mm)",
+            'linea':"Línea media",
+            # 'linea_tipo':"",
+            'linea_lateralizacion':"Lateralización",
+            'herniacion':"Herniación",
+            # 'herniacion_tipo':"",
+            'oclusion':"Oclusión",
+            # 'oclusion_tipo':"",
+            'oclusion_localizacion':"Localización",
+            'edema':"Edema",
+            # 'edema_tipo':"",
+            'edema_localizacion':"Localización",
+            'infarto_isquemia':"Infarto o Isquemia",
+            'infarto_isquemia_localizacion':"Localización",
+            'lesion_subcortical':"Lesiones subcorticales difusas",
+            'lesion_calloso':"Lesión en el esplenio del cuerpo calloso",
+            'lsion_dorsolateral':"Lesión dorsolateral mesencefálica y/o puente alto",
+            'ventriculomegalia':"Ventriculomegalia",
+            'vectriculomegalia_actividad':"Actividad Hidrocefalica",
+            'lesiones_asociadas':"Lesiones asociadas (quistes, masas, malformaciones vasculares, aneurisma, orbitas cavidades paranasales).",
+            'lesiones_asociadas_descripcion':"Descripción",
+            'atrofia':"Atrofia o encefalomalacia",
+            'atrofia_descripcion':"Descripción",
+            'cambios':"Cambios postquirúrgicos",
+            'cambios_localizacion':"Localización",
+            'impresion':"Impresión (orientación diagnóstica)",
+
+
+
+        }
+        widgets = {
+            'fracturas':forms.Select(),
+            'fracturas_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'hemorragia_subaracnoidea':forms.Select(),
+            'hemorragia_subaracnoidea_mayor_menor':forms.Select(),
+            'hemorragia_subaracnoidea_sangrado':forms.CheckboxInput(),
+            'hemorragia_subaracnoidea_coagulos':forms.CheckboxInput(),
+            'hemorragia_subaracnoidea_hemorragia':forms.CheckboxInput(),
+            'hemorragia_subaracnoidea_cronico':forms.CheckboxInput(),
+            'hematoma_extra':forms.Select(),
+            'hematoma_extra_sub_epi':forms.Select(),
+            'hematoma_extra_espesor':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off",'oninput': "this.value = this.value.replace(/[^0-9]/, '')"}),
+            'hematoma_extra_agudo':forms.CheckboxInput(),
+            'hematoma_intra':forms.Select(),
+            'hematoma_intra_mayor_menor':forms.Select(),
+            'hematoma_intra_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'contusion':forms.Select(),
+            'contusion_hemorragica':forms.Select(),
+            'contusion_cortical':forms.Select(),
+            'contusion_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'contusion_diametro':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off",'oninput': "this.value = this.value.replace(/[^0-9]/, '')"}),
+            'linea':forms.Select(),
+            'linea_tipo':forms.Select(),
+            'linea_lateralizacion':forms.Select(),
+            'herniacion':forms.Select(),
+            'herniacion_tipo':forms.Select(),
+            'oclusion':forms.Select(),
+            'oclusion_tipo':forms.Select(),
+            'oclusion_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'edema':forms.Select(),
+            'edema_tipo':forms.Select(),
+            'edema_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'infarto_isquemia':forms.Select(),
+            'infarto_isquemia_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'lesion_subcortical':forms.CheckboxInput(),
+            'lesion_calloso':forms.CheckboxInput(),
+            'lsion_dorsolateral':forms.CheckboxInput(),
+            'ventriculomegalia':forms.Select(),
+            'vectriculomegalia_actividad':forms.CheckboxInput(),
+            'lesiones_asociadas':forms.Select(),
+            'lesiones_asociadas_descripcion':forms.Textarea(attrs={'rows':4, 'cols':70}),
+            'atrofia':forms.Select(),
+            'atrofia_descripcion':forms.Textarea(attrs={'rows':4, 'cols':70}),
+            'cambios':forms.Select(),
+            'cambios_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
+            'impresion':forms.Textarea(attrs={'rows':4, 'cols':85}),
+
+
+        }

@@ -15,79 +15,35 @@
 {% endif %}
 
 
-<h1>Información Clínica Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
+<h1>Sujeto # : {{ object.sujeto_numero|stringformat:"04d" }}</h1>
 
 
 <ul class="nav nav-tabs">
-  <li class="nav-item active" >
-    <a class="nav-link active " {% if not object %}style="color:orange" {% endif %} data-toggle="tab" href="#home">Demografico</a>
+  <li class="nav-item active">
+    <a class="nav-link active" data-toggle="tab" href="#demografico">Demografico</a>
   </li>
-  
   {% if object.estado > 0 and object.D_neuro_logico_psiquiatrico_previo.all|length == 0 %}
   {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False and object.ci3 == True and object.ci4 == True %}
-
-  {% if perms.paciente.can_ver_ingreso %}
-  <li class="nav-item" >
-    <a class="nav-link "  data-toggle="tab" href="#estudio" {% if not object.ingreso or object.ingreso.fecha_form == None  %} style="color:orange" {% endif %} >Formato ingreso al estudio</a>
-  </li>
-  {% endif %}
-  {% if perms.paciente.can_ver_uci %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab" href="#uci" {% if not object.uci or object.uci.fechauci == None  %} style="color:orange" {% endif %} >Formato UCI</a>
-  </li>
-  {% endif %}
-  {% if perms.paciente.can_ver_neurologia %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#neurologia" {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %} style="color:orange" {% endif %} >Formato Neurología</a>
-  </li>
-  {% endif %}
-  {% if perms.paciente.can_ver_radiologia %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#radiologia" {% if not object.radiologia or object.radiologia.fecha_procedimiento == None  %} style="color:orange" {% endif %} >Traslado a Radiología</a>
-  </li>
-  {% endif %}
-  {% if perms.paciente.can_ver_bold %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#bold" {% if not object.bold or object.bold.fechaimg == None  %} style="color:orange" {% endif %}>Checklist BOLD</a>
-  </li>
-  {% endif %}
-  {% if perms.paciente.can_ver_informante %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#informante" {% if not object.informante or object.informante.fechaentrevista == None  %} style="color:orange" {% endif %}>Neuropsicología Informante</a>
-  </li>
-  {% endif %}
-  {% if perms.paciente.can_ver_seguimiento %}
-  {% if object.uci and object.uci.glasgowtotal != '0' %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab" href="#seguimiento">Seguimiento UCI</a>
-  </li>
-  {% endif %}
-  {% endif %}
-{% if perms.fileupload.add_picture %}
-    {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen and object.inscrito == True%}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#imagen" {% if not object.imagen %} style="color:orange" {% endif %} >Imagen</a>
-  </li>
+    <li class="nav-item">
+      <a class="nav-link "  data-toggle="tab" href="#clinica">Información Clínica</a>
+    </li>
+    {% if perms.paciente.can_ver_seguimiento %}
+    {% if object.uci and object.uci.glasgowtotal != '0' %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab" href="#seguimientos">Seguimientos UCI</a>
+      </li>
+    {% endif %}
+    {% endif %}
+    {% if perms.validacion.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab" href="#resultados">Resultados Estudio Imagen</a>
+      </li>
     {% endif %}
   {% endif %}
   {% endif %}
-  {% if object.uci and object.uci.condicion_egreso == 'Vivo' and perms.paciente.can_ver_moca %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#moca">Neuropsicología Sujeto</a>
-  </li>
-  {% endif %}
-
-
-
-  {% if perms.validacion.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
-  <li class="nav-item">
-    <a class="nav-link "  data-toggle="tab"   href="#verificacionbold" >Validación y Calidad</a>
-  </li>
-  {% endif %}
-  {% endif %}
 </ul>
-<div id="myTabContent" class="tab-content" >
-  <div class="tab-pane active"  id="home">
+<div id="General" class="tab-content">
+  <div class="tab-pane active"  id="demografico">
 
 
       <table class="table table-hover">
@@ -222,1172 +178,7 @@
       {% endif %}
 
  </div>
-  <div class="tab-pane" id="estudio">
-    <form>
-    {% if not object.ingreso  or object.ingreso.fecha_form == None %}
-      <p class="text-danger">No se encontro información de Ingreso del Sujeto</p>
-      {% if perms.paciente.add_ingreso and object.inscrito == True %}
-      {% if object.ingreso %}
-      <button class="btn btn-primary" formaction="{% url 'ingreso_editar' object.ingreso.pk %}">Añadir</button>
-      {% else %}
-      <button class="btn btn-primary" formaction="{% url 'crear_ingreso' object.pk%}">Añadir</button>
-      {% endif %}
-      {% endif %}
-    {% endif %}
-    </form>
-
-
-
-
-    {% if object.ingreso and object.ingreso.fecha_form != None  %}
-    <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha Ingreso</th>
-              <td colspan="3">{{ object.ingreso.fecha_form }} </td>
-            </tr>
-            <tr class="table-active">
-              <th>Lugar de Nacimiento</th>
-              <td>{{ object.ingreso.lugar_nacimiento }} </td>
-                <th>Lugar de Residencia</th>
-              <td>{{ object.ingreso.lugar_residencia }} </td>
-            </tr>
-            {% if user.groups.all.0.name == 'Coordinador' %}
-            <tr class="table-active">
-              <th>Dirección</th>
-              <td>{{ object.ingreso.direccion }} </td>
-              <th>Acompañante</th>
-              <td>{{ object.ingreso.nombre_acompanante }} </td>
-            </tr>
-            <tr class="table-active">
-              <th>Teléfono de contacto 1</th>
-              <td>{{ object.ingreso.tel1 }} </td>
-              <th>Teléfono de contacto 2</th>
-              {% if object.ingreso.tel2 == None %}
-              <td>Desconocido</td>
-              {% else %}
-              <td>{{ object.ingreso.tel2 }}</td>
-              {% endif %}
-            </tr>
-            {% endif %}
-            <tr class="table-active">
-              <th>Peso</th>
-              <td>{{ object.ingreso.peso }} Kg</td>
-              <th>Altura</th>
-              <td>{{ object.ingreso.estatura }} cms</td>
-            </tr>
-            <tr>
-              <th>Nivel educativo</th>
-              <td >{{ object.ingreso.n_educativo }} </td>
-              <th>Lateralidad</th>
-              <td >{{ object.ingreso.lateralidad }} </td>
-            </tr>
-            <tr class="table-primary">
-              <th>Estado de conciencia </th>
-              <td>{{ object.ingreso.conciencia }}</td>
-              <th>Sedado por neuroprotección</th>
-              <td>{% if object.ingreso.sedado == True %} Sí {% else %} No {% endif %}</td>
-            </tr>
-
-            <tr class="table-success">
-              <th>Antecedentes Patológicos</th>
-              <td >
-                  {% if object.ingreso.a_patologicos.all|length != 0 %}
-                  {% for p in  object.ingreso.a_patologicos.all %}
-                    <p>{% if p.nombre == 'Otro' %}{{object.ingreso.a_patologicos_cual}}{% else %}{{ p }}{% endif%}</p>
-                  {% endfor %}
-                  {% else %}
-                  Ninguno
-                  {% endif %}
-              </td>
-              <th>Antecedentes Familiares relevantes:</th>
-              <td >{% if object.ingreso.a_familiares != None %}{{ object.ingreso.a_familiares }}{% else%} Ninguno {% endif %}</td>
-            </tr>
-            <tr class="table-secondary">
-              <th>Antecedentes quirúrgicos</th>
-              <td>
-                  {% if object.ingreso.fecha_craneotomia == None and object.ingreso.causa_quirurgicos == None %} Ninguno {% endif%}
-                  {% if object.ingreso.fecha_craneotomia != None %}<p>Craneotomía el {{ object.ingreso.fecha_craneotomia }}</p>{% endif %}
-                  {% if object.ingreso.causa_quirurgicos != None %}<p>Otras Causas: {{ object.ingreso.causa_quirurgicos }}</p>{% endif %}
-              </td>
-              <th>Antecedentes Tóxico alérgicos:</th>
-              <td>{% if object.ingreso.a_toxico_alergenicos != None %}{{ object.ingreso.a_toxico_alergenicos }}{% else%} Ninguno {% endif %}</td>
-            </tr>
-            <tr class="table-success">
-              <th rowspan="2">Antecedentes Farmacológicos:</th>
-              {% if object.ingreso.a_farmaco1 != None %}
-              <td >{{ object.ingreso.a_farmaco1 }}</td>
-              <th>Dosis total/día</th>
-              <td>{{ object.ingreso.a_farmaco1_dosis }}</td>
-              {% else %}
-              <td colspan="3">Ninguno</td>
-              {% endif %}
-            </tr>
-
-            <tr class="table-success">
-              {% if object.ingreso.a_farmaco2 != None %}
-              <td >{{ object.ingreso.a_farmaco2 }}</td>
-              <th>Dosis total/día</th>
-              <td>{{ object.ingreso.a_farmaco2_dosis }}</td>
-              {% endif %}
-            </tr>
-
-            <tr class="table-success">
-              {% if object.ingreso.firma_consentimiento == True %}
-              <th>Firma de consentimiento informado</th>
-              <td colspan="3">Sí, el {{object.ingreso.fechafirma}}</td>
-              {% else %}
-              <th>Firma de consentimiento informado</th>
-              <td >No</td>
-              <th>Causa</th>
-              <td >{{ object.ingreso.firma_causa }}</td>
-              {% endif %}
-            </tr>
-          </tbody>
-        </table>
-      {% if perms.paciente.change_ingreso and object.inscrito == True %}
-    <form>
-      <button class="btn btn-primary" formaction="{% url 'ingreso_editar' object.ingreso.pk%}">Editar</button>
-      </form>
-      {% endif %}
-    {% endif %}
-  </div>
-   <div class="tab-pane" id="radiologia">
-
-
-     <form>
-       {% if object.get_radio %}
-
-       <table class="table table-hover">
-         <thead>
-         <tr>
-           <th>Fecha</th>
-           <th>Motivo no transportable</th>
-         </tr>
-         </thead>
-         <tbody>
-         {% for rf in object.get_radio %}
-         <tr>
-         <td>{{rf.fecha}}</td> <td>{{rf.razon}}</td>
-         </tr>
-       {% endfor %}
-         </tbody>
-       </table>
-
-       {% endif %}
-
-
-     {% if not object.radiologia or object.radiologia.fecha_procedimiento == None %}
-      <p class="text-danger">No se encontro información de  Traslado a Radiología del Sujeto</p>
-     {% if perms.paciente.add_radiologia and object.inscrito == True %}
-      <label>Transportable   &nbsp;</label><a class="btn btn-primary" onclick="con()" >No</a>
-      <script >
-      function con() {
-
-          var a = prompt("Motivo:", "");
-          var n = a.length;
-
-          while (n>95 || n == 0 ) {
-              var a = prompt("Motivo:", "");
-              var n = a.length;
-          }
-          a=a.replace(/ /g,"_");
-          var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
-          window.location=url_mask;
-      }
-      </script>
-      {% if object.radiologia %}
-      <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Si</button>
-      {% else %}
-      <button class="btn btn-primary" formaction="{% url 'crear_radiologia' object.pk%}">Si</button>
-      {% endif %}
-      {% endif %}
-    {% endif %}
-    </form>
-
-
-    {% if object.radiologia and object.radiologia.fecha_procedimiento != None %}
-    <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha de procedimiento</th>
-              <td >{{ object.radiologia.fecha_procedimiento }} </td>
-              <th>Anestesiólogo</th>
-              <td>{{ object.radiologia.radiologo }}</td>
-            </tr>
-
-            <tr>
-              <th colspan="4" style="color:blue;">Pretransporte</th>
-            </tr>
-
-            <tr class="table-active">
-              <th>Transportable</th>
-              <td>{{ object.radiologia.transportable }} </td>
-                <th>Hora inicio</th>
-              <td>{{ object.radiologia.hora_inicio }} </td>
-            </tr>
-            <tr>
-              <th>Personal de Acompañamiento</th>
-              <td>
-                {% if object.radiologia.jefe_enfermeria == 'SI' %}
-                  Jefe de enfermería <br>
-                {% endif %}
-                {% if object.radiologia.aux_enfermeria == 'SI' %}
-                  Auxiliar de enfermería <br>
-                {% endif %}
-                {% if object.radiologia.medico_uci == 'SI' %}
-                  Médico UCI <br>
-                {% endif %}
-                {% if object.radiologia.anestesiologo == 'SI' %}
-                  Anestesiólogo <br>
-                {% endif %}
-                {% if object.radiologia.terapeuta_respiratorio == 'SI' %}
-                  Terapeuta Respiratorio <br>
-                {% endif %}
-              </td>
-              <th>Soporte</th>
-              <td>
-                {% if object.radiologia.vmi == 'SI' %}
-                  VMI <br>
-                {% endif %}
-                {% if object.radiologia.vasopresor == 'SI' %}
-                  Vasopresor <br>
-                {% endif %}
-                {% if object.radiologia.ionotropico == 'SI' %}
-                  Ionotrópico <br>
-                {% endif %}
-              </td>
-            </tr>
-            <tr>
-              <th colspan="4" style="color:blue;">Monitoreo de transporte UCI - Radiología</th>
-            </tr>
-            <tr>
-              <td></td><th colspan="2">Signos vitales</th>
-            </tr>
-            {% if object.radiologia.ur_pulsoximetro == 'SI' %}
-              <tr>
-                <td>Pulsoxímetro</td>
-                <td colspan="2">{{object.radiologia.ur_pulsoximetro_sv}}%</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ur_frecuencia_cardiaca == 'SI' %}
-              <tr>
-                <td >Frecuencia cardíaca</td>
-                <td colspan="2">{{object.radiologia.ur_frecuencia_cardiaca_sv}} latidos/min</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ur_frecuencia_respiratoria == 'SI' %}
-              <tr>
-                <td >Frecuencia respiratoria</td>
-                <td colspan="2">{{object.radiologia.ur_frecuencia_respiratoria_sv}} respiraciones/min</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ur_visoscopio == 'SI' %}
-              <tr>
-                <td >Visoscopio</td>
-                <td colspan="2">{{object.radiologia.ur_visoscopio_sv}}</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ur_tension == 'SI' %}
-              <tr>
-                <td >Tensión arterial</td>
-                <td colspan="2">{{object.radiologia.ur_tension_sv}} mmhg</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.monitoreo == 'SI'%}
-            <tr>
-              <th colspan="4" style="color:blue;">Monitoreo neurológico</th>
-            </tr>
-            <tr>
-              <th>#PIC</th><td>{{object.radiologia.pic}}</td>
-              <th>#PPC</th><td>{{object.radiologia.ppc}}</td>
-            </tr>
-            {% if object.radiologia.medicamentos_emergencia == 'SI' %}
-              <th>Medicamentos de emergencia</th>
-              <td>{{object.radiologia.me_cual}}</td>
-              <th>Dosis total</th>
-              <td>{{object.radiologia.me_dosis}}</td>
-            {% endif %}
-            <tr>
-            {% endif %}
-              <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
-            </tr>
-            <tr>
-              <td></td><th>Dosis total</th><th colspan="2">Signos vitales</th>
-            </tr>
-            <tr>
-              {% if object.radiologia.sedacion == 'SI' %}
-                <td >Sedación</td>
-                <td >{{object.radiologia.sedacion_dt}}</td>
-              {%else%}
-              <td></td><td></td>
-              {% endif %}
-                <td colspan="2">{{object.radiologia.sedacion_sv}}%</td>
-            </tr>
-            <tr>
-              {% if object.radiologia.analgesia == 'SI' %}
-                <td >Analgesia</td>
-                <td >{{object.radiologia.analgesia_dt}}</td>
-              {%else%}
-              <td></td><td></td>
-              {% endif %}
-                <td colspan="2">{{object.radiologia.analgesia_sv}} latidos/min</td>
-            </tr>
-            <tr>
-              {% if object.radiologia.relajacion == 'SI' %}
-                <td >relajacion</td>
-                <td >{{object.radiologia.relajacion_dt}}</td>
-              {%else%}
-              <td></td><td></td>
-              {% endif %}
-                <td colspan="2">{{object.radiologia.relajacion_sv}} respiraciones/min</td>
-            </tr>
-            <tr>
-              <td colspan="2"></td>
-              <td colspan="2">{{object.radiologia.svadicional1}}</td>
-            </tr>
-            <tr>
-              <td colspan="2"></td>
-              <td colspan="2">{{object.radiologia.svadicional2}} mmhg</td>
-            </tr>
-            
-
-
-            {% if object.radiologia.otra_medicacion == 'SI' %}
-              <th>Otra medicación administrada durante el procedimiento</th>
-              <td>{{object.radiologia.otra_medicacion_cual}}</td>
-              <th>Dosis total</th>
-              <td>{{object.radiologia.otra_medicacion_dt}}</td>
-            {% endif %}
-
-            <tr>
-              <th colspan="4" style="color:blue;">Monitoreo de transporte Radiología - UCI</th>
-            </tr>
-            <tr>
-              <td></td><th>Signos vitales</th>
-            </tr>
-            {% if object.radiologia.ru_pulsoximetro == 'SI' %}
-              <tr>
-                <td>Pulsoxímetro</td>
-                <td colspan="2">{{object.radiologia.ru_pulsoximetro_sv}}%</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ru_frecuencia_cardiaca == 'SI' %}
-              <tr>
-                <td >Frecuencia cardíaca</td>
-                <td colspan="2">{{object.radiologia.ru_frecuencia_cardiaca_sv}} latidos/min</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ru_frecuencia_respiratoria == 'SI' %}
-              <tr>
-                <td >Frecuencia respiratoria</td>
-                <td colspan="2">{{object.radiologia.ru_frecuencia_respiratoria_sv}} respiraciones/min</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ru_visoscopio == 'SI' %}
-              <tr>
-                <td >Visoscopio</td>
-                <td colspan="2">{{object.radiologia.ru_visoscopio_sv}}</td>
-              </tr>
-            {% endif %}
-            {% if object.radiologia.ru_tension == 'SI' %}
-              <tr>
-                <td >Tensión arterial</td>
-                <td colspan="2">{{object.radiologia.ru_tension_sv}} mmhg</td>
-              </tr>
-            {% endif %}
-
-          <tr>
-            <th>Tiempo de resonancia</th>
-            <td>{{object.radiologia.tiempo_sesonacia}} minutos</td>
-            <th>Hora de llegada a UCI</th>
-            <td>{{object.radiologia.hora_llegada}}</td>
-          </tr>
-          {% if object.radiologia.complicaciones == 'SI'%}
-          <tr>
-            <th >Complicaciones derivadas del transporte</th>
-            <td colspan="3">{{object.radiologia.complicaciones_cuales}}</td>
-          </tr>
-
-          {% endif %}
-
-          </tbody>
-        </table>
-     {% if perms.paciente.change_radiologia and object.inscrito == True %}
-     <form>
-      <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Editar</button>
-     </form>
-     {% endif %}
-    {% endif %}
-  </div>
-<div class="tab-pane"  id="uci">
-      {% if not object.uci %}
-      <p class="text-danger">No se encontro información de  Uci</p>
-        {% if perms.paciente.add_uci and object.inscrito == True %}
-          <form>
-          <button class="btn btn-primary" formaction="{% url 'crear_uci' object.pk %}">Añadir</button>
-          </form>
-          {% endif %}
-
-      {% else %}
-
-      {% if object.uci.fechauci != None %}
-
-          <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha </th>
-              <td>{{ object.uci.fechauci }} </td>
-              <th>Hora</th>
-              <td>{{ object.uci.horauci }} </td>
-            </tr>
-            <tr>
-              <th>Glasgow de seguimiento</th>
-              <td>
-                <p>Apertura ocular: {{ object.uci.apertura_ocular }}</p>
-                <p>Respuesta motora: {{ object.uci.respuesta_motora }}</p>
-                <p>Respuesta verbal: {{ object.uci.respuesta_verbal }}</p>
-              </td>
-              <th>Glasgow total </th>
-              <td>{{ object.uci.glasgowtotal }}</td>
-            </tr>
-          <tr>
-            <th>Falla orgánica</th>
-            <td>{% if object.uci.fallaorganica == "SI" %} Sí, {{object.uci.fallaorganica_cual}} {% else %} No {% endif %}</td>
-            <th>Sepsis</th>
-            <td>{% if object.uci.sepsis == "SI" %} Sí  {% else %} No {% endif %}</td>
-          </tr>
-          <tr>
-            <th>Presión intracraneana</th>
-            <td>{% if object.uci.presion_intracraneana == "SI" %} Sí {% else %} No {% endif %}</td>
-            <th>Monitoría PIC</th>
-            <td>{% if object.uci.monitoria_pic == "SI" %} Sí  {% else %} No {% endif %}</td>
-          </tr>
-          <tr>
-            <th>Ventilación mecánica</th>
-            <td>{% if object.uci.ventilacionmecanica == "SI" %} Sí {% else %} No {% endif %}</td>
-            <th>Soporte vasopresor</th>
-            <td>{% if object.uci.soportevasopresor == "SI" %} Sí,
-              con: <p>{% if object.uci.noradrenalina == "SI" %} Noradrenalina >0.5 Mcg Kg Min  {% endif %}</p>
-              <p>{% if object.uci.vasopresina == "SI" %} Vasopresina >2UI IV Hora  {% endif %}</p>
-              <p>{% if object.uci.adrenalina == "SI" %} Adrenalina. {% endif %}</p>
-              {% else %} No {% endif %}</td>
-          </tr>
-          <tr>
-            <th>Sedación</th>
-            {% if  object.uci.midazolan == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
-            <td>
-              <p>{% if object.uci.midazolan == "SI" %} Midazolam : {{object.uci.midazolan_dt }} {% endif %} </p>
-              <p>{% if object.uci.tiopental == "SI" %} Tiopental : {{object.uci.tiopental_dt }} {% endif %} </p>
-              <p>{% if object.uci.dexmedetomidina == "SI" %} Dexmedetomidina : {{object.uci.dexmedetomidina_dt }} {% endif %} </p>
-            </td>
-            {% else %}
-            <td>Ninguna</td>
-            {% endif %}
-
-            <th>Analgesia</th>
-            {% if  object.uci.morfina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
-            <td>
-              <p>{% if object.uci.morfina == "SI" %} Morfina : {{object.uci.morfina_dt }} {% endif %} </p>
-              <p>{% if object.uci.hidromorfona == "SI" %} Hidromorfona : {{object.uci.hidromorfona_dt }} {% endif %} </p>
-              <p>{% if object.uci.fentanyl == "SI" %} Fentanyl : {{object.uci.fentanyl_dt }} {% endif %} </p>
-            </td>
-            {% else %}
-            <td>Ninguna</td>
-            {% endif %}
-
-          </tr>
-
-          <tr>
-            <th>Anticonvulsivantes</th>
-            {% if  object.uci.fenitoina == "SI"  or  object.uci.topiramato == "SI" or object.uci.acido_valproico == "SI" or object.uci.levetiracetam == "SI" or object.uci.lacosamida == "SI"  %}
-            <td>
-              <p>{% if object.uci.fenitoina == "SI" %} Fenitoina : {{object.uci.fenitoina_dt }} {% endif %} </p>
-              <p>{% if object.uci.topiramato == "SI" %} Topiramato : {{object.uci.topiramato_dt }} {% endif %} </p>
-              <p>{% if object.uci.acido_valproico == "SI" %} Acido valproico : {{object.uci.acido_valproico_dt }} {% endif %} </p>
-              <p>{% if object.uci.levetiracetam == "SI" %} Levetiracetam : {{object.uci.levetiracetam_dt }} {% endif %} </p>
-              <p>{% if object.uci.lacosamida == "SI" %} Lacosamida : {{object.uci.lacosamida_dt }} {% endif %} </p>
-            </td>
-            {% else %}
-            <td>Ninguna</td>
-            {% endif %}
-
-            <th>Antipsicóticos</th>
-            {% if  object.uci.clozapina == "SI"  or  object.uci.haloperidol == "SI" or object.uci.ketiapina == "SI"  %}
-            <td>
-              <p>{% if object.uci.clozapina == "SI" %} Clozapina : {{object.uci.clozapina_dt }} {% endif %} </p>
-              <p>{% if object.uci.haloperidol == "SI" %} Haloperidol : {{object.uci.haloperidol_dt }} {% endif %} </p>
-              <p>{% if object.uci.ketiapina == "SI" %} Ketiapina : {{object.uci.ketiapina_dt }} {% endif %} </p>
-            </td>
-            {% else %}
-            <td>Ninguna</td>
-            {% endif %}
-
-          </tr>
-
-          <tr>
-            <th>Moduladores del ánimo</th>
-            {% if  object.uci.carbamacepina == "SI"  or  object.uci.carbonato_litio == "SI" %}
-            <td colspan="3">
-              <p>{% if object.uci.carbamacepina == "SI" %} Carbamacepina : {{object.uci.carbamacepina_dt }} {% endif %} </p>
-              <p>{% if object.uci.carbonato_litio == "SI" %} Carbonato de Litio : {{object.uci.carbonato_litio_dt }} {% endif %} </p>
-            </td>
-            {% else %}
-            <td colspan="3">Ninguna</td>
-            {% endif %}
-
-          </tr>
-
-          <tr>
-            <th>Valorable por Neurología</th>
-            <td colspan="3">{% if object.uci.valorable_neuro == "NO" %} No, {{object.uci.valorable_neuro_causa}} {% else %} Sí {% endif %}</td>
-          </tr>
-            {% if object.uci.valorable_neuro == "NO" %}
-          <tr>
-            <th>Paciente en condiciones de continuar en el estudio</th>
-            <td colspan="3">{% if object.uci.continua_studio == "SI" %} Sí {% else %} No {% endif %}</td>
-          </tr>
-            {% endif %}
-
-          </tbody>
-        </table>
-
-        {% if object.uci.glasgowtotal_e != '0' %}
-        <legend>Evaluación de egreso UCI</legend>
-          <table class="table table-hover">
-            <tbody>
-            <tr>
-              <th>Fecha del Egreso de la UCI</th>
-              <td>{{object.uci.fechaegreso}}</td>
-              <th>Hora</th>
-              <td>{{object.uci.horaegreso}}</td>
-            </tr>
-            <tr>
-              <th>Condición de egreso de UCI</th>
-              <td>{{object.uci.condicion_egreso}}</td>
-              <th>Dx de egreso</th>
-              <td>{{object.uci.dx_egreso}}</td>
-            </tr>
-            {% if object.uci.condicion_egreso == 'Fallecido' %}
-            <tr>
-              <th>Causa de mortalidad</th>
-              <td>{{object.uci.causa_mortalidad}}</td>
-              <td>Fecha: {{object.uci.fechamortalidad}}</td>
-              <td>Hora: {{object.uci.horamortalidad}}</td>
-            </tr>
-            {% endif %}
-            <tr>
-              <th>Glasgow de egreso UCI</th>
-              <td>
-                <p>Apertura ocular: {{ object.uci.apertura_ocular_e }}</p>
-                <p>Respuesta motora: {{ object.uci.respuesta_motora_e }}</p>
-                <p>Respuesta verbal: {{ object.uci.respuesta_verbal_e }}</p>
-              </td>
-              <th>Glasgow total </th>
-              <td>{{ object.uci.glasgowtotal_e }}</td>
-            </tr>
-
-            </tbody>
-
-          </table>
-        {% endif %}
-  <form>
-        {% if perms.paciente.change_uci and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
-
-        <button class="btn btn-primary" formaction="{% url 'uci_editar' object.uci.pk %}">Realizar Evaluación de Egreso</button>
-
-          {% endif %}
-  </form>
-
-
-      {% else %}
-      <p class="text-danger">No se encontro información de  Uci</p>
-        {% if perms.paciente.add_uci and object.inscrito == True %}
-          <form>
-          <button class="btn btn-primary" formaction="{% url 'uci_editar' object.uci.pk %}">Añadir</button>
-          </form>
-          {% endif %}
-      {% endif %}
-
-
-      {% endif %}
-
-
-
-
-
-
- </div>
-
-<div class="tab-pane"  id="neurologia">
-
-
-      <form>
-      {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %}
-      <p class="text-danger">No se encontro información Neurológica del Sujeto</p>
-      {% if perms.paciente.add_neurologia and object.inscrito == True %}
-      <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir</button>
-      {% endif %}
-      {% endif %}
-      </form>
-
-      {% if object.get_neuro %}
-
-  <div class="panel-group">
-    <div class="panel panel-default">
-      {% for neuro in object.get_neuro %}
-      {% if neuro.fechaneuro != None %}
-
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" href="#expand{{ forloop.counter0 }}"><b>{{neuro.fechaneuro}}</b></a>
-          {% if neuro.epileptico == "SI" and neuro.fechaeeg == None %}
-          <a style="color:red;">Falta información EEG</a>
-          {% endif%}
-        </h4>
-      </div>
-      <div id="expand{{ forloop.counter0 }}" class="panel-collapse collapse">
-        <div class="panel-body">
-          {% if neuro.epileptico == "SI" and neuro.fechaeeg == None and perms.paciente.change_neurologia %}
-
-          <a type="button" class="btn btn-link" onclick="location.href = '{% url 'neurologia_editar' neuro.pk %}'">Rellenar información EEG</a>
-
-            {% endif%}
-          <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha </th>
-              <td>{{ neuro.fechaneuro }} </td>
-              <th>Neurólogo</th>
-              <td>{{ neuro.neurologo }} </td>
-            </tr>
-            <tr>
-              <td colspan="4" style="color:blue">COMA RECOVERY SCALE-REVISED</td>
-            </tr>
-          <tr>
-            <th>Escala de función auditiva</th>
-            <td>
-              ({{neuro.auditiva}})
-              {% if neuro.auditiva == '4' %} Movimiento consistente a la orden
-              {% elif neuro.auditiva == '3' %} Reproduce movimiento a la orden
-              {% elif neuro.auditiva == '2' %} Localiza el sonido
-              {% elif neuro.auditiva == '1' %} Percibe pero no localiza (Sobresalto auditivo)
-              {% elif neuro.auditiva == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-            <th>Escala de función visual</th>
-            <td>
-              ({{neuro.visual}})
-              {% if neuro.visual == '5' %} Reconoce el objeto
-              {% elif neuro.visual == '4' %} Localiza el objeto: alcanza
-              {% elif neuro.visual == '3' %} Seguimiento visual
-              {% elif neuro.visual == '2' %} Fijación visual
-              {% elif neuro.visual == '1' %} Sobresalto visual
-              {% elif neuro.visual == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Escala de función motora</th>
-            <td>
-              ({{neuro.motora}})
-              {% if neuro.motora == '6' %} Uso funcional del objeto
-              {% elif neuro.motora == '5' %} Respuesta motora automática
-              {% elif neuro.motora == '4' %} Manipulación de objetos
-              {% elif neuro.motora == '3' %} Localización de estímulos dolorosos
-              {% elif neuro.motora == '2' %} Retirada flexora
-              {% elif neuro.motora == '1' %} Postura anormal
-              {% elif neuro.motora == '0' %} No hay respuesta/flacidez
-
-              {% endif %}
-            </td>
-            <th>Escala de función oromotora/verbal</th>
-            <td>
-              ({{neuro.verbal}})
-              {% if neuro.verbal == '3' %} Verbalización entendible
-              {% elif neuro.verbal == '2' %} Movimientos orales/vocalizaciones
-              {% elif neuro.verbal == '1' %} Movimientos orales reflejos
-              {% elif neuro.verbal == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Escala de comunicación</th>
-            <td>
-              ({{neuro.comunicacion}})
-              {% if neuro.comunicacion == '2' %} Funcional: Adecuada
-              {% elif neuro.comunicacion == '1' %} No funcional: Intencional
-              {% elif neuro.comunicacion == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-            <th>Escala de nivel de alerta</th>
-            <td>
-              ({{neuro.alerta}})
-              {% if neuro.alerta == '3' %} Alerta y atento
-              {% elif neuro.alerta == '2' %} Apertura ocular espontánea
-              {% elif neuro.alerta == '1' %} Apertura ocular con estimulación
-              {% elif neuro.alerta == '0' %} No hay respuesta
-
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Total</th>
-            <td colspan="3">{{ neuro.total1 }}</td>
-          </tr>
-
-          <tr>
-              <td colspan="4" style="color:blue">Full Outline of UnResponsiveness FOUR</td>
-            </tr>
-          <tr>
-            <th>Apertura ocular</th>
-            <td>
-              ({{neuro.aperturaocular}})
-              {% if neuro.aperturaocular == '4' %} Dirige la mirada en respuesta a órdenes
-              {% elif neuro.aperturaocular == '3' %} Espontánea pero no dirige la mirada
-              {% elif neuro.aperturaocular == '2' %} Apertura a estímulos sonoros intensos
-              {% elif neuro.aperturaocular == '1' %} Apertura a estímulos nociceptivos
-              {% elif neuro.aperturaocular == '0' %} Ojos cerrados al dolor
-              {% endif %}
-            </td>
-            <th>Respuesta Motora</th>
-            <td>
-              ({{neuro.respuestamotora}})
-              {% if neuro.respuestamotora == '4' %} Obedece órdenes
-              {% elif neuro.respuestamotora == '3' %} Localiza estímulos dolorosos
-              {% elif neuro.respuestamotora == '2' %} Respuesta flexora al dolor en MMSS (Decorticación y retirada)
-              {% elif neuro.respuestamotora == '1' %} Respuesta extensora al dolor (Descerebración)
-              {% elif neuro.respuestamotora == '0' %} Ninguna o Estado mioclónico generalizado
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Reflejos del Tronco</th>
-            <td>
-              ({{neuro.reflejos}})
-              {% if neuro.reflejos == '4' %} Ambos reflejos corneales y fotomotores presentes
-              {% elif neuro.reflejos == '3' %} Reflejo motor ausente unilateral
-              {% elif neuro.reflejos == '2' %} Reflejos corneales <b>o</b> fotomotores ausentes
-              {% elif neuro.reflejos == '1' %} Reflejos corneales <b>y</b> fotomotores ausentes
-              {% elif neuro.reflejos == '0' %} Reflejos corneales, fotomotores y tusígeno ausentes
-              {% endif %}
-            </td>
-            <th>Respiración</th>
-            <td>
-              ({{neuro.respiracion}})
-              {% if neuro.respiracion == '4' %} No intubado, respiración rítmica
-              {% elif neuro.respiracion == '3' %} No intubado, respiración de Cheyene- Stokes
-              {% elif neuro.respiracion == '2' %} No intubado, respiración irregular
-              {% elif neuro.respiracion == '1' %} Intubado, respira por encima de la frecuencia del respirador
-              {% elif neuro.respiracion == '0' %} Intubado, respira a la frecuencia del respirador o apnea
-              {% endif %}
-            </td>
-          <tr>
-              <th>Total</th>
-              <td>{{neuro.total2}}</td>
-              <th>Resultado</th>
-              <td>
-                <script>
-                  var x="{{neuro.total2}}";
-                  x=parseInt(x);
-                  if ( x < 8 ){
-                  document.write("Severa injuria cerebral");
-                  }
-                  if ( x > 7 && x < 13 ){
-                  document.write("Moderada injuria cerebral");
-                  }
-                  if ( x > 12 ){
-                  document.write("Leve injuria cerebral");
-                  }
-
-
-                </script>
-              </td>
-            </tr>
-          <tr>
-            <th colspan="2">Dx Estado de conciencia</th>
-            <td colspan="2">{{neuro.estadoconciencia}}</td>
-          </tr>
-          <tr>
-            <th colspan="2">Sospecha de estatus epiléptico no convulsivo</th>
-            <td colspan="2">{{neuro.epileptico}}</td>
-          </tr>
-
-            {% if neuro.epileptico == "SI" and neuro.fechaeeg != None %}
-          <tr>
-            <th>Toma EEG</th>
-            <td>{{neuro.fechaeeg}}</td>
-            <th>Resultado EEG</th>
-            <td>{{neuro.resultadoeeg}}</td>
-          </tr>
-          {% endif %}
-
-
-          </tbody>
-        </table>
-
-        </div>
-
-      </div>
-      <br>
-
-      {% endif %}
-      {% endfor%}
-    </div>
-  </div>
-
-      
-      {% if perms.paciente.add_neurologia and object.inscrito == True and object.get_neuro.0.fechaneuro != None %}
-      <form>
-      <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir nueva valoración neurológica</button>
-      </form>
-      {% endif %}
-	{% endif %}
-
- </div>
-<div class="tab-pane"  id="bold">
-  <form>
-      {% if not object.bold or object.bold.fechaimg == None %}
-      <p class="text-danger">No se encontro información del protocolo</p>
-      {% if perms.paciente.add_bold and object.inscrito == True %}
-      {% if object.bold %}
-      <button class="btn btn-primary" formaction="{% url 'bold_editar' object.bold.pk %}">Añadir</button>
-      {% else %}
-      <button class="btn btn-primary" formaction="{% url 'crear_bold' object.pk %}">Añadir</button>
-      {% endif %}
-      {% endif %}
-    {% endif %}
-    </form>
-
-
-      {% if object.bold and object.bold.fechaimg != None %}
-      <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha de captura de imágenes </th>
-              <td>{{ object.bold.fechaimg }} </td>
-              <th>Responsable</th>
-              <td>{{ object.bold.responsable }}</td>
-            </tr>
-          <tr>
-            <th>Captura en CD</th>
-            <td colspan="3">{% if object.bold.cd == True %} Sí {% else %} No {% endif %}</td>
-          </tr>
-
-          </tbody>
-        </table>
-      <legend>Parámetros del protocolo de adquisición de imágenes</legend>
-      <table class="table table-hover">
-
-          <tbody>
-            <tr class="table-active">
-              <th>AX T2 Prop </th>
-              <td>
-                {% if object.bold.axt2prop == True %}
-                <p>{% if object.bold.axt2prop1 == True %} Plane: Oblique {% endif %}</p>
-                <p>{% if object.bold.axt2prop2 == True %} FOV 22.0cm {% endif %}</p>
-                <p>{% if object.bold.axt2prop3 == True %} Slice Thickness 6.0mm {% endif %}</p>
-                <p>{% if object.bold.axt2prop4 == True %} Slice Spacing 1.0mm {% endif %}</p>
-                <p>{% if object.bold.axt2prop5 == True %} TR 6000ms {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-              <th>DIFUSSION</th>
-              <td>
-                {% if object.bold.difussion == True %}
-                <p>{% if object.bold.difussion1 == True %} Scan plane: Oblique {% endif %}</p>
-                <p>{% if object.bold.difussion2 == True %} FOV 22.0 {% endif %}</p>
-                <p>{% if object.bold.difussion3 == True %} Slice Thickness 6.0mm {% endif %}</p>
-                <p>{% if object.bold.difussion4 == True %} Spacing 1.0mm {% endif %}</p>
-                <p>{% if object.bold.difussion5 == True %} Freq Dir: R/L {% endif %}</p>
-                <p>{% if object.bold.difussion6 == True %} TR 6000ms {% endif %}</p>
-                <p>{% if object.bold.difussion7 == True %} Minimum TR 1000.0 {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-            </tr>
-            <tr class="table-active">
-              <th>RESTING </th>
-              <td>
-                {% if object.bold.resting == True %}
-                <p>{% if object.bold.resting1 == True %} Scan plane: Axial {% endif %}</p>
-                <p>{% if object.bold.resting2 == True %} FOV 28.8 {% endif %}</p>
-                <p>{% if object.bold.resting3 == True %} Phase FOV 1.00 {% endif %}</p>
-                <p>{% if object.bold.resting4 == True %} Slice Thickness 4.5mm {% endif %}</p>
-                <p>{% if object.bold.resting5 == True %} Spacing 0.0mm {% endif %}</p>
-                <p>{% if object.bold.resting6 == True %} Freq Dir: R/L {% endif %}</p>
-                <p>{% if object.bold.resting7 == True %} TR 3000ms {% endif %}</p>
-                <p>{% if object.bold.resting8 == True %} Minimum TR 89.0 {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-              <th>3D AX Obl T1</th>
-              <td>
-                {% if object.bold.obl == True %}
-                <p>{% if object.bold.obl1 == True %} Scan plane: Axial {% endif %}</p>
-                <p>{% if object.bold.obl2 == True %} FOV 25.0 {% endif %}</p>
-                <p>{% if object.bold.obl3 == True %} Phase FOV 0.90 {% endif %}</p>
-                <p>{% if object.bold.obl4 == True %} Slice Thickness 2.0mm {% endif %}</p>
-                <p>{% if object.bold.obl5 == True %} Freq Dir: A/P {% endif %}</p>
-                <p>{% if object.bold.obl6 == True %} Minimum TR 6.7 {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-            </tr>
-
-            <tr class="table-active">
-              <th>AX FLAIR </th>
-              <td>
-                {% if object.bold.flair == True %}
-                <p>{% if object.bold.flair1 == True %} Scan plane: Oblique {% endif %}</p>
-                <p>{% if object.bold.flair2 == True %} FOV 22.0 {% endif %}</p>
-                <p>{% if object.bold.flair3 == True %} Slice Thickness 6.0mm {% endif %}</p>
-                <p>{% if object.bold.flair4 == True %} Spacing 1.0mm {% endif %}</p>
-                <p>{% if object.bold.flair5 == True %} Freq Dir: Unswap {% endif %}</p>
-                <p>{% if object.bold.flair6 == True %} TR 9000ms {% endif %}</p>
-                <p>{% if object.bold.flair7 == True %} Minimum TR 5000.0 {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-              <th>ASSET Cal</th>
-              <td>
-                {% if object.bold.cal == True %}
-                <p>{% if object.bold.cal1 == True %} Scan plane: Axial {% endif %}</p>
-                <p>{% if object.bold.cal2 == True %} FOV 30.0 {% endif %}</p>
-                <p>{% if object.bold.cal3 == True %} Slice Thickness 6.0mm {% endif %}</p>
-                <p>{% if object.bold.cal4 == True %} Freq Dir: A/P {% endif %}</p>
-                <p>{% if object.bold.cal5 == True %} Minimum TR 150.0 {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-            </tr>
-
-          <tr class="table-active">
-              <th>AXIAL SWI </th>
-              <td>
-                {% if object.bold.swi == True %}
-                <p>{% if object.bold.swi1 == True %} Scan plane: Oblique {% endif %}</p>
-                <p>{% if object.bold.swi2 == True %} FOV 22.0 {% endif %}</p>
-                <p>{% if object.bold.swi3 == True %} Phase FOV 1.00 {% endif %}</p>
-                <p>{% if object.bold.swi4 == True %} Slice Thickness 6.0mm {% endif %}</p>
-                <p>{% if object.bold.swi5 == True %} Spacing 1.0mm {% endif %}</p>
-                <p>{% if object.bold.swi6 == True %} Freq Dir: Unswap {% endif %}</p>
-                <p>{% if object.bold.swi7 == True %} TR 4375ms {% endif %}</p>
-                <p>{% if object.bold.swi8 == True %} Minimum TR 394.0 {% endif %}</p>
-                {% else %}
-                No
-                {% endif %}
-              </td>
-              <th>TENSOR AXI</th>
-              <td>
-                {% if object.bold.tensor == True %}
-                <p>{% if object.bold.tensor1 == True %} Scan plane: Axial {% endif %}</p>
-                <p>{% if object.bold.tensor2 == True %} FOV 25.0 {% endif %}</p>
-                <p>{% if object.bold.tensor3 == True %} Phase FOV 1.00 {% endif %}</p>
-                <p>{% if object.bold.tensor4 == True %} Slice Thickness 2.5mm {% endif %}</p>
-                <p>{% if object.bold.tensor5 == True %} Spacing 0.0mm {% endif %}</p>
-                <p>{% if object.bold.tensor6 == True %} Freq Dir: R/L {% endif %}</p>
-                <p>{% if object.bold.tensor7 == True %} TR 17000ms {% endif %}</p>
-                <p>{% if object.bold.tensor8 == True %} Minimum TR 1000 {% endif %}</p>
-                
-                {% else %}
-                No
-                {% endif %}
-              </td>
-            </tr>
-
-
-          </tbody>
-        </table>
-        <legend>Verificación de parámetros para postproceso</legend>
-
-      <div>
-
-        <div class="left">
-          <table class="table table-hover">
-            <tbody>
-            <tr>
-              <th>T1</th>
-              <td>{% if object.bold.t1A == False and object.bold.t1G == False and object.bold.t1M == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.t1A == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.t1G == True %}
-            <tr>
-              <td>Grosor 2mm</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.t1M == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            <tr>
-              <th>T2</th>
-              <td>{% if object.bold.t2A == False and object.bold.t2M == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.t2A == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.t2M == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            <tr>
-              <th>FLAIR</th>
-              <td>{% if object.bold.flairA == False and object.bold.flairM == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.flairA == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.flairM == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-
-            </tbody>
-          </table>
-
-        </div>
-
-        <div class="right">
-
-          <table class="table table-hover">
-            <tbody>
-            <tr>
-              <th>TENSOR - DWI</th>
-              <td>{% if object.bold.tensorA == False and object.bold.tensord == False and object.bold.tensorG == False and object.bold.tensorM == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.tensorA == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.tensord == True %}
-            <tr>
-              <td>30 direcciones</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.tensorG == True %}
-            <tr>
-              <td>Grosor 2mm</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.tensorM == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            <tr>
-              <th>fMRI RESTING</th>
-              <td>{% if object.bold.restingA == False and object.bold.restingV == False and object.bold.restingG == False and object.bold.restingT == False and object.bold.restingM == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.restingA == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.restingV == True %}
-            <tr>
-              <td>180 volúmenes</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.restingG == True %}
-            <tr>
-              <td>Grosor 4.5mm</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.restingT == True %}
-            <tr>
-              <td>TR 3000ms</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.restingM == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            <tr>
-              <th>DIFUSSION</th>
-              <td>{% if object.bold.difussionA == False and object.bold.difussionM == False %}
-                  No {% endif %}</td>
-            </tr>
-            {% if object.bold.difussionA == True %}
-            <tr>
-              <td>Axial</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            {% if object.bold.difussionM == True %}
-            <tr>
-              <td>Movimiento</td>
-              <td>Sí</td>
-            </tr>
-            {% endif %}
-            </tbody>
-          </table>
-
-        </div>
-
-    </div>
-
-
-      <div class="container">
-      {% if perms.paciente.change_bold and object.inscrito == True %}
-      <form>
-      <button class="btn btn-primary" formaction="{% url 'bold_editar' object.bold.pk %}">Editar</button>
-      </form>
-      {% endif %}
-      </div>
-      {% endif %}
- </div>
-
-<div class="tab-pane"  id="verificacionbold">
+  <div class="tab-pane"  id="resultados">
 
   <br>
   <h3>Seleccione una Pestaña</h3>
@@ -1736,7 +527,7 @@
       </form>
       {% endif %}
              </center>
-          
+
     <script>
       function accion(save) {
 
@@ -1781,8 +572,8 @@
           document.getElementById("ry").value=0;
           document.getElementById("rz").value=0;
       }
-    
-    
+
+
       function validar(a) {
           var x = document.getElementById(a).value;
           if ( x == ''){
@@ -1802,7 +593,7 @@
           document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
           validar(a);
           accion('0');
-          
+
       }
 
       function restar(a) {
@@ -1909,7 +700,7 @@
       </form>
       {% endif %}
              </center>
-          
+
     <script>
       function accion_func(save) {
 
@@ -1954,8 +745,8 @@
           document.getElementById("ry_func").value=0;
           document.getElementById("rz_func").value=0;
       }
-    
-    
+
+
       function validar_func(a) {
           var x = document.getElementById(a).value;
           if ( x == ''){
@@ -1975,7 +766,7 @@
           document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
           validar_func(a);
           accion_func('0');
-          
+
       }
 
       function restar_func(a) {
@@ -2082,7 +873,7 @@
       </form>
       {% endif %}
              </center>
-          
+
     <script>
       function accion_tensor(save) {
 
@@ -2127,8 +918,8 @@
           document.getElementById("ry_tensor").value=0;
           document.getElementById("rz_tensor").value=0;
       }
-    
-    
+
+
       function validar_tensor(a) {
           var x = document.getElementById(a).value;
           if ( x == ''){
@@ -2148,7 +939,7 @@
           document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
           validar_tensor(a);
           accion_tensor('0');
-          
+
       }
 
       function restar_tensor(a) {
@@ -2167,7 +958,7 @@
 
 
 
-    
+
 
 
 
@@ -2224,495 +1015,1939 @@
 
 
  </div>
+  <div class="tab-pane fade" id="clinica">
+<br>
+  <h3>Seleccione una Pestaña</h3>
 
-<div class="tab-pane"  id="informante">
+    <ul class="nav nav-tabs">
 
+      {% if object.estado > 0 and object.D_neuro_logico_psiquiatrico_previo.all|length == 0 %}
+      {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False and object.ci3 == True and object.ci4 == True %}
 
-      {% if not object.informante or object.informante.fechaentrevista == None %}
-      <p class="text-danger">No se encontro información neuropsicológica </p>
-      {% if perms.paciente.add_informante and object.inscrito == True %}
-  <form>
-       {% if object.edad > 59 %}
-          {% if object.mayor %}
-          <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Añadir</button>
-          {% else %}
-          <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
-          {% endif %}
-
-       {% else %}
-          {% if object.informante %}
-          <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Añadir</button>
-          {% else %}
-          <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
-          {% endif %}
-
-       {% endif %}
-  </form>
-
+      {% if perms.paciente.can_ver_ingreso %}
+      <li class="nav-item" >
+        <a class="nav-link "  data-toggle="tab" href="#estudio" {% if not object.ingreso or object.ingreso.fecha_form == None  %} style="color:orange" {% endif %} >Formato ingreso al estudio</a>
+      </li>
       {% endif %}
-    {% endif %}
-
-
-
-      {% if object.informante and object.informante.fechaentrevista != None %}
-
-        {% if object.mayor %}
-          <table class="table table-hover">
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha de entrevista clínica </th>
-              <td>{{ object.mayor.fechaentrevista }} </td>
-              <th>Neuropsicóloga:</th>
-              <td>{{ object.mayor.neuropsicologa }}</td>
-            </tr>
-
-          <tr>
-            <th>Parentezco</th>
-            <td>{{ object.mayor.parentezco }}</td>
-            <th>Confiable</th>
-            <td>{{ object.mayor.confiable }}</td>
-          </tr>
-            {% if user.groups.all.0.name == 'Coordinador' %}
-          <tr>
-            <th>Informante</th>
-            <td colspan="3">{{ object.mayor.informante }}</td>
-          </tr>
-            {% endif %}
-          <tr>
-            <td colspan="4">
-              <legend>S - I.Q.C.O.D.E.</legend>
-            </td>
-          </tr>
-          <tr>
-              <th>Resultado</th>
-              <td>{{object.mayor.resultado}}</td>
-              <th>Total</th>
-              <td>{{object.mayor.total}}</td>
-            </tr>
-          <tr>
-            <td colspan="4">
-              <legend>ESCALA DE DETERIORO GLOBAL (GDS)</legend>
-            </td>
-          </tr>
-          <tr>
-            <th>Severidad GDS:</th>
-            <td colspan="3">
-              {{object.mayor.severidadgds}}
-              {% if object.mayor.severidadgds == "1" %}
-                Normal, Ningún deterioro cognoscitivo
-              {% endif %}
-              {% if object.mayor.severidadgds == "2" %}
-                Olvidadizo, Muy ligero deterioro cognoscitivo
-              {% endif %}
-              {% if object.mayor.severidadgds == "3" %}
-                Confuso, Ligero deterioro cognoscitivo
-              {% endif %}
-              {% if object.mayor.severidadgds == "4" %}
-                Bastante confuso, Moderado deterioro cognoscitivo
-              {% endif %}
-              {% if object.mayor.severidadgds == "5" %}
-                Demencia temprana, Moderadamente severo deterioro cognoscitivo
-              {% endif %}
-              {% if object.mayor.severidadgds == "6" %}
-                Demencia moderada, Severo deterioro cognoscitivo
-              {% endif %}
-              {% if object.mayor.severidadgds == "7" %}
-                Demencia severa, Profundo deterioro cognoscitivo
-              {% endif %}
-            </td>
-          </tr>
-          <tr>
-            <th>Dx Demencia</th>
-            <td>{{object.mayor.dxdemencia}}</td>
-            <th>Tiempo de evolución</th>
-            <td>{{object.mayor.tiempo}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-
-       {% else %}
-        <table class="table table-hover">
-          <tbody>
-            <tr class="table-active">
-              <th>Fecha de entrevista clínica </th>
-              <td>{{ object.informante.fechaentrevista }} </td>
-              <th>Neuropsicóloga:</th>
-              <td>{{ object.informante.neuropsicologa }}</td>
-            </tr>
-          <tr>
-            <th>Parentezco</th>
-            <td>{{ object.informante.parentezco }}</td>
-            <th>Confiable</th>
-            <td>{{ object.informante.confiable }}</td>
-          </tr>
-            {% if user.groups.all.0.name == 'Coordinador' %}
-          <tr>
-            <th>Informante</th>
-            <td colspan="3">{{ object.informante.informante }}</td>
-          </tr>
-            {% endif %}
-
-          </tbody>
-        </table>
-
-       {% endif %}
-
-
-      <legend>Funcionamiento Premórbido:</legend>
-
-
-      <table class="table table-hover">
-          <tbody>
-            <tr class="table-active">
-              <th>Escala Lawton-Brody de actividades instrumentales </th>
-              <td>Total {{object.informante.totalindependencia}} </td>
-              <th>Escala de transtornos de memoria</th>
-              <td>Total {{object.informante.totalmemoria}}/45</td>
-            </tr>
-          <tr>
-            <th colspan="4">Frontal Systems Behavior Scale (FrSBe)</th>
-          </tr>
-          <tr>
-            <th>Total Apatia</th> <td>{{object.informante.totalapatia}}</td>
-          </tr>
-          <tr>
-            <th>Total Deshinhibicion</th> <td>{{object.informante.totaldes}}</td>
-          </tr>
-          <tr>
-            <th>Total Funciones ejecutivas</th> <td>{{object.informante.totalfunciones}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-
-      {% if perms.paciente.change_informante and object.inscrito == True %}
-      <form>
-      {% if object.edad > 59 %}
-          <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Editar</button>
-
-       {% else %}
-          <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Editar</button>
-
-       {% endif %}
-      </form>
+      {% if perms.paciente.can_ver_uci %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab" href="#uci" {% if not object.uci or object.uci.fechauci == None  %} style="color:orange" {% endif %} >Formato UCI</a>
+      </li>
       {% endif %}
+      {% if perms.paciente.can_ver_neurologia %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#neurologia" {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %} style="color:orange" {% endif %} >Formato Neurología</a>
+      </li>
       {% endif %}
- </div>
-<div class="tab-pane"  id="imagen" >
-    <input id="sn" value="{{object.sujeto_numero}}" hidden>
-
-<iframe src="{% url 'upload-new' %}"
-            marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="no" border="0"
-            frameborder="0" width="800" height="400">
-            </iframe>
-
-  </div>
-<div class="tab-pane"  id="moca">
-  <form>
-
-      {% if not object.valorablenps %}
-
-      {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
-      <p class="text-danger">No se encontro información de evaluación MOCA</p>
-      {% tiempoeventoprincipal object as tep %}
-
-      {% if perms.paciente.add_moca and tep %}
-    <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
-    <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
-
-
-
-      <br>
-      <table>
-        <tbody>
-        <tr>
-          <th><label id="causa" style="display:none">Causa</label></th>
-          <td>
-      <select id="causa_options" style="display:none" onchange="nps()">
-          <option  value="0">Seleccione una opción</option>
-          <option  value="1">Fallecido</option>
-          <option  value="2">No localizable</option>
-          <option  value="3">No colabora</option>
-          <option  value="4">EMC</option>
-          <option  value="5">SVSR</option>
-      </select>
-          </td>
-          <td>
-            <label id="labelfecha" style="display:none">Fecha: </label>
-          </td>
-          <td>
-            <input id="datefallecido" type="date" style="display:none" class="form-control" min="{{object.uci.fechaegreso|date:'Y-m-d'}}" onchange="nps()">
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-
-
-      <script >
-      function ver() {
-          document.getElementById("nov").style="display:none" ;
-          document.getElementById("siv").style="display:none" ;
-          document.getElementById("causa").style="display:inline" ;
-          document.getElementById("causa_options").style="display:inline" ;
-      }
-      function nps() {
-          var c=document.getElementById("causa_options").value ;
-          var f=document.getElementById("datefallecido").value ;
-          if ( c == 1 && f == "" ){
-          document.getElementById("datefallecido").style="display:inline" ;
-          document.getElementById("labelfecha").style="display:inline" ;
-          var today = new Date();
-          var dd = today.getDate();
-          var mm = today.getMonth()+1; //January is 0!
-          var yyyy = today.getFullYear();
-           if(dd<10){
-                  dd='0'+dd
-              }
-              if(mm<10){
-                  mm='0'+mm
-              }
-
-          today = yyyy+'-'+mm+'-'+dd;
-          document.getElementById("datefallecido").max=today;
-          } else {
-          var url_mask = "{% url 'crear_nps' object.pk 'x' 'y' %}"
-          url_mask=url_mask.replace('x', c.toString());
-          if ( f == "" ){
-          f="None";
-          }
-          url_mask=url_mask.replace('y', f.toString());
-          window.location=url_mask;
-          }
-      }
-      </script>
+      {% if perms.paciente.can_ver_radiologia %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#radiologia" {% if not object.radiologia or object.radiologia.fecha_procedimiento == None  %} style="color:orange" {% endif %} >Traslado a Radiología</a>
+      </li>
       {% endif %}
+      {% if perms.paciente.can_ver_bold %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#bold" {% if not object.bold or object.bold.fechaimg == None  %} style="color:orange" {% endif %}>Checklist BOLD</a>
+      </li>
       {% endif %}
-      {% elif object.valorablenps and object.valorablenps.valorable == False %}
-      <br>
-      <ul>
-        <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
-        <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
-        {% tiempoeventoprincipal object as tep %}
+      {% if perms.paciente.can_ver_informante %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#informante" {% if not object.informante or object.informante.fechaentrevista == None  %} style="color:orange" {% endif %}>Neuropsicología Informante</a>
+      </li>
+      {% endif %}
+      {% if perms.paciente.can_ver_lectura %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#lectura" {% if not object.lectura_resonancia  %} style="color:orange" {% endif %}>Lectura Resonancia</a>
+      </li>
+      {% endif %}
 
-        {% if object.valorablenps.razon != "Fallecido" and tep %}
-        <br>
-        <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>
-        <br>
-        <p>Posible Antes de los 6 meses desde el evento principal </p>
+    {% if perms.fileupload.add_picture %}
+        {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen and object.inscrito == True%}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#imagen" {% if not object.imagen %} style="color:orange" {% endif %} >Imagen</a>
+      </li>
         {% endif %}
-      </ul>
-      {% else %}
-
-
-    <br>
-    {% if object.moca_set.all %}
-
-    {% if object.valorablenps and object.valorablenps.razon != "Fallecido" and object.valorablenps.razon != None %}
-
-      <ul>
-        <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
-        <li>Causa: {{object.valorablenps.razon}} </li>
-
-      </ul>
     {% endif %}
-  <div class="panel-group">
-    <div class="panel panel-default">
-      {% for moca in object.moca_set.all %}
-      {% if moca.fecha != None %}
 
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}} &nbsp;&nbsp;  Puntaje MOCA</b></a></h4>
+      {% if object.uci and object.uci.condicion_egreso == 'Vivo' and perms.paciente.can_ver_moca %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#moca">Neuropsicología Sujeto</a>
+      </li>
+      {% endif %}
+
+
+      {% endif %}
+      {% endif %}
+    </ul>
+    <div id="myTabContent" class="tab-content" >
+
+      <div class="tab-pane" id="estudio">
+        <form>
+        {% if not object.ingreso  or object.ingreso.fecha_form == None %}
+          <p class="text-danger">No se encontro información de Ingreso del Sujeto</p>
+          {% if perms.paciente.add_ingreso and object.inscrito == True %}
+          {% if object.ingreso %}
+          <button class="btn btn-primary" formaction="{% url 'ingreso_editar' object.ingreso.pk %}">Añadir</button>
+          {% else %}
+          <button class="btn btn-primary" formaction="{% url 'crear_ingreso' object.pk%}">Añadir</button>
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        </form>
+
+
+
+
+        {% if object.ingreso and object.ingreso.fecha_form != None  %}
+        <table class="table table-hover">
+
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha Ingreso</th>
+                  <td colspan="3">{{ object.ingreso.fecha_form }} </td>
+                </tr>
+                <tr class="table-active">
+                  <th>Lugar de Nacimiento</th>
+                  <td>{{ object.ingreso.lugar_nacimiento }} </td>
+                    <th>Lugar de Residencia</th>
+                  <td>{{ object.ingreso.lugar_residencia }} </td>
+                </tr>
+                {% if user.groups.all.0.name == 'Coordinador' %}
+                <tr class="table-active">
+                  <th>Dirección</th>
+                  <td>{{ object.ingreso.direccion }} </td>
+                  <th>Acompañante</th>
+                  <td>{{ object.ingreso.nombre_acompanante }} </td>
+                </tr>
+                <tr class="table-active">
+                  <th>Teléfono de contacto 1</th>
+                  <td>{{ object.ingreso.tel1 }} </td>
+                  <th>Teléfono de contacto 2</th>
+                  {% if object.ingreso.tel2 == None %}
+                  <td>Desconocido</td>
+                  {% else %}
+                  <td>{{ object.ingreso.tel2 }}</td>
+                  {% endif %}
+                </tr>
+                {% endif %}
+                <tr class="table-active">
+                  <th>Peso</th>
+                  <td>{{ object.ingreso.peso }} Kg</td>
+                  <th>Altura</th>
+                  <td>{{ object.ingreso.estatura }} cms</td>
+                </tr>
+                <tr>
+                  <th>Nivel educativo</th>
+                  <td >{{ object.ingreso.n_educativo }} </td>
+                  <th>Lateralidad</th>
+                  <td >{{ object.ingreso.lateralidad }} </td>
+                </tr>
+                <tr class="table-primary">
+                  <th>Estado de conciencia </th>
+                  <td>{{ object.ingreso.conciencia }}</td>
+                  <th>Sedado por neuroprotección</th>
+                  <td>{% if object.ingreso.sedado == True %} Sí {% else %} No {% endif %}</td>
+                </tr>
+
+                <tr class="table-success">
+                  <th>Antecedentes Patológicos</th>
+                  <td >
+                      {% if object.ingreso.a_patologicos.all|length != 0 %}
+                      {% for p in  object.ingreso.a_patologicos.all %}
+                        <p>{% if p.nombre == 'Otro' %}{{object.ingreso.a_patologicos_cual}}{% else %}{{ p }}{% endif%}</p>
+                      {% endfor %}
+                      {% else %}
+                      Ninguno
+                      {% endif %}
+                  </td>
+                  <th>Antecedentes Familiares relevantes:</th>
+                  <td >{% if object.ingreso.a_familiares != None %}{{ object.ingreso.a_familiares }}{% else%} Ninguno {% endif %}</td>
+                </tr>
+                <tr class="table-secondary">
+                  <th>Antecedentes quirúrgicos</th>
+                  <td>
+                      {% if object.ingreso.fecha_craneotomia == None and object.ingreso.causa_quirurgicos == None %} Ninguno {% endif%}
+                      {% if object.ingreso.fecha_craneotomia != None %}<p>Craneotomía el {{ object.ingreso.fecha_craneotomia }}</p>{% endif %}
+                      {% if object.ingreso.causa_quirurgicos != None %}<p>Otras Causas: {{ object.ingreso.causa_quirurgicos }}</p>{% endif %}
+                  </td>
+                  <th>Antecedentes Tóxico alérgicos:</th>
+                  <td>{% if object.ingreso.a_toxico_alergenicos != None %}{{ object.ingreso.a_toxico_alergenicos }}{% else%} Ninguno {% endif %}</td>
+                </tr>
+                <tr class="table-success">
+                  <th rowspan="2">Antecedentes Farmacológicos:</th>
+                  {% if object.ingreso.a_farmaco1 != None %}
+                  <td >{{ object.ingreso.a_farmaco1 }}</td>
+                  <th>Dosis total/día</th>
+                  <td>{{ object.ingreso.a_farmaco1_dosis }}</td>
+                  {% else %}
+                  <td colspan="3">Ninguno</td>
+                  {% endif %}
+                </tr>
+
+                <tr class="table-success">
+                  {% if object.ingreso.a_farmaco2 != None %}
+                  <td >{{ object.ingreso.a_farmaco2 }}</td>
+                  <th>Dosis total/día</th>
+                  <td>{{ object.ingreso.a_farmaco2_dosis }}</td>
+                  {% endif %}
+                </tr>
+
+                <tr class="table-success">
+                  {% if object.ingreso.firma_consentimiento == True %}
+                  <th>Firma de consentimiento informado</th>
+                  <td colspan="3">Sí, el {{object.ingreso.fechafirma}}</td>
+                  {% else %}
+                  <th>Firma de consentimiento informado</th>
+                  <td >No</td>
+                  <th>Causa</th>
+                  <td >{{ object.ingreso.firma_causa }}</td>
+                  {% endif %}
+                </tr>
+              </tbody>
+            </table>
+          {% if perms.paciente.change_ingreso and object.inscrito == True %}
+        <form>
+          <button class="btn btn-primary" formaction="{% url 'ingreso_editar' object.ingreso.pk%}">Editar</button>
+          </form>
+          {% endif %}
+        {% endif %}
+      </div>
+       <div class="tab-pane" id="radiologia">
+
+
+         <form>
+           {% if object.get_radio %}
+
+           <table class="table table-hover">
+             <thead>
+             <tr>
+               <th>Fecha</th>
+               <th>Motivo no transportable</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for rf in object.get_radio %}
+             <tr>
+             <td>{{rf.fecha}}</td> <td>{{rf.razon}}</td>
+             </tr>
+           {% endfor %}
+             </tbody>
+           </table>
+
+           {% endif %}
+
+
+         {% if not object.radiologia or object.radiologia.fecha_procedimiento == None %}
+          <p class="text-danger">No se encontro información de  Traslado a Radiología del Sujeto</p>
+         {% if perms.paciente.add_radiologia and object.inscrito == True %}
+          <label>Transportable   &nbsp;</label><a class="btn btn-primary" onclick="con()" >No</a>
+          <script >
+          function con() {
+
+              var a = prompt("Motivo:", "");
+              var n = a.length;
+
+              while (n>95 || n == 0 ) {
+                  var a = prompt("Motivo:", "");
+                  var n = a.length;
+              }
+              a=a.replace(/ /g,"_");
+              var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
+              window.location=url_mask;
+          }
+          </script>
+          {% if object.radiologia %}
+          <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Si</button>
+          {% else %}
+          <button class="btn btn-primary" formaction="{% url 'crear_radiologia' object.pk%}">Si</button>
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        </form>
+
+
+        {% if object.radiologia and object.radiologia.fecha_procedimiento != None %}
+        <table class="table table-hover">
+
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de procedimiento</th>
+                  <td >{{ object.radiologia.fecha_procedimiento }} </td>
+                  <th>Anestesiólogo</th>
+                  <td>{{ object.radiologia.radiologo }}</td>
+                </tr>
+
+                <tr>
+                  <th colspan="4" style="color:blue;">Pretransporte</th>
+                </tr>
+
+                <tr class="table-active">
+                  <th>Transportable</th>
+                  <td>{{ object.radiologia.transportable }} </td>
+                    <th>Hora inicio</th>
+                  <td>{{ object.radiologia.hora_inicio }} </td>
+                </tr>
+                <tr>
+                  <th>Personal de Acompañamiento</th>
+                  <td>
+                    {% if object.radiologia.jefe_enfermeria == 'SI' %}
+                      Jefe de enfermería <br>
+                    {% endif %}
+                    {% if object.radiologia.aux_enfermeria == 'SI' %}
+                      Auxiliar de enfermería <br>
+                    {% endif %}
+                    {% if object.radiologia.medico_uci == 'SI' %}
+                      Médico UCI <br>
+                    {% endif %}
+                    {% if object.radiologia.anestesiologo == 'SI' %}
+                      Anestesiólogo <br>
+                    {% endif %}
+                    {% if object.radiologia.terapeuta_respiratorio == 'SI' %}
+                      Terapeuta Respiratorio <br>
+                    {% endif %}
+                  </td>
+                  <th>Soporte</th>
+                  <td>
+                    {% if object.radiologia.vmi == 'SI' %}
+                      VMI <br>
+                    {% endif %}
+                    {% if object.radiologia.vasopresor == 'SI' %}
+                      Vasopresor <br>
+                    {% endif %}
+                    {% if object.radiologia.ionotropico == 'SI' %}
+                      Ionotrópico <br>
+                    {% endif %}
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="4" style="color:blue;">Monitoreo de transporte UCI - Radiología</th>
+                </tr>
+                <tr>
+                  <td></td><th colspan="2">Signos vitales</th>
+                </tr>
+                {% if object.radiologia.ur_pulsoximetro == 'SI' %}
+                  <tr>
+                    <td>Pulsoxímetro</td>
+                    <td colspan="2">{{object.radiologia.ur_pulsoximetro_sv}}%</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_frecuencia_cardiaca == 'SI' %}
+                  <tr>
+                    <td >Frecuencia cardíaca</td>
+                    <td colspan="2">{{object.radiologia.ur_frecuencia_cardiaca_sv}} latidos/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_frecuencia_respiratoria == 'SI' %}
+                  <tr>
+                    <td >Frecuencia respiratoria</td>
+                    <td colspan="2">{{object.radiologia.ur_frecuencia_respiratoria_sv}} respiraciones/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_visoscopio == 'SI' %}
+                  <tr>
+                    <td >Visoscopio</td>
+                    <td colspan="2">{{object.radiologia.ur_visoscopio_sv}}</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_tension == 'SI' %}
+                  <tr>
+                    <td >Tensión arterial</td>
+                    <td colspan="2">{{object.radiologia.ur_tension_sv}} mmhg</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.monitoreo == 'SI'%}
+                <tr>
+                  <th colspan="4" style="color:blue;">Monitoreo neurológico</th>
+                </tr>
+                <tr>
+                  <th>#PIC</th><td>{{object.radiologia.pic}}</td>
+                  <th>#PPC</th><td>{{object.radiologia.ppc}}</td>
+                </tr>
+                {% if object.radiologia.medicamentos_emergencia == 'SI' %}
+                  <th>Medicamentos de emergencia</th>
+                  <td>{{object.radiologia.me_cual}}</td>
+                  <th>Dosis total</th>
+                  <td>{{object.radiologia.me_dosis}}</td>
+                {% endif %}
+                <tr>
+                {% endif %}
+                  <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
+                </tr>
+                <tr>
+                  <td></td><th>Dosis total</th><th colspan="2">Signos vitales</th>
+                </tr>
+                <tr>
+                  {% if object.radiologia.sedacion == 'SI' %}
+                    <td >Sedación</td>
+                    <td >{{object.radiologia.sedacion_dt}}</td>
+                  {%else%}
+                  <td></td><td></td>
+                  {% endif %}
+                    <td colspan="2">{{object.radiologia.sedacion_sv}}%</td>
+                </tr>
+                <tr>
+                  {% if object.radiologia.analgesia == 'SI' %}
+                    <td >Analgesia</td>
+                    <td >{{object.radiologia.analgesia_dt}}</td>
+                  {%else%}
+                  <td></td><td></td>
+                  {% endif %}
+                    <td colspan="2">{{object.radiologia.analgesia_sv}} latidos/min</td>
+                </tr>
+                <tr>
+                  {% if object.radiologia.relajacion == 'SI' %}
+                    <td >relajacion</td>
+                    <td >{{object.radiologia.relajacion_dt}}</td>
+                  {%else%}
+                  <td></td><td></td>
+                  {% endif %}
+                    <td colspan="2">{{object.radiologia.relajacion_sv}} respiraciones/min</td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <td colspan="2">{{object.radiologia.svadicional1}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <td colspan="2">{{object.radiologia.svadicional2}} mmhg</td>
+                </tr>
+
+
+
+                {% if object.radiologia.otra_medicacion == 'SI' %}
+                  <th>Otra medicación administrada durante el procedimiento</th>
+                  <td>{{object.radiologia.otra_medicacion_cual}}</td>
+                  <th>Dosis total</th>
+                  <td>{{object.radiologia.otra_medicacion_dt}}</td>
+                {% endif %}
+
+                <tr>
+                  <th colspan="4" style="color:blue;">Monitoreo de transporte Radiología - UCI</th>
+                </tr>
+                <tr>
+                  <td></td><th>Signos vitales</th>
+                </tr>
+                {% if object.radiologia.ru_pulsoximetro == 'SI' %}
+                  <tr>
+                    <td>Pulsoxímetro</td>
+                    <td colspan="2">{{object.radiologia.ru_pulsoximetro_sv}}%</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_frecuencia_cardiaca == 'SI' %}
+                  <tr>
+                    <td >Frecuencia cardíaca</td>
+                    <td colspan="2">{{object.radiologia.ru_frecuencia_cardiaca_sv}} latidos/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_frecuencia_respiratoria == 'SI' %}
+                  <tr>
+                    <td >Frecuencia respiratoria</td>
+                    <td colspan="2">{{object.radiologia.ru_frecuencia_respiratoria_sv}} respiraciones/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_visoscopio == 'SI' %}
+                  <tr>
+                    <td >Visoscopio</td>
+                    <td colspan="2">{{object.radiologia.ru_visoscopio_sv}}</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_tension == 'SI' %}
+                  <tr>
+                    <td >Tensión arterial</td>
+                    <td colspan="2">{{object.radiologia.ru_tension_sv}} mmhg</td>
+                  </tr>
+                {% endif %}
+
+              <tr>
+                <th>Tiempo de resonancia</th>
+                <td>{{object.radiologia.tiempo_sesonacia}} minutos</td>
+                <th>Hora de llegada a UCI</th>
+                <td>{{object.radiologia.hora_llegada}}</td>
+              </tr>
+              {% if object.radiologia.complicaciones == 'SI'%}
+              <tr>
+                <th >Complicaciones derivadas del transporte</th>
+                <td colspan="3">{{object.radiologia.complicaciones_cuales}}</td>
+              </tr>
+
+              {% endif %}
+
+              </tbody>
+            </table>
+         {% if perms.paciente.change_radiologia and object.inscrito == True %}
+         <form>
+          <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Editar</button>
+         </form>
+         {% endif %}
+        {% endif %}
+      </div>
+    <div class="tab-pane"  id="uci">
+          {% if not object.uci %}
+          <p class="text-danger">No se encontro información de  Uci</p>
+            {% if perms.paciente.add_uci and object.inscrito == True %}
+              <form>
+              <button class="btn btn-primary" formaction="{% url 'crear_uci' object.pk %}">Añadir</button>
+              </form>
+              {% endif %}
+
+          {% else %}
+
+          {% if object.uci.fechauci != None %}
+
+              <table class="table table-hover">
+
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha </th>
+                  <td>{{ object.uci.fechauci }} </td>
+                  <th>Hora</th>
+                  <td>{{ object.uci.horauci }} </td>
+                </tr>
+                <tr>
+                  <th>Glasgow de seguimiento</th>
+                  <td>
+                    <p>Apertura ocular: {{ object.uci.apertura_ocular }}</p>
+                    <p>Respuesta motora: {{ object.uci.respuesta_motora }}</p>
+                    <p>Respuesta verbal: {{ object.uci.respuesta_verbal }}</p>
+                  </td>
+                  <th>Glasgow total </th>
+                  <td>{{ object.uci.glasgowtotal }}</td>
+                </tr>
+              <tr>
+                <th>Falla orgánica</th>
+                <td>{% if object.uci.fallaorganica == "SI" %} Sí, {{object.uci.fallaorganica_cual}} {% else %} No {% endif %}</td>
+                <th>Sepsis</th>
+                <td>{% if object.uci.sepsis == "SI" %} Sí  {% else %} No {% endif %}</td>
+              </tr>
+              <tr>
+                <th>Presión intracraneana</th>
+                <td>{% if object.uci.presion_intracraneana == "SI" %} Sí {% else %} No {% endif %}</td>
+                <th>Monitoría PIC</th>
+                <td>{% if object.uci.monitoria_pic == "SI" %} Sí  {% else %} No {% endif %}</td>
+              </tr>
+              <tr>
+                <th>Ventilación mecánica</th>
+                <td>{% if object.uci.ventilacionmecanica == "SI" %} Sí {% else %} No {% endif %}</td>
+                <th>Soporte vasopresor</th>
+                <td>{% if object.uci.soportevasopresor == "SI" %} Sí,
+                  con: <p>{% if object.uci.noradrenalina == "SI" %} Noradrenalina >0.5 Mcg Kg Min  {% endif %}</p>
+                  <p>{% if object.uci.vasopresina == "SI" %} Vasopresina >2UI IV Hora  {% endif %}</p>
+                  <p>{% if object.uci.adrenalina == "SI" %} Adrenalina. {% endif %}</p>
+                  {% else %} No {% endif %}</td>
+              </tr>
+              <tr>
+                <th>Sedación</th>
+                {% if  object.uci.midazolan == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+                <td>
+                  <p>{% if object.uci.midazolan == "SI" %} Midazolam : {{object.uci.midazolan_dt }} {% endif %} </p>
+                  <p>{% if object.uci.tiopental == "SI" %} Tiopental : {{object.uci.tiopental_dt }} {% endif %} </p>
+                  <p>{% if object.uci.dexmedetomidina == "SI" %} Dexmedetomidina : {{object.uci.dexmedetomidina_dt }} {% endif %} </p>
+                </td>
+                {% else %}
+                <td>Ninguna</td>
+                {% endif %}
+
+                <th>Analgesia</th>
+                {% if  object.uci.morfina == "SI"  or  object.uci.tiopental == "SI" or object.uci.dexmedetomidina == "SI"  %}
+                <td>
+                  <p>{% if object.uci.morfina == "SI" %} Morfina : {{object.uci.morfina_dt }} {% endif %} </p>
+                  <p>{% if object.uci.hidromorfona == "SI" %} Hidromorfona : {{object.uci.hidromorfona_dt }} {% endif %} </p>
+                  <p>{% if object.uci.fentanyl == "SI" %} Fentanyl : {{object.uci.fentanyl_dt }} {% endif %} </p>
+                </td>
+                {% else %}
+                <td>Ninguna</td>
+                {% endif %}
+
+              </tr>
+
+              <tr>
+                <th>Anticonvulsivantes</th>
+                {% if  object.uci.fenitoina == "SI"  or  object.uci.topiramato == "SI" or object.uci.acido_valproico == "SI" or object.uci.levetiracetam == "SI" or object.uci.lacosamida == "SI"  %}
+                <td>
+                  <p>{% if object.uci.fenitoina == "SI" %} Fenitoina : {{object.uci.fenitoina_dt }} {% endif %} </p>
+                  <p>{% if object.uci.topiramato == "SI" %} Topiramato : {{object.uci.topiramato_dt }} {% endif %} </p>
+                  <p>{% if object.uci.acido_valproico == "SI" %} Acido valproico : {{object.uci.acido_valproico_dt }} {% endif %} </p>
+                  <p>{% if object.uci.levetiracetam == "SI" %} Levetiracetam : {{object.uci.levetiracetam_dt }} {% endif %} </p>
+                  <p>{% if object.uci.lacosamida == "SI" %} Lacosamida : {{object.uci.lacosamida_dt }} {% endif %} </p>
+                </td>
+                {% else %}
+                <td>Ninguna</td>
+                {% endif %}
+
+                <th>Antipsicóticos</th>
+                {% if  object.uci.clozapina == "SI"  or  object.uci.haloperidol == "SI" or object.uci.ketiapina == "SI"  %}
+                <td>
+                  <p>{% if object.uci.clozapina == "SI" %} Clozapina : {{object.uci.clozapina_dt }} {% endif %} </p>
+                  <p>{% if object.uci.haloperidol == "SI" %} Haloperidol : {{object.uci.haloperidol_dt }} {% endif %} </p>
+                  <p>{% if object.uci.ketiapina == "SI" %} Ketiapina : {{object.uci.ketiapina_dt }} {% endif %} </p>
+                </td>
+                {% else %}
+                <td>Ninguna</td>
+                {% endif %}
+
+              </tr>
+
+              <tr>
+                <th>Moduladores del ánimo</th>
+                {% if  object.uci.carbamacepina == "SI"  or  object.uci.carbonato_litio == "SI" %}
+                <td colspan="3">
+                  <p>{% if object.uci.carbamacepina == "SI" %} Carbamacepina : {{object.uci.carbamacepina_dt }} {% endif %} </p>
+                  <p>{% if object.uci.carbonato_litio == "SI" %} Carbonato de Litio : {{object.uci.carbonato_litio_dt }} {% endif %} </p>
+                </td>
+                {% else %}
+                <td colspan="3">Ninguna</td>
+                {% endif %}
+
+              </tr>
+
+              <tr>
+                <th>Valorable por Neurología</th>
+                <td colspan="3">{% if object.uci.valorable_neuro == "NO" %} No, {{object.uci.valorable_neuro_causa}} {% else %} Sí {% endif %}</td>
+              </tr>
+                {% if object.uci.valorable_neuro == "NO" %}
+              <tr>
+                <th>Paciente en condiciones de continuar en el estudio</th>
+                <td colspan="3">{% if object.uci.continua_studio == "SI" %} Sí {% else %} No {% endif %}</td>
+              </tr>
+                {% endif %}
+
+              </tbody>
+            </table>
+
+            {% if object.uci.glasgowtotal_e != '0' %}
+            <legend>Evaluación de egreso UCI</legend>
+              <table class="table table-hover">
+                <tbody>
+                <tr>
+                  <th>Fecha del Egreso de la UCI</th>
+                  <td>{{object.uci.fechaegreso}}</td>
+                  <th>Hora</th>
+                  <td>{{object.uci.horaegreso}}</td>
+                </tr>
+                <tr>
+                  <th>Condición de egreso de UCI</th>
+                  <td>{{object.uci.condicion_egreso}}</td>
+                  <th>Dx de egreso</th>
+                  <td>{{object.uci.dx_egreso}}</td>
+                </tr>
+                {% if object.uci.condicion_egreso == 'Fallecido' %}
+                <tr>
+                  <th>Causa de mortalidad</th>
+                  <td>{{object.uci.causa_mortalidad}}</td>
+                  <td>Fecha: {{object.uci.fechamortalidad}}</td>
+                  <td>Hora: {{object.uci.horamortalidad}}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>Glasgow de egreso UCI</th>
+                  <td>
+                    <p>Apertura ocular: {{ object.uci.apertura_ocular_e }}</p>
+                    <p>Respuesta motora: {{ object.uci.respuesta_motora_e }}</p>
+                    <p>Respuesta verbal: {{ object.uci.respuesta_verbal_e }}</p>
+                  </td>
+                  <th>Glasgow total </th>
+                  <td>{{ object.uci.glasgowtotal_e }}</td>
+                </tr>
+
+                </tbody>
+
+              </table>
+            {% endif %}
+      <form>
+            {% if perms.paciente.change_uci and object.uci.glasgowtotal_e == '0' and object.inscrito == True %}
+
+            <button class="btn btn-primary" formaction="{% url 'uci_editar' object.uci.pk %}">Realizar Evaluación de Egreso</button>
+
+              {% endif %}
+      </form>
+
+
+          {% else %}
+          <p class="text-danger">No se encontro información de  Uci</p>
+            {% if perms.paciente.add_uci and object.inscrito == True %}
+              <form>
+              <button class="btn btn-primary" formaction="{% url 'uci_editar' object.uci.pk %}">Añadir</button>
+              </form>
+              {% endif %}
+          {% endif %}
+
+
+          {% endif %}
+
+
+
+
+
+
+     </div>
+
+    <div class="tab-pane"  id="neurologia">
+
+
+          <form>
+          {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %}
+          <p class="text-danger">No se encontro información Neurológica del Sujeto</p>
+          {% if perms.paciente.add_neurologia and object.inscrito == True %}
+          <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir</button>
+          {% endif %}
+          {% endif %}
+          </form>
+
+          {% if object.get_neuro %}
+
+      <div class="panel-group">
+        <div class="panel panel-default">
+          {% for neuro in object.get_neuro %}
+          {% if neuro.fechaneuro != None %}
+
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#expand{{ forloop.counter0 }}"><b>{{neuro.fechaneuro}}</b></a>
+              {% if neuro.epileptico == "SI" and neuro.fechaeeg == None %}
+              <a style="color:red;">Falta información EEG</a>
+              {% endif%}
+            </h4>
+          </div>
+          <div id="expand{{ forloop.counter0 }}" class="panel-collapse collapse">
+            <div class="panel-body">
+              {% if neuro.epileptico == "SI" and neuro.fechaeeg == None and perms.paciente.change_neurologia %}
+
+              <a type="button" class="btn btn-link" onclick="location.href = '{% url 'neurologia_editar' neuro.pk %}'">Rellenar información EEG</a>
+
+                {% endif%}
+              <table class="table table-hover">
+
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha </th>
+                  <td>{{ neuro.fechaneuro }} </td>
+                  <th>Neurólogo</th>
+                  <td>{{ neuro.neurologo }} </td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="color:blue">COMA RECOVERY SCALE-REVISED</td>
+                </tr>
+              <tr>
+                <th>Escala de función auditiva</th>
+                <td>
+                  ({{neuro.auditiva}})
+                  {% if neuro.auditiva == '4' %} Movimiento consistente a la orden
+                  {% elif neuro.auditiva == '3' %} Reproduce movimiento a la orden
+                  {% elif neuro.auditiva == '2' %} Localiza el sonido
+                  {% elif neuro.auditiva == '1' %} Percibe pero no localiza (Sobresalto auditivo)
+                  {% elif neuro.auditiva == '0' %} No hay respuesta
+
+                  {% endif %}
+                </td>
+                <th>Escala de función visual</th>
+                <td>
+                  ({{neuro.visual}})
+                  {% if neuro.visual == '5' %} Reconoce el objeto
+                  {% elif neuro.visual == '4' %} Localiza el objeto: alcanza
+                  {% elif neuro.visual == '3' %} Seguimiento visual
+                  {% elif neuro.visual == '2' %} Fijación visual
+                  {% elif neuro.visual == '1' %} Sobresalto visual
+                  {% elif neuro.visual == '0' %} No hay respuesta
+
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Escala de función motora</th>
+                <td>
+                  ({{neuro.motora}})
+                  {% if neuro.motora == '6' %} Uso funcional del objeto
+                  {% elif neuro.motora == '5' %} Respuesta motora automática
+                  {% elif neuro.motora == '4' %} Manipulación de objetos
+                  {% elif neuro.motora == '3' %} Localización de estímulos dolorosos
+                  {% elif neuro.motora == '2' %} Retirada flexora
+                  {% elif neuro.motora == '1' %} Postura anormal
+                  {% elif neuro.motora == '0' %} No hay respuesta/flacidez
+
+                  {% endif %}
+                </td>
+                <th>Escala de función oromotora/verbal</th>
+                <td>
+                  ({{neuro.verbal}})
+                  {% if neuro.verbal == '3' %} Verbalización entendible
+                  {% elif neuro.verbal == '2' %} Movimientos orales/vocalizaciones
+                  {% elif neuro.verbal == '1' %} Movimientos orales reflejos
+                  {% elif neuro.verbal == '0' %} No hay respuesta
+
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Escala de comunicación</th>
+                <td>
+                  ({{neuro.comunicacion}})
+                  {% if neuro.comunicacion == '2' %} Funcional: Adecuada
+                  {% elif neuro.comunicacion == '1' %} No funcional: Intencional
+                  {% elif neuro.comunicacion == '0' %} No hay respuesta
+
+                  {% endif %}
+                </td>
+                <th>Escala de nivel de alerta</th>
+                <td>
+                  ({{neuro.alerta}})
+                  {% if neuro.alerta == '3' %} Alerta y atento
+                  {% elif neuro.alerta == '2' %} Apertura ocular espontánea
+                  {% elif neuro.alerta == '1' %} Apertura ocular con estimulación
+                  {% elif neuro.alerta == '0' %} No hay respuesta
+
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <td colspan="3">{{ neuro.total1 }}</td>
+              </tr>
+
+              <tr>
+                  <td colspan="4" style="color:blue">Full Outline of UnResponsiveness FOUR</td>
+                </tr>
+              <tr>
+                <th>Apertura ocular</th>
+                <td>
+                  ({{neuro.aperturaocular}})
+                  {% if neuro.aperturaocular == '4' %} Dirige la mirada en respuesta a órdenes
+                  {% elif neuro.aperturaocular == '3' %} Espontánea pero no dirige la mirada
+                  {% elif neuro.aperturaocular == '2' %} Apertura a estímulos sonoros intensos
+                  {% elif neuro.aperturaocular == '1' %} Apertura a estímulos nociceptivos
+                  {% elif neuro.aperturaocular == '0' %} Ojos cerrados al dolor
+                  {% endif %}
+                </td>
+                <th>Respuesta Motora</th>
+                <td>
+                  ({{neuro.respuestamotora}})
+                  {% if neuro.respuestamotora == '4' %} Obedece órdenes
+                  {% elif neuro.respuestamotora == '3' %} Localiza estímulos dolorosos
+                  {% elif neuro.respuestamotora == '2' %} Respuesta flexora al dolor en MMSS (Decorticación y retirada)
+                  {% elif neuro.respuestamotora == '1' %} Respuesta extensora al dolor (Descerebración)
+                  {% elif neuro.respuestamotora == '0' %} Ninguna o Estado mioclónico generalizado
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Reflejos del Tronco</th>
+                <td>
+                  ({{neuro.reflejos}})
+                  {% if neuro.reflejos == '4' %} Ambos reflejos corneales y fotomotores presentes
+                  {% elif neuro.reflejos == '3' %} Reflejo motor ausente unilateral
+                  {% elif neuro.reflejos == '2' %} Reflejos corneales <b>o</b> fotomotores ausentes
+                  {% elif neuro.reflejos == '1' %} Reflejos corneales <b>y</b> fotomotores ausentes
+                  {% elif neuro.reflejos == '0' %} Reflejos corneales, fotomotores y tusígeno ausentes
+                  {% endif %}
+                </td>
+                <th>Respiración</th>
+                <td>
+                  ({{neuro.respiracion}})
+                  {% if neuro.respiracion == '4' %} No intubado, respiración rítmica
+                  {% elif neuro.respiracion == '3' %} No intubado, respiración de Cheyene- Stokes
+                  {% elif neuro.respiracion == '2' %} No intubado, respiración irregular
+                  {% elif neuro.respiracion == '1' %} Intubado, respira por encima de la frecuencia del respirador
+                  {% elif neuro.respiracion == '0' %} Intubado, respira a la frecuencia del respirador o apnea
+                  {% endif %}
+                </td>
+              <tr>
+                  <th>Total</th>
+                  <td>{{neuro.total2}}</td>
+                  <th>Resultado</th>
+                  <td>
+                    <script>
+                      var x="{{neuro.total2}}";
+                      x=parseInt(x);
+                      if ( x < 8 ){
+                      document.write("Severa injuria cerebral");
+                      }
+                      if ( x > 7 && x < 13 ){
+                      document.write("Moderada injuria cerebral");
+                      }
+                      if ( x > 12 ){
+                      document.write("Leve injuria cerebral");
+                      }
+
+
+                    </script>
+                  </td>
+                </tr>
+              <tr>
+                <th colspan="2">Dx Estado de conciencia</th>
+                <td colspan="2">{{neuro.estadoconciencia}}</td>
+              </tr>
+              <tr>
+                <th colspan="2">Sospecha de estatus epiléptico no convulsivo</th>
+                <td colspan="2">{{neuro.epileptico}}</td>
+              </tr>
+
+                {% if neuro.epileptico == "SI" and neuro.fechaeeg != None %}
+              <tr>
+                <th>Toma EEG</th>
+                <td>{{neuro.fechaeeg}}</td>
+                <th>Resultado EEG</th>
+                <td>{{neuro.resultadoeeg}}</td>
+              </tr>
+              {% endif %}
+
+
+              </tbody>
+            </table>
+
+            </div>
+
+          </div>
+          <br>
+
+          {% endif %}
+          {% endfor%}
+        </div>
       </div>
 
-      <div id="mo{{ forloop.counter0 }}" class="panel-collapse collapse">
-        <div class="panel-body">
 
+          {% if perms.paciente.add_neurologia and object.inscrito == True and object.get_neuro.0.fechaneuro != None %}
+          <form>
+          <button class="btn btn-primary" formaction="{% url 'crear_neurologia' object.pk %}">Añadir nueva valoración neurológica</button>
+          </form>
+          {% endif %}
+        {% endif %}
+
+     </div>
+    <div class="tab-pane"  id="bold">
+      <form>
+          {% if not object.bold or object.bold.fechaimg == None %}
+          <p class="text-danger">No se encontro información del protocolo</p>
+          {% if perms.paciente.add_bold and object.inscrito == True %}
+          {% if object.bold %}
+          <button class="btn btn-primary" formaction="{% url 'bold_editar' object.bold.pk %}">Añadir</button>
+          {% else %}
+          <button class="btn btn-primary" formaction="{% url 'crear_bold' object.pk %}">Añadir</button>
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        </form>
+
+
+          {% if object.bold and object.bold.fechaimg != None %}
           <table class="table table-hover">
-      <tbody>
-       <tr>
-          <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
-      </tr>
 
-      <tr>
-          <th style="vertical-align: middle;">Función visoespacial</th>
-          <td>{{moca.funcion_visoespacial}}/5</td>
-          <th style="vertical-align: middle;">Identificación</th>
-          <td>{{moca.identificacion}}/3</td>
-      </tr>
-      <tr>
-          <th style="vertical-align: middle;">Atención</th>
-          <td>
-              <table>
-                  <tbody>
-                  <tr>
-                      <td style="vertical-align: middle;">Número</td><td>{{moca.atencion_numero}}/2</td>
-                  </tr>
-                  <tr><td style="vertical-align: middle;">Letras</td><td>{{moca.atencion_letras}}/1</td></tr>
-                  <tr>
-                      <td style="vertical-align: middle;">Resta</td><td>{{moca.atencion_resta}}/3</td>
-                  </tr>
-                  </tbody>
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de captura de imágenes </th>
+                  <td>{{ object.bold.fechaimg }} </td>
+                  <th>Responsable</th>
+                  <td>{{ object.bold.responsable }}</td>
+                </tr>
+              <tr>
+                <th>Captura en CD</th>
+                <td colspan="3">{% if object.bold.cd == True %} Sí {% else %} No {% endif %}</td>
+              </tr>
+
+              </tbody>
+            </table>
+          <legend>Parámetros del protocolo de adquisición de imágenes</legend>
+          <table class="table table-hover">
+
+              <tbody>
+                <tr class="table-active">
+                  <th>AX T2 Prop </th>
+                  <td>
+                    {% if object.bold.axt2prop == True %}
+                    <p>{% if object.bold.axt2prop1 == True %} Plane: Oblique {% endif %}</p>
+                    <p>{% if object.bold.axt2prop2 == True %} FOV 22.0cm {% endif %}</p>
+                    <p>{% if object.bold.axt2prop3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                    <p>{% if object.bold.axt2prop4 == True %} Slice Spacing 1.0mm {% endif %}</p>
+                    <p>{% if object.bold.axt2prop5 == True %} TR 6000ms {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                  <th>DIFUSSION</th>
+                  <td>
+                    {% if object.bold.difussion == True %}
+                    <p>{% if object.bold.difussion1 == True %} Scan plane: Oblique {% endif %}</p>
+                    <p>{% if object.bold.difussion2 == True %} FOV 22.0 {% endif %}</p>
+                    <p>{% if object.bold.difussion3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                    <p>{% if object.bold.difussion4 == True %} Spacing 1.0mm {% endif %}</p>
+                    <p>{% if object.bold.difussion5 == True %} Freq Dir: R/L {% endif %}</p>
+                    <p>{% if object.bold.difussion6 == True %} TR 6000ms {% endif %}</p>
+                    <p>{% if object.bold.difussion7 == True %} Minimum TR 1000.0 {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                </tr>
+                <tr class="table-active">
+                  <th>RESTING </th>
+                  <td>
+                    {% if object.bold.resting == True %}
+                    <p>{% if object.bold.resting1 == True %} Scan plane: Axial {% endif %}</p>
+                    <p>{% if object.bold.resting2 == True %} FOV 28.8 {% endif %}</p>
+                    <p>{% if object.bold.resting3 == True %} Phase FOV 1.00 {% endif %}</p>
+                    <p>{% if object.bold.resting4 == True %} Slice Thickness 4.5mm {% endif %}</p>
+                    <p>{% if object.bold.resting5 == True %} Spacing 0.0mm {% endif %}</p>
+                    <p>{% if object.bold.resting6 == True %} Freq Dir: R/L {% endif %}</p>
+                    <p>{% if object.bold.resting7 == True %} TR 3000ms {% endif %}</p>
+                    <p>{% if object.bold.resting8 == True %} Minimum TR 89.0 {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                  <th>3D AX Obl T1</th>
+                  <td>
+                    {% if object.bold.obl == True %}
+                    <p>{% if object.bold.obl1 == True %} Scan plane: Axial {% endif %}</p>
+                    <p>{% if object.bold.obl2 == True %} FOV 25.0 {% endif %}</p>
+                    <p>{% if object.bold.obl3 == True %} Phase FOV 0.90 {% endif %}</p>
+                    <p>{% if object.bold.obl4 == True %} Slice Thickness 2.0mm {% endif %}</p>
+                    <p>{% if object.bold.obl5 == True %} Freq Dir: A/P {% endif %}</p>
+                    <p>{% if object.bold.obl6 == True %} Minimum TR 6.7 {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                </tr>
+
+                <tr class="table-active">
+                  <th>AX FLAIR </th>
+                  <td>
+                    {% if object.bold.flair == True %}
+                    <p>{% if object.bold.flair1 == True %} Scan plane: Oblique {% endif %}</p>
+                    <p>{% if object.bold.flair2 == True %} FOV 22.0 {% endif %}</p>
+                    <p>{% if object.bold.flair3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                    <p>{% if object.bold.flair4 == True %} Spacing 1.0mm {% endif %}</p>
+                    <p>{% if object.bold.flair5 == True %} Freq Dir: Unswap {% endif %}</p>
+                    <p>{% if object.bold.flair6 == True %} TR 9000ms {% endif %}</p>
+                    <p>{% if object.bold.flair7 == True %} Minimum TR 5000.0 {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                  <th>ASSET Cal</th>
+                  <td>
+                    {% if object.bold.cal == True %}
+                    <p>{% if object.bold.cal1 == True %} Scan plane: Axial {% endif %}</p>
+                    <p>{% if object.bold.cal2 == True %} FOV 30.0 {% endif %}</p>
+                    <p>{% if object.bold.cal3 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                    <p>{% if object.bold.cal4 == True %} Freq Dir: A/P {% endif %}</p>
+                    <p>{% if object.bold.cal5 == True %} Minimum TR 150.0 {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                </tr>
+
+              <tr class="table-active">
+                  <th>AXIAL SWI </th>
+                  <td>
+                    {% if object.bold.swi == True %}
+                    <p>{% if object.bold.swi1 == True %} Scan plane: Oblique {% endif %}</p>
+                    <p>{% if object.bold.swi2 == True %} FOV 22.0 {% endif %}</p>
+                    <p>{% if object.bold.swi3 == True %} Phase FOV 1.00 {% endif %}</p>
+                    <p>{% if object.bold.swi4 == True %} Slice Thickness 6.0mm {% endif %}</p>
+                    <p>{% if object.bold.swi5 == True %} Spacing 1.0mm {% endif %}</p>
+                    <p>{% if object.bold.swi6 == True %} Freq Dir: Unswap {% endif %}</p>
+                    <p>{% if object.bold.swi7 == True %} TR 4375ms {% endif %}</p>
+                    <p>{% if object.bold.swi8 == True %} Minimum TR 394.0 {% endif %}</p>
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                  <th>TENSOR AXI</th>
+                  <td>
+                    {% if object.bold.tensor == True %}
+                    <p>{% if object.bold.tensor1 == True %} Scan plane: Axial {% endif %}</p>
+                    <p>{% if object.bold.tensor2 == True %} FOV 25.0 {% endif %}</p>
+                    <p>{% if object.bold.tensor3 == True %} Phase FOV 1.00 {% endif %}</p>
+                    <p>{% if object.bold.tensor4 == True %} Slice Thickness 2.5mm {% endif %}</p>
+                    <p>{% if object.bold.tensor5 == True %} Spacing 0.0mm {% endif %}</p>
+                    <p>{% if object.bold.tensor6 == True %} Freq Dir: R/L {% endif %}</p>
+                    <p>{% if object.bold.tensor7 == True %} TR 17000ms {% endif %}</p>
+                    <p>{% if object.bold.tensor8 == True %} Minimum TR 1000 {% endif %}</p>
+
+                    {% else %}
+                    No
+                    {% endif %}
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+            <legend>Verificación de parámetros para postproceso</legend>
+
+          <div>
+
+            <div class="left">
+              <table class="table table-hover">
+                <tbody>
+                <tr>
+                  <th>T1</th>
+                  <td>{% if object.bold.t1A == False and object.bold.t1G == False and object.bold.t1M == False %}
+                      No {% endif %}</td>
+                </tr>
+                {% if object.bold.t1A == True %}
+                <tr>
+                  <td>Axial</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.t1G == True %}
+                <tr>
+                  <td>Grosor 2mm</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.t1M == True %}
+                <tr>
+                  <td>Movimiento</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>T2</th>
+                  <td>{% if object.bold.t2A == False and object.bold.t2M == False %}
+                      No {% endif %}</td>
+                </tr>
+                {% if object.bold.t2A == True %}
+                <tr>
+                  <td>Axial</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.t2M == True %}
+                <tr>
+                  <td>Movimiento</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>FLAIR</th>
+                  <td>{% if object.bold.flairA == False and object.bold.flairM == False %}
+                      No {% endif %}</td>
+                </tr>
+                {% if object.bold.flairA == True %}
+                <tr>
+                  <td>Axial</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.flairM == True %}
+                <tr>
+                  <td>Movimiento</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+
+                </tbody>
               </table>
-          </td>
-          <th style="vertical-align: middle;">Lenguaje</th>
-          <td>
-              <table>
-                  <tbody>
-                  <tr>
-                      <td style="vertical-align: middle;">Repite</td><td>{{moca.lenguaje_repite}}/2</td>
-                  </tr>
-                  <tr><td style="vertical-align: middle;">Fluidez</td><td>{{moca.lenguaje_fluidez}}/1</td></tr>
-                  </tbody>
+
+            </div>
+
+            <div class="right">
+
+              <table class="table table-hover">
+                <tbody>
+                <tr>
+                  <th>TENSOR - DWI</th>
+                  <td>{% if object.bold.tensorA == False and object.bold.tensord == False and object.bold.tensorG == False and object.bold.tensorM == False %}
+                      No {% endif %}</td>
+                </tr>
+                {% if object.bold.tensorA == True %}
+                <tr>
+                  <td>Axial</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.tensord == True %}
+                <tr>
+                  <td>30 direcciones</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.tensorG == True %}
+                <tr>
+                  <td>Grosor 2mm</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.tensorM == True %}
+                <tr>
+                  <td>Movimiento</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>fMRI RESTING</th>
+                  <td>{% if object.bold.restingA == False and object.bold.restingV == False and object.bold.restingG == False and object.bold.restingT == False and object.bold.restingM == False %}
+                      No {% endif %}</td>
+                </tr>
+                {% if object.bold.restingA == True %}
+                <tr>
+                  <td>Axial</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.restingV == True %}
+                <tr>
+                  <td>180 volúmenes</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.restingG == True %}
+                <tr>
+                  <td>Grosor 4.5mm</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.restingT == True %}
+                <tr>
+                  <td>TR 3000ms</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.restingM == True %}
+                <tr>
+                  <td>Movimiento</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                <tr>
+                  <th>DIFUSSION</th>
+                  <td>{% if object.bold.difussionA == False and object.bold.difussionM == False %}
+                      No {% endif %}</td>
+                </tr>
+                {% if object.bold.difussionA == True %}
+                <tr>
+                  <td>Axial</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                {% if object.bold.difussionM == True %}
+                <tr>
+                  <td>Movimiento</td>
+                  <td>Sí</td>
+                </tr>
+                {% endif %}
+                </tbody>
               </table>
-          </td>
-      </tr>
-      <tr>
-          <th style="vertical-align: middle;">Abstracción</th>
-          <td>{{moca.abstraccion}}/2</td>
-          <th style="vertical-align: middle;">Recuerdo Diferido</th>
-          <td>{{moca.recuerdo}}/5</td>
-      </tr>
-      <tr>
-          <th style="vertical-align: middle;">Orientación</th>
-          <td>{{moca.orientacion}}/6</td>
-          <th style="vertical-align: middle;">Total</th>
-          <td>{{moca.total}}/30</td>
-      </tr>
-      </tbody>
-    </table>
+
+            </div>
 
         </div>
 
-      </div>
-      <br>
 
-      {% endif %}
-      {% endfor%}
-    </div>
-  </div>
+          <div class="container">
+          {% if perms.paciente.change_bold and object.inscrito == True %}
+          <form>
+          <button class="btn btn-primary" formaction="{% url 'bold_editar' object.bold.pk %}">Editar</button>
+          </form>
+          {% endif %}
+          </div>
+          {% endif %}
+     </div>
 
-      <br>
-      {% tiempoeventoprincipal object as tep %}
-      {% if perms.paciente.add_moca and object.inscrito == True and tep %}
+
+
+    <div class="tab-pane"  id="informante">
+
+
+          {% if not object.informante or object.informante.fechaentrevista == None %}
+          <p class="text-danger">No se encontro información neuropsicológica </p>
+          {% if perms.paciente.add_informante and object.inscrito == True %}
       <form>
-      <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica (MOCA)</button>
-      <p>Posible Antes de los 6 meses desde el evento principal. </p>
+           {% if object.edad > 59 %}
+              {% if object.mayor %}
+              <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Añadir</button>
+              {% else %}
+              <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
+              {% endif %}
 
-      {% endif %}
-      <br>
-        {% if not object.neuropsi or object.neuropsi.fecha == None %}
-        {% if perms.paciente.add_moca and object.inscrito == True and tep %}
-      <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
+           {% else %}
+              {% if object.informante %}
+              <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Añadir</button>
+              {% else %}
+              <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
+              {% endif %}
+
+           {% endif %}
+      </form>
+
+          {% endif %}
         {% endif %}
-        {% else %}
 
-        <table class="table table-hover">
-                <caption style="text-align:left"><h3>NEUROPSI  {{object.neuropsi.fecha}}</h3></caption>
-                <tbody>
-                <tr>
-                    <th colspan="4">Observaciones médicas y neurológicas</th>
-                </tr>
 
-                <tr>
-                    <th style="vertical-align:middle;">Medicado</th>
-                    <td style="vertical-align:middle;" {% if object.neuropsi.medicado == "NO" %} colspan="3" {% endif %}>
-                      {{object.neuropsi.medicado}}
-                      {% if object.neuropsi.medicado == "SI" %}
-                      {{object.neuropsi.medicado_cual}}
-                      {% endif %}
-                    </td>
-                    {% if object.neuropsi.medicado == "SI" %}
-                    <th>Dosis total dia</th>
-                    <td>{{object.neuropsi.medicado_dt}}</td>
-                    {% endif%}
-                </tr>
-                <tr>
-                    <th style="vertical-align:middle;" >Imagen</th>
 
-                    <td colspan="3">{% if object.neuropsi.imagen != "" %} {{object.neuropsi.imagen}} {% else %} NO {% endif %}</td>
-                </tr>
-                 <tr>
-                    <th colspan="4">Resultados por Bloques</th>
-                </tr>
-                <tr>
+          {% if object.informante and object.informante.fechaentrevista != None %}
 
-                    <th style="vertical-align:middle;">
-                        Orientación
-                    </th>
-
-                    <td style="vertical-align:middle;">
-                        {{object.neuropsi.orientacion}}
-                    </td>
-                    <th style="vertical-align:middle;">
-                        Atención y Concentración
-                    </th>
-                    <td style="vertical-align:middle;">
-                        {{object.neuropsi.atencion}}
-                    </td>
-                </tr>
-                <tr>
-                  <th rowspan="2" style="vertical-align:middle;">Memoria</th>
-                  <td>Codificación</td>
-                  <td colspan="2">{{object.neuropsi.codificacion}}</td>
-                </tr>
-                <tr>
-                  <td>Evocación</td>
-                  <td colspan="2">{{object.neuropsi.evocacion}}</td>
-                </tr>
-                <tr>
-
-                    <th style="vertical-align:middle;">
-                        Lenguaje
-                    </th>
-
-                    <td style="vertical-align:middle;">
-                        {{object.neuropsi.lenguaje}}
-                    </td>
-
-                    {% if object.ingreso.n_educativo == "Primaria" or object.ingreso.n_educativo == "Analfabeta" %}
-                    <td colspan="2"></td>
-                    {% else%}
-                    <th style="vertical-align:middle;">
-                        Lectura y Escritura
-                    </th>
-                    <td style="vertical-align:middle;">
-                        {{object.neuropsi.lectura}}
-                    </td>
-                    {% endif %}
-                </tr>
-                <tr>
-                  <th rowspan="2" style="vertical-align:middle;">Funciones Ejecutivas</th>
-                  <td>Conceptual</td>
-                  <td colspan="2">{{object.neuropsi.conceptual}}</td>
-                </tr>
-                <tr>
-                  <td>Funciones Motoras</td>
-                  <td colspan="2">{{object.neuropsi.motora}}</td>
+            {% if object.mayor %}
+              <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de entrevista clínica </th>
+                  <td>{{ object.mayor.fechaentrevista }} </td>
+                  <th>Neuropsicóloga:</th>
+                  <td>{{ object.mayor.neuropsicologa }}</td>
                 </tr>
 
-                <tr>
+              <tr>
+                <th>Parentezco</th>
+                <td>{{ object.mayor.parentezco }}</td>
+                <th>Confiable</th>
+                <td>{{ object.mayor.confiable }}</td>
+              </tr>
+                {% if user.groups.all.0.name == 'Coordinador' %}
+              <tr>
+                <th>Informante</th>
+                <td colspan="3">{{ object.mayor.informante }}</td>
+              </tr>
+                {% endif %}
+              <tr>
+                <td colspan="4">
+                  <legend>S - I.Q.C.O.D.E.</legend>
+                </td>
+              </tr>
+              <tr>
                   <th>Resultado</th>
-                  <td colspan="3">{{object.neuropsi.resultado}}</td>
+                  <td>{{object.mayor.resultado}}</td>
+                  <th>Total</th>
+                  <td>{{object.mayor.total}}</td>
                 </tr>
-
-
-                </tbody>
+              <tr>
+                <td colspan="4">
+                  <legend>ESCALA DE DETERIORO GLOBAL (GDS)</legend>
+                </td>
+              </tr>
+              <tr>
+                <th>Severidad GDS:</th>
+                <td colspan="3">
+                  {{object.mayor.severidadgds}}
+                  {% if object.mayor.severidadgds == "1" %}
+                    Normal, Ningún deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "2" %}
+                    Olvidadizo, Muy ligero deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "3" %}
+                    Confuso, Ligero deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "4" %}
+                    Bastante confuso, Moderado deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "5" %}
+                    Demencia temprana, Moderadamente severo deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "6" %}
+                    Demencia moderada, Severo deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "7" %}
+                    Demencia severa, Profundo deterioro cognoscitivo
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Dx Demencia</th>
+                <td>{{object.mayor.dxdemencia}}</td>
+                <th>Tiempo de evolución</th>
+                <td>{{object.mayor.tiempo}}</td>
+              </tr>
+              </tbody>
             </table>
+
+
+           {% else %}
+            <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de entrevista clínica </th>
+                  <td>{{ object.informante.fechaentrevista }} </td>
+                  <th>Neuropsicóloga:</th>
+                  <td>{{ object.informante.neuropsicologa }}</td>
+                </tr>
+              <tr>
+                <th>Parentezco</th>
+                <td>{{ object.informante.parentezco }}</td>
+                <th>Confiable</th>
+                <td>{{ object.informante.confiable }}</td>
+              </tr>
+                {% if user.groups.all.0.name == 'Coordinador' %}
+              <tr>
+                <th>Informante</th>
+                <td colspan="3">{{ object.informante.informante }}</td>
+              </tr>
+                {% endif %}
+
+              </tbody>
+            </table>
+
+           {% endif %}
+
+
+          <legend>Funcionamiento Premórbido:</legend>
+
+
+          <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th>Escala Lawton-Brody de actividades instrumentales </th>
+                  <td>Total {{object.informante.totalindependencia}} </td>
+                  <th>Escala de transtornos de memoria</th>
+                  <td>Total {{object.informante.totalmemoria}}/45</td>
+                </tr>
+              <tr>
+                <th colspan="4">Frontal Systems Behavior Scale (FrSBe)</th>
+              </tr>
+              <tr>
+                <th>Total Apatia</th> <td>{{object.informante.totalapatia}}</td>
+              </tr>
+              <tr>
+                <th>Total Deshinhibicion</th> <td>{{object.informante.totaldes}}</td>
+              </tr>
+              <tr>
+                <th>Total Funciones ejecutivas</th> <td>{{object.informante.totalfunciones}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+
+          {% if perms.paciente.change_informante and object.inscrito == True %}
+          <form>
+          {% if object.edad > 59 %}
+              <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Editar</button>
+
+           {% else %}
+              <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Editar</button>
+
+           {% endif %}
+          </form>
+          {% endif %}
+          {% endif %}
+     </div>
+    <div class="tab-pane"  id="imagen" >
+        <input id="sn" value="{{object.sujeto_numero}}" hidden>
+
+    <iframe src="{% url 'upload-new' %}"
+                marginwidth="0" marginheight="0" name="ventana_iframe" scrolling="no" border="0"
+                frameborder="0" width="800" height="400">
+                </iframe>
+
+      </div>
+    <div class="tab-pane"  id="moca">
+      <form>
+
+          {% if not object.valorablenps %}
+
+          {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
+          <p class="text-danger">No se encontro información de evaluación MOCA</p>
+          {% tiempoeventoprincipal object as tep %}
+
+          {% if perms.paciente.add_moca and tep %}
+        <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
+        <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
+
+
+
+          <br>
+          <table>
+            <tbody>
+            <tr>
+              <th><label id="causa" style="display:none">Causa</label></th>
+              <td>
+          <select id="causa_options" style="display:none" onchange="nps()">
+              <option  value="0">Seleccione una opción</option>
+              <option  value="1">Fallecido</option>
+              <option  value="2">No localizable</option>
+              <option  value="3">No colabora</option>
+              <option  value="4">EMC</option>
+              <option  value="5">SVSR</option>
+          </select>
+              </td>
+              <td>
+                <label id="labelfecha" style="display:none">Fecha: </label>
+              </td>
+              <td>
+                <input id="datefallecido" type="date" style="display:none" class="form-control" min="{{object.uci.fechaegreso|date:'Y-m-d'}}" onchange="nps()">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+
+
+          <script >
+          function ver() {
+              document.getElementById("nov").style="display:none" ;
+              document.getElementById("siv").style="display:none" ;
+              document.getElementById("causa").style="display:inline" ;
+              document.getElementById("causa_options").style="display:inline" ;
+          }
+          function nps() {
+              var c=document.getElementById("causa_options").value ;
+              var f=document.getElementById("datefallecido").value ;
+              if ( c == 1 && f == "" ){
+              document.getElementById("datefallecido").style="display:inline" ;
+              document.getElementById("labelfecha").style="display:inline" ;
+              var today = new Date();
+              var dd = today.getDate();
+              var mm = today.getMonth()+1; //January is 0!
+              var yyyy = today.getFullYear();
+               if(dd<10){
+                      dd='0'+dd
+                  }
+                  if(mm<10){
+                      mm='0'+mm
+                  }
+
+              today = yyyy+'-'+mm+'-'+dd;
+              document.getElementById("datefallecido").max=today;
+              } else {
+              var url_mask = "{% url 'crear_nps' object.pk 'x' 'y' %}"
+              url_mask=url_mask.replace('x', c.toString());
+              if ( f == "" ){
+              f="None";
+              }
+              url_mask=url_mask.replace('y', f.toString());
+              window.location=url_mask;
+              }
+          }
+          </script>
+          {% endif %}
+          {% endif %}
+          {% elif object.valorablenps and object.valorablenps.valorable == False %}
+          <br>
+          <ul>
+            <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+            <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
+            {% tiempoeventoprincipal object as tep %}
+
+            {% if object.valorablenps.razon != "Fallecido" and tep %}
+            <br>
+            <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>
+            <br>
+            <p>Posible Antes de los 6 meses desde el evento principal </p>
+            {% endif %}
+          </ul>
+          {% else %}
+
+
+        <br>
+        {% if object.moca_set.all %}
+
+        {% if object.valorablenps and object.valorablenps.razon != "Fallecido" and object.valorablenps.razon != None %}
+
+          <ul>
+            <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+            <li>Causa: {{object.valorablenps.razon}} </li>
+
+          </ul>
+        {% endif %}
+      <div class="panel-group">
+        <div class="panel panel-default">
+          {% for moca in object.moca_set.all %}
+          {% if moca.fecha != None %}
+
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}} &nbsp;&nbsp;  Puntaje MOCA</b></a></h4>
+          </div>
+
+          <div id="mo{{ forloop.counter0 }}" class="panel-collapse collapse">
+            <div class="panel-body">
+
+              <table class="table table-hover">
+          <tbody>
+           <tr>
+              <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
+          </tr>
+
+          <tr>
+              <th style="vertical-align: middle;">Función visoespacial</th>
+              <td>{{moca.funcion_visoespacial}}/5</td>
+              <th style="vertical-align: middle;">Identificación</th>
+              <td>{{moca.identificacion}}/3</td>
+          </tr>
+          <tr>
+              <th style="vertical-align: middle;">Atención</th>
+              <td>
+                  <table>
+                      <tbody>
+                      <tr>
+                          <td style="vertical-align: middle;">Número</td><td>{{moca.atencion_numero}}/2</td>
+                      </tr>
+                      <tr><td style="vertical-align: middle;">Letras</td><td>{{moca.atencion_letras}}/1</td></tr>
+                      <tr>
+                          <td style="vertical-align: middle;">Resta</td><td>{{moca.atencion_resta}}/3</td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </td>
+              <th style="vertical-align: middle;">Lenguaje</th>
+              <td>
+                  <table>
+                      <tbody>
+                      <tr>
+                          <td style="vertical-align: middle;">Repite</td><td>{{moca.lenguaje_repite}}/2</td>
+                      </tr>
+                      <tr><td style="vertical-align: middle;">Fluidez</td><td>{{moca.lenguaje_fluidez}}/1</td></tr>
+                      </tbody>
+                  </table>
+              </td>
+          </tr>
+          <tr>
+              <th style="vertical-align: middle;">Abstracción</th>
+              <td>{{moca.abstraccion}}/2</td>
+              <th style="vertical-align: middle;">Recuerdo Diferido</th>
+              <td>{{moca.recuerdo}}/5</td>
+          </tr>
+          <tr>
+              <th style="vertical-align: middle;">Orientación</th>
+              <td>{{moca.orientacion}}/6</td>
+              <th style="vertical-align: middle;">Total</th>
+              <td>{{moca.total}}/30</td>
+          </tr>
+          </tbody>
+        </table>
+
+            </div>
+
+          </div>
+          <br>
+
+          {% endif %}
+          {% endfor%}
+        </div>
+      </div>
+
+          <br>
+          {% tiempoeventoprincipal object as tep %}
+          {% if perms.paciente.add_moca and object.inscrito == True and tep %}
+          <form>
+          <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica (MOCA)</button>
+          <p>Posible Antes de los 6 meses desde el evento principal. </p>
+
+          {% endif %}
+          <br>
+            {% if not object.neuropsi or object.neuropsi.fecha == None %}
+            {% if perms.paciente.add_moca and object.inscrito == True and tep %}
+          <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
+            {% endif %}
+            {% else %}
+
+            <table class="table table-hover">
+                    <caption style="text-align:left"><h3>NEUROPSI  {{object.neuropsi.fecha}}</h3></caption>
+                    <tbody>
+                    <tr>
+                        <th colspan="4">Observaciones médicas y neurológicas</th>
+                    </tr>
+
+                    <tr>
+                        <th style="vertical-align:middle;">Medicado</th>
+                        <td style="vertical-align:middle;" {% if object.neuropsi.medicado == 'NO' %} colspan="3" {% endif %}>
+                          {{object.neuropsi.medicado}}
+                          {% if object.neuropsi.medicado == "SI" %}
+                          {{object.neuropsi.medicado_cual}}
+                          {% endif %}
+                        </td>
+                        {% if object.neuropsi.medicado == "SI" %}
+                        <th>Dosis total dia</th>
+                        <td>{{object.neuropsi.medicado_dt}}</td>
+                        {% endif%}
+                    </tr>
+                    <tr>
+                        <th style="vertical-align:middle;" >Imagen</th>
+
+                        <td colspan="3">{% if object.neuropsi.imagen != "" %} {{object.neuropsi.imagen}} {% else %} NO {% endif %}</td>
+                    </tr>
+                     <tr>
+                        <th colspan="4">Resultados por Bloques</th>
+                    </tr>
+                    <tr>
+
+                        <th style="vertical-align:middle;">
+                            Orientación
+                        </th>
+
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.orientacion}}
+                        </td>
+                        <th style="vertical-align:middle;">
+                            Atención y Concentración
+                        </th>
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.atencion}}
+                        </td>
+                    </tr>
+                    <tr>
+                      <th rowspan="2" style="vertical-align:middle;">Memoria</th>
+                      <td>Codificación</td>
+                      <td colspan="2">{{object.neuropsi.codificacion}}</td>
+                    </tr>
+                    <tr>
+                      <td>Evocación</td>
+                      <td colspan="2">{{object.neuropsi.evocacion}}</td>
+                    </tr>
+                    <tr>
+
+                        <th style="vertical-align:middle;">
+                            Lenguaje
+                        </th>
+
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.lenguaje}}
+                        </td>
+
+                        {% if object.ingreso.n_educativo == "Primaria" or object.ingreso.n_educativo == "Analfabeta" %}
+                        <td colspan="2"></td>
+                        {% else%}
+                        <th style="vertical-align:middle;">
+                            Lectura y Escritura
+                        </th>
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.lectura}}
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                      <th rowspan="2" style="vertical-align:middle;">Funciones Ejecutivas</th>
+                      <td>Conceptual</td>
+                      <td colspan="2">{{object.neuropsi.conceptual}}</td>
+                    </tr>
+                    <tr>
+                      <td>Funciones Motoras</td>
+                      <td colspan="2">{{object.neuropsi.motora}}</td>
+                    </tr>
+
+                    <tr>
+                      <th>Resultado</th>
+                      <td colspan="3">{{object.neuropsi.resultado}}</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+
+            {% endif %}
+            </form>
+        {% endif %}
+
 
 
         {% endif %}
         </form>
-	{% endif %}
+    </div>
+      <div class="tab-pane" id="lectura">
+        <form>
+        {% if not object.lectura_resonancia or object.lectura_resonancia.fracturas == None %}
+          <p class="text-danger">No se encontro Lectura de Resonancia del Sujeto</p>
+          {% if perms.paciente.add_lectura_resonancia and object.inscrito == True %}
+          <button class="btn btn-primary" formaction="{% url 'crear_lectura' object.pk %}">Añadir</button>
+          {% endif %}
+
+        {% endif %}
+        </form>
 
 
 
-    {% endif %}
-    </form>
-</div>
-<div class="tab-pane"  id="seguimiento" >
+
+        {% if object.lectura_resonancia  and object.lectura_resonancia.fracturas != None %}
+          <br>
+        <ol>
+              <li>
+                  <label>Fracturas</label> &nbsp; {{object.lectura_resonancia.fracturas}}
+                  {% if object.lectura_resonancia.fracturas == 'SI' %}
+                  <div id="fracturas">
+                    Localización:{{object.lectura_resonancia.fracturas_localizacion}}
+                  </div>
+                  {% endif%}
+              </li>
+              <li>
+                  <label>Hemorragia subaracnoidea</label> &nbsp; {{object.lectura_resonancia.hemorragia_subaracnoidea}}
+                  {% if object.lectura_resonancia.hemorragia_subaracnoidea == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.hemorragia_subaracnoidea_mayor_menor}}</li>
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_sangrado == True %}
+                            <li>Sangrado en capa de menor de 1 mm de espesor</li>
+                            {% endif%}
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_coagulos == True %}
+                            <li>Coágulos localizados mayores de 1 mm</li>
+                            {% endif%}
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_hemorragia == True %}
+                            <li>Hemorragia intraparenquimatosas o intraventicular</li>
+                            {% endif%}
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_cronico == True %}
+                            <li>Crónico</li>
+                            {% endif%}
+                        </ul>
+
+
+                  {% endif%}
+              </li>
+
+              <li>
+                  <label>Hematoma extra axial</label> &nbsp; {{object.lectura_resonancia.hematoma_extra}}
+
+                  {% if object.lectura_resonancia.hematoma_extra == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.hematoma_extra_sub_epi}}</li>
+                            <li>Espesor: {{object.lectura_resonancia.hematoma_extra_espesor}} mm</li>
+                            {% if object.lectura_resonancia.hematoma_extra_agudo == True %}
+                            <li>Agudo</li>
+                            {% endif %}
+                        </ul>
+                  {% endif%}
+
+
+              </li>
+            <li>
+                  <label>Hematoma intra axial</label> &nbsp; {{object.lectura_resonancia.hematoma_intra}}
+                {% if object.lectura_resonancia.hematoma_intra == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.hematoma_intra_mayor_menor}}</li>
+                            <li>Localización: {{object.lectura_resonancia.hematoma_intra_localizacion}}</li>
+                            {% if object.lectura_resonancia.hematoma_extra_agudo == True %}
+                            <li>Agudo</li>
+                            {% endif %}
+                        </ul>
+                  {% endif%}
+
+              </li>
+
+              <li>
+                  <label>Contusión</label> &nbsp; {{object.lectura_resonancia.contusion}}
+                  {% if object.lectura_resonancia.contusion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.contusion_hemorragica}}</li>
+                            <li>{{object.lectura_resonancia.contusion_cortical}}</li>
+                            <li>Localización: {{object.lectura_resonancia.contusion_localizacion}}</li>
+                            <li>Diámetro: {{object.lectura_resonancia.contusion_diametro}} mm</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+              <li>
+                  <label>Línea media</label> &nbsp; {{object.lectura_resonancia.linea}}
+                  {% if object.lectura_resonancia.linea == 'Desviación' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.linea_tipo}}</li>
+                            <li>Lateralización: {{object.lectura_resonancia.linea_lateralizacion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+              <li>
+                  <label>Herniación</label> &nbsp; {{object.lectura_resonancia.herniacion}}
+                  {% if object.lectura_resonancia.herniacion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.herniacion_tipo}}</li>
+                       </ul>
+                  {% endif%}
+                </li>
+              <li>
+                  <label>Oclusión</label> &nbsp; {{object.lectura_resonancia.oclusion}}
+                  {% if object.lectura_resonancia.oclusion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.oclusion_tipo}}</li>
+                            <li>Localización: {{object.lectura_resonancia.oclusion_localizacion}}</li>
+
+                       </ul>
+                  {% endif%}
+
+              </li>
+              <li>
+                  <label>Edema</label> &nbsp; {{object.lectura_resonancia.edema}}
+                  {% if object.lectura_resonancia.oclusion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.edema_tipo}}</li>
+                            <li>Localización: {{object.lectura_resonancia.edema_localizacion}}</li>
+
+                       </ul>
+                  {% endif%}
+
+              </li>
+                <li>
+                  <label>Infarto o Isquemia</label> &nbsp; {{object.lectura_resonancia.infarto_isquemia}}
+                    {% if object.lectura_resonancia.infarto_isquemia == 'SI' %}
+                      <ul>
+                            <li>Localización: {{object.lectura_resonancia.infarto_isquemia_localizacion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+                <li>
+                  <label>Lesión axonal difusa</label>
+                    <ul>
+                        {% if object.lectura_resonancia.lesion_subcortical == True %}
+                        <li>Lesiones subcorticales difusas</li>
+                        {% endif %}
+                        {% if object.lectura_resonancia.lesion_calloso == True %}
+                        <li>Lesión en el esplenio del cuerpo calloso</li>
+                        {% endif %}
+                        {% if object.lectura_resonancia.lsion_dorsolateral == True %}
+                        <li>Lesión dorsolateral mesencefálica y/o puente alto</li>
+                        {% endif %}
+                    </ul>
+
+              </li>
+
+                <li>
+                  <label>Ventriculomegalia</label> &nbsp; {{object.lectura_resonancia.ventriculomegalia}}
+                    {% if object.lectura_resonancia.ventriculomegalia == 'SI' %}
+                      <ul>
+                            <li>Actividad Hidrocefalica {% if object.lectura_resonancia.vectriculomegalia_actividad == True %}
+                                SI {% else %} NO {% endif %}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+                <li>
+                  <label>Lesiones asociadas</label>(quistes, masas, malformaciones vasculares, aneurisma, orbitas cavidades
+paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
+                    {% if object.lectura_resonancia.lesiones_asociadas == 'SI' %}
+                      <ul>
+                            <li>Localización: {{object.lectura_resonancia.lesiones_asociadas_descripcion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+
+                <li>
+                  <label>Atrofia o encefalomalacia</label> &nbsp; {{object.lectura_resonancia.atrofia}}
+                    {% if object.lectura_resonancia.atrofia == 'SI' %}
+                      <ul>
+                            <li>Descripción: {{object.lectura_resonancia.atrofia_descripcion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+                <li>
+                  <label>Cambios postquirúrgicos</label> &nbsp; {{object.lectura_resonancia.cambios}}
+                    {% if object.lectura_resonancia.cambios == 'SI' %}
+                      <ul>
+                            <li>Localización: {{object.lectura_resonancia.cambios_localizacion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+            </ol>
+          <label>Impresión (orientación diagnóstica):</label>
+          <br>
+          {{object.lectura_resonancia.impresion}}
+
+          {% if perms.paciente.change_lectura_resonancia and object.inscrito == True %}
+        <form>
+          <button class="btn btn-primary" formaction="{% url 'lectura_editar' object.lectura_resonancia.pk%}">Editar</button>
+          </form>
+          {% endif %}
+        {% endif %}
+      </div>
+
+
+    </div>
+  </div>
+  <div class="tab-pane"  id="seguimientos" >
 
       {% if object.get_seguimiento|length == 0 or object.get_seguimiento.0.glasgowtotal == '0' %}
       <p class="text-danger">No Hay registros</p>
@@ -2865,7 +3100,10 @@ function validarf(){
                         <tr>
                             <th>Neuroimagen</th>
                             <td colspan="3">
-                              {{seguimiento.neuroimagen}}, {{seguimiento.imgobservacion}}
+                              {{seguimiento.neuroimagen}}
+                              {% if seguimiento.neuroimagen == 'SI'%}
+                              {{seguimiento.imgobservacion}}
+                              {% endif %}
                             </td>
                         </tr>
                         <tr>
@@ -2896,6 +3134,33 @@ function validarf(){
                           <td>{{seguimiento.vecuronio}}</td>
 
                         </tr>
+                        </tbody>
+                        </table>
+
+                        {% if seguimiento.otro1_nombre != None %}
+                            <label>Medicamentos Adicionales</label>
+                            <table class="table table-hover">
+                            <tbody>
+
+                            <tr>
+
+                                <td>{{seguimiento.otro1_nombre}}</td>
+                                <td>dosis/dia</td>
+                                <td>{{seguimiento.otro1_dt}}</td>
+                            </tr>
+                        {% endif %}
+                        {% if seguimiento.otro12nombre != None %}
+                            <tr >
+
+                                <td>{{seguimiento.otro2_nombre}}</td>
+                                <td>dosis/dia</td>
+                                <td>{{seguimiento.otro2_dt}}</td>
+                            </tr>
+                        {% endif %}
+
+
+
+
 
                           </tbody>
                         </table>
@@ -2941,10 +3206,13 @@ function validarf(){
 
 </div>
 
-
-
-
 </div>
+
+
+
+
+
+
 
 <br>
 <br>

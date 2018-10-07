@@ -307,6 +307,28 @@
 
               </tbody>
             </table>
+
+            <label>Añadir Medicamento </label><button id="bntadd" type="button" class="btn btn-link" onclick="add()"><span class="glyphicon glyphicon-plus" style="color:green" ></span></button>
+
+
+            <table class="table table-hover">
+                <tbody>
+                <tr id="otro1" style="display:none">
+                    <td>{{form.otro1_nombre.label}}</td>
+                    <td>{{form.otro1_nombre}}</td>
+                    <td>{{form.otro1_dt.label}}</td>
+                    <td>{{form.otro1_dt}}</td>
+                </tr>
+                <tr id="otro2" style="display:none">
+                    <td>{{form.otro2_nombre.label}}</td>
+                    <td>{{form.otro2_nombre}}</td>
+                    <td>{{form.otro2_dt.label}}</td>
+                    <td>{{form.otro2_dt}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+
         </div>
 
 
@@ -375,7 +397,36 @@ function campo(a,b,c) {
 
 }
 
+function add() {
+    primero = document.getElementById("id_otro1_nombre").required ;
+    segundo = document.getElementById("id_otro2_nombre").required ;
+    if ( primero == false ) {
+        document.getElementById("otro1").style="display:onblock";
+        document.getElementById("id_otro1_nombre").required=true;
+        document.getElementById("id_otro1_dt").required=true;
+    } else if ( primero == true && segundo == false ){
+        document.getElementById("otro2").style="display:onblock";
+        document.getElementById("id_otro2_nombre").required=true;
+        document.getElementById("id_otro2_dt").required=true;
+        document.getElementById("bntadd").disabled=true;
+    }
+}
 
+</script>
+
+<script>
+
+    if ("{{object.otro1_nombre}}" != "None" && "{{object.otro1_nombre}}" != "" ){
+        document.getElementById("otro1").style="display:onblock";
+        document.getElementById("id_otro1_nombre").required=true;
+        document.getElementById("id_otro1_dt").required=true;
+    }
+    if ("{{object.otro2_nombre}}" != "None" && "{{object.otro2_nombre}}" != "" ){
+        document.getElementById("otro2").style="display:onblock";
+        document.getElementById("id_otro2_nombre").required=true;
+        document.getElementById("id_otro2_dt").required=true;
+        document.getElementById("bntadd").disabled=true;
+    }
 </script>
 
 

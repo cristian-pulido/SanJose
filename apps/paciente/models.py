@@ -745,6 +745,10 @@ class Seguimiento(models.Model):
     fentanyl = models.CharField(max_length=12, null=True, default=0)
     tiopental = models.CharField(max_length=12, null=True, default=0)
     vecuronio = models.CharField(max_length=12, null=True, default=0)
+    otro1_nombre =  models.CharField(max_length=100, null=True, default="",blank=True)
+    otro1_dt = models.CharField(max_length=100, null=True, default=0,blank=True)
+    otro2_nombre = models.CharField(max_length=100, null=True, default="",blank=True)
+    otro2_dt = models.CharField(max_length=100, null=True, default=0,blank=True)
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
     class Meta:
@@ -778,10 +782,6 @@ class Moca(models.Model):
         )
     class ReportBuilder:
         exclude = ('id', )  # Lists or tuple of excluded fields
-
-
-
-
 
     def __str__(self):
         return '{}'.format(self.candidato.sujeto_numero)
@@ -967,3 +967,110 @@ class Parametrosmotioncorrect(models.Model):
 
 
 
+
+class Lectura_resonancia(models.Model):
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    seleccion_CHOICES = (
+        ('SI', 'SI'),
+        ('NO', 'NO'),
+    )
+    mayor3="Mayor a 3 mm"
+    menor3 = "Menor a 3 mm"
+    subdural="Subdural"
+    epidural="Epidural"
+    v_mayor30="Volumen mayor a 30 cc"
+    v_menor30 = "Volumen menor a 30 cc"
+    hemorragica="Hemorrágica"
+    n_hemorragica = "No Hemorrágica"
+    cortical="Cortical"
+    subcortical="Subcortical"
+    central="Central"
+    desviacion="Desviación"
+    mayor5="Mayor a 5 mm"
+    menor5 = "Menor a 5 mm"
+    mayor10 = "Mayor a 10 mm"
+    derecha="Derecha"
+    izquierda="Izquierda"
+
+    fracturas = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    fracturas_localizacion = models.CharField(max_length=300,null=True,blank=True)
+
+    hemorragia_subaracnoidea = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+
+    hemorragia_subaracnoidea_mayor_menor = models.CharField(choices=((mayor3, 'Mayor a 3 mm'), (menor3, 'Menor a 3 mm'), ),max_length=50,null=True,blank=True)
+    hemorragia_subaracnoidea_sangrado= models.NullBooleanField(null=True,blank=True)
+    hemorragia_subaracnoidea_coagulos = models.NullBooleanField(null=True,blank=True)
+    hemorragia_subaracnoidea_hemorragia = models.NullBooleanField(null=True,blank=True)
+    hemorragia_subaracnoidea_cronico = models.NullBooleanField(null=True,blank=True)
+
+    hematoma_extra = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    hematoma_extra_sub_epi = models.CharField(choices=((subdural, 'Subdural'), (epidural, 'Epidural'), ),max_length=50,null=True,blank=True)
+    hematoma_extra_espesor = models.CharField(max_length=3,null=True, blank=True)
+    hematoma_extra_agudo = models.NullBooleanField(null=True, blank=True)
+
+    hematoma_intra = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    hematoma_intra_mayor_menor = models.CharField(choices=((v_mayor30, 'Volumen mayor a 30 cc'), (v_menor30, 'Volumen menor a 30 cc'), ),max_length=50,null=True,blank=True)
+    hematoma_intra_localizacion = models.CharField(max_length=300, null=True, blank=True)
+
+    contusion = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    contusion_hemorragica = models.CharField(choices=((hemorragica, 'Hemorrágica'), (n_hemorragica, 'No Hemorrágica'), ),max_length=50,null=True,blank=True)
+    contusion_cortical = models.CharField(choices=((cortical, 'Cortical'), (subcortical, 'Subcortical'), ),max_length=50,null=True,blank=True)
+    contusion_localizacion = models.CharField(max_length=300, null=True, blank=True)
+    contusion_diametro = models.CharField(max_length=3, null=True, blank=True)
+
+
+    linea=models.CharField(choices=((central, 'Central'), (desviacion, 'Desviación'), ),max_length=50,null=True)
+    linea_tipo=models.CharField(choices=((menor5, 'Menor a 5 mm'), (mayor5, 'Mayor a 5 mm'),(mayor10,"Mayor a 10 mm"),), max_length=50, null=True, blank=True)
+    linea_lateralizacion=models.CharField(choices=((derecha, 'Derecha'), (izquierda, 'Izquierda'), ),max_length=50,null=True,blank=True)
+
+    sulbfalcinea = "Sulbfalcinea"
+    transtentorial = "Transtentorial"
+    uncal = "Uncal"
+    amigdalina= "Amigdalina"
+    herniacion= models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    herniacion_tipo=models.CharField(choices=((sulbfalcinea, 'Sulbfalcinea'), (transtentorial, 'Transtentorial'),(uncal,"Uncal"),(amigdalina,"Amigdalina"),), max_length=50, null=True, blank=True)
+
+    oclusion=models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    arterial="Arterial"
+    venosa="Venosa"
+    oclusion_tipo=models.CharField(choices=((arterial, 'Arterial'), (venosa, 'Venosa'),), max_length=50, null=True, blank=True)
+    oclusion_localizacion = models.CharField(max_length=300, null=True, blank=True)
+
+    edema=models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    cito_toxico="Cito Toxico"
+    vasogenico="Vasogénico"
+    intersticial="Intersticial"
+    edema_tipo=models.CharField(choices=((cito_toxico, 'Cito Toxico'), (vasogenico, 'Vasogénico'),(intersticial,"Intersticial"),), max_length=50, null=True, blank=True)
+    edema_localizacion =models.CharField(max_length=300, null=True, blank=True)
+
+    infarto_isquemia=models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    infarto_isquemia_localizacion = models.CharField(max_length=300, null=True, blank=True)
+
+    lesion_subcortical=models.NullBooleanField(null=True,blank=True)
+    lesion_calloso = models.NullBooleanField(null=True,blank=True)
+    lsion_dorsolateral = models.NullBooleanField(null=True,blank=True)
+
+    ventriculomegalia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    vectriculomegalia_actividad = models.NullBooleanField(null=True,blank=True)
+
+    lesiones_asociadas= models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    lesiones_asociadas_descripcion= models.TextField(blank=True, null=True)
+
+    atrofia = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    atrofia_descripcion = models.TextField(blank=True, null=True)
+
+    cambios = models.CharField(choices=seleccion_CHOICES, max_length=12, null=True)
+    cambios_localizacion = models.CharField(max_length=300, null=True, blank=True)
+
+
+    impresion = models.TextField(blank=True, null=True)
+
+
+    def __str__(self):
+        return '{}'.format(self.candidato.sujeto_numero)
+    class Meta:
+        permissions = (
+            ("can_ver_lectura", u"puede ver lectura"),
+        )
+    class ReportBuilder:
+        exclude = ('id', )  # Lists or tuple of excluded fields

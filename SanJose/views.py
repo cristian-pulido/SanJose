@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
-    Control, Cambioradiologia, Moca, Valorablenps, Neuropsi, Parametrosmotioncorrect
+    Control, Cambioradiologia, Moca, Valorablenps, Neuropsi, Parametrosmotioncorrect, Lectura_resonancia
 from apps.validacion.models import Tipoimagenes
 from programas import anonimizador
 from programas.dcm2niix import T1_path, rest_path, DWI_path
@@ -210,6 +210,18 @@ def crearneuropsi(request, pk):
             n = Neuropsi.objects.create(candidato=c)
             return redirect("/paciente/neuropsi/editar/" + str(n.pk))
 
+def crearlectura(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        c = Candidato.objects.get(pk=pk)
+        if hasattr(c, 'lectura_resonancia'):
+            return redirect("/paciente/lectura/editar/" + str(c.lectura_resonancia.pk))
+        else:
+            l=Lectura_resonancia.objects.create(candidato=c)
+            return redirect("/paciente/lectura/editar/"+str(l.pk))
+
+
 def visionimagen(request, pk):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -299,6 +311,7 @@ def alinear(request,tipo,pk,img,der,frente,arriba,x,y,z,tx,ty,tz,save):
             R.save()
 
             return redirect(R.tensor.url)
+
 
 
 

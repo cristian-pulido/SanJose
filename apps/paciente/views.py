@@ -12,9 +12,9 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 
 
 from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, RadiologiaForm, UciForm, NeurologiaForm, \
-    BoldForm, MayorForm, InformanteForm, SeguimientoForm, ControlForm, MocaForm, NeuropsiForm
+    BoldForm, MayorForm, InformanteForm, SeguimientoForm, ControlForm, MocaForm, NeuropsiForm, LecturaresonanciaForm
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
-    Seguimiento, Control, Moca, Valorablenps, Neuropsi
+    Seguimiento, Control, Moca, Valorablenps, Neuropsi, Lectura_resonancia
 
 
 class PacienteCreate(CreateView):
@@ -161,6 +161,17 @@ class BoldUpdate(UpdateView):
     def get_success_url(self):
         b=self.object
         p=b.candidato
+        return reverse_lazy('paciente', args=[p.pk])
+
+class LecturaUpdate(UpdateView):
+    model = Lectura_resonancia
+    form_class = LecturaresonanciaForm
+    template_name = 'paciente/lectura_form.html'
+    # a donde va dirigido
+
+    def get_success_url(self):
+        l=self.object
+        p=l.candidato
         return reverse_lazy('paciente', args=[p.pk])
 
 class MayorUpdate(UpdateView):

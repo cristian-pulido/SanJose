@@ -1,0 +1,491 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Lectura Resonancia {% endblock %}
+{% block content %}
+{% if not perms.paciente.add_lectura_resonancia %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
+
+
+<form method="post">
+    {% csrf_token %}
+
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>Lectura Resonancia Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+
+            <ol>
+              <li>
+                  <label>{{form.fracturas.label}}</label> &nbsp; {{form.fracturas}}
+                  <div id="fracturas" style="display:none">
+                    {{form.fracturas_localizacion.label}}{{form.fracturas_localizacion}}
+                  </div>
+              </li>
+              <li>
+                  <label>{{form.hemorragia_subaracnoidea.label}}</label> &nbsp; {{form.hemorragia_subaracnoidea}}
+                  <div id="hemorragia_subaracnoidea" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.hemorragia_subaracnoidea_mayor_menor}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hemorragia_subaracnoidea_sangrado.label}}</td>
+                              <td>{{form.hemorragia_subaracnoidea_sangrado}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hemorragia_subaracnoidea_coagulos.label}}</td>
+                              <td>{{form.hemorragia_subaracnoidea_coagulos}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hemorragia_subaracnoidea_hemorragia.label}}</td>
+                              <td>{{form.hemorragia_subaracnoidea_hemorragia}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hemorragia_subaracnoidea_cronico.label}}</td>
+                              <td>{{form.hemorragia_subaracnoidea_cronico}}</td>
+                          </tr>
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+
+              <li>
+                  <label>{{form.hematoma_extra.label}}</label> &nbsp; {{form.hematoma_extra}}
+                  <div id="hematoma_extra" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.hematoma_extra_sub_epi}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hematoma_extra_espesor.label}}</td>
+                              <td>{{form.hematoma_extra_espesor}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hematoma_extra_agudo.label}}</td>
+                              <td>{{form.hematoma_extra_agudo}}</td>
+                          </tr>
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+            <li>
+                  <label>{{form.hematoma_intra.label}}</label> &nbsp; {{form.hematoma_intra}}
+                  <div id="hematoma_intra" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.hematoma_intra_mayor_menor}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.hematoma_intra_localizacion.label}}</td>
+                              <td>{{form.hematoma_intra_localizacion}}</td>
+                          </tr>
+                          
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+                
+              <li>
+                  <label>{{form.contusion.label}}</label> &nbsp; {{form.contusion}}
+                  <div id="contusion" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo 1</td>
+                              <td>{{form.contusion_hemorragica}}</td>
+                          </tr>
+                          <tr>
+                              <td>Tipo 2</td>
+                              <td>{{form.contusion_cortical}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.contusion_localizacion.label}}</td>
+                              <td>{{form.contusion_localizacion}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.contusion_diametro.label}}</td>
+                              <td>{{form.contusion_diametro}}</td>
+                          </tr>
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+              <li>
+                  <label>{{form.linea.label}}</label> &nbsp; {{form.linea}}
+                  <div id="linea" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.linea_tipo}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.linea_lateralizacion.label}}</td>
+                              <td>{{form.linea_lateralizacion}}</td>
+                          </tr>
+                          
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+              <li>
+                  <label>{{form.herniacion.label}}</label> &nbsp; {{form.herniacion}}
+                  <div id="herniacion" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.herniacion_tipo}}</td>
+                          </tr>
+                          
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+              <li>
+                  <label>{{form.oclusion.label}}</label> &nbsp; {{form.oclusion}}
+                  <div id="oclusion" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.oclusion_tipo}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.oclusion_localizacion.label}}</td>
+                              <td>{{form.oclusion_localizacion}}</td>
+                          </tr>
+                         
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+              <li>
+                  <label>{{form.edema.label}}</label> &nbsp; {{form.edema}}
+                  <div id="edema" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>Tipo</td>
+                              <td>{{form.edema_tipo}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.edema_localizacion.label}}</td>
+                              <td>{{form.edema_localizacion}}</td>
+                          </tr>
+                         
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+                <li>
+                  <label>{{form.infarto_isquemia.label}}</label> &nbsp; {{form.infarto_isquemia}}
+                  <div id="infarto_isquemia" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                              <td>{{form.infarto_isquemia_localizacion.label}}</td>
+                              <td>{{form.infarto_isquemia_localizacion}}</td>
+                          </tr>
+
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+
+                <li>
+                  <label>Lesión axonal difusa</label>
+                  <div id="lesion">
+
+                      <table class="table table-hover">
+                          <tbody>
+
+                          <tr>
+                              <td>{{form.lesion_subcortical.label}}</td>
+                              <td>{{form.lesion_subcortical}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.lesion_calloso.label}}</td>
+                              <td>{{form.lesion_calloso}}</td>
+                          </tr>
+                          <tr>
+                              <td>{{form.lsion_dorsolateral.label}}</td>
+                              <td>{{form.lsion_dorsolateral}}</td>
+                          </tr>
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+                
+                <li>
+                  <label>{{form.ventriculomegalia.label}}</label> &nbsp; {{form.ventriculomegalia}}
+                  <div id="ventriculomegalia" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+
+                          <tr>
+                              <td>{{form.vectriculomegalia_actividad.label}}</td>
+                              <td>{{form.vectriculomegalia_actividad}}</td>
+                          </tr>
+                          
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+                
+                <li>
+                  <label>{{form.lesiones_asociadas.label}}</label> &nbsp; {{form.lesiones_asociadas}}
+                  <div id="lesiones_asociadas" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+
+                          <tr>
+                              <td>{{form.lesiones_asociadas_descripcion.label}}</td>
+                              <td>{{form.lesiones_asociadas_descripcion}}</td>
+                          </tr>
+                          
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+                
+                
+                <li>
+                  <label>{{form.atrofia.label}}</label> &nbsp; {{form.atrofia}}
+                  <div id="atrofia" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+
+                          <tr>
+                              <td>{{form.atrofia_descripcion.label}}</td>
+                              <td>{{form.atrofia_descripcion}}</td>
+                          </tr>
+                          
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+                
+                <li>
+                  <label>{{form.cambios.label}}</label> &nbsp; {{form.cambios}}
+                  <div id="cambios" style="display:none">
+
+                      <table class="table table-hover">
+                          <tbody>
+
+                          <tr>
+                              <td>{{form.cambios_localizacion.label}}</td>
+                              <td>{{form.cambios_localizacion}}</td>
+                          </tr>
+                          
+
+                          </tbody>
+                      </table>
+
+                  </div>
+              </li>
+            </ol>
+
+
+
+                  <label>{{form.cambios.label}}</label>
+                  <div id="impresion" >
+
+                              {{form.impresion.label}}
+                      <br>
+                              {{form.impresion}}
+
+
+                  </div>
+
+
+            
+
+
+        </div>
+
+
+    </div>
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+
+
+</form>
+{% endblock %}
+{% block extrajs %}
+<script>
+    function mostrareditar(variable,id_div){
+
+    if ( variable == 'SI' ){
+        document.getElementById(id_div).style="display:onblock";
+        var text = document.getElementById(id_div).querySelectorAll("input[type=text]");
+        for (var i = 0; i < text.length; i++){
+            text[i].required=true;
+        }
+        var select = document.getElementById(id_div).querySelectorAll("select");
+        for (var i = 0; i < select.length; i++){
+            select[i].required=true;
+        }
+    }
+    }
+
+    function mostrarlinea(variable){
+
+    if ( variable == 'Desviación' ){
+        document.getElementById("linea").style="display:onblock";
+        var text = document.getElementById("linea").querySelectorAll("input[type=text]");
+        for (var i = 0; i < text.length; i++){
+            text[i].required=true;
+        }
+        var select = document.getElementById(id_div).querySelectorAll("select");
+        for (var i = 0; i < select.length; i++){
+            select[i].required=true;
+        }
+    }
+    }
+    window.onload = mostrareditar("{{object.herniacion}}","herniacion");
+    window.onload = mostrareditar("{{object.oclusion}}","oclusion");
+
+    window.onload = mostrareditar("{{object.edema}}","edema");
+    window.onload = mostrareditar("{{object.infarto_isquemia}}","infarto_isquemia");
+    window.onload = mostrareditar("{{object.ventriculomegalia}}","ventriculomegalia");
+    window.onload = mostrareditar("{{object.lesiones_asociadas}}","lesiones_asociadas");
+    window.onload = mostrareditar("{{object.atrofia}}","atrofia");
+    window.onload = mostrareditar("{{object.cambios}}","cambios");
+    window.onload = mostrareditar("{{object.fracturas}}","fracturas");
+    window.onload = mostrareditar("{{object.hemorragia_subaracnoidea}}","hemorragia_subaracnoidea");
+    window.onload = mostrareditar("{{object.hematoma_extra}}","hematoma_extra");
+    window.onload = mostrareditar("{{object.hematoma_intra}}","hematoma_intra");
+    window.onload = mostrareditar("{{object.contusion}}","contusion");
+    window.onload = mostrarlinea("{{object.linea}}");
+
+
+</script>
+<script>
+    document.getElementsByName("fracturas")[0].addEventListener('change', function() {mostrarcampos("id_fracturas","fracturas");});
+    document.getElementsByName("hemorragia_subaracnoidea")[0].addEventListener('change', function() {mostrarcampos("id_hemorragia_subaracnoidea","hemorragia_subaracnoidea");});
+    document.getElementsByName("hematoma_extra")[0].addEventListener('change', function() {mostrarcampos("id_hematoma_extra","hematoma_extra");});
+    document.getElementsByName("hematoma_intra")[0].addEventListener('change', function() {mostrarcampos("id_hematoma_intra","hematoma_intra");});
+    document.getElementsByName("contusion")[0].addEventListener('change', function() {mostrarcampos("id_contusion","contusion");});
+    document.getElementsByName("linea")[0].addEventListener('change', function() {mostrarcamposlinea("id_linea","linea");});
+    document.getElementsByName("herniacion")[0].addEventListener('change', function() {mostrarcampos("id_herniacion","herniacion");});
+    document.getElementsByName("oclusion")[0].addEventListener('change', function() {mostrarcampos("id_oclusion","oclusion");});
+    document.getElementsByName("edema")[0].addEventListener('change', function() {mostrarcampos("id_edema","edema");});
+    document.getElementsByName("infarto_isquemia")[0].addEventListener('change', function() {mostrarcampos("id_infarto_isquemia","infarto_isquemia");});
+    document.getElementsByName("ventriculomegalia")[0].addEventListener('change', function() {mostrarcampos("id_ventriculomegalia","ventriculomegalia");});
+    document.getElementsByName("lesiones_asociadas")[0].addEventListener('change', function() {mostrarcampos("id_lesiones_asociadas","lesiones_asociadas");});
+    document.getElementsByName("atrofia")[0].addEventListener('change', function() {mostrarcampos("id_atrofia","atrofia");});
+    document.getElementsByName("cambios")[0].addEventListener('change', function() {mostrarcampos("id_cambios","cambios");});
+
+
+    function mostrarcampos(id_var,id_div){
+        valor=document.getElementById(id_var).value;
+        var text = document.getElementById(id_div).querySelectorAll("input[type=text]");
+        var check = document.getElementById(id_div).querySelectorAll("input[type=checkbox]");
+        var select = document.getElementById(id_div).querySelectorAll("select");
+
+        if ( valor == 'SI' ){
+            document.getElementById(id_div).style="display:onblock";
+            for (var i = 0; i < text.length; i++){
+                text[i].required=true;
+            }
+            for (var i = 0; i < select.length; i++){
+                select[i].required=true;
+            }
+        }else{
+            document.getElementById(id_div).style="display:none";
+            for (var i = 0; i < text.length; i++){
+                text[i].required=false;
+                text[i].value="";
+
+            }
+            for (var i = 0; i < select.length; i++){
+                select[i].required=false;
+                select[i].value="";
+            }
+            for (var i = 0; i < check.length; i++){
+                check[i].checked=false;
+            }
+        }
+
+    }
+    function mostrarcamposlinea(id_var,id_div){
+        valor=document.getElementById(id_var).value;
+        var text = document.getElementById(id_div).querySelectorAll("input[type=text]");
+        var check = document.getElementById(id_div).querySelectorAll("input[type=checkbox]");
+        var select = document.getElementById(id_div).querySelectorAll("select");
+
+        if ( valor == 'Desviación' ){
+            document.getElementById(id_div).style="display:onblock";
+            for (var i = 0; i < text.length; i++){
+                text[i].required=true;
+            }
+            for (var i = 0; i < select.length; i++){
+                select[i].required=true;
+            }
+        }else{
+            document.getElementById(id_div).style="display:none";
+            for (var i = 0; i < text.length; i++){
+                text[i].required=false;
+                text[i].value="";
+
+            }
+            for (var i = 0; i < select.length; i++){
+                select[i].required=false;
+                select[i].value="";
+            }
+            for (var i = 0; i < check.length; i++){
+                check[i].checked=false;
+            }
+        }
+
+    }
+</script>
+{% endblock %}

@@ -4,7 +4,7 @@ from django.urls import path
 from apps.paciente.views import PacienteCreate, PacienteUpdate, MedicoCreate, MedicoList, MedicoUpdate, MedicoDelete, \
     PacienteList, PacienteView, PacienteDelete, IngresoUpdate, RadiologiaUpdate, UciUpdate, NeurologiaUpdate, \
     BoldUpdate, MayorUpdate, InformanteUpdate, SeguimientoUpdate, ControlView, ControlList, ControlDelete, \
-    ControlCreate, ControlUpdate, MocaUpdate, NeuropsiUpdate
+    ControlCreate, ControlUpdate, MocaUpdate, NeuropsiUpdate, LecturaUpdate
 
 urlpatterns = [
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('seguimiento/editar/<int:pk>/', SeguimientoUpdate.as_view(), name='seguimiento_editar'),
     path('moca/editar/<int:pk>/', MocaUpdate.as_view(), name='moca_editar'),
     path('neuropsi/editar/<int:pk>/', NeuropsiUpdate.as_view(), name='neuropsi_editar'),
+    path('lectura/editar/<int:pk>/', LecturaUpdate.as_view(), name='lectura_editar'),
 
 
 ]
