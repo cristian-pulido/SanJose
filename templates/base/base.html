@@ -9,6 +9,7 @@
     <![endif]-->
 	<meta charset="UTF-8">
 
+
 	{% block extrastatic %}
 	{% endblock %}
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
@@ -73,18 +74,18 @@
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Controles <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
 														{% if perms.paciente.add_control %}
-                                                        <li><a href={% url "control_crear" %}>Añadir</a></li>
+                                                        <li><a href="{% url 'control_crear' %}">Añadir</a></li>
 														{% endif %}
-														<li><a href={% url "controles_listar" %}>Lista</a></li>
+														<li><a href="{% url 'controles_listar' %}">Lista</a></li>
                                                     </ul>
                                                 </li>
 												<li class="dropdown">
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profesionales <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
 														{% if perms.paciente.add_medico %}
-                                                        <li><a href={% url "medico_crear" %}>Añadir</a></li>
+                                                        <li><a href="{% url 'medico_crear' %}">Añadir</a></li>
 														{% endif %}
-														<li><a href={% url "medico_listar" %}>Lista</a></li>
+														<li><a href="{% url 'medico_listar' %}">Lista</a></li>
                                                     </ul>
                                                 </li>
 												{% if user.groups.all.0.name == 'Coordinador' or user.groups.all.0.name == 'SuperAdministrador'%}
@@ -92,7 +93,7 @@
                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
                                                     <ul class="dropdown-menu" role="menu">
 
-                                                        <li><a href={% url "report_builder" %}>Ver y Añadir</a></li>
+                                                        <li><a href="{% url 'report_builder' %}">Ver y Añadir</a></li>
 
 
                                                     </ul>
@@ -101,7 +102,7 @@
 
 											</ul>
 											<ul class="nav navbar-nav navbar-right">
-												<li><a href={% url "logout" %}>Salir</a></li>
+												<li><a href="{% url 'logout' %}">Salir</a></li>
 
 											</ul>
 										</div>
@@ -136,7 +137,7 @@
 			 <h1>Bienvenido</h1>
 			 <p>Su cuenta a sido creada satisfactoriamente comuniquese con el Coordinador al correo <a href="#">cpulido@unal.edu.co</a> identificandose para
 			 otorgarle los correspondientes permisos para el uso de la plataforma.</p>
-			<a href={% url "logout"%}>Salir</a>
+			<a href="{% url 'logout'%}">Salir</a>
 		 </div>
 
         {% endif %}
