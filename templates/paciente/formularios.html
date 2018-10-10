@@ -607,7 +607,7 @@
         <div class="tab-pane" id="tab_b">
              <center>
       <h3>Vista Previa Imagen Funcional</h3>
-    <iframe src="{{object.get_realineacion.funcional.url}}?1" width="700" height="290" name="realineacion_func" frameborder="0" id="framefunc">
+    <iframe src="{{object.get_realineacion.funcional.url}}" width="700" height="290" name="realineacion_func" frameborder="0" id="framefunc">
 
 
     </iframe>
@@ -780,19 +780,20 @@
         <div class="tab-pane" id="tab_c">
              <center>
       <h3>Vista Previa Imagen de Difusión</h3>
-    <iframe src="{{object.get_realineacion.tensor.url}}?1" width="700" height="290" name="realineacion_tensor" frameborder="0" id="frametensor">
+    <iframe src="{{object.get_realineacion.tensor.url}}" width="700" height="290" name="realineacion_tensor" frameborder="0" id="frametensor">
 
 
     </iframe>
 
+   {% if object.parametrosimg %}
     <script>
       var date = new Date;
       document.getElementById("framestruct").src=document.getElementById("framestruct").src+"?"+date.getTime();
       document.getElementById("framefunc").src=document.getElementById("framefunc").src+"?"+date.getTime()+1;
       document.getElementById("frametensor").src=document.getElementById("frametensor").src+"?"+date.getTime()+2;
-      
-    </script>
 
+    </script>
+    {% endif %}
 
     {% if object.get_realineacion.tensor_cambio == False and perms.validacion.change_realineacion %}
       <table cellspacing="50" width="400" id="movimientos_tensor" >
@@ -3157,7 +3158,7 @@ function validarf(){
                                 <td>{{seguimiento.otro1_dt}}</td>
                             </tr>
                         {% endif %}
-                        {% if seguimiento.otro12nombre != None %}
+                        {% if seguimiento.otro2nombre != None %}
                             <tr >
 
                                 <td>{{seguimiento.otro2_nombre}}</td>

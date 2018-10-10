@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/programas/definitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/programas/definitions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,7 +64,7 @@
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="2" />
-          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.19" value="2" />
           <entry key="project.open.time.20" value="3" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
@@ -78,7 +75,7 @@
           <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.58" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="18" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -95,13 +92,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="6953" />
+          <entry key="html" value="7006" />
           <entry key="py" value="6543" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="6953" />
+          <entry key="HTML" value="7006" />
           <entry key="Python" value="6543" />
         </counts>
       </usages-collector>
@@ -165,8 +162,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="637">
-              <caret line="792" column="6" selection-start-line="792" selection-start-column="6" selection-end-line="792" selection-end-column="6" />
+            <state relative-caret-position="457">
+              <caret line="795" column="13" selection-start-line="795" selection-start-column="13" selection-end-line="795" selection-end-column="13" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#!!top" />
                 <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#!!top" />
@@ -241,7 +238,6 @@
                 <element signature="n#style#0;n#a#0;n#li#6;n#ul#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
                 <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="e#55503#55509#0" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#0;n#tr#11;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
@@ -322,7 +318,7 @@
             <state relative-caret-position="600">
               <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
               <folding>
-                <marker date="1538841080555" expanded="true" signature="3042:3044" ph="..." />
+                <marker date="1539209258235" expanded="true" signature="3042:3044" ph="..." />
               </folding>
             </state>
           </provider>
@@ -944,6 +940,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/fileupload/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -955,6 +958,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3165">
           <caret line="229" column="48" selection-start-line="229" selection-start-column="48" selection-end-line="229" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/definitions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -979,30 +989,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
-          <folding>
-            <marker date="1538841080555" expanded="true" signature="3042:3044" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programas/definitions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="637">
-          <caret line="792" column="6" selection-start-line="792" selection-start-column="6" selection-end-line="792" selection-end-column="6" />
+        <state relative-caret-position="457">
+          <caret line="795" column="13" selection-start-line="795" selection-start-column="13" selection-end-line="795" selection-end-column="13" />
           <folding>
             <element signature="n#div#0;n#div#0;n#!!top" />
             <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#!!top" />
@@ -1077,7 +1070,6 @@
             <element signature="n#style#0;n#a#0;n#li#6;n#ul#0;n#div#2;n#div#0;n#!!top" expanded="true" />
             <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="e#55503#55509#0" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#0;n#tr#11;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
