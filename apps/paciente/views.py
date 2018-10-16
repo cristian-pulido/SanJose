@@ -365,6 +365,9 @@ class NeuropsiUpdate(UpdateView):
                     orientacion.append("Severo")
                 else:
                     orientacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    orientacion.append("Normal")
         elif tiempo == 1:
             if edad >= 31 and edad <=50:
                 orientacion.append("Severo")
@@ -373,6 +376,9 @@ class NeuropsiUpdate(UpdateView):
                     orientacion.append("Moderado")
                 elif escolaridad == 'Analfabeta':
                     orientacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    orientacion.append("Severo")
         else:
             orientacion.append("Severo")
 
@@ -393,13 +399,23 @@ class NeuropsiUpdate(UpdateView):
                     orientacion.append("Normal")
                 else:
                     orientacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    orientacion.append("Moderado")
+        else:
+            orientacion.append("Severo")
+
 
         # persona
         persona = int(n.orientacion_persona)
         if lugar == 1:
             orientacion.append("Normal")
         else:
-            orientacion.append("Severo")
+            if edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    orientacion.append("Moderado")
+            else:
+                orientacion.append("Severo")
 
         n.orientacion=Counter(orientacion).most_common(1)[0][0]
         resultado.append(n.orientacion)
@@ -412,10 +428,13 @@ class NeuropsiUpdate(UpdateView):
             if edad >= 31 and edad <=50 and digitos == 5:
                 if escolaridad == 'Técnico' or escolaridad == 'Profesional' or escolaridad == 'Bachillerato':
                     atencion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    orientacion.append("Normal Alto")
             else:
                 atencion.append("Normal Alto")
         elif digitos == 4 or digitos == 3:
-            if digitos == 4 and escolaridad == 'Primaria':
+            if digitos == 4 and escolaridad == 'Primaria' and not (edad >= 31 and edad <= 50):
                 atencion.append("Normal Alto")
             else:
                 atencion.append("Normal")
@@ -444,9 +463,15 @@ class NeuropsiUpdate(UpdateView):
                     atencion.append("Normal Alto")
                 else:
                     atencion.append("Normal")
+            elif edad >= 51 and edad <=65:
+                if escolaridad == 'Primaria':
+                    atencion.append("Normal Alto")
         elif visual >= 13 and visual <=15:
             if edad >= 31 and edad <= 50:
                 atencion.append("Normal")
+            elif edad >= 51 and edad <=65:
+                if escolaridad == 'Primaria':
+                    atencion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta' or escolaridad == 'Bachillerato':
                     if visual == 15:
@@ -458,6 +483,9 @@ class NeuropsiUpdate(UpdateView):
         elif visual >= 7 and visual <=12:
             if edad >= 66 and edad <= 85:
                 atencion.append("Normal")
+            elif edad >= 51 and edad <=65:
+                if escolaridad == 'Primaria':
+                    atencion.append("Normal")
             elif edad >= 31 and edad <=50:
                 if escolaridad == 'Analfabeta':
                     atencion.append("Normal")
@@ -514,11 +542,29 @@ class NeuropsiUpdate(UpdateView):
                         atencion.append("Moderado")
                     else:
                         atencion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if visual > 5:
+                        atencion.append("Normal")
+                    elif visual == 4 and visual ==5:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
+                else:
+                    if visual == 6:
+                        atencion.append("Normal")
+                    elif visual < 6 and visual > 2:
+                        atencion.append("Moderado")
+                    else:
+                        atencion.append("Severo")
         # 20-3
         a_20_3 = int(n.atencion_20_3)
         if a_20_3 == 4 or a_20_3 == 5:
             if edad >= 31 and edad <= 50:
                 atencion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    atencion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if a_20_3 == 4 and escolaridad == 'Bachillerato':
                     atencion.append("Moderado")
@@ -529,6 +575,9 @@ class NeuropsiUpdate(UpdateView):
                 if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     atencion.append("Moderado")
                 else:
+                    atencion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
                     atencion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
@@ -545,6 +594,12 @@ class NeuropsiUpdate(UpdateView):
                     atencion.append("Normal")
                 else:
                     atencion.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if a_20_3 == 0:
+                        atencion.append("Severo")
+                    else:
+                        atencion.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     atencion.append("Normal")
@@ -571,6 +626,9 @@ class NeuropsiUpdate(UpdateView):
                     codificacion.append("Normal")
                 else:
                     codificacion.append("Normal Alto")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    codificacion.append("Normal Alto")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     codificacion.append("Normal")
@@ -581,6 +639,9 @@ class NeuropsiUpdate(UpdateView):
                 if escolaridad == 'Bachillerato' and palabras == 4:
                     codificacion.append("Moderado")
                 else:
+                    codificacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
                     codificacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
@@ -596,6 +657,9 @@ class NeuropsiUpdate(UpdateView):
                     codificacion.append("Severo")
                 else:
                     codificacion.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    codificacion.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Bachillerato' or escolaridad == 'Primaria':
                     codificacion.append("Moderado")
@@ -604,6 +668,9 @@ class NeuropsiUpdate(UpdateView):
         else:
             if edad >= 31 and edad <= 50:
                 codificacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    codificacion.append("Severo")
             elif edad >= 66 and edad <= 85:
                 if palabras == 2:
                     if escolaridad == 'Analfabeta':
@@ -627,6 +694,9 @@ class NeuropsiUpdate(UpdateView):
                     codificacion.append("Normal Alto")
                 else:
                     codificacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    codificacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
                     codificacion.append("Normal")
@@ -646,6 +716,9 @@ class NeuropsiUpdate(UpdateView):
                         codificacion.append("Severo")
                 else:
                     codificacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    codificacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     codificacion.append("Normal Alto")
@@ -662,6 +735,9 @@ class NeuropsiUpdate(UpdateView):
                         codificacion.append("Moderado")
                 else:
                     codificacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    codificacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Bachillerato':
                     if cfigura < 9:
@@ -680,6 +756,9 @@ class NeuropsiUpdate(UpdateView):
                     else:
                         codificacion.append("Normal")
                 else:
+                    codificacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
                     codificacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
@@ -702,6 +781,12 @@ class NeuropsiUpdate(UpdateView):
                         codificacion.append("Normal")
                     else:
                         codificacion.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if cfigura >= 5:
+                        codificacion.append("Moderado")
+                    else:
+                        codificacion.append("Severo")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
                     codificacion.append("Severo")
@@ -728,6 +813,9 @@ class NeuropsiUpdate(UpdateView):
         if espontanea >= 4 and espontanea <= 6:
             if edad >= 31 and edad <= 50:
                 evocacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Primaria' or escolaridad == 'Analfabeta':
                     if espontanea == 6:
@@ -743,6 +831,9 @@ class NeuropsiUpdate(UpdateView):
                     evocacion.append("Moderado")
                 else:
                     evocacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 evocacion.append("Normal")
                 
@@ -751,6 +842,9 @@ class NeuropsiUpdate(UpdateView):
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
                     evocacion.append("Moderado")
                 else:
+                    evocacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
                     evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 evocacion.append("Normal")
@@ -766,6 +860,12 @@ class NeuropsiUpdate(UpdateView):
                         evocacion.append("Moderado")
                 else:
                     evocacion.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if espontanea == 1:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Primaria' or escolaridad == 'Analfabeta':
                     evocacion.append("Normal")
@@ -785,6 +885,9 @@ class NeuropsiUpdate(UpdateView):
         if claves >= 4 and claves <= 6:
             if edad >= 31 and edad <= 50:
                 evocacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Primaria':
                     if claves == 6 or claves == 5:
@@ -809,12 +912,21 @@ class NeuropsiUpdate(UpdateView):
                     evocacion.append("Moderado")
                 else:
                     evocacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 evocacion.append("Normal")
 
         else:
             if edad >= 31 and edad <= 50:
                 evocacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if claves == 2:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Severo")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     evocacion.append("Moderado")
@@ -835,7 +947,12 @@ class NeuropsiUpdate(UpdateView):
                         evocacion.append("Severo")
                     else:
                         evocacion.append("Moderado")
-                    
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if reconocimiento == 4:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta' and reconocimiento == 4:
                     evocacion.append("Moderado")
@@ -851,6 +968,12 @@ class NeuropsiUpdate(UpdateView):
                         evocacion.append("Moderado")
                 else:
                     evocacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if reconocimiento == 3:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Severo")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
                     if reconocimiento < 2:
@@ -878,6 +1001,12 @@ class NeuropsiUpdate(UpdateView):
                         evocacion.append("Normal")
                 else:
                     evocacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if efigura >= 10.5:
+                        evocacion.append("Normal Alto")
+                    else:
+                        evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     evocacion.append("Normal")
@@ -909,6 +1038,9 @@ class NeuropsiUpdate(UpdateView):
                     evocacion.append("Normal")
             elif edad >= 66 and edad <= 85:
                 evocacion.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    evocacion.append("Normal")
         elif efigura >= 3 and efigura < 6:
             if edad >= 31 and edad <= 50:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico' or escolaridad == 'Bachillerato':
@@ -925,6 +1057,12 @@ class NeuropsiUpdate(UpdateView):
                         evocacion.append("Severo")
                     else:
                         evocacion.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if efigura > 4:
+                        evocacion.append("Normal")
+                    else:
+                        evocacion.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Bachillerato':
                     if efigura > 4:
@@ -936,6 +1074,12 @@ class NeuropsiUpdate(UpdateView):
         else:
             if edad >= 31 and edad <= 50:
                 evocacion.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if efigura > 2:
+                        evocacion.append("Moderado")
+                    else:
+                        evocacion.append("Severo")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     if efigura < 2:
@@ -975,6 +1119,9 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Severo")
             elif edad >= 66 and edad <= 85:
                 lenguaje.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
         elif denominacion == 6:
             if edad >= 31 and edad <= 50:
                 if escolaridad == 'Analfabeta':
@@ -987,6 +1134,9 @@ class NeuropsiUpdate(UpdateView):
                 elif escolaridad == 'Primaria':
                     lenguaje.append("Normal")
                 else:
+                    lenguaje.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
                     lenguaje.append("Severo")
         else:
             if edad >= 31 and edad <= 50:
@@ -1004,6 +1154,9 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Moderado")
                     else:
                         lenguaje.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Severo")
 
         # repeticion
         repeticion = int(n.lenguaje_repeticion)
@@ -1015,6 +1168,9 @@ class NeuropsiUpdate(UpdateView):
                     lenguaje.append("Normal")
                 else:
                     lenguaje.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     lenguaje.append("Moderado")
@@ -1031,6 +1187,9 @@ class NeuropsiUpdate(UpdateView):
                     lenguaje.append("Normal Alto")
                 else:
                     lenguaje.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal Alto")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
                     lenguaje.append("Normal Alto")
@@ -1044,6 +1203,9 @@ class NeuropsiUpdate(UpdateView):
                     lenguaje.append("Moderado")
                 else:
                     lenguaje.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     lenguaje.append("Normal Alto")
@@ -1062,6 +1224,9 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Moderado")
                 else:
                     lenguaje.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     lenguaje.append("Normal")
@@ -1077,6 +1242,12 @@ class NeuropsiUpdate(UpdateView):
                 if escolaridad != 'Analfabeta':
                     lenguaje.append("Severo")
                 else:
+                    if comprension == 2:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
                     if comprension == 2:
                         lenguaje.append("Moderado")
                     else:
@@ -1100,6 +1271,9 @@ class NeuropsiUpdate(UpdateView):
                     lenguaje.append("Normal Alto")
                 else:
                     lenguaje.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal Alto")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     if semantica < 27:
@@ -1119,6 +1293,12 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Normal")
                 else:
                     if semantica > 18:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if semantica > 22:
                         lenguaje.append("Normal Alto")
                     else:
                         lenguaje.append("Normal")
@@ -1142,6 +1322,12 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Moderado")
                 else:
                     lenguaje.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if semantica > 10:
+                        lenguaje.append("Normal")
+                    else:
+                        lenguaje.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta' or escolaridad == 'Primaria':
                     lenguaje.append("Normal")
@@ -1168,6 +1354,12 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Moderado")
                 else:
                     if semantica > 4:
+                        lenguaje.append("Moderado")
+                    else:
+                        lenguaje.append("Severo")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if semantica > 3:
                         lenguaje.append("Moderado")
                     else:
                         lenguaje.append("Severo")
@@ -1216,6 +1408,12 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Normal")
                 else:
                     print("")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if fonologica > 15:
+                        lenguaje.append("Normal Alto")
+                    else:
+                        lenguaje.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     lenguaje.append("Normal")
@@ -1250,6 +1448,9 @@ class NeuropsiUpdate(UpdateView):
                         lenguaje.append("Moderado")
                 else:
                     print("")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    lenguaje.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     if fonologica > 6:
@@ -1356,6 +1557,9 @@ class NeuropsiUpdate(UpdateView):
         if semejanzas == 6 or semejanzas == 5:
             if edad >= 31 and edad <= 50:
                 conceptual.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    conceptual.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Analfabeta':
                     conceptual.append("Normal Alto")
@@ -1372,6 +1576,9 @@ class NeuropsiUpdate(UpdateView):
                     conceptual.append("Moderado")
                 else:
                     conceptual.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    conceptual.append("Normal")
             elif edad >= 66 and edad <= 85:
                 conceptual.append("Normal")
         else:
@@ -1385,6 +1592,12 @@ class NeuropsiUpdate(UpdateView):
                         conceptual.append("Moderado")
                 else:
                     conceptual.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if semejanzas == 0:
+                        conceptual.append("Moderado")
+                    else:
+                        conceptual.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     if semejanzas == 0:
@@ -1412,6 +1625,9 @@ class NeuropsiUpdate(UpdateView):
                     conceptual.append("Normal")
                 else:
                     print("")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    conceptual.append("Normal")
             elif edad >= 66 and edad <= 85:
                 if escolaridad != 'Analfabeta':
                     conceptual.append("Normal")
@@ -1423,6 +1639,9 @@ class NeuropsiUpdate(UpdateView):
                     conceptual.append("Normal")
                 else:
                     print("")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    conceptual.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     conceptual.append("Severo")
@@ -1457,6 +1676,9 @@ class NeuropsiUpdate(UpdateView):
         if mder == 0:
             if edad >= 31 and edad <= 50:
                 motora.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    motora.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Primaria' or escolaridad == "Analfabeta":
                     motora.append("Moderado")
@@ -1471,6 +1693,9 @@ class NeuropsiUpdate(UpdateView):
         if mizq == 0:
             if edad >= 31 and edad <= 50:
                 motora.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    motora.append("Moderado")
             elif edad >= 66 and edad <= 85:
                 if escolaridad == 'Bachillerato' or escolaridad == 'Profesional' or escolaridad == 'Técnico':
                     motora.append("Severo")
@@ -1492,6 +1717,9 @@ class NeuropsiUpdate(UpdateView):
                     motora.append("Moderado")
                 else:
                     motora.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    motora.append("Normal")
             elif edad >= 66 and edad <= 85:
                 motora.append("Normal")
         else:
@@ -1509,6 +1737,8 @@ class NeuropsiUpdate(UpdateView):
                     motora.append("Moderado")
                 elif edad >= 66 and edad <= 85:
                     motora.append("Normal")
+                elif edad >= 51 and edad <= 65:
+                    motora.append("Moderado")
 
         ## Reacciones opuestas
         opuestas=int(n.motora_reacciones)
@@ -1522,6 +1752,12 @@ class NeuropsiUpdate(UpdateView):
                         motora.append("Moderado")
                 else:
                     motora.append("Normal")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    if opuestas == 1:
+                        motora.append("Moderado")
+                    else:
+                        motora.append("Normal")
             elif edad >= 66 and edad <= 85:
                 motora.append("Normal")
         else:
@@ -1532,6 +1768,10 @@ class NeuropsiUpdate(UpdateView):
                     motora.append("Severo")
                 else:
                     motora.append("Moderado")
+            elif edad >= 51 and edad <= 65:
+                if escolaridad == 'Primaria':
+                    motora.append("Severo")
+
 
         n.motora= Counter(motora).most_common(1)[0][0]
         resultado.append(n.motora)

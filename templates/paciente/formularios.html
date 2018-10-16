@@ -2000,7 +2000,7 @@
 
           {% endif %}
           <br>
-            {% if not object.neuropsi or object.neuropsi.fecha == None %}
+            {% if not object.neuropsi or object.neuropsi.orientacion == None %}
             {% if perms.paciente.add_moca and object.inscrito == True  %}
           <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
             {% endif %}
