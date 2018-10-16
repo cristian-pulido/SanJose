@@ -210,15 +210,20 @@ def crearneuropsi(request, pk):
             n = Neuropsi.objects.create(candidato=c)
             return redirect("/paciente/neuropsi/editar/" + str(n.pk))
 
-def crearlectura(request, pk):
+def crearlectura(request, pk, tipo):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
-        c = Candidato.objects.get(pk=pk)
+        if tipo == 'candidato':
+            c = Candidato.objects.get(pk=pk)
+        else:
+            c = Control.objects.get(pk=pk)
         if hasattr(c, 'lectura_resonancia'):
             return redirect("/paciente/lectura/editar/" + str(c.lectura_resonancia.pk))
         else:
-            l=Lectura_resonancia.objects.create(candidato=c)
+            l=Lectura_resonancia.objects.create()
+            setattr(l, tipo, c)
+            l.save()
             return redirect("/paciente/lectura/editar/"+str(l.pk))
 
 

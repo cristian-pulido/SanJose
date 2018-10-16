@@ -15,6 +15,9 @@
   </li>
     {% endif %}
     {% if perms.validacion.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
+    <li class="nav-item">
+    <a class="nav-link "  data-toggle="tab"   href="#lectura" >Lectura Resonancia</a>
+  </li>
   <li class="nav-item">
     <a class="nav-link "  data-toggle="tab"   href="#verificacionparametros" >Resultados Estudio Imagen</a>
   </li>
@@ -111,6 +114,216 @@
             </iframe>
 
   </div>
+
+<div class="tab-pane" id="lectura">
+        <form>
+        {% if not object.lectura_resonancia or object.lectura_resonancia.fracturas == None %}
+          <p class="text-danger">No se encontro Lectura de Resonancia del Sujeto</p>
+          {% if perms.paciente.add_lectura_resonancia %}
+          <button class="btn btn-primary" formaction="{% url 'crear_lectura' object.pk 'control' %}">Añadir</button>
+          {% endif %}
+
+        {% endif %}
+        </form>
+
+
+
+
+        {% if object.lectura_resonancia  and object.lectura_resonancia.fracturas != None %}
+          <br>
+        <ol>
+              <li>
+                  <label>Fracturas</label> &nbsp; {{object.lectura_resonancia.fracturas}}
+                  {% if object.lectura_resonancia.fracturas == 'SI' %}
+                  <div id="fracturas">
+                    Localización:{{object.lectura_resonancia.fracturas_localizacion}}
+                  </div>
+                  {% endif%}
+              </li>
+              <li>
+                  <label>Hemorragia subaracnoidea</label> &nbsp; {{object.lectura_resonancia.hemorragia_subaracnoidea}}
+                  {% if object.lectura_resonancia.hemorragia_subaracnoidea == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.hemorragia_subaracnoidea_mayor_menor}}</li>
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_sangrado == True %}
+                            <li>Sangrado en capa de menor de 1 mm de espesor</li>
+                            {% endif%}
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_coagulos == True %}
+                            <li>Coágulos localizados mayores de 1 mm</li>
+                            {% endif%}
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_hemorragia == True %}
+                            <li>Hemorragia intraparenquimatosas o intraventicular</li>
+                            {% endif%}
+                            {% if object.lectura_resonancia.hemorragia_subaracnoidea_cronico == True %}
+                            <li>Crónico</li>
+                            {% endif%}
+                        </ul>
+
+
+                  {% endif%}
+              </li>
+
+              <li>
+                  <label>Hematoma extra axial</label> &nbsp; {{object.lectura_resonancia.hematoma_extra}}
+
+                  {% if object.lectura_resonancia.hematoma_extra == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.hematoma_extra_sub_epi}}</li>
+                            <li>Espesor: {{object.lectura_resonancia.hematoma_extra_espesor}} mm</li>
+                            {% if object.lectura_resonancia.hematoma_extra_agudo == True %}
+                            <li>Agudo</li>
+                            {% endif %}
+                        </ul>
+                  {% endif%}
+
+
+              </li>
+            <li>
+                  <label>Hematoma intra axial</label> &nbsp; {{object.lectura_resonancia.hematoma_intra}}
+                {% if object.lectura_resonancia.hematoma_intra == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.hematoma_intra_mayor_menor}}</li>
+                            <li>Localización: {{object.lectura_resonancia.hematoma_intra_localizacion}}</li>
+                            {% if object.lectura_resonancia.hematoma_extra_agudo == True %}
+                            <li>Agudo</li>
+                            {% endif %}
+                        </ul>
+                  {% endif%}
+
+              </li>
+
+              <li>
+                  <label>Contusión</label> &nbsp; {{object.lectura_resonancia.contusion}}
+                  {% if object.lectura_resonancia.contusion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.contusion_hemorragica}}</li>
+                            <li>{{object.lectura_resonancia.contusion_cortical}}</li>
+                            <li>Localización: {{object.lectura_resonancia.contusion_localizacion}}</li>
+                            <li>Diámetro: {{object.lectura_resonancia.contusion_diametro}} mm</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+              <li>
+                  <label>Línea media</label> &nbsp; {{object.lectura_resonancia.linea}}
+                  {% if object.lectura_resonancia.linea == 'Desviación' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.linea_tipo}}</li>
+                            <li>Lateralización: {{object.lectura_resonancia.linea_lateralizacion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+              <li>
+                  <label>Herniación</label> &nbsp; {{object.lectura_resonancia.herniacion}}
+                  {% if object.lectura_resonancia.herniacion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.herniacion_tipo}}</li>
+                       </ul>
+                  {% endif%}
+                </li>
+              <li>
+                  <label>Oclusión</label> &nbsp; {{object.lectura_resonancia.oclusion}}
+                  {% if object.lectura_resonancia.oclusion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.oclusion_tipo}}</li>
+                            <li>Localización: {{object.lectura_resonancia.oclusion_localizacion}}</li>
+
+                       </ul>
+                  {% endif%}
+
+              </li>
+              <li>
+                  <label>Edema</label> &nbsp; {{object.lectura_resonancia.edema}}
+                  {% if object.lectura_resonancia.oclusion == 'SI' %}
+                      <ul>
+                            <li>{{object.lectura_resonancia.edema_tipo}}</li>
+                            <li>Localización: {{object.lectura_resonancia.edema_localizacion}}</li>
+
+                       </ul>
+                  {% endif%}
+
+              </li>
+                <li>
+                  <label>Infarto o Isquemia</label> &nbsp; {{object.lectura_resonancia.infarto_isquemia}}
+                    {% if object.lectura_resonancia.infarto_isquemia == 'SI' %}
+                      <ul>
+                            <li>Localización: {{object.lectura_resonancia.infarto_isquemia_localizacion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+                <li>
+                  <label>Lesión axonal difusa</label>
+                    <ul>
+                        {% if object.lectura_resonancia.lesion_subcortical == True %}
+                        <li>Lesiones subcorticales difusas</li>
+                        {% endif %}
+                        {% if object.lectura_resonancia.lesion_calloso == True %}
+                        <li>Lesión en el esplenio del cuerpo calloso</li>
+                        {% endif %}
+                        {% if object.lectura_resonancia.lsion_dorsolateral == True %}
+                        <li>Lesión dorsolateral mesencefálica y/o puente alto</li>
+                        {% endif %}
+                    </ul>
+
+              </li>
+
+                <li>
+                  <label>Ventriculomegalia</label> &nbsp; {{object.lectura_resonancia.ventriculomegalia}}
+                    {% if object.lectura_resonancia.ventriculomegalia == 'SI' %}
+                      <ul>
+                            <li>Actividad Hidrocefalica {% if object.lectura_resonancia.vectriculomegalia_actividad == True %}
+                                SI {% else %} NO {% endif %}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+                <li>
+                  <label>Lesiones asociadas</label>(quistes, masas, malformaciones vasculares, aneurisma, orbitas cavidades
+paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
+                    {% if object.lectura_resonancia.lesiones_asociadas == 'SI' %}
+                      <ul>
+                            <li>Localización: {{object.lectura_resonancia.lesiones_asociadas_descripcion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+
+                <li>
+                  <label>Atrofia o encefalomalacia</label> &nbsp; {{object.lectura_resonancia.atrofia}}
+                    {% if object.lectura_resonancia.atrofia == 'SI' %}
+                      <ul>
+                            <li>Descripción: {{object.lectura_resonancia.atrofia_descripcion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+
+                <li>
+                  <label>Cambios postquirúrgicos</label> &nbsp; {{object.lectura_resonancia.cambios}}
+                    {% if object.lectura_resonancia.cambios == 'SI' %}
+                      <ul>
+                            <li>Localización: {{object.lectura_resonancia.cambios_localizacion}}</li>
+                       </ul>
+                  {% endif%}
+
+              </li>
+            </ol>
+          <label>Impresión (orientación diagnóstica):</label>
+          <br>
+          {{object.lectura_resonancia.impresion}}
+
+          {% if perms.paciente.change_lectura_resonancia %}
+        <form>
+          <button class="btn btn-primary" formaction="{% url 'lectura_editar' object.lectura_resonancia.pk %}">Editar</button>
+          </form>
+          {% endif %}
+        {% endif %}
+      </div>
 
 
 <div class="tab-pane"  id="verificacionparametros">

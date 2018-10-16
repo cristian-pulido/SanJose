@@ -27,6 +27,9 @@
     <li class="nav-item">
       <a class="nav-link "  data-toggle="tab" href="#clinica">Información Clínica</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link "  data-toggle="tab" href="#imagenologia">Información Imagenológica</a>
+    </li>
     {% if perms.paciente.can_ver_seguimiento %}
     {% if object.uci and object.uci.glasgowtotal != '0' %}
       <li class="nav-item">
@@ -966,12 +969,6 @@
 
 
 
-
-
-
-
-
-
   </div>
 
   <div class="tab-pane " id="snr">
@@ -1048,34 +1045,14 @@
         <a class="nav-link "  data-toggle="tab"   href="#neurologia" {% if object.get_neuro|length == 0 or object.get_neuro.0.fechaneuro == None %} style="color:orange" {% endif %} >Formato Neurología</a>
       </li>
       {% endif %}
-      {% if perms.paciente.can_ver_radiologia %}
-      <li class="nav-item">
-        <a class="nav-link "  data-toggle="tab"   href="#radiologia" {% if not object.radiologia or object.radiologia.fecha_procedimiento == None  %} style="color:orange" {% endif %} >Traslado a Radiología</a>
-      </li>
-      {% endif %}
-      {% if perms.paciente.can_ver_bold %}
-      <li class="nav-item">
-        <a class="nav-link "  data-toggle="tab"   href="#bold" {% if not object.bold or object.bold.fechaimg == None  %} style="color:orange" {% endif %}>Checklist BOLD</a>
-      </li>
-      {% endif %}
       {% if perms.paciente.can_ver_informante %}
       <li class="nav-item">
         <a class="nav-link "  data-toggle="tab"   href="#informante" {% if not object.informante or object.informante.fechaentrevista == None  %} style="color:orange" {% endif %}>Neuropsicología Informante</a>
       </li>
       {% endif %}
-      {% if perms.paciente.can_ver_lectura %}
-      <li class="nav-item">
-        <a class="nav-link "  data-toggle="tab"   href="#lectura" {% if not object.lectura_resonancia  %} style="color:orange" {% endif %}>Lectura Resonancia</a>
-      </li>
-      {% endif %}
 
-    {% if perms.fileupload.add_picture %}
-        {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen and object.inscrito == True%}
-      <li class="nav-item">
-        <a class="nav-link "  data-toggle="tab"   href="#imagen" {% if not object.imagen %} style="color:orange" {% endif %} >Imagen</a>
-      </li>
-        {% endif %}
-    {% endif %}
+
+
 
       {% if object.uci and object.uci.condicion_egreso == 'Vivo' and perms.paciente.can_ver_moca %}
       <li class="nav-item">
@@ -1087,7 +1064,7 @@
       {% endif %}
       {% endif %}
     </ul>
-    <div id="myTabContent" class="tab-content" >
+    <div id="myTabClinica" class="tab-content" >
 
       <div class="tab-pane" id="estudio">
         <form>
@@ -1220,275 +1197,7 @@
           {% endif %}
         {% endif %}
       </div>
-       <div class="tab-pane" id="radiologia">
 
-
-         <form>
-           {% if object.get_radio %}
-
-           <table class="table table-hover">
-             <thead>
-             <tr>
-               <th>Fecha</th>
-               <th>Motivo no transportable</th>
-             </tr>
-             </thead>
-             <tbody>
-             {% for rf in object.get_radio %}
-             <tr>
-             <td>{{rf.fecha}}</td> <td>{{rf.razon}}</td>
-             </tr>
-           {% endfor %}
-             </tbody>
-           </table>
-
-           {% endif %}
-
-
-         {% if not object.radiologia or object.radiologia.fecha_procedimiento == None %}
-          <p class="text-danger">No se encontro información de  Traslado a Radiología del Sujeto</p>
-         {% if perms.paciente.add_radiologia and object.inscrito == True %}
-          <label>Transportable   &nbsp;</label><a class="btn btn-primary" onclick="con()" >No</a>
-          <script >
-          function con() {
-
-              var a = prompt("Motivo:", "");
-              var n = a.length;
-
-              while (n>95 || n == 0 ) {
-                  var a = prompt("Motivo:", "");
-                  var n = a.length;
-              }
-              a=a.replace(/ /g,"_");
-              var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
-              window.location=url_mask;
-          }
-          </script>
-          {% if object.radiologia %}
-          <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Si</button>
-          {% else %}
-          <button class="btn btn-primary" formaction="{% url 'crear_radiologia' object.pk%}">Si</button>
-          {% endif %}
-          {% endif %}
-        {% endif %}
-        </form>
-
-
-        {% if object.radiologia and object.radiologia.fecha_procedimiento != None %}
-        <table class="table table-hover">
-
-              <tbody>
-                <tr class="table-active">
-                  <th>Fecha de procedimiento</th>
-                  <td >{{ object.radiologia.fecha_procedimiento }} </td>
-                  <th>Anestesiólogo</th>
-                  <td>{{ object.radiologia.radiologo }}</td>
-                </tr>
-
-                <tr>
-                  <th colspan="4" style="color:blue;">Pretransporte</th>
-                </tr>
-
-                <tr class="table-active">
-                  <th>Transportable</th>
-                  <td>{{ object.radiologia.transportable }} </td>
-                    <th>Hora inicio</th>
-                  <td>{{ object.radiologia.hora_inicio }} </td>
-                </tr>
-                <tr>
-                  <th>Personal de Acompañamiento</th>
-                  <td>
-                    {% if object.radiologia.jefe_enfermeria == 'SI' %}
-                      Jefe de enfermería <br>
-                    {% endif %}
-                    {% if object.radiologia.aux_enfermeria == 'SI' %}
-                      Auxiliar de enfermería <br>
-                    {% endif %}
-                    {% if object.radiologia.medico_uci == 'SI' %}
-                      Médico UCI <br>
-                    {% endif %}
-                    {% if object.radiologia.anestesiologo == 'SI' %}
-                      Anestesiólogo <br>
-                    {% endif %}
-                    {% if object.radiologia.terapeuta_respiratorio == 'SI' %}
-                      Terapeuta Respiratorio <br>
-                    {% endif %}
-                  </td>
-                  <th>Soporte</th>
-                  <td>
-                    {% if object.radiologia.vmi == 'SI' %}
-                      VMI <br>
-                    {% endif %}
-                    {% if object.radiologia.vasopresor == 'SI' %}
-                      Vasopresor <br>
-                    {% endif %}
-                    {% if object.radiologia.ionotropico == 'SI' %}
-                      Ionotrópico <br>
-                    {% endif %}
-                  </td>
-                </tr>
-                <tr>
-                  <th colspan="4" style="color:blue;">Monitoreo de transporte UCI - Radiología</th>
-                </tr>
-                <tr>
-                  <td></td><th colspan="2">Signos vitales</th>
-                </tr>
-                {% if object.radiologia.ur_pulsoximetro == 'SI' %}
-                  <tr>
-                    <td>Pulsoxímetro</td>
-                    <td colspan="2">{{object.radiologia.ur_pulsoximetro_sv}}%</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ur_frecuencia_cardiaca == 'SI' %}
-                  <tr>
-                    <td >Frecuencia cardíaca</td>
-                    <td colspan="2">{{object.radiologia.ur_frecuencia_cardiaca_sv}} latidos/min</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ur_frecuencia_respiratoria == 'SI' %}
-                  <tr>
-                    <td >Frecuencia respiratoria</td>
-                    <td colspan="2">{{object.radiologia.ur_frecuencia_respiratoria_sv}} respiraciones/min</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ur_visoscopio == 'SI' %}
-                  <tr>
-                    <td >Visoscopio</td>
-                    <td colspan="2">{{object.radiologia.ur_visoscopio_sv}}</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ur_tension == 'SI' %}
-                  <tr>
-                    <td >Tensión arterial</td>
-                    <td colspan="2">{{object.radiologia.ur_tension_sv}} mmhg</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.monitoreo == 'SI'%}
-                <tr>
-                  <th colspan="4" style="color:blue;">Monitoreo neurológico</th>
-                </tr>
-                <tr>
-                  <th>#PIC</th><td>{{object.radiologia.pic}}</td>
-                  <th>#PPC</th><td>{{object.radiologia.ppc}}</td>
-                </tr>
-                {% if object.radiologia.medicamentos_emergencia == 'SI' %}
-                  <th>Medicamentos de emergencia</th>
-                  <td>{{object.radiologia.me_cual}}</td>
-                  <th>Dosis total</th>
-                  <td>{{object.radiologia.me_dosis}}</td>
-                {% endif %}
-                <tr>
-                {% endif %}
-                  <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
-                </tr>
-                <tr>
-                  <td></td><th>Dosis total</th><th colspan="2">Signos vitales</th>
-                </tr>
-                <tr>
-                  {% if object.radiologia.sedacion == 'SI' %}
-                    <td >Sedación</td>
-                    <td >{{object.radiologia.sedacion_dt}}</td>
-                  {%else%}
-                  <td></td><td></td>
-                  {% endif %}
-                    <td colspan="2">{{object.radiologia.sedacion_sv}}%</td>
-                </tr>
-                <tr>
-                  {% if object.radiologia.analgesia == 'SI' %}
-                    <td >Analgesia</td>
-                    <td >{{object.radiologia.analgesia_dt}}</td>
-                  {%else%}
-                  <td></td><td></td>
-                  {% endif %}
-                    <td colspan="2">{{object.radiologia.analgesia_sv}} latidos/min</td>
-                </tr>
-                <tr>
-                  {% if object.radiologia.relajacion == 'SI' %}
-                    <td >relajacion</td>
-                    <td >{{object.radiologia.relajacion_dt}}</td>
-                  {%else%}
-                  <td></td><td></td>
-                  {% endif %}
-                    <td colspan="2">{{object.radiologia.relajacion_sv}} respiraciones/min</td>
-                </tr>
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">{{object.radiologia.svadicional1}}</td>
-                </tr>
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">{{object.radiologia.svadicional2}} mmhg</td>
-                </tr>
-
-
-
-                {% if object.radiologia.otra_medicacion == 'SI' %}
-                  <th>Otra medicación administrada durante el procedimiento</th>
-                  <td>{{object.radiologia.otra_medicacion_cual}}</td>
-                  <th>Dosis total</th>
-                  <td>{{object.radiologia.otra_medicacion_dt}}</td>
-                {% endif %}
-
-                <tr>
-                  <th colspan="4" style="color:blue;">Monitoreo de transporte Radiología - UCI</th>
-                </tr>
-                <tr>
-                  <td></td><th>Signos vitales</th>
-                </tr>
-                {% if object.radiologia.ru_pulsoximetro == 'SI' %}
-                  <tr>
-                    <td>Pulsoxímetro</td>
-                    <td colspan="2">{{object.radiologia.ru_pulsoximetro_sv}}%</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ru_frecuencia_cardiaca == 'SI' %}
-                  <tr>
-                    <td >Frecuencia cardíaca</td>
-                    <td colspan="2">{{object.radiologia.ru_frecuencia_cardiaca_sv}} latidos/min</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ru_frecuencia_respiratoria == 'SI' %}
-                  <tr>
-                    <td >Frecuencia respiratoria</td>
-                    <td colspan="2">{{object.radiologia.ru_frecuencia_respiratoria_sv}} respiraciones/min</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ru_visoscopio == 'SI' %}
-                  <tr>
-                    <td >Visoscopio</td>
-                    <td colspan="2">{{object.radiologia.ru_visoscopio_sv}}</td>
-                  </tr>
-                {% endif %}
-                {% if object.radiologia.ru_tension == 'SI' %}
-                  <tr>
-                    <td >Tensión arterial</td>
-                    <td colspan="2">{{object.radiologia.ru_tension_sv}} mmhg</td>
-                  </tr>
-                {% endif %}
-
-              <tr>
-                <th>Tiempo de resonancia</th>
-                <td>{{object.radiologia.tiempo_sesonacia}} minutos</td>
-                <th>Hora de llegada a UCI</th>
-                <td>{{object.radiologia.hora_llegada}}</td>
-              </tr>
-              {% if object.radiologia.complicaciones == 'SI'%}
-              <tr>
-                <th >Complicaciones derivadas del transporte</th>
-                <td colspan="3">{{object.radiologia.complicaciones_cuales}}</td>
-              </tr>
-
-              {% endif %}
-
-              </tbody>
-            </table>
-         {% if perms.paciente.change_radiologia and object.inscrito == True %}
-         <form>
-          <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Editar</button>
-         </form>
-         {% endif %}
-        {% endif %}
-      </div>
     <div class="tab-pane"  id="uci">
           {% if not object.uci %}
           <p class="text-danger">No se encontro información de  Uci</p>
@@ -1920,7 +1629,802 @@
         {% endif %}
 
      </div>
-    <div class="tab-pane"  id="bold">
+
+    <div class="tab-pane"  id="informante">
+
+
+          {% if not object.informante or object.informante.fechaentrevista == None %}
+          <p class="text-danger">No se encontro información neuropsicológica </p>
+          {% if perms.paciente.add_informante and object.inscrito == True %}
+      <form>
+           {% if object.edad > 59 %}
+              {% if object.mayor %}
+              <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Añadir</button>
+              {% else %}
+              <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
+              {% endif %}
+
+           {% else %}
+              {% if object.informante %}
+              <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Añadir</button>
+              {% else %}
+              <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
+              {% endif %}
+
+           {% endif %}
+      </form>
+
+          {% endif %}
+        {% endif %}
+
+
+
+          {% if object.informante and object.informante.fechaentrevista != None %}
+
+            {% if object.mayor %}
+              <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de entrevista clínica </th>
+                  <td>{{ object.mayor.fechaentrevista }} </td>
+                  <th>Neuropsicóloga:</th>
+                  <td>{{ object.mayor.neuropsicologa }}</td>
+                </tr>
+
+              <tr>
+                <th>Parentezco</th>
+                <td>{{ object.mayor.parentezco }}</td>
+                <th>Confiable</th>
+                <td>{{ object.mayor.confiable }}</td>
+              </tr>
+                {% if user.groups.all.0.name == 'Coordinador' %}
+              <tr>
+                <th>Informante</th>
+                <td colspan="3">{{ object.mayor.informante }}</td>
+              </tr>
+                {% endif %}
+              <tr>
+                <td colspan="4">
+                  <legend>S - I.Q.C.O.D.E.</legend>
+                </td>
+              </tr>
+              <tr>
+                  <th>Resultado</th>
+                  <td>{{object.mayor.resultado}}</td>
+                  <th>Total</th>
+                  <td>{{object.mayor.total}}</td>
+                </tr>
+              <tr>
+                <td colspan="4">
+                  <legend>ESCALA DE DETERIORO GLOBAL (GDS)</legend>
+                </td>
+              </tr>
+              <tr>
+                <th>Severidad GDS:</th>
+                <td colspan="3">
+                  {{object.mayor.severidadgds}}
+                  {% if object.mayor.severidadgds == "1" %}
+                    Normal, Ningún deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "2" %}
+                    Olvidadizo, Muy ligero deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "3" %}
+                    Confuso, Ligero deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "4" %}
+                    Bastante confuso, Moderado deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "5" %}
+                    Demencia temprana, Moderadamente severo deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "6" %}
+                    Demencia moderada, Severo deterioro cognoscitivo
+                  {% endif %}
+                  {% if object.mayor.severidadgds == "7" %}
+                    Demencia severa, Profundo deterioro cognoscitivo
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <th>Dx Demencia</th>
+                <td>{{object.mayor.dxdemencia}}</td>
+                <th>Tiempo de evolución</th>
+                <td>{{object.mayor.tiempo}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+
+           {% else %}
+            <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de entrevista clínica </th>
+                  <td>{{ object.informante.fechaentrevista }} </td>
+                  <th>Neuropsicóloga:</th>
+                  <td>{{ object.informante.neuropsicologa }}</td>
+                </tr>
+              <tr>
+                <th>Parentezco</th>
+                <td>{{ object.informante.parentezco }}</td>
+                <th>Confiable</th>
+                <td>{{ object.informante.confiable }}</td>
+              </tr>
+                {% if user.groups.all.0.name == 'Coordinador' %}
+              <tr>
+                <th>Informante</th>
+                <td colspan="3">{{ object.informante.informante }}</td>
+              </tr>
+                {% endif %}
+
+              </tbody>
+            </table>
+
+           {% endif %}
+
+
+          <legend>Funcionamiento Premórbido:</legend>
+
+
+          <table class="table table-hover">
+              <tbody>
+                <tr class="table-active">
+                  <th>Escala Lawton-Brody de actividades instrumentales </th>
+                  <td>Total {{object.informante.totalindependencia}} </td>
+                  <th>Escala de transtornos de memoria</th>
+                  <td>Total {{object.informante.totalmemoria}}/45</td>
+                </tr>
+              <tr>
+                <th colspan="4">Frontal Systems Behavior Scale (FrSBe)</th>
+              </tr>
+              <tr>
+                <th>Total Apatia</th> <td>{{object.informante.totalapatia}}</td>
+              </tr>
+              <tr>
+                <th>Total Deshinhibicion</th> <td>{{object.informante.totaldes}}</td>
+              </tr>
+              <tr>
+                <th>Total Funciones ejecutivas</th> <td>{{object.informante.totalfunciones}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+
+          {% if perms.paciente.change_informante and object.inscrito == True %}
+          <form>
+          {% if object.edad > 59 %}
+              <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Editar</button>
+
+           {% else %}
+              <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Editar</button>
+
+           {% endif %}
+          </form>
+          {% endif %}
+          {% endif %}
+     </div>
+
+    <div class="tab-pane"  id="moca">
+      <form>
+
+          {% if not object.valorablenps %}
+
+          {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
+          <p class="text-danger">No se encontro información de evaluación MOCA</p>
+          {% tiempoeventoprincipal object as tep %}
+
+          {% if perms.paciente.add_moca and tep %}
+        <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
+        <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
+
+
+
+          <br>
+          <table>
+            <tbody>
+            <tr>
+              <th><label id="causa" style="display:none">Causa</label></th>
+              <td>
+          <select id="causa_options" style="display:none" onchange="nps()">
+              <option  value="0">Seleccione una opción</option>
+              <option  value="1">Fallecido</option>
+              <option  value="2">No localizable</option>
+              <option  value="3">No colabora</option>
+              <option  value="4">EMC</option>
+              <option  value="5">SVSR</option>
+          </select>
+              </td>
+              <td>
+                <label id="labelfecha" style="display:none">Fecha: </label>
+              </td>
+              <td>
+                <input id="datefallecido" type="date" style="display:none" class="form-control" min="{{object.uci.fechaegreso|date:'Y-m-d'}}" onchange="nps()">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+
+
+          <script >
+          function ver() {
+              document.getElementById("nov").style="display:none" ;
+              document.getElementById("siv").style="display:none" ;
+              document.getElementById("causa").style="display:inline" ;
+              document.getElementById("causa_options").style="display:inline" ;
+          }
+          function nps() {
+              var c=document.getElementById("causa_options").value ;
+              var f=document.getElementById("datefallecido").value ;
+              if ( c == 1 && f == "" ){
+              document.getElementById("datefallecido").style="display:inline" ;
+              document.getElementById("labelfecha").style="display:inline" ;
+              var today = new Date();
+              var dd = today.getDate();
+              var mm = today.getMonth()+1; //January is 0!
+              var yyyy = today.getFullYear();
+               if(dd<10){
+                      dd='0'+dd
+                  }
+                  if(mm<10){
+                      mm='0'+mm
+                  }
+
+              today = yyyy+'-'+mm+'-'+dd;
+              document.getElementById("datefallecido").max=today;
+              } else {
+              var url_mask = "{% url 'crear_nps' object.pk 'x' 'y' %}"
+              url_mask=url_mask.replace('x', c.toString());
+              if ( f == "" ){
+              f="None";
+              }
+              url_mask=url_mask.replace('y', f.toString());
+              window.location=url_mask;
+              }
+          }
+          </script>
+          {% endif %}
+          {% endif %}
+          {% elif object.valorablenps and object.valorablenps.valorable == False %}
+          <br>
+          <ul>
+            <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+            <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
+            {% tiempoeventoprincipal object as tep %}
+
+            {% if object.valorablenps.razon != "Fallecido" and tep %}
+            <br>
+            <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>
+            <br>
+            <p>Posible Antes de los 6 meses desde el evento principal </p>
+            {% endif %}
+          </ul>
+          {% else %}
+
+
+        <br>
+        {% if object.moca_set.all %}
+
+        {% if object.valorablenps and object.valorablenps.razon != "Fallecido" and object.valorablenps.razon != None %}
+
+          <ul>
+            <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
+            <li>Causa: {{object.valorablenps.razon}} </li>
+
+          </ul>
+        {% endif %}
+      <div class="panel-group">
+        <div class="panel panel-default">
+          {% for moca in object.moca_set.all %}
+          {% if moca.fecha != None %}
+
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}} &nbsp;&nbsp;  Puntaje MOCA</b></a></h4>
+          </div>
+
+          <div id="mo{{ forloop.counter0 }}" class="panel-collapse collapse">
+            <div class="panel-body">
+
+              <table class="table table-hover">
+          <tbody>
+           <tr>
+              <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
+          </tr>
+
+          <tr>
+              <th style="vertical-align: middle;">Función visoespacial</th>
+              <td>{{moca.funcion_visoespacial}}/5</td>
+              <th style="vertical-align: middle;">Identificación</th>
+              <td>{{moca.identificacion}}/3</td>
+          </tr>
+          <tr>
+              <th style="vertical-align: middle;">Atención</th>
+              <td>
+                  <table>
+                      <tbody>
+                      <tr>
+                          <td style="vertical-align: middle;">Número</td><td>{{moca.atencion_numero}}/2</td>
+                      </tr>
+                      <tr><td style="vertical-align: middle;">Letras</td><td>{{moca.atencion_letras}}/1</td></tr>
+                      <tr>
+                          <td style="vertical-align: middle;">Resta</td><td>{{moca.atencion_resta}}/3</td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </td>
+              <th style="vertical-align: middle;">Lenguaje</th>
+              <td>
+                  <table>
+                      <tbody>
+                      <tr>
+                          <td style="vertical-align: middle;">Repite</td><td>{{moca.lenguaje_repite}}/2</td>
+                      </tr>
+                      <tr><td style="vertical-align: middle;">Fluidez</td><td>{{moca.lenguaje_fluidez}}/1</td></tr>
+                      </tbody>
+                  </table>
+              </td>
+          </tr>
+          <tr>
+              <th style="vertical-align: middle;">Abstracción</th>
+              <td>{{moca.abstraccion}}/2</td>
+              <th style="vertical-align: middle;">Recuerdo Diferido</th>
+              <td>{{moca.recuerdo}}/5</td>
+          </tr>
+          <tr>
+              <th style="vertical-align: middle;">Orientación</th>
+              <td>{{moca.orientacion}}/6</td>
+              <th style="vertical-align: middle;">Total</th>
+              <td>{{moca.total}}/30</td>
+          </tr>
+          </tbody>
+        </table>
+
+            </div>
+
+          </div>
+          <br>
+
+          {% endif %}
+          {% endfor%}
+        </div>
+      </div>
+
+          <br>
+          {% tiempoeventoprincipal object as tep %}
+          {% if perms.paciente.add_moca and object.inscrito == True and tep %}
+          <form>
+          <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica (MOCA)</button>
+          <p>Posible Antes de los 6 meses desde el evento principal. </p>
+
+          {% endif %}
+          <br>
+            {% if not object.neuropsi or object.neuropsi.fecha == None %}
+            {% if perms.paciente.add_moca and object.inscrito == True  %}
+          <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
+            {% endif %}
+            {% else %}
+
+            <table class="table table-hover">
+                    <caption style="text-align:left"><h3>NEUROPSI  {{object.neuropsi.fecha}}</h3></caption>
+                    <tbody>
+                    <tr>
+                        <th colspan="4">Observaciones médicas y neurológicas</th>
+                    </tr>
+
+                    <tr>
+                        <th style="vertical-align:middle;">Medicado</th>
+                        <td style="vertical-align:middle;" {% if object.neuropsi.medicado == 'NO' %} colspan="3" {% endif %}>
+                          {{object.neuropsi.medicado}}
+                          {% if object.neuropsi.medicado == "SI" %}
+                          {{object.neuropsi.medicado_cual}}
+                          {% endif %}
+                        </td>
+                        {% if object.neuropsi.medicado == "SI" %}
+                        <th>Dosis total dia</th>
+                        <td>{{object.neuropsi.medicado_dt}}</td>
+                        {% endif%}
+                    </tr>
+                    <tr>
+                        <th style="vertical-align:middle;" >Imagen</th>
+
+                        <td colspan="3">{% if object.neuropsi.imagen != "" %} {{object.neuropsi.imagen}} {% else %} NO {% endif %}</td>
+                    </tr>
+                     <tr>
+                        <th colspan="4">Resultados por Bloques</th>
+                    </tr>
+                    <tr>
+
+                        <th style="vertical-align:middle;">
+                            Orientación
+                        </th>
+
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.orientacion}}
+                        </td>
+                        <th style="vertical-align:middle;">
+                            Atención y Concentración
+                        </th>
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.atencion}}
+                        </td>
+                    </tr>
+                    <tr>
+                      <th rowspan="2" style="vertical-align:middle;">Memoria</th>
+                      <td>Codificación</td>
+                      <td colspan="2">{{object.neuropsi.codificacion}}</td>
+                    </tr>
+                    <tr>
+                      <td>Evocación</td>
+                      <td colspan="2">{{object.neuropsi.evocacion}}</td>
+                    </tr>
+                    <tr>
+
+                        <th style="vertical-align:middle;">
+                            Lenguaje
+                        </th>
+
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.lenguaje}}
+                        </td>
+
+                        {% if object.ingreso.n_educativo == "Primaria" or object.ingreso.n_educativo == "Analfabeta" %}
+                        <td colspan="2"></td>
+                        {% else%}
+                        <th style="vertical-align:middle;">
+                            Lectura y Escritura
+                        </th>
+                        <td style="vertical-align:middle;">
+                            {{object.neuropsi.lectura}}
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                      <th rowspan="2" style="vertical-align:middle;">Funciones Ejecutivas</th>
+                      <td>Conceptual</td>
+                      <td colspan="2">{{object.neuropsi.conceptual}}</td>
+                    </tr>
+                    <tr>
+                      <td>Funciones Motoras</td>
+                      <td colspan="2">{{object.neuropsi.motora}}</td>
+                    </tr>
+
+                    <tr>
+                      <th>Resultado</th>
+                      <td colspan="3">{{object.neuropsi.resultado}}</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+
+            {% endif %}
+            </form>
+        {% endif %}
+
+
+
+        {% endif %}
+        </form>
+    </div>
+
+
+
+    </div>
+  </div>
+  <div class="tab-pane fade" id="imagenologia">
+<br>
+  <h3>Seleccione una Pestaña</h3>
+
+    <ul class="nav nav-tabs">
+
+      {% if object.estado > 0 and object.D_neuro_logico_psiquiatrico_previo.all|length == 0 %}
+      {% if object.ce1 == False  and object.ce2 == False and object.ce3 == False and object.ce4 == False and object.ci3 == True and object.ci4 == True %}
+
+
+      {% if perms.paciente.can_ver_radiologia %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#radiologia" {% if not object.radiologia or object.radiologia.fecha_procedimiento == None  %} style="color:orange" {% endif %} >Traslado a Radiología</a>
+      </li>
+      {% endif %}
+      {% if perms.paciente.can_ver_bold %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#bold" {% if not object.bold or object.bold.fechaimg == None  %} style="color:orange" {% endif %}>Checklist BOLD</a>
+      </li>
+      {% endif %}
+
+      {% if perms.paciente.can_ver_lectura %}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#lectura" {% if not object.lectura_resonancia  %} style="color:orange" {% endif %}>Lectura Resonancia</a>
+      </li>
+      {% endif %}
+
+    {% if perms.fileupload.add_picture %}
+        {% if object.ingreso and object.ingreso.fecha_form != None and not object.imagen and object.inscrito == True%}
+      <li class="nav-item">
+        <a class="nav-link "  data-toggle="tab"   href="#imagen" {% if not object.imagen %} style="color:orange" {% endif %} >Imagen</a>
+      </li>
+        {% endif %}
+    {% endif %}
+
+      {% endif %}
+      {% endif %}
+    </ul>
+    <div id="myTabImagen" class="tab-content" >
+
+
+       <div class="tab-pane" id="radiologia">
+
+
+         <form>
+           {% if object.get_radio %}
+
+           <table class="table table-hover">
+             <thead>
+             <tr>
+               <th>Fecha</th>
+               <th>Motivo no transportable</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for rf in object.get_radio %}
+             <tr>
+             <td>{{rf.fecha}}</td> <td>{{rf.razon}}</td>
+             </tr>
+           {% endfor %}
+             </tbody>
+           </table>
+
+           {% endif %}
+
+
+         {% if not object.radiologia or object.radiologia.fecha_procedimiento == None %}
+          <p class="text-danger">No se encontro información de  Traslado a Radiología del Sujeto</p>
+         {% if perms.paciente.add_radiologia and object.inscrito == True %}
+          <label>Transportable   &nbsp;</label><a class="btn btn-primary" onclick="con()" >No</a>
+          <script >
+          function con() {
+
+              var a = prompt("Motivo:", "");
+              var n = a.length;
+
+              while (n>95 || n == 0 ) {
+                  var a = prompt("Motivo:", "");
+                  var n = a.length;
+              }
+              a=a.replace(/ /g,"_");
+              var url_mask = "{% url 'crear_rf' object.pk 'x' %}".replace('x', a.toString());
+              window.location=url_mask;
+          }
+          </script>
+          {% if object.radiologia %}
+          <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Si</button>
+          {% else %}
+          <button class="btn btn-primary" formaction="{% url 'crear_radiologia' object.pk%}">Si</button>
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        </form>
+
+
+        {% if object.radiologia and object.radiologia.fecha_procedimiento != None %}
+        <table class="table table-hover">
+
+              <tbody>
+                <tr class="table-active">
+                  <th>Fecha de procedimiento</th>
+                  <td >{{ object.radiologia.fecha_procedimiento }} </td>
+                  <th>Anestesiólogo</th>
+                  <td>{{ object.radiologia.radiologo }}</td>
+                </tr>
+
+                <tr>
+                  <th colspan="4" style="color:blue;">Pretransporte</th>
+                </tr>
+
+                <tr class="table-active">
+                  <th>Transportable</th>
+                  <td>{{ object.radiologia.transportable }} </td>
+                    <th>Hora inicio</th>
+                  <td>{{ object.radiologia.hora_inicio }} </td>
+                </tr>
+                <tr>
+                  <th>Personal de Acompañamiento</th>
+                  <td>
+                    {% if object.radiologia.jefe_enfermeria == 'SI' %}
+                      Jefe de enfermería <br>
+                    {% endif %}
+                    {% if object.radiologia.aux_enfermeria == 'SI' %}
+                      Auxiliar de enfermería <br>
+                    {% endif %}
+                    {% if object.radiologia.medico_uci == 'SI' %}
+                      Médico UCI <br>
+                    {% endif %}
+                    {% if object.radiologia.anestesiologo == 'SI' %}
+                      Anestesiólogo <br>
+                    {% endif %}
+                    {% if object.radiologia.terapeuta_respiratorio == 'SI' %}
+                      Terapeuta Respiratorio <br>
+                    {% endif %}
+                  </td>
+                  <th>Soporte</th>
+                  <td>
+                    {% if object.radiologia.vmi == 'SI' %}
+                      VMI <br>
+                    {% endif %}
+                    {% if object.radiologia.vasopresor == 'SI' %}
+                      Vasopresor <br>
+                    {% endif %}
+                    {% if object.radiologia.ionotropico == 'SI' %}
+                      Ionotrópico <br>
+                    {% endif %}
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="4" style="color:blue;">Monitoreo de transporte UCI - Radiología</th>
+                </tr>
+                <tr>
+                  <td></td><th colspan="2">Signos vitales</th>
+                </tr>
+                {% if object.radiologia.ur_pulsoximetro == 'SI' %}
+                  <tr>
+                    <td>Pulsoxímetro</td>
+                    <td colspan="2">{{object.radiologia.ur_pulsoximetro_sv}}%</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_frecuencia_cardiaca == 'SI' %}
+                  <tr>
+                    <td >Frecuencia cardíaca</td>
+                    <td colspan="2">{{object.radiologia.ur_frecuencia_cardiaca_sv}} latidos/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_frecuencia_respiratoria == 'SI' %}
+                  <tr>
+                    <td >Frecuencia respiratoria</td>
+                    <td colspan="2">{{object.radiologia.ur_frecuencia_respiratoria_sv}} respiraciones/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_visoscopio == 'SI' %}
+                  <tr>
+                    <td >Visoscopio</td>
+                    <td colspan="2">{{object.radiologia.ur_visoscopio_sv}}</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ur_tension == 'SI' %}
+                  <tr>
+                    <td >Tensión arterial</td>
+                    <td colspan="2">{{object.radiologia.ur_tension_sv}} mmhg</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.monitoreo == 'SI'%}
+                <tr>
+                  <th colspan="4" style="color:blue;">Monitoreo neurológico</th>
+                </tr>
+                <tr>
+                  <th>#PIC</th><td>{{object.radiologia.pic}}</td>
+                  <th>#PPC</th><td>{{object.radiologia.ppc}}</td>
+                </tr>
+                {% if object.radiologia.medicamentos_emergencia == 'SI' %}
+                  <th>Medicamentos de emergencia</th>
+                  <td>{{object.radiologia.me_cual}}</td>
+                  <th>Dosis total</th>
+                  <td>{{object.radiologia.me_dosis}}</td>
+                {% endif %}
+                <tr>
+                {% endif %}
+                  <th colspan="4" style="color:blue;">Monitoreo en resonancia</th>
+                </tr>
+                <tr>
+                  <td></td><th>Dosis total</th><th colspan="2">Signos vitales</th>
+                </tr>
+                <tr>
+                  {% if object.radiologia.sedacion == 'SI' %}
+                    <td >Sedación</td>
+                    <td >{{object.radiologia.sedacion_dt}}</td>
+                  {%else%}
+                  <td></td><td></td>
+                  {% endif %}
+                    <td colspan="2">{{object.radiologia.sedacion_sv}}%</td>
+                </tr>
+                <tr>
+                  {% if object.radiologia.analgesia == 'SI' %}
+                    <td >Analgesia</td>
+                    <td >{{object.radiologia.analgesia_dt}}</td>
+                  {%else%}
+                  <td></td><td></td>
+                  {% endif %}
+                    <td colspan="2">{{object.radiologia.analgesia_sv}} latidos/min</td>
+                </tr>
+                <tr>
+                  {% if object.radiologia.relajacion == 'SI' %}
+                    <td >relajacion</td>
+                    <td >{{object.radiologia.relajacion_dt}}</td>
+                  {%else%}
+                  <td></td><td></td>
+                  {% endif %}
+                    <td colspan="2">{{object.radiologia.relajacion_sv}} respiraciones/min</td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <td colspan="2">{{object.radiologia.svadicional1}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                  <td colspan="2">{{object.radiologia.svadicional2}} mmhg</td>
+                </tr>
+
+
+
+                {% if object.radiologia.otra_medicacion == 'SI' %}
+                  <th>Otra medicación administrada durante el procedimiento</th>
+                  <td>{{object.radiologia.otra_medicacion_cual}}</td>
+                  <th>Dosis total</th>
+                  <td>{{object.radiologia.otra_medicacion_dt}}</td>
+                {% endif %}
+
+                <tr>
+                  <th colspan="4" style="color:blue;">Monitoreo de transporte Radiología - UCI</th>
+                </tr>
+                <tr>
+                  <td></td><th>Signos vitales</th>
+                </tr>
+                {% if object.radiologia.ru_pulsoximetro == 'SI' %}
+                  <tr>
+                    <td>Pulsoxímetro</td>
+                    <td colspan="2">{{object.radiologia.ru_pulsoximetro_sv}}%</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_frecuencia_cardiaca == 'SI' %}
+                  <tr>
+                    <td >Frecuencia cardíaca</td>
+                    <td colspan="2">{{object.radiologia.ru_frecuencia_cardiaca_sv}} latidos/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_frecuencia_respiratoria == 'SI' %}
+                  <tr>
+                    <td >Frecuencia respiratoria</td>
+                    <td colspan="2">{{object.radiologia.ru_frecuencia_respiratoria_sv}} respiraciones/min</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_visoscopio == 'SI' %}
+                  <tr>
+                    <td >Visoscopio</td>
+                    <td colspan="2">{{object.radiologia.ru_visoscopio_sv}}</td>
+                  </tr>
+                {% endif %}
+                {% if object.radiologia.ru_tension == 'SI' %}
+                  <tr>
+                    <td >Tensión arterial</td>
+                    <td colspan="2">{{object.radiologia.ru_tension_sv}} mmhg</td>
+                  </tr>
+                {% endif %}
+
+              <tr>
+                <th>Tiempo de resonancia</th>
+                <td>{{object.radiologia.tiempo_sesonacia}} minutos</td>
+                <th>Hora de llegada a UCI</th>
+                <td>{{object.radiologia.hora_llegada}}</td>
+              </tr>
+              {% if object.radiologia.complicaciones == 'SI'%}
+              <tr>
+                <th >Complicaciones derivadas del transporte</th>
+                <td colspan="3">{{object.radiologia.complicaciones_cuales}}</td>
+              </tr>
+
+              {% endif %}
+
+              </tbody>
+            </table>
+         {% if perms.paciente.change_radiologia and object.inscrito == True %}
+         <form>
+          <button class="btn btn-primary" formaction="{% url 'radiologia_editar' object.radiologia.pk %}">Editar</button>
+         </form>
+         {% endif %}
+        {% endif %}
+      </div>
+       <div class="tab-pane"  id="bold">
       <form>
           {% if not object.bold or object.bold.fechaimg == None %}
           <p class="text-danger">No se encontro información del protocolo</p>
@@ -2253,183 +2757,6 @@
           </div>
           {% endif %}
      </div>
-
-
-
-    <div class="tab-pane"  id="informante">
-
-
-          {% if not object.informante or object.informante.fechaentrevista == None %}
-          <p class="text-danger">No se encontro información neuropsicológica </p>
-          {% if perms.paciente.add_informante and object.inscrito == True %}
-      <form>
-           {% if object.edad > 59 %}
-              {% if object.mayor %}
-              <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Añadir</button>
-              {% else %}
-              <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
-              {% endif %}
-
-           {% else %}
-              {% if object.informante %}
-              <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Añadir</button>
-              {% else %}
-              <button class="btn btn-primary" formaction="{% url 'crear_informante' object.pk %}">Añadir</button>
-              {% endif %}
-
-           {% endif %}
-      </form>
-
-          {% endif %}
-        {% endif %}
-
-
-
-          {% if object.informante and object.informante.fechaentrevista != None %}
-
-            {% if object.mayor %}
-              <table class="table table-hover">
-              <tbody>
-                <tr class="table-active">
-                  <th>Fecha de entrevista clínica </th>
-                  <td>{{ object.mayor.fechaentrevista }} </td>
-                  <th>Neuropsicóloga:</th>
-                  <td>{{ object.mayor.neuropsicologa }}</td>
-                </tr>
-
-              <tr>
-                <th>Parentezco</th>
-                <td>{{ object.mayor.parentezco }}</td>
-                <th>Confiable</th>
-                <td>{{ object.mayor.confiable }}</td>
-              </tr>
-                {% if user.groups.all.0.name == 'Coordinador' %}
-              <tr>
-                <th>Informante</th>
-                <td colspan="3">{{ object.mayor.informante }}</td>
-              </tr>
-                {% endif %}
-              <tr>
-                <td colspan="4">
-                  <legend>S - I.Q.C.O.D.E.</legend>
-                </td>
-              </tr>
-              <tr>
-                  <th>Resultado</th>
-                  <td>{{object.mayor.resultado}}</td>
-                  <th>Total</th>
-                  <td>{{object.mayor.total}}</td>
-                </tr>
-              <tr>
-                <td colspan="4">
-                  <legend>ESCALA DE DETERIORO GLOBAL (GDS)</legend>
-                </td>
-              </tr>
-              <tr>
-                <th>Severidad GDS:</th>
-                <td colspan="3">
-                  {{object.mayor.severidadgds}}
-                  {% if object.mayor.severidadgds == "1" %}
-                    Normal, Ningún deterioro cognoscitivo
-                  {% endif %}
-                  {% if object.mayor.severidadgds == "2" %}
-                    Olvidadizo, Muy ligero deterioro cognoscitivo
-                  {% endif %}
-                  {% if object.mayor.severidadgds == "3" %}
-                    Confuso, Ligero deterioro cognoscitivo
-                  {% endif %}
-                  {% if object.mayor.severidadgds == "4" %}
-                    Bastante confuso, Moderado deterioro cognoscitivo
-                  {% endif %}
-                  {% if object.mayor.severidadgds == "5" %}
-                    Demencia temprana, Moderadamente severo deterioro cognoscitivo
-                  {% endif %}
-                  {% if object.mayor.severidadgds == "6" %}
-                    Demencia moderada, Severo deterioro cognoscitivo
-                  {% endif %}
-                  {% if object.mayor.severidadgds == "7" %}
-                    Demencia severa, Profundo deterioro cognoscitivo
-                  {% endif %}
-                </td>
-              </tr>
-              <tr>
-                <th>Dx Demencia</th>
-                <td>{{object.mayor.dxdemencia}}</td>
-                <th>Tiempo de evolución</th>
-                <td>{{object.mayor.tiempo}}</td>
-              </tr>
-              </tbody>
-            </table>
-
-
-           {% else %}
-            <table class="table table-hover">
-              <tbody>
-                <tr class="table-active">
-                  <th>Fecha de entrevista clínica </th>
-                  <td>{{ object.informante.fechaentrevista }} </td>
-                  <th>Neuropsicóloga:</th>
-                  <td>{{ object.informante.neuropsicologa }}</td>
-                </tr>
-              <tr>
-                <th>Parentezco</th>
-                <td>{{ object.informante.parentezco }}</td>
-                <th>Confiable</th>
-                <td>{{ object.informante.confiable }}</td>
-              </tr>
-                {% if user.groups.all.0.name == 'Coordinador' %}
-              <tr>
-                <th>Informante</th>
-                <td colspan="3">{{ object.informante.informante }}</td>
-              </tr>
-                {% endif %}
-
-              </tbody>
-            </table>
-
-           {% endif %}
-
-
-          <legend>Funcionamiento Premórbido:</legend>
-
-
-          <table class="table table-hover">
-              <tbody>
-                <tr class="table-active">
-                  <th>Escala Lawton-Brody de actividades instrumentales </th>
-                  <td>Total {{object.informante.totalindependencia}} </td>
-                  <th>Escala de transtornos de memoria</th>
-                  <td>Total {{object.informante.totalmemoria}}/45</td>
-                </tr>
-              <tr>
-                <th colspan="4">Frontal Systems Behavior Scale (FrSBe)</th>
-              </tr>
-              <tr>
-                <th>Total Apatia</th> <td>{{object.informante.totalapatia}}</td>
-              </tr>
-              <tr>
-                <th>Total Deshinhibicion</th> <td>{{object.informante.totaldes}}</td>
-              </tr>
-              <tr>
-                <th>Total Funciones ejecutivas</th> <td>{{object.informante.totalfunciones}}</td>
-              </tr>
-              </tbody>
-            </table>
-
-
-          {% if perms.paciente.change_informante and object.inscrito == True %}
-          <form>
-          {% if object.edad > 59 %}
-              <button class="btn btn-primary" formaction="{% url 'mayor_editar' object.mayor.pk %}">Editar</button>
-
-           {% else %}
-              <button class="btn btn-primary" formaction="{% url 'informante_editar' object.informante.pk %}">Editar</button>
-
-           {% endif %}
-          </form>
-          {% endif %}
-          {% endif %}
-     </div>
     <div class="tab-pane"  id="imagen" >
         <input id="sn" value="{{object.sujeto_numero}}" hidden>
 
@@ -2439,316 +2766,12 @@
                 </iframe>
 
       </div>
-    <div class="tab-pane"  id="moca">
-      <form>
-
-          {% if not object.valorablenps %}
-
-          {% if not object.moca.set_all.0 or object.moca.set_all.0.fecha == None %}
-          <p class="text-danger">No se encontro información de evaluación MOCA</p>
-          {% tiempoeventoprincipal object as tep %}
-
-          {% if perms.paciente.add_moca and tep %}
-        <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
-        <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
-
-
-
-          <br>
-          <table>
-            <tbody>
-            <tr>
-              <th><label id="causa" style="display:none">Causa</label></th>
-              <td>
-          <select id="causa_options" style="display:none" onchange="nps()">
-              <option  value="0">Seleccione una opción</option>
-              <option  value="1">Fallecido</option>
-              <option  value="2">No localizable</option>
-              <option  value="3">No colabora</option>
-              <option  value="4">EMC</option>
-              <option  value="5">SVSR</option>
-          </select>
-              </td>
-              <td>
-                <label id="labelfecha" style="display:none">Fecha: </label>
-              </td>
-              <td>
-                <input id="datefallecido" type="date" style="display:none" class="form-control" min="{{object.uci.fechaegreso|date:'Y-m-d'}}" onchange="nps()">
-              </td>
-            </tr>
-            </tbody>
-          </table>
-
-
-
-          <script >
-          function ver() {
-              document.getElementById("nov").style="display:none" ;
-              document.getElementById("siv").style="display:none" ;
-              document.getElementById("causa").style="display:inline" ;
-              document.getElementById("causa_options").style="display:inline" ;
-          }
-          function nps() {
-              var c=document.getElementById("causa_options").value ;
-              var f=document.getElementById("datefallecido").value ;
-              if ( c == 1 && f == "" ){
-              document.getElementById("datefallecido").style="display:inline" ;
-              document.getElementById("labelfecha").style="display:inline" ;
-              var today = new Date();
-              var dd = today.getDate();
-              var mm = today.getMonth()+1; //January is 0!
-              var yyyy = today.getFullYear();
-               if(dd<10){
-                      dd='0'+dd
-                  }
-                  if(mm<10){
-                      mm='0'+mm
-                  }
-
-              today = yyyy+'-'+mm+'-'+dd;
-              document.getElementById("datefallecido").max=today;
-              } else {
-              var url_mask = "{% url 'crear_nps' object.pk 'x' 'y' %}"
-              url_mask=url_mask.replace('x', c.toString());
-              if ( f == "" ){
-              f="None";
-              }
-              url_mask=url_mask.replace('y', f.toString());
-              window.location=url_mask;
-              }
-          }
-          </script>
-          {% endif %}
-          {% endif %}
-          {% elif object.valorablenps and object.valorablenps.valorable == False %}
-          <br>
-          <ul>
-            <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
-            <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
-            {% tiempoeventoprincipal object as tep %}
-
-            {% if object.valorablenps.razon != "Fallecido" and tep %}
-            <br>
-            <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>
-            <br>
-            <p>Posible Antes de los 6 meses desde el evento principal </p>
-            {% endif %}
-          </ul>
-          {% else %}
-
-
-        <br>
-        {% if object.moca_set.all %}
-
-        {% if object.valorablenps and object.valorablenps.razon != "Fallecido" and object.valorablenps.razon != None %}
-
-          <ul>
-            <li>{{object.valorablenps.fecha}}: No es valorable por Neuropsicología.</li>
-            <li>Causa: {{object.valorablenps.razon}} </li>
-
-          </ul>
-        {% endif %}
-      <div class="panel-group">
-        <div class="panel panel-default">
-          {% for moca in object.moca_set.all %}
-          {% if moca.fecha != None %}
-
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" href="#mo{{ forloop.counter0 }}"><b>{{moca.fecha}} &nbsp;&nbsp;  Puntaje MOCA</b></a></h4>
-          </div>
-
-          <div id="mo{{ forloop.counter0 }}" class="panel-collapse collapse">
-            <div class="panel-body">
-
-              <table class="table table-hover">
-          <tbody>
-           <tr>
-              <th colspan="4" style="vertical-align: middle;"><label>Puntaje MOCA</label></th>
-          </tr>
-
-          <tr>
-              <th style="vertical-align: middle;">Función visoespacial</th>
-              <td>{{moca.funcion_visoespacial}}/5</td>
-              <th style="vertical-align: middle;">Identificación</th>
-              <td>{{moca.identificacion}}/3</td>
-          </tr>
-          <tr>
-              <th style="vertical-align: middle;">Atención</th>
-              <td>
-                  <table>
-                      <tbody>
-                      <tr>
-                          <td style="vertical-align: middle;">Número</td><td>{{moca.atencion_numero}}/2</td>
-                      </tr>
-                      <tr><td style="vertical-align: middle;">Letras</td><td>{{moca.atencion_letras}}/1</td></tr>
-                      <tr>
-                          <td style="vertical-align: middle;">Resta</td><td>{{moca.atencion_resta}}/3</td>
-                      </tr>
-                      </tbody>
-                  </table>
-              </td>
-              <th style="vertical-align: middle;">Lenguaje</th>
-              <td>
-                  <table>
-                      <tbody>
-                      <tr>
-                          <td style="vertical-align: middle;">Repite</td><td>{{moca.lenguaje_repite}}/2</td>
-                      </tr>
-                      <tr><td style="vertical-align: middle;">Fluidez</td><td>{{moca.lenguaje_fluidez}}/1</td></tr>
-                      </tbody>
-                  </table>
-              </td>
-          </tr>
-          <tr>
-              <th style="vertical-align: middle;">Abstracción</th>
-              <td>{{moca.abstraccion}}/2</td>
-              <th style="vertical-align: middle;">Recuerdo Diferido</th>
-              <td>{{moca.recuerdo}}/5</td>
-          </tr>
-          <tr>
-              <th style="vertical-align: middle;">Orientación</th>
-              <td>{{moca.orientacion}}/6</td>
-              <th style="vertical-align: middle;">Total</th>
-              <td>{{moca.total}}/30</td>
-          </tr>
-          </tbody>
-        </table>
-
-            </div>
-
-          </div>
-          <br>
-
-          {% endif %}
-          {% endfor%}
-        </div>
-      </div>
-
-          <br>
-          {% tiempoeventoprincipal object as tep %}
-          {% if perms.paciente.add_moca and object.inscrito == True and tep %}
-          <form>
-          <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Añadir nueva valoración neuropsicológica (MOCA)</button>
-          <p>Posible Antes de los 6 meses desde el evento principal. </p>
-
-          {% endif %}
-          <br>
-            {% if not object.neuropsi or object.neuropsi.fecha == None %}
-            {% if perms.paciente.add_moca and object.inscrito == True  %}
-          <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
-            {% endif %}
-            {% else %}
-
-            <table class="table table-hover">
-                    <caption style="text-align:left"><h3>NEUROPSI  {{object.neuropsi.fecha}}</h3></caption>
-                    <tbody>
-                    <tr>
-                        <th colspan="4">Observaciones médicas y neurológicas</th>
-                    </tr>
-
-                    <tr>
-                        <th style="vertical-align:middle;">Medicado</th>
-                        <td style="vertical-align:middle;" {% if object.neuropsi.medicado == 'NO' %} colspan="3" {% endif %}>
-                          {{object.neuropsi.medicado}}
-                          {% if object.neuropsi.medicado == "SI" %}
-                          {{object.neuropsi.medicado_cual}}
-                          {% endif %}
-                        </td>
-                        {% if object.neuropsi.medicado == "SI" %}
-                        <th>Dosis total dia</th>
-                        <td>{{object.neuropsi.medicado_dt}}</td>
-                        {% endif%}
-                    </tr>
-                    <tr>
-                        <th style="vertical-align:middle;" >Imagen</th>
-
-                        <td colspan="3">{% if object.neuropsi.imagen != "" %} {{object.neuropsi.imagen}} {% else %} NO {% endif %}</td>
-                    </tr>
-                     <tr>
-                        <th colspan="4">Resultados por Bloques</th>
-                    </tr>
-                    <tr>
-
-                        <th style="vertical-align:middle;">
-                            Orientación
-                        </th>
-
-                        <td style="vertical-align:middle;">
-                            {{object.neuropsi.orientacion}}
-                        </td>
-                        <th style="vertical-align:middle;">
-                            Atención y Concentración
-                        </th>
-                        <td style="vertical-align:middle;">
-                            {{object.neuropsi.atencion}}
-                        </td>
-                    </tr>
-                    <tr>
-                      <th rowspan="2" style="vertical-align:middle;">Memoria</th>
-                      <td>Codificación</td>
-                      <td colspan="2">{{object.neuropsi.codificacion}}</td>
-                    </tr>
-                    <tr>
-                      <td>Evocación</td>
-                      <td colspan="2">{{object.neuropsi.evocacion}}</td>
-                    </tr>
-                    <tr>
-
-                        <th style="vertical-align:middle;">
-                            Lenguaje
-                        </th>
-
-                        <td style="vertical-align:middle;">
-                            {{object.neuropsi.lenguaje}}
-                        </td>
-
-                        {% if object.ingreso.n_educativo == "Primaria" or object.ingreso.n_educativo == "Analfabeta" %}
-                        <td colspan="2"></td>
-                        {% else%}
-                        <th style="vertical-align:middle;">
-                            Lectura y Escritura
-                        </th>
-                        <td style="vertical-align:middle;">
-                            {{object.neuropsi.lectura}}
-                        </td>
-                        {% endif %}
-                    </tr>
-                    <tr>
-                      <th rowspan="2" style="vertical-align:middle;">Funciones Ejecutivas</th>
-                      <td>Conceptual</td>
-                      <td colspan="2">{{object.neuropsi.conceptual}}</td>
-                    </tr>
-                    <tr>
-                      <td>Funciones Motoras</td>
-                      <td colspan="2">{{object.neuropsi.motora}}</td>
-                    </tr>
-
-                    <tr>
-                      <th>Resultado</th>
-                      <td colspan="3">{{object.neuropsi.resultado}}</td>
-                    </tr>
-
-
-                    </tbody>
-                </table>
-
-
-            {% endif %}
-            </form>
-        {% endif %}
-
-
-
-        {% endif %}
-        </form>
-    </div>
       <div class="tab-pane" id="lectura">
         <form>
         {% if not object.lectura_resonancia or object.lectura_resonancia.fracturas == None %}
           <p class="text-danger">No se encontro Lectura de Resonancia del Sujeto</p>
           {% if perms.paciente.add_lectura_resonancia and object.inscrito == True %}
-          <button class="btn btn-primary" formaction="{% url 'crear_lectura' object.pk %}">Añadir</button>
+          <button class="btn btn-primary" formaction="{% url 'crear_lectura' object.pk 'candidato' %}">Añadir</button>
           {% endif %}
 
         {% endif %}
@@ -2947,7 +2970,7 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
 
           {% if perms.paciente.change_lectura_resonancia and object.inscrito == True %}
         <form>
-          <button class="btn btn-primary" formaction="{% url 'lectura_editar' object.lectura_resonancia.pk%}">Editar</button>
+          <button class="btn btn-primary" formaction="{% url 'lectura_editar' object.lectura_resonancia.pk %}">Editar</button>
           </form>
           {% endif %}
         {% endif %}

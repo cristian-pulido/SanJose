@@ -15,7 +15,15 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Lectura Resonancia Sujeto#{{ object.candidato.sujeto_numero|stringformat:"04d" }}</h1>
+
+
+            <h1>Lectura Resonancia
+                {% if object.candidato %}
+                Sujeto # {{ object.candidato.sujeto_numero|stringformat:"04d" }}
+                {% elif object.control %}
+                Control # {{ object.control.numero|stringformat:"04d" }}
+                {% endif %}
+            </h1>
 
             <ol>
               <li>

@@ -969,7 +969,8 @@ class Parametrosmotioncorrect(models.Model):
 
 
 class Lectura_resonancia(models.Model):
-    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True)
+    candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True, blank=True)
+    control = models.OneToOneField(Control, on_delete=models.CASCADE, null=True, blank=True)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),
@@ -1067,7 +1068,7 @@ class Lectura_resonancia(models.Model):
 
 
     def __str__(self):
-        return '{}'.format(self.candidato.sujeto_numero)
+        return '{}'.format(self.pk)
     class Meta:
         permissions = (
             ("can_ver_lectura", u"puede ver lectura"),

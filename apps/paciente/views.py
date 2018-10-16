@@ -171,8 +171,12 @@ class LecturaUpdate(UpdateView):
 
     def get_success_url(self):
         l=self.object
-        p=l.candidato
-        return reverse_lazy('paciente', args=[p.pk])
+        if l.candidato != None:
+            p=l.candidato
+            return reverse_lazy('paciente', args=[p.pk])
+        if l.control != None:
+            p=l.control
+            return reverse_lazy('control', args=[p.pk])
 
 class MayorUpdate(UpdateView):
     model = Mayor
@@ -711,7 +715,6 @@ class NeuropsiUpdate(UpdateView):
                         codificacion.append("Moderado")
                     else:
                         codificacion.append("Normal")
-                        
         else:
             codificacion.append("Severo")
             
