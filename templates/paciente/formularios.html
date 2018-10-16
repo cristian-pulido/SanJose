@@ -2635,7 +2635,7 @@
           {% endif %}
           <br>
             {% if not object.neuropsi or object.neuropsi.fecha == None %}
-            {% if perms.paciente.add_moca and object.inscrito == True and tep %}
+            {% if perms.paciente.add_moca and object.inscrito == True  %}
           <button class="btn btn-primary" formaction="{% url 'crear_neuropsi' object.pk %}">Añadir valoración neuropsicológica (Neuropsi)</button>
             {% endif %}
             {% else %}
@@ -3146,7 +3146,7 @@ function validarf(){
                         </tbody>
                         </table>
 
-                        {% if seguimiento.otro1_nombre != None %}
+                        {% if seguimiento.otro1_nombre != None and seguimiento.otro1_nombre != "" %}
                             <label>Medicamentos Adicionales</label>
                             <table class="table table-hover">
                             <tbody>
@@ -3158,7 +3158,7 @@ function validarf(){
                                 <td>{{seguimiento.otro1_dt}}</td>
                             </tr>
                         {% endif %}
-                        {% if seguimiento.otro2nombre != None %}
+                        {% if seguimiento.otro2_nombre != None and seguimiento.otro2_nombre != None %}
                             <tr >
 
                                 <td>{{seguimiento.otro2_nombre}}</td>
