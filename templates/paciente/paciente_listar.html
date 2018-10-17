@@ -22,8 +22,6 @@
 {% endif %}
 
 
-
-
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#seguimiento">Observación</a>
@@ -60,7 +58,7 @@
                             {% if object.estado == 0 %}
                             {% load scripts %}
                             {% tiempo object as t%}
-                            <tr class="table-active">
+                            <tr class="table-active" >
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
                               <td>{{t}} Horas</td>
@@ -118,7 +116,11 @@
     {% if object_list|length == 0 %}
       <h2>No hay registros de Sujetos</h2>
       {% else %}
-                <div class="container"><br><p>Total: {% totalincluidos %}</p></div>
+                <div class="container">
+                    <br>
+                    <p>Total: {% totalincluidos %}</p>
+
+                </div>
                 <table class="table table-hover">
 
                   <thead>
@@ -127,6 +129,10 @@
                       <th scope="col">Profesional a cargo </th>
                       {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                         <th scope="col">Seguimiento de hoy</th>
+                      {% endif %}
+
+                        {% if user.groups.all.0.name == 'Coordinador' %}
+                        <th scope="col">Información Adicional</th>
                       {% endif %}
 
                         <th scope="col">Imágenes Cargadas</th>
@@ -140,13 +146,14 @@
                     {% if object_list %}
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == True %}
-                            <tr class="table-active">
-                              <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
+                            <tr class="table-active" >
+                              <td style="vertical-align: middle;"><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
                               
                               {% if user.groups.all.0.name == 'Residente' or user.groups.all.0.name == 'Coordinador' %}
                                 {% load scripts %}
                                 <td style="vertical-align: middle;" scope="col">
+
                                     {% checkseguimiento object as check %}
                                     {% if check == 'si'  %}   <span style="color:green" class="glyphicon glyphicon-check" ></span> {% endif %}
                                     {% if check == 'no'  %}   <span style="color:red" class="glyphicon glyphicon-remove-circle"></span> {% endif %}
@@ -163,11 +170,22 @@
                                 </td>
                               {% endif %}
 
-                                    <td scope="col">{% if object.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+                                {% if user.groups.all.0.name == 'Coordinador' %}
+                                    <th scope="col"><ul style="list-style-type:none">
+                                        <li>cc: {{object.cc}}</li>
+                                        <li>{{object.nombres}}</li>
+                                        <li>{{object.apellidos}}</li>
+                                        <li>HC: {{object.HC}}</li>
+                                    </ul></th>
+                                  {% endif %}
+
+                                    <td style="vertical-align: middle;" scope="col">{% if object.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+
+
 
 
                               {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
-                              <td style="text-align:right">
+                              <td style="text-align:right;vertical-align: middle;" >
                                   <form>
                                     {% if object.get_img and object.get_img.anonimo == 1 and perms.paciente.can_descargar_candidato %}
                                   <button class="btn btn-success"  formaction="{{ object.get_img.file.url }}" title="Descargar">
@@ -220,7 +238,7 @@
                 <div class="container"><br><p>Total: {% totalexcluidos %}</p></div>
                 <table class="table table-hover">
                   <thead>
-                    <tr style="vertical-align: middle;">
+                    <tr style="vertical-align: middle;" >
                       <th scope="col">&nbsp;&nbsp;&nbsp;Id</th>
                       <th scope="col">Profesional a cargo </th>
                         <th scope="col">Motivo Exclusión </th>
@@ -233,7 +251,7 @@
                     {% if object_list %}
                         {% for object in object_list %}
                             {% if object.estado > 0 and object.inscrito == False %}
-                            <tr class="table-active" >
+                            <tr class="table-active" id="fila{{object.sujeto_numero}}" >
                               <td><form><button class="btn btn-link enabled" formaction="{% url 'paciente' object.pk%}" title="Ver información">{{object.sujeto_numero|stringformat:"04d"}}</button></form></td>
                               <td style="vertical-align: middle;">{{object.medico_responsable}}</td>
                                 <td scope="col" style="vertical-align: middle;">
@@ -279,6 +297,10 @@
   </div>
 
 </div>
+
+
+
+
 
 
 
