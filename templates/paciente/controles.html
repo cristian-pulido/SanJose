@@ -132,6 +132,8 @@
         {% if object.lectura_resonancia  and object.lectura_resonancia.fracturas != None %}
           <br>
         <ol>
+            <label>Profesional Responsable:</label> {{object.lectura_resonancia.medico_responsable}}
+            <br>
               <li>
                   <label>Fracturas</label> &nbsp; {{object.lectura_resonancia.fracturas}}
                   {% if object.lectura_resonancia.fracturas == 'SI' %}
@@ -144,7 +146,7 @@
                   <label>Hemorragia subaracnoidea</label> &nbsp; {{object.lectura_resonancia.hemorragia_subaracnoidea}}
                   {% if object.lectura_resonancia.hemorragia_subaracnoidea == 'SI' %}
                       <ul>
-                            <li>{{object.lectura_resonancia.hemorragia_subaracnoidea_mayor_menor}}</li>
+                            <li>Tamaño {{object.lectura_resonancia.hemorragia_subaracnoidea_mayor_menor}}</li>
                             {% if object.lectura_resonancia.hemorragia_subaracnoidea_sangrado == True %}
                             <li>Sangrado en capa de menor de 1 mm de espesor</li>
                             {% endif%}
