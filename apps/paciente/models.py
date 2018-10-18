@@ -971,6 +971,7 @@ class Parametrosmotioncorrect(models.Model):
 class Lectura_resonancia(models.Model):
     candidato = models.OneToOneField(Candidato, on_delete=models.CASCADE, null=True, blank=True)
     control = models.OneToOneField(Control, on_delete=models.CASCADE, null=True, blank=True)
+    medico_responsable = models.ForeignKey(Medico, on_delete=models.SET_NULL, null=True)
     seleccion_CHOICES = (
         ('SI', 'SI'),
         ('NO', 'NO'),

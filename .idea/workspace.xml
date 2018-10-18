@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/lectura_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/lectura_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/paciente_listar.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,12 +64,12 @@
     <session id="-1673653805">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="2" />
           <entry key="project.open.time.19" value="2" />
-          <entry key="project.open.time.20" value="3" />
+          <entry key="project.open.time.20" value="4" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.23" value="1" />
@@ -79,31 +80,31 @@
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.58" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="20" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="24" />
-          <entry key="py" value="75" />
+          <entry key="html" value="25" />
+          <entry key="py" value="76" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="24" />
-          <entry key="Python" value="75" />
+          <entry key="HTML" value="25" />
+          <entry key="Python" value="76" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="8167" />
-          <entry key="py" value="7869" />
+          <entry key="html" value="8305" />
+          <entry key="py" value="7913" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="8167" />
-          <entry key="Python" value="7869" />
+          <entry key="HTML" value="8305" />
+          <entry key="Python" value="7913" />
         </counts>
       </usages-collector>
     </session>
@@ -113,11 +114,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="399" column="105" selection-start-line="399" selection-start-column="98" selection-end-line="399" selection-end-column="105" />
+            <state relative-caret-position="376">
+              <caret line="2784" column="33" selection-start-line="2784" selection-start-column="33" selection-end-line="2784" selection-end-column="33" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#!!top" />
                 <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#!!top" />
@@ -126,8 +127,6 @@
                 <element signature="n#li#3;n#ul#0;n#div#1;n#div#0;n#!!top" />
                 <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
                 <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#9487#9493#0" expanded="true" />
-                <element signature="e#9494#9500#0" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -190,50 +189,7 @@
                 <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
                 <element signature="n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" />
                 <element signature="n#div#3;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="n#div#5;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="n#style#0;n#caption#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#8;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#li#6;n#ul#0;n#div#3;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#11;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#13;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#20;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#4;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="n#div#6;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="n#div#8;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="e#200484#200490#0" expanded="true" />
-                <element signature="e#200878#200884#0" expanded="true" />
-                <element signature="e#202177#202183#0" expanded="true" />
-                <element signature="e#202852#202858#0" expanded="true" />
-                <element signature="e#203526#203532#0" expanded="true" />
-                <element signature="e#204192#204198#0" expanded="true" />
-                <element signature="e#204661#204667#0" expanded="true" />
-                <element signature="e#205032#205038#0" expanded="true" />
-                <element signature="e#205497#205503#0" expanded="true" />
-                <element signature="e#205968#205974#0" expanded="true" />
-                <element signature="e#207123#207129#0" expanded="true" />
-                <element signature="e#207718#207724#0" expanded="true" />
-                <element signature="e#208156#208162#0" expanded="true" />
-                <element signature="e#208557#208563#0" expanded="true" />
-                <element signature="n#form#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="n#div#0;n#form#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="n#div#1;n#form#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-                <element signature="n#script#0;n#div#0;n#div#3;n#div#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -242,15 +198,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/lectura_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="343" column="18" selection-start-line="343" selection-start-column="18" selection-end-line="343" selection-end-column="18" />
+            <state relative-caret-position="480">
+              <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="e#900#906#0" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#div#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#div#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
                 <element signature="n#style#0;n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
                 <element signature="n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
                 <element signature="n#style#0;n#div#0;n#li#5;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -277,10 +231,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
+        <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15435">
-              <caret line="1070" column="34" selection-start-line="1070" selection-start-column="34" selection-end-line="1070" selection-end-column="34" />
+            <state relative-caret-position="695">
+              <caret line="1483" column="75" selection-start-line="1483" selection-start-column="75" selection-end-line="1483" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -288,17 +242,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
+            <state relative-caret-position="18570">
               <caret line="1252" column="25" selection-start-line="1252" selection-start-column="25" selection-end-line="1252" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="177" column="84" selection-start-line="177" selection-start-column="84" selection-end-line="177" selection-end-column="84" />
+            <state relative-caret-position="330">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
                 <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -306,7 +260,6 @@
                 <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -315,7 +268,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="180">
               <caret line="30" selection-start-line="30" selection-end-line="30" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -327,8 +280,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/paciente/neuropsi_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2434">
-              <caret line="511" column="65" lean-forward="true" selection-start-line="511" selection-start-column="9" selection-end-line="511" selection-end-column="65" />
+            <state relative-caret-position="7665">
+              <caret line="511" column="65" selection-start-line="511" selection-start-column="9" selection-end-line="511" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -336,8 +289,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/programas/dcm2niix.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-731">
-              <caret line="97" column="37" lean-forward="true" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
+            <state relative-caret-position="1215">
+              <caret line="97" column="37" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -345,7 +298,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
+            <state relative-caret-position="600">
               <caret line="40" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
@@ -363,8 +316,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>series_validate</find>
-      <find>this</find>
       <find>this.value</find>
       <find>||</find>
       <find>100</find>
@@ -393,6 +344,8 @@
       <find>buscar</find>
       <find>seguimi</find>
       <find>replace</find>
+      <find>Tipo</find>
+      <find>lectura</find>
     </findStrings>
     <replaceStrings>
       <replace>semantica</replace>
@@ -475,19 +428,19 @@
         <option value="$PROJECT_DIR$/SanJose/settings.py" />
         <option value="$PROJECT_DIR$/apps/paciente/admin.py" />
         <option value="$PROJECT_DIR$/apps/paciente/urls.py" />
-        <option value="$PROJECT_DIR$/apps/paciente/forms.py" />
         <option value="$PROJECT_DIR$/templates/paciente/seguimiento_form.html" />
         <option value="$PROJECT_DIR$/templates/base/base.html" />
         <option value="$PROJECT_DIR$/SanJose/urls.py" />
-        <option value="$PROJECT_DIR$/apps/paciente/models.py" />
         <option value="$PROJECT_DIR$/SanJose/views.py" />
         <option value="$PROJECT_DIR$/templates/paciente/controles.html" />
         <option value="$PROJECT_DIR$/templates/paciente/neuropsi_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
         <option value="$PROJECT_DIR$/apps/paciente/views.py" />
-        <option value="$PROJECT_DIR$/templates/paciente/lectura_form.html" />
         <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_listar.html" />
+        <option value="$PROJECT_DIR$/apps/paciente/models.py" />
+        <option value="$PROJECT_DIR$/templates/paciente/lectura_form.html" />
+        <option value="$PROJECT_DIR$/apps/paciente/forms.py" />
+        <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
       </list>
     </option>
   </component>
@@ -502,6 +455,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -525,6 +479,13 @@
               <item name="SanJose" type="462c0819:PsiDirectoryNode" />
               <item name="apps" type="462c0819:PsiDirectoryNode" />
               <item name="paciente" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="paciente" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
@@ -577,7 +538,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -630,7 +590,7 @@
     <frame x="-1" y="28" width="1922" height="1025" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945945" weight="0.3921982" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945945" weight="0.31734318" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -649,7 +609,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.3921982" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.31734318" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -851,21 +811,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16425">
-          <caret line="1097" column="93" selection-start-line="1097" selection-start-column="93" selection-end-line="1097" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/seguimiento_form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4695">
           <caret line="313" column="12" selection-start-line="313" selection-start-column="12" selection-end-line="329" selection-end-column="20" />
-          <folding>
-            <element signature="e#15211#15231#0" expanded="true" />
-            <element signature="e#15494#15514#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -908,9 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
-          <folding>
-            <marker date="1539699237318" expanded="true" signature="3054:3056" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -918,9 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="559">
           <caret line="225" column="20" selection-start-line="225" selection-start-column="20" selection-end-line="225" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -928,60 +871,85 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
           <caret line="319" column="56" selection-start-line="319" selection-start-column="56" selection-end-line="319" selection-end-column="56" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#!!top" />
-            <element signature="n#div#1;n#div#0;n#!!top" />
-            <element signature="e#4331#4337#0" expanded="true" />
-            <element signature="e#4725#4731#0" expanded="true" />
-            <element signature="e#6024#6030#0" expanded="true" />
-            <element signature="e#6699#6705#0" expanded="true" />
-            <element signature="e#7373#7379#0" expanded="true" />
-            <element signature="e#8039#8045#0" expanded="true" />
-            <element signature="e#8508#8514#0" expanded="true" />
-            <element signature="e#8879#8885#0" expanded="true" />
-            <element signature="e#9344#9350#0" expanded="true" />
-            <element signature="e#9815#9821#0" expanded="true" />
-            <element signature="e#10970#10976#0" expanded="true" />
-            <element signature="e#11565#11571#0" expanded="true" />
-            <element signature="e#12003#12009#0" expanded="true" />
-            <element signature="e#12404#12410#0" expanded="true" />
-            <element signature="n#div#2;n#div#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
+    <entry file="file://$PROJECT_DIR$/apps/fileupload/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programas/dcm2niix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-731">
-          <caret line="97" column="37" lean-forward="true" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
+        <state relative-caret-position="180">
+          <caret line="16" column="48" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
+        <state relative-caret-position="18570">
           <caret line="1252" column="25" selection-start-line="1252" selection-start-column="25" selection-end-line="1252" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/neuropsi_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7665">
+          <caret line="511" column="65" selection-start-line="511" selection-start-column="9" selection-end-line="511" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/dcm2niix.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="97" column="37" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="973" column="87" selection-start-line="973" selection-start-column="87" selection-end-line="973" selection-end-column="87" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/lectura_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="343" column="18" selection-start-line="343" selection-start-column="18" selection-end-line="343" selection-end-column="18" />
+        <state relative-caret-position="480">
+          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
           <folding>
             <element signature="n#style#0;n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="e#900#906#0" expanded="true" />
             <element signature="n#style#0;n#div#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#div#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#div#0;n#li#3;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
             <element signature="n#style#0;n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
             <element signature="n#style#0;n#div#0;n#li#5;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
@@ -1006,24 +974,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/models.py">
+    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15435">
-          <caret line="1070" column="34" selection-start-line="1070" selection-start-column="34" selection-end-line="1070" selection-end-column="34" />
+        <state relative-caret-position="695">
+          <caret line="1483" column="75" selection-start-line="1483" selection-start-column="75" selection-end-line="1483" selection-end-column="75" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="399" column="105" selection-start-line="399" selection-start-column="98" selection-end-line="399" selection-end-column="105" />
+        <state relative-caret-position="376">
+          <caret line="2784" column="33" selection-start-line="2784" selection-start-column="33" selection-end-line="2784" selection-end-column="33" />
           <folding>
             <element signature="n#div#0;n#div#0;n#!!top" />
             <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#!!top" />
@@ -1032,8 +993,6 @@
             <element signature="n#li#3;n#ul#0;n#div#1;n#div#0;n#!!top" />
             <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
             <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#9487#9493#0" expanded="true" />
-            <element signature="e#9494#9500#0" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -1096,83 +1055,7 @@
             <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
             <element signature="n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" />
             <element signature="n#div#3;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="n#div#5;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="n#style#0;n#caption#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#2;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#4;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#5;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#7;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#8;n#tbody#0;n#table#0;n#form#0;n#form#0;n#div#7;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#li#6;n#ul#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="n#style#0;n#th#0;n#tr#1;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#4;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#11;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#13;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#20;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#div#4;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="n#div#6;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="n#div#8;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="e#200484#200490#0" expanded="true" />
-            <element signature="e#200878#200884#0" expanded="true" />
-            <element signature="e#202177#202183#0" expanded="true" />
-            <element signature="e#202852#202858#0" expanded="true" />
-            <element signature="e#203526#203532#0" expanded="true" />
-            <element signature="e#204192#204198#0" expanded="true" />
-            <element signature="e#204661#204667#0" expanded="true" />
-            <element signature="e#205032#205038#0" expanded="true" />
-            <element signature="e#205497#205503#0" expanded="true" />
-            <element signature="e#205968#205974#0" expanded="true" />
-            <element signature="e#207123#207129#0" expanded="true" />
-            <element signature="e#207718#207724#0" expanded="true" />
-            <element signature="e#208156#208162#0" expanded="true" />
-            <element signature="e#208557#208563#0" expanded="true" />
-            <element signature="n#form#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="n#div#0;n#form#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="n#div#1;n#form#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-            <element signature="n#script#0;n#div#0;n#div#3;n#div#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/neuropsi_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2434">
-          <caret line="511" column="65" lean-forward="true" selection-start-line="511" selection-start-column="9" selection-end-line="511" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="177" column="84" selection-start-line="177" selection-start-column="84" selection-end-line="177" selection-end-column="84" />
-          <folding>
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

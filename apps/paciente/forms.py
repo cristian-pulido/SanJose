@@ -1379,6 +1379,7 @@ class LecturaresonanciaForm(forms.ModelForm):
             'cambios',
             'cambios_localizacion',
             'impresion',
+            'medico_responsable',
 
 
         ]
@@ -1429,6 +1430,7 @@ class LecturaresonanciaForm(forms.ModelForm):
             'cambios':"Cambios postquirúrgicos",
             'cambios_localizacion':"Localización",
             'impresion':"Impresión (orientación diagnóstica)",
+            'medico_responsable': "Profesional Responsable",
 
 
 
@@ -1479,6 +1481,7 @@ class LecturaresonanciaForm(forms.ModelForm):
             'cambios':forms.Select(),
             'cambios_localizacion':forms.TextInput(attrs={'class': 'form-control', 'autocomplete' :"off"}),
             'impresion':forms.Textarea(attrs={'rows':4, 'cols':85}),
+            'medico_responsable': forms.Select(),
 
 
         }
