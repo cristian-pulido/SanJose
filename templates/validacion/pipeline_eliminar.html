@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+
+
+{% block title %} Eliminación Pipeline {% endblock %}
+{% block content %}
+{% if not perms.validacion.can_delete_pipeline %}
+<script type="text/javascript">
+        window.location="{% url 'login' %}";
+</script>
+{% endif %}
+<center>
+<form  method="post">
+    {% csrf_token %}
+
+    <h3>¿Desea eliminar el registro del Pipeline: {{ object }}?</h3>
+
+
+
+    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+    <a class="btn btn-success" href="{% url 'login' %}">Cancelar</a>
+</form>
+</center>
+
+{% endblock %}

@@ -4,6 +4,7 @@
 
 {% block content %}
 {% load scripts_validacion %}
+{% load scripts %}
 <h1>Sujeto Control # : {{ object.numero|stringformat:"04d" }}</h1>
 <ul class="nav nav-tabs">
   <li class="nav-item active">
@@ -333,8 +334,16 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
   <br>
   <h3>Seleccione una Pestaña</h3>
 
+   <ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#calidad">Control de Calidad</a></li>
+    <li><a data-toggle="pill" href="#pre">Pre/Post-procesamiento</a></li>
 
-  <ul class="nav nav-tabs">
+  </ul>
+
+    <div class="tab-content">
+
+         <div id="calidad" class="tab-pane fade in active">
+               <ul class="nav nav-tabs">
     <li class="nav-item active">
       <a class="nav-link active" data-toggle="tab" href="#imagenes">Imagenes Encontradas</a>
     </li>
@@ -351,800 +360,1057 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
       <a class="nav-link active show" data-toggle="tab" href="#snr">Balance Señal Ruido</a>
     </li>
       {% endif %}
-      
+
   </ul>
-<div id="v" class="tab-content">
-  <div class="tab-pane active" id="imagenes">
-    <br>
+            <div id="v" class="tab-content">
+              <div class="tab-pane active" id="imagenes">
+                <br>
 
-  <legend>Parámetros Obtenidos de los Archivos</legend>
+              <legend>Parámetros Obtenidos de los Archivos</legend>
 
-<br>
-    <form>
-          <button class="btn btn-primary" formaction="{% url 'filtro_listar' %}">Editar o crear filtro para parámetros</button>
-      </form>
-    <br>
+            <br>
+                <form>
+                      <button class="btn btn-primary" formaction="{% url 'filtro_listar' %}">Editar o crear filtro para parámetros</button>
+                  </form>
+                <br>
 
 
-  {% get_images_names_control object.numero as imagenes %}
+              {% get_images_names_control object.numero as imagenes %}
 
-      {% for imagen in imagenes %}
-      {% if imagen.2 == True %}
-      {% get_campos_from_image_control object.numero imagen.0 as campos %}
+                  {% for imagen in imagenes %}
+                  {% if imagen.2 == True %}
+                  {% get_campos_from_image_control object.numero imagen.0 as campos %}
 
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" href="#tipoimg{{ forloop.counter0 }}">{{imagen.0}}  {% if imagen.1 != "" %} ó {{imagen.1}} {%endif%}</a>
-              </h4>
-            </div>
-            <div id="tipoimg{{ forloop.counter0 }}" class="panel-collapse collapse">
-              <table class="table table-hover">
-                <thead>
-                <tr>
-                  <th>Ref. Dicom</th>
-                  <th>Nombre</th>
-                  <th>Valor</th>
-                  <th>Valor Esperado</th>
-                  <th>Tolerancia</th>
-                  <th>Validación</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for campo in campos %}
-                <tr>
-                  <td>{{campo.tag.num_tag}}</td>
-                  <td>{{campo.tag.name_tag}}</td>
-                  <td>{{campo.valor}} {{campo.medidas}}</td>
-                  <td>{{campo.v_esperado}} {{campo.medidas}}</td>
-                  <td>{{campo.precision}}%</td>
-                  <td>{% if campo.cumple == True %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
-                </tr>
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#tipoimg{{ forloop.counter0 }}">{{imagen.0}}  {% if imagen.1 != "" %} ó {{imagen.1}} {%endif%}</a>
+                          </h4>
+                        </div>
+                        <div id="tipoimg{{ forloop.counter0 }}" class="panel-collapse collapse">
+                          <table class="table table-hover">
+                            <thead>
+                            <tr>
+                              <th>Ref. Dicom</th>
+                              <th>Nombre</th>
+                              <th>Valor</th>
+                              <th>Valor Esperado</th>
+                              <th>Tolerancia</th>
+                              <th>Validación</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for campo in campos %}
+                            <tr>
+                              <td>{{campo.tag.num_tag}}</td>
+                              <td>{{campo.tag.name_tag}}</td>
+                              <td>{{campo.valor}} {{campo.medidas}}</td>
+                              <td>{{campo.v_esperado}} {{campo.medidas}}</td>
+                              <td>{{campo.precision}}%</td>
+                              <td>{% if campo.cumple == True %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+                            </tr>
 
-                {% endfor %}
-                </tbody>
-              </table>
-              Nota : Spacing Between Slices medido entre el punto medio de cada corte.
-              <form>
-                <button class="btn btn-primary" formaction="{% url 'vision_img' imagen.3 %}">Ocultar</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      {% else %}
-      <ul>
-        <form>
-        {{imagen.0}} * {% if imagen.1 != "" %} ó {{imagen.1}} {%endif%} &nbsp; &nbsp; <button class="btn btn-primary" formaction="{% url 'vision_img' imagen.3 %}">Mostrar</button>
-          </form>
-      </ul>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                          Nota : Spacing Between Slices medido entre el punto medio de cada corte.
+                          <form>
+                            <button class="btn btn-primary" formaction="{% url 'vision_img' imagen.3 %}">Ocultar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  {% else %}
+                  <ul>
+                    <form>
+                    {{imagen.0}} * {% if imagen.1 != "" %} ó {{imagen.1}} {%endif%} &nbsp; &nbsp; <button class="btn btn-primary" formaction="{% url 'vision_img' imagen.3 %}">Mostrar</button>
+                      </form>
+                  </ul>
 
-      {% endif %}
+                  {% endif %}
+                  <br>
+                  <br>
+                  {% endfor %}
+
+
+                  *Imágenes encontradas distintas al protocolo de adquisición.
+
+
+              </div>
+              <div class="tab-pane " id="movimiento">
+
+                 <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#funcional">
+                        Funcional (Resting)</a>
+                      </h4>
+                    </div>
+                    <div id="funcional" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                        <h4>Movimiento Medio</h4>
+                        <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                            <th>Absoluto</th>
+                            <td>{{ object.parametrosmotioncorrect.absolute_func }} mm </td>
+                            <th>Relativo</th>
+                            <td>{{ object.parametrosmotioncorrect.relative_func }} mm</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <center>
+                        <div id="div_func_desplazamiento"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        <div id="div_func_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        <div id="div_func_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        </center>
+
+                          <h3>Resultados de movimiento aceptables?  </h3>
+                      {% if object.parametrosmotioncorrect.aceptado_func == None and perms.paciente.change_parametrosmotioncorrect %}
+
+                        <form>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="func_si">Si
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="func_no">No
+                        </label>
+                      </form>
+                        {% else %}
+                        {% if  object.parametrosmotioncorrect.aceptado_func == True %}
+                          <span style="color:green" class="glyphicon glyphicon-check" ></span>
+                          {% elif  object.parametrosmotioncorrect.aceptado_func == False %}
+                          <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+                          {% else %}
+                            No Determinado
+                        {% endif %}
+                        {% endif %}
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#dwi">
+                        Dwi (Tensor)</a>
+                      </h4>
+                    </div>
+                    <div id="dwi" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                        <h4>Movimiento Medio</h4>
+                        <table class="table table-hover">
+                          <tbody>
+                          <tr>
+                            <th>Absoluto</th>
+                            <td>{{ object.parametrosmotioncorrect.absolute_dwi }} mm </td>
+                            <th>Relativo</th>
+                            <td>{{ object.parametrosmotioncorrect.relative_dwi }} mm</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <center>
+                        <div id="div_dwi_desplazamiento"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        <div id="div_dwi_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        <div id="div_dwi_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        </center>
+
+                          <h3>Resultados de movimiento aceptables?  </h3>
+                        {% if object.parametrosmotioncorrect.aceptado_dwi == None and perms.paciente.change_parametrosmotioncorrect %}
+
+                        <form>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="dwi_si">Si
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="optradio" id="dwi_no">No
+                        </label>
+
+
+                          <a class="btn btn-primary" onclick="mov()" >Enviar</a>
+                          <script >
+                          function mov() {
+
+                              var fs=document.getElementById("func_si").checked;
+                              var ds=document.getElementById("dwi_si").checked;
+                              var v1=0
+                              var v2=0
+                              if ( fs == true ){
+                                v1=1
+                              }
+                              else {
+                                v1=0
+                              }
+                              if ( ds == true ){
+                                v2=1
+                              }
+                              else {
+                                v2=0
+                              }
+                              var url_mask = "{% url 'v_movimiento' 'control' object.numero 'x' 'y' %}".replace('x', v1.toString());
+                              url_mask=url_mask.replace('y', v2.toString());
+                              window.location=url_mask;
+
+                          }
+                          </script>
+                        {% else %}
+                        {% if  object.parametrosmotioncorrect.aceptado_dwi == True %}
+                          <span style="color:green" class="glyphicon glyphicon-check" ></span>
+                          {% elif  object.parametrosmotioncorrect.aceptado_dwi == False %}
+                          <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
+                          {% else %}
+                            No Determinado
+                        {% endif %}
+
+                        {% endif %}
+
+
+                      </form>
+
+
+
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane " id="registro">
+            <br>
+            <br>
+            <div class="container">
+            <ul class="nav nav-pills nav-stacked col-md-2">
+              <li class="active"><a href="#tab_a" data-toggle="pill">Imagen Estructural</a></li>
+              <li><a href="#tab_b" data-toggle="pill">Imagen Funcional</a></li>
+              <li><a href="#tab_c" data-toggle="pill">Imagen de Difusión</a></li>
+            </ul>
+            <div class="tab-content col-md-10">
+                    <div class="tab-pane active" id="tab_a">
+                         <center>
+                  <h3>Vista Previa Imagen Estructural</h3>
+                <iframe src="{{object.get_realineacion.structural.url}}" width="700" height="290" name="realineacion" frameborder="0">
+
+
+                </iframe>
+
+
+                {% if object.get_realineacion.structural_cambio == False and perms.validacion.change_realineacion %}
+                  <table cellspacing="50" width="400" id="movimientos" >
+                    <caption>Movimientos</caption>
+
+                    <tbody>
+                    <tr>
+                      <th colspan="4">Traslaciones</th>
+                    </tr>
+                    <tr>
+                      <td>Derecha (eje y)</td>
+                      <td><button onclick="restar('der')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="der" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('der')"></td>
+                      <td><button onclick="sumar('der')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Frente (eje x)</td>
+
+                      <td><button onclick="restar('frente')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="frente" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('frente')"></td>
+                      <td><button onclick="sumar('frente')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Arriba (eje z)</td>
+
+                      <td><button onclick="restar('arriba')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="arriba" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('arriba')"></td>
+                      <td><button onclick="sumar('arriba')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="4">Escalamiento</th>
+                    </tr>
+                    <tr>
+                      <td>Eje x</td>
+                      <td><button onclick="restar('ex')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ex" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ex')"></td>
+                      <td><button onclick="sumar('ex')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje y</td>
+
+                      <td><button onclick="restar('ey')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ey" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ey')"></td>
+                      <td><button onclick="sumar('ey')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje z</td>
+
+                      <td><button onclick="restar('ez')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ez" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ez')"></td>
+                      <td><button onclick="sumar('ez')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="4">Rotaciones</th>
+                    </tr>
+                    <tr>
+                      <td>Eje x</td>
+                      <td><button onclick="restar('rx')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="rx" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('rx')"></td>
+                      <td><button onclick="sumar('rx')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje y</td>
+
+                      <td><button onclick="restar('ry')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ry" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ry')"></td>
+                      <td><button onclick="sumar('ry')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje z</td>
+
+                      <td><button onclick="restar('rz')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="rz" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('rz')"></td>
+                      <td><button onclick="sumar('rz')" ><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  <form>
+                  <button id="reinicio" class="btn btn-primary" formaction="{% url 'alinear' 'control' object.pk 'structural' '0' '0' '0' '1' '1' '1' '0' '0' '0' '0' %}" formtarget="realineacion" onclick="reiniciar()"> Reiniciar</button>
+                  <button id="guardar" class="btn btn-primary" formaction="#" onclick="accion('1')">Guardar</button>
+                  </form>
+                  {% endif %}
+                         </center>
+
+                <script>
+                  function accion(save) {
+
+                      var der=document.getElementById("der").value;
+                      der=der.replace(".", "_").substring(0, 5);
+                      var frente=document.getElementById("frente").value;
+                      frente=frente.replace(".", "_").substring(0, 5);
+                      var arriba=document.getElementById("arriba").value;
+                      arriba=arriba.replace(".", "_").substring(0, 5);
+                      var ex=document.getElementById("ex").value;
+                      ex=ex.replace(".", "_").substring(0, 5);
+                      var ey=document.getElementById("ey").value;
+                      ey=ey.replace(".", "_").substring(0, 5);
+                      var ez=document.getElementById("ez").value;
+                      ez=ez.replace(".", "_").substring(0, 5);
+                      var tx=document.getElementById("rx").value;
+                      tx=tx.replace(".", "_").substring(0, 5);
+                      var ty=document.getElementById("ry").value;
+                      ty=ty.replace(".", "_").substring(0, 5);
+                      var tz=document.getElementById("rz").value;
+                      tz=tz.replace(".", "_").substring(0, 5);
+
+
+                      if ( save == '1'){
+                          document.getElementById('movimientos').style="display:none";
+                          document.getElementById('reinicio').style="display:none";
+                          document.getElementById('guardar').style="display:none";
+                      }
+
+                      url_mask="{% url 'alinear' 'control' object.pk 'structural' 'der' 'frente' 'arriba' 'ex' 'ey' 'ez' 'tx' 'ty' 'tz' 'save' %}";
+                      window.frames["realineacion"].location = url_mask.replace('der',der).replace('frente',frente).replace('arriba',arriba).replace('ex',ex).replace('ey',ey).replace('ez',ez).replace('tx',tx).replace('ty',ty).replace('tz',tz).replace('save',save);
+                  }
+
+                  function reiniciar() {
+                      document.getElementById("der").value=0;
+                      document.getElementById("frente").value = 0;
+                      document.getElementById("arriba").value = 0;
+                      document.getElementById("ex").value=1;
+                      document.getElementById("ey").value=1;
+                      document.getElementById("ez").value=1;
+                      document.getElementById("rx").value=0;
+                      document.getElementById("ry").value=0;
+                      document.getElementById("rz").value=0;
+                  }
+
+
+                  function validar(a) {
+                      var x = document.getElementById(a).value;
+                      if ( x == ''){
+                          document.getElementById(a).value=0;
+                      }
+                      x=parseFloat(x);
+                      var max = document.getElementById(a).max;
+                      var min = document.getElementById(a).min;
+                      if ( x < min || x > max ){
+                          document.getElementById(a).value=0;
+                      }
+                      accion('0');
+                  }
+
+                  function sumar(a) {
+                      var x = document.getElementById(a);
+                      document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
+                      validar(a);
+                      accion('0');
+
+                  }
+
+                  function restar(a) {
+                      var x = document.getElementById(a);
+                      document.getElementById(a).value=parseFloat(x.value)-parseFloat(0.1);
+                      validar(a);
+                      accion('0');
+                  }
+                </script>
+                    </div>
+                    <div class="tab-pane" id="tab_b">
+                         <center>
+                  <h3>Vista Previa Imagen Funcional</h3>
+                <iframe src="{{object.get_realineacion.funcional.url}}" width="700" height="290" name="realineacion_func" frameborder="0">
+
+
+                </iframe>
+
+
+                {% if object.get_realineacion.funcional_cambio == False and perms.validacion.change_realineacion %}
+                  <table cellspacing="50" width="400" id="movimientos_func" >
+                    <caption>Movimientos</caption>
+
+                    <tbody>
+                    <tr>
+                      <th colspan="4">Traslaciones</th>
+                    </tr>
+                    <tr>
+                      <td>Derecha (eje y)</td>
+                      <td><button onclick="restar_func('der_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="der_func" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('der_func')"></td>
+                      <td><button onclick="sumar_func('der_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Frente (eje x)</td>
+
+                      <td><button onclick="restar_func('frente_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="frente_func" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('frente_func')"></td>
+                      <td><button onclick="sumar_func('frente_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Arriba (eje z)</td>
+
+                      <td><button onclick="restar_func('arriba_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="arriba_func" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('arriba_func')"></td>
+                      <td><button onclick="sumar_func('arriba_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="4">Escalamiento</th>
+                    </tr>
+                    <tr>
+                      <td>Eje x</td>
+                      <td><button onclick="restar_func('ex_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ex_func" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ex_func')"></td>
+                      <td><button onclick="sumar_func('ex_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje y</td>
+
+                      <td><button onclick="restar_func('ey_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ey_func" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ey_func')"></td>
+                      <td><button onclick="sumar_func('ey_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje z</td>
+
+                      <td><button onclick="restar_func('ez_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ez_func" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ez_func')"></td>
+                      <td><button onclick="sumar_func('ez_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="4">Rotaciones</th>
+                    </tr>
+                    <tr>
+                      <td>Eje x</td>
+                      <td><button onclick="restar_func('rx_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="rx_func" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('rx_func')"></td>
+                      <td><button onclick="sumar_func('rx_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje y</td>
+
+                      <td><button onclick="restar_func('ry_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ry_func" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ry_func')"></td>
+                      <td><button onclick="sumar_func('ry_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje z</td>
+
+                      <td><button onclick="restar_func('rz_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="rz_func" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('rz_func')"></td>
+                      <td><button onclick="sumar_func('rz_func')" ><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  <form>
+                  <button id="reinicio_func" class="btn btn-primary" formaction="{% url 'alinear' 'control' object.pk 'funcional' '0' '0' '0' '1' '1' '1' '0' '0' '0' '0' %}" formtarget="realineacion_func" onclick="reiniciar_func()">Reiniciar</button>
+                  <button id="guardar_func" class="btn btn-primary" formaction="#" onclick="accion_func('1')">Guardar</button>
+                  </form>
+                  {% endif %}
+                         </center>
+
+                <script>
+                  function accion_func(save) {
+
+                      var der_func=document.getElementById("der_func").value;
+                      der_func=der_func.replace(".", "_").substring(0, 5);
+                      var frente_func=document.getElementById("frente_func").value;
+                      frente_func=frente_func.replace(".", "_").substring(0, 5);
+                      var arriba_func=document.getElementById("arriba_func").value;
+                      arriba_func=arriba_func.replace(".", "_").substring(0, 5);
+                      var ex_func=document.getElementById("ex_func").value;
+                      ex_func=ex_func.replace(".", "_").substring(0, 5);
+                      var ey_func=document.getElementById("ey_func").value;
+                      ey_func=ey_func.replace(".", "_").substring(0, 5);
+                      var ez_func=document.getElementById("ez_func").value;
+                      ez_func=ez_func.replace(".", "_").substring(0, 5);
+                      var tx=document.getElementById("rx_func").value;
+                      tx=tx.replace(".", "_").substring(0, 5);
+                      var ty=document.getElementById("ry_func").value;
+                      ty=ty.replace(".", "_").substring(0, 5);
+                      var tz=document.getElementById("rz_func").value;
+                      tz=tz.replace(".", "_").substring(0, 5);
+
+
+                      if ( save == '1'){
+                          document.getElementById('movimientos_func').style="display:none";
+                          document.getElementById('reinicio_func').style="display:none";
+                          document.getElementById('guardar_func').style="display:none";
+                      }
+
+                      url_mask="{% url 'alinear' 'control' object.pk 'funcional' 'der_func' 'frente_func' 'arriba_func' 'ex_func' 'ey_func' 'ez_func' 'tx' 'ty' 'tz' 'save' %}";
+                      window.frames["realineacion_func"].location = url_mask.replace('der_func',der_func).replace('frente_func',frente_func).replace('arriba_func',arriba_func).replace('ex_func',ex_func).replace('ey_func',ey_func).replace('ez_func',ez_func).replace('tx',tx).replace('ty',ty).replace('tz',tz).replace('save',save);
+                  }
+
+                  function reiniciar_func() {
+                      document.getElementById("der_func").value=0;
+                      document.getElementById("frente_func").value = 0;
+                      document.getElementById("arriba_func").value = 0;
+                      document.getElementById("ex_func").value=1;
+                      document.getElementById("ey_func").value=1;
+                      document.getElementById("ez_func").value=1;
+                      document.getElementById("rx_func").value=0;
+                      document.getElementById("ry_func").value=0;
+                      document.getElementById("rz_func").value=0;
+                  }
+
+
+                  function validar_func(a) {
+                      var x = document.getElementById(a).value;
+                      if ( x == ''){
+                          document.getElementById(a).value=0;
+                      }
+                      x=parseFloat(x);
+                      var max = document.getElementById(a).max;
+                      var min = document.getElementById(a).min;
+                      if ( x < min || x > max ){
+                          document.getElementById(a).value=0;
+                      }
+                      accion_func('0');
+                  }
+
+                  function sumar_func(a) {
+                      var x = document.getElementById(a);
+                      document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
+                      validar_func(a);
+                      accion_func('0');
+
+                  }
+
+                  function restar_func(a) {
+                      var x = document.getElementById(a);
+                      document.getElementById(a).value=parseFloat(x.value)-parseFloat(0.1);
+                      validar_func(a);
+                      accion_func('0');
+                  }
+                </script>
+                    </div>
+                    <div class="tab-pane" id="tab_c">
+                         <center>
+                  <h3>Vista Previa Imagen de Difusión</h3>
+                <iframe src="{{object.get_realineacion.tensor.url}}" width="700" height="290" name="realineacion_tensor" frameborder="0">
+
+
+                </iframe>
+
+
+                {% if object.get_realineacion.tensor_cambio == False and perms.validacion.change_realineacion %}
+                  <table cellspacing="50" width="400" id="movimientos_tensor" >
+                    <caption>Movimientos</caption>
+
+                    <tbody>
+                    <tr>
+                      <th colspan="4">Traslaciones</th>
+                    </tr>
+                    <tr>
+                      <td>Derecha (eje y)</td>
+                      <td><button onclick="restar_tensor('der_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="der_tensor" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('der_tensor')"></td>
+                      <td><button onclick="sumar_tensor('der_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Frente (eje x)</td>
+
+                      <td><button onclick="restar_tensor('frente_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="frente_tensor" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('frente_tensor')"></td>
+                      <td><button onclick="sumar_tensor('frente_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Arriba (eje z)</td>
+
+                      <td><button onclick="restar_tensor('arriba_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="arriba_tensor" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('arriba_tensor')"></td>
+                      <td><button onclick="sumar_tensor('arriba_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="4">Escalamiento</th>
+                    </tr>
+                    <tr>
+                      <td>Eje x</td>
+                      <td><button onclick="restar_tensor('ex_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ex_tensor" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ex_tensor')"></td>
+                      <td><button onclick="sumar_tensor('ex_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje y</td>
+
+                      <td><button onclick="restar_tensor('ey_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ey_tensor" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ey_tensor')"></td>
+                      <td><button onclick="sumar_tensor('ey_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje z</td>
+
+                      <td><button onclick="restar_tensor('ez_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ez_tensor" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ez_tensor')"></td>
+                      <td><button onclick="sumar_tensor('ez_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="4">Rotaciones</th>
+                    </tr>
+                    <tr>
+                      <td>Eje x</td>
+                      <td><button onclick="restar_tensor('rx_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="rx_tensor" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('rx_tensor')"></td>
+                      <td><button onclick="sumar_tensor('rx_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje y</td>
+
+                      <td><button onclick="restar_tensor('ry_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="ry_tensor" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ry_tensor')"></td>
+                      <td><button onclick="sumar_tensor('ry_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+                    <tr>
+                      <td>Eje z</td>
+
+                      <td><button onclick="restar_tensor('rz_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
+                      <td><input type="text" id="rz_tensor" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('rz_tensor')"></td>
+                      <td><button onclick="sumar_tensor('rz_tensor')" ><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  <form>
+                  <button id="reinicio_tensor" class="btn btn-primary" formaction="{% url 'alinear' 'control' object.pk 'tensor' '0' '0' '0' '1' '1' '1' '0' '0' '0' '0' %}" formtarget="realineacion_tensor" onclick="reiniciar_tensor()">Reiniciar</button>
+                  <button id="guardar_tensor" class="btn btn-primary" formaction="#" onclick="accion_tensor('1')">Guardar</button>
+                  </form>
+                  {% endif %}
+                         </center>
+
+                <script>
+                  function accion_tensor(save) {
+
+                      var der_tensor=document.getElementById("der_tensor").value;
+                      der_tensor=der_tensor.replace(".", "_").substring(0, 5);
+                      var frente_tensor=document.getElementById("frente_tensor").value;
+                      frente_tensor=frente_tensor.replace(".", "_").substring(0, 5);
+                      var arriba_tensor=document.getElementById("arriba_tensor").value;
+                      arriba_tensor=arriba_tensor.replace(".", "_").substring(0, 5);
+                      var ex_tensor=document.getElementById("ex_tensor").value;
+                      ex_tensor=ex_tensor.replace(".", "_").substring(0, 5);
+                      var ey_tensor=document.getElementById("ey_tensor").value;
+                      ey_tensor=ey_tensor.replace(".", "_").substring(0, 5);
+                      var ez_tensor=document.getElementById("ez_tensor").value;
+                      ez_tensor=ez_tensor.replace(".", "_").substring(0, 5);
+                      var tx=document.getElementById("rx_tensor").value;
+                      tx=tx.replace(".", "_").substring(0, 5);
+                      var ty=document.getElementById("ry_tensor").value;
+                      ty=ty.replace(".", "_").substring(0, 5);
+                      var tz=document.getElementById("rz_tensor").value;
+                      tz=tz.replace(".", "_").substring(0, 5);
+
+
+                      if ( save == '1'){
+                          document.getElementById('movimientos_tensor').style="display:none";
+                          document.getElementById('reinicio_tensor').style="display:none";
+                          document.getElementById('guardar_tensor').style="display:none";
+                      }
+
+                      url_mask="{% url 'alinear' 'control' object.pk 'tensor' 'der_tensor' 'frente_tensor' 'arriba_tensor' 'ex_tensor' 'ey_tensor' 'ez_tensor' 'tx' 'ty' 'tz' 'save' %}";
+                      window.frames["realineacion_tensor"].location = url_mask.replace('der_tensor',der_tensor).replace('frente_tensor',frente_tensor).replace('arriba_tensor',arriba_tensor).replace('ex_tensor',ex_tensor).replace('ey_tensor',ey_tensor).replace('ez_tensor',ez_tensor).replace('tx',tx).replace('ty',ty).replace('tz',tz).replace('save',save);
+                  }
+
+                  function reiniciar_tensor() {
+                      document.getElementById("der_tensor").value=0;
+                      document.getElementById("frente_tensor").value = 0;
+                      document.getElementById("arriba_tensor").value = 0;
+                      document.getElementById("ex_tensor").value=1;
+                      document.getElementById("ey_tensor").value=1;
+                      document.getElementById("ez_tensor").value=1;
+                      document.getElementById("rx_tensor").value=0;
+                      document.getElementById("ry_tensor").value=0;
+                      document.getElementById("rz_tensor").value=0;
+                  }
+
+
+                  function validar_tensor(a) {
+                      var x = document.getElementById(a).value;
+                      if ( x == ''){
+                          document.getElementById(a).value=0;
+                      }
+                      x=parseFloat(x);
+                      var max = document.getElementById(a).max;
+                      var min = document.getElementById(a).min;
+                      if ( x < min || x > max ){
+                          document.getElementById(a).value=0;
+                      }
+                      accion_tensor('0');
+                  }
+
+                  function sumar_tensor(a) {
+                      var x = document.getElementById(a);
+                      document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
+                      validar_tensor(a);
+                      accion_tensor('0');
+
+                  }
+
+                  function restar_tensor(a) {
+                      var x = document.getElementById(a);
+                      document.getElementById(a).value=parseFloat(x.value)-parseFloat(0.1);
+                      validar_tensor(a);
+                      accion_tensor('0');
+                  }
+                </script>
+                    </div>
+            </div><!-- tab content -->
+            </div><!-- end of container -->
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+
+              <div class="tab-pane " id="snr">
+                <br>
+                <div class="alert alert-dismissible alert-success">
+                  <h4 class="alert-heading">Observación</h4>
+                  <p class="mb-3">El balance Señal-ruido mostrado a continuación se calculo para cada volumen
+                  de las imágenes estructural, funcional y de difusión, ya que no se conoce la verdadera
+                  señal para comparar el ruido generado en la adquisición el valor mostrado se compara con
+                  el hallado para la imagen template de una imagen de resonancia estructural, la cual tiene un valor de <math>1.03.</math> </p>
+                </div>
+
+
+
+                 <ul>
+                    <li>Imagen Estructural (T1)</li>
+                      <ul>
+                        <li>snr: {{object.get_snr.structural}}</li>
+                      </ul>
+                    <li>Imagen Funcional (fMRI)</li>
+                      <ul>
+                        <li>snr: {{object.get_snr.funcional}}</li>
+                        <div id="div_snr_func"><!-- Plotly chart will be drawn inside this DIV --></div>
+                      </ul>
+                    <li>Imagen de Difusión (DWI)</li>
+                      <ul>
+                        <li>snr: {{object.get_snr.tensor}}</li>
+                        <div id="div_snr_dwi"><!-- Plotly chart will be drawn inside this DIV --></div>
+                        <li>El valor de 0 indica el snr para la b0.</li>
+                      </ul>
+                  </ul>
+
+
+
+                </div>
+
+         </div>
+
+    </div>
+        <div id="pre" class="tab-pane fade">
       <br>
-      <br>
-      {% endfor %}
+      {% pipelines as pipe %}
+      {% grouptask as grupos %}
 
 
-      *Imágenes encontradas distintas al protocolo de adquisición.
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active "><a onclick="muestrapipeline()">Pipelines</a></li>
+
+        {% for p in pipe %}
+        <li class="breadcrumb-item" style="display:none" id="lista_{{p.nombre}}" onclick="muestragrupos('{{p}}')" name="groups"><a >{{p.nombre}}</a></li>
+        {% endfor %}
+
+        {% for g in grupos %}
+        <li class="breadcrumb-item" style="display:none" id="lista_{{g.nombre}}"   name="tasks" ><a >{{g.nombre}}</a></li>
+        {% endfor %}
 
 
-  </div>
-  <div class="tab-pane " id="movimiento">
+      </ol>
 
-     <div class="panel-group" id="accordion">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#funcional">
-            Funcional (Resting)</a>
-          </h4>
-        </div>
-        <div id="funcional" class="panel-collapse collapse in">
-          <div class="panel-body">
-            <h4>Movimiento Medio</h4>
-            <table class="table table-hover">
-              <tbody>
+
+        <div id="pipelines" >
+          <table class="table table-hover">
+            <thead>
               <tr>
-                <th>Absoluto</th>
-                <td>{{ object.parametrosmotioncorrect.absolute_func }} mm </td>
-                <th>Relativo</th>
-                <td>{{ object.parametrosmotioncorrect.relative_func }} mm</td>
+                <th>Nombre</th>
+                <th>Tipo imagen</th>
+                <th>Dependencia</th>
+
+                {% if perms.validacion.can_change_pipeline %}
+                <th>Ejecutar</th>
+                <th>Editar Pipeline</th>
+                {% endif%}
+                {% if perms.validacion.can_delete_pipeline %}
+                <th>Eliminar Pipeline</th>
+                {% endif%}
               </tr>
-              </tbody>
-            </table>
-            <center>
-            <div id="div_func_desplazamiento"><!-- Plotly chart will be drawn inside this DIV --></div>
-            <div id="div_func_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
-            <div id="div_func_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
-            </center>
-
-              <h3>Resultados de movimiento aceptables?  </h3>
-          {% if object.parametrosmotioncorrect.aceptado_func == None and perms.paciente.change_parametrosmotioncorrect %}
-
-            <form>
-            <label class="radio-inline">
-              <input type="radio" name="optradio" id="func_si">Si
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio" id="func_no">No
-            </label>
-          </form>
-            {% else %}
-            {% if  object.parametrosmotioncorrect.aceptado_func == True %}
-              <span style="color:green" class="glyphicon glyphicon-check" ></span>
-              {% elif  object.parametrosmotioncorrect.aceptado_func == False %}
-              <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
-              {% else %}
-                No Determinado
-            {% endif %}
-            {% endif %}
-
-
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#dwi">
-            Dwi (Tensor)</a>
-          </h4>
-        </div>
-        <div id="dwi" class="panel-collapse collapse in">
-          <div class="panel-body">
-            <h4>Movimiento Medio</h4>
-            <table class="table table-hover">
-              <tbody>
+            </thead>
+            <tbody>
+              {% for p in pipe %}
               <tr>
-                <th>Absoluto</th>
-                <td>{{ object.parametrosmotioncorrect.absolute_dwi }} mm </td>
-                <th>Relativo</th>
-                <td>{{ object.parametrosmotioncorrect.relative_dwi }} mm</td>
+                <td><a onclick="muestragrupos('{{p}}')">{{p}}</a></td>
+                <td>{{p.tipo_imagen}}</td>
+                <td>{% if p.dependencia != None %}{{p.dependencia}}{% endif%}</td>
+
+                {% if perms.validacion.can_change_pipeline %}
+
+                <td>
+                <form>
+                  <button class="btn btn-success" formaction="{% url 'run_pipeline' p.pk object.numero 'control' %}">Ejecutar</button>
+                </form>
+                </td>
+                <td>
+                <form>
+                  <button class="btn btn-primary" formaction="{% url 'pipelines_editar' p.pk %}">Editar</button>
+                </form>
+                </td>
+
+                {% endif%}
+                {% if perms.validacion.can_delete_pipeline %}
+                <td>
+                <form>
+                  <button class="btn btn-danger" formaction="{% url 'pipelines_eliminar' p.pk %}">Eliminar</button>
+                </form>
+                </td>
+
+                {% endif%}
+
               </tr>
-              </tbody>
-            </table>
-            <center>
-            <div id="div_dwi_desplazamiento"><!-- Plotly chart will be drawn inside this DIV --></div>
-            <div id="div_dwi_rotaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
-            <div id="div_dwi_traslaciones"><!-- Plotly chart will be drawn inside this DIV --></div>
-            </center>
 
-              <h3>Resultados de movimiento aceptables?  </h3>
-            {% if object.parametrosmotioncorrect.aceptado_dwi == None and perms.paciente.change_parametrosmotioncorrect %}
+              {% endfor %}
+            </tbody>
+          </table>
 
-            <form>
-            <label class="radio-inline">
-              <input type="radio" name="optradio" id="dwi_si">Si
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio" id="dwi_no">No
-            </label>
-
-
-              <a class="btn btn-primary" onclick="mov()" >Enviar</a>
-              <script >
-              function mov() {
-
-                  var fs=document.getElementById("func_si").checked;
-                  var ds=document.getElementById("dwi_si").checked;
-                  var v1=0
-                  var v2=0
-                  if ( fs == true ){
-                    v1=1
-                  }
-                  else {
-                    v1=0
-                  }
-                  if ( ds == true ){
-                    v2=1
-                  }
-                  else {
-                    v2=0
-                  }
-                  var url_mask = "{% url 'v_movimiento' 'control' object.numero 'x' 'y' %}".replace('x', v1.toString());
-                  url_mask=url_mask.replace('y', v2.toString());
-                  window.location=url_mask;
-
-              }
-              </script>
-            {% else %}
-            {% if  object.parametrosmotioncorrect.aceptado_dwi == True %}
-              <span style="color:green" class="glyphicon glyphicon-check" ></span>
-              {% elif  object.parametrosmotioncorrect.aceptado_dwi == False %}
-              <span style="color:red" class="glyphicon glyphicon-remove-circle"></span>
-              {% else %}
-                No Determinado
-            {% endif %}
-
-            {% endif %}
-
-
-          </form>
-
-
-
-          </div>
         </div>
+        <div id="groups">
+
+
+
+          {% for p in pipe %}
+
+          <table class="table table-hover" id="{{p.nombre}}" style="display:none">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Dependencia</th>
+                {% if perms.validacion.can_change_taskgroup %}
+                <th>Editar Grupo</th>
+                {% endif%}
+                {% if perms.validacion.can_delete_taskgroup %}
+                <th>Eliminar Grupo</th>
+                {% endif%}
+              </tr>
+            </thead>
+            <tbody>
+              {% for tg in p.grupos.all %}
+              <tr>
+                <td><a onclick="muestratareas('{{tg}}')">{{tg}}</a></td>
+                <td>{% if tg.dependencia != None %}{{tg.dependencia}}{% endif %}</td>
+                {% if perms.validacion.can_change_taskgroup %}
+                <td>
+                <form>
+                  <button class="btn btn-primary" formaction="{% url 'grupo_editar' tg.pk %}">Editar</button>
+                </form>
+                </td>
+
+                {% endif%}
+                {% if perms.validacion.can_delete_taskgroup %}
+                <td>
+                <form>
+                  <button class="btn btn-danger" formaction="{% url 'grupo_eliminar' tg.pk %}">Eliminar</button>
+                </form>
+                </td>
+
+                {% endif%}
+
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+
+          {% endfor %}
+
+
         </div>
-      </div>
-    </div>
-    <div class="tab-pane " id="registro">
-<br>
-<br>
-<div class="container">
-<ul class="nav nav-pills nav-stacked col-md-2">
-  <li class="active"><a href="#tab_a" data-toggle="pill">Imagen Estructural</a></li>
-  <li><a href="#tab_b" data-toggle="pill">Imagen Funcional</a></li>
-  <li><a href="#tab_c" data-toggle="pill">Imagen de Difusión</a></li>
-</ul>
-<div class="tab-content col-md-10">
-        <div class="tab-pane active" id="tab_a">
-             <center>
-      <h3>Vista Previa Imagen Estructural</h3>
-    <iframe src="{{object.get_realineacion.structural.url}}" width="700" height="290" name="realineacion" frameborder="0">
+        <div id="task" >
 
 
-    </iframe>
+
+          {% for g in grupos %}
+
+                  <table class="table table-hover" id="{{g.nombre}}" style="display:none">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Script</th>
+
+                        <th>Dependencia</th>
+                        <th>Habilitado</th>
+                        <th>Orden</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                  {% for t in g.get_task %}
+                        <tr>
+                            <td>{{t}}</td>
+                            <td>{{t.pathscript}}</td>
+
+                            <td>{% if t.dependencia != None %}{{t.dependencia}}{% endif%}</td>
+                            <td>{{t.habilitado}}</td>
+                            <td>{{ forloop.counter }}</td>
+                        </tr>
+
+                  {% endfor %}
+                      </tbody>
+                  </table>
+              {% endfor %}
 
 
-    {% if object.get_realineacion.structural_cambio == False and perms.validacion.change_realineacion %}
-      <table cellspacing="50" width="400" id="movimientos" >
-        <caption>Movimientos</caption>
+        </div>
 
-        <tbody>
-        <tr>
-          <th colspan="4">Traslaciones</th>
-        </tr>
-        <tr>
-          <td>Derecha (eje y)</td>
-          <td><button onclick="restar('der')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="der" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('der')"></td>
-          <td><button onclick="sumar('der')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Frente (eje x)</td>
-
-          <td><button onclick="restar('frente')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="frente" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('frente')"></td>
-          <td><button onclick="sumar('frente')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Arriba (eje z)</td>
-
-          <td><button onclick="restar('arriba')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="arriba" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('arriba')"></td>
-          <td><button onclick="sumar('arriba')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        <tr>
-          <th colspan="4">Escalamiento</th>
-        </tr>
-        <tr>
-          <td>Eje x</td>
-          <td><button onclick="restar('ex')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ex" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ex')"></td>
-          <td><button onclick="sumar('ex')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje y</td>
-
-          <td><button onclick="restar('ey')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ey" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ey')"></td>
-          <td><button onclick="sumar('ey')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje z</td>
-
-          <td><button onclick="restar('ez')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ez" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ez')"></td>
-          <td><button onclick="sumar('ez')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        <tr>
-          <th colspan="4">Rotaciones</th>
-        </tr>
-        <tr>
-          <td>Eje x</td>
-          <td><button onclick="restar('rx')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="rx" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('rx')"></td>
-          <td><button onclick="sumar('rx')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje y</td>
-
-          <td><button onclick="restar('ry')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ry" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('ry')"></td>
-          <td><button onclick="sumar('ry')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje z</td>
-
-          <td><button onclick="restar('rz')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="rz" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar('rz')"></td>
-          <td><button onclick="sumar('rz')" ><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        </tbody>
-      </table>
-      <br>
-      <br>
+      {% if perms.validacion.can_add_pipeline %}
       <form>
-      <button id="reinicio" class="btn btn-primary" formaction="{% url 'alinear' 'control' object.pk 'structural' '0' '0' '0' '1' '1' '1' '0' '0' '0' '0' %}" formtarget="realineacion" onclick="reiniciar()"> Reiniciar</button>
-      <button id="guardar" class="btn btn-primary" formaction="#" onclick="accion('1')">Guardar</button>
+        <button class="btn btn-primary" formaction="{% url 'pipelines_crear' %}">Crear Pipeline</button>
       </form>
-      {% endif %}
-             </center>
-          
-    <script>
-      function accion(save) {
-
-          var der=document.getElementById("der").value;
-          der=der.replace(".", "_").substring(0, 5);
-          var frente=document.getElementById("frente").value;
-          frente=frente.replace(".", "_").substring(0, 5);
-          var arriba=document.getElementById("arriba").value;
-          arriba=arriba.replace(".", "_").substring(0, 5);
-          var ex=document.getElementById("ex").value;
-          ex=ex.replace(".", "_").substring(0, 5);
-          var ey=document.getElementById("ey").value;
-          ey=ey.replace(".", "_").substring(0, 5);
-          var ez=document.getElementById("ez").value;
-          ez=ez.replace(".", "_").substring(0, 5);
-          var tx=document.getElementById("rx").value;
-          tx=tx.replace(".", "_").substring(0, 5);
-          var ty=document.getElementById("ry").value;
-          ty=ty.replace(".", "_").substring(0, 5);
-          var tz=document.getElementById("rz").value;
-          tz=tz.replace(".", "_").substring(0, 5);
-
-
-          if ( save == '1'){
-              document.getElementById('movimientos').style="display:none";
-              document.getElementById('reinicio').style="display:none";
-              document.getElementById('guardar').style="display:none";
-          }
-
-          url_mask="{% url 'alinear' 'control' object.pk 'structural' 'der' 'frente' 'arriba' 'ex' 'ey' 'ez' 'tx' 'ty' 'tz' 'save' %}";
-          window.frames["realineacion"].location = url_mask.replace('der',der).replace('frente',frente).replace('arriba',arriba).replace('ex',ex).replace('ey',ey).replace('ez',ez).replace('tx',tx).replace('ty',ty).replace('tz',tz).replace('save',save);
-      }
-
-      function reiniciar() {
-          document.getElementById("der").value=0;
-          document.getElementById("frente").value = 0;
-          document.getElementById("arriba").value = 0;
-          document.getElementById("ex").value=1;
-          document.getElementById("ey").value=1;
-          document.getElementById("ez").value=1;
-          document.getElementById("rx").value=0;
-          document.getElementById("ry").value=0;
-          document.getElementById("rz").value=0;
-      }
-    
-    
-      function validar(a) {
-          var x = document.getElementById(a).value;
-          if ( x == ''){
-              document.getElementById(a).value=0;
-          }
-          x=parseFloat(x);
-          var max = document.getElementById(a).max;
-          var min = document.getElementById(a).min;
-          if ( x < min || x > max ){
-              document.getElementById(a).value=0;
-          }
-          accion('0');
-      }
-
-      function sumar(a) {
-          var x = document.getElementById(a);
-          document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
-          validar(a);
-          accion('0');
-          
-      }
-
-      function restar(a) {
-          var x = document.getElementById(a);
-          document.getElementById(a).value=parseFloat(x.value)-parseFloat(0.1);
-          validar(a);
-          accion('0');
-      }
-    </script>
-        </div>
-        <div class="tab-pane" id="tab_b">
-             <center>
-      <h3>Vista Previa Imagen Funcional</h3>
-    <iframe src="{{object.get_realineacion.funcional.url}}" width="700" height="290" name="realineacion_func" frameborder="0">
-
-
-    </iframe>
-
-
-    {% if object.get_realineacion.funcional_cambio == False and perms.validacion.change_realineacion %}
-      <table cellspacing="50" width="400" id="movimientos_func" >
-        <caption>Movimientos</caption>
-
-        <tbody>
-        <tr>
-          <th colspan="4">Traslaciones</th>
-        </tr>
-        <tr>
-          <td>Derecha (eje y)</td>
-          <td><button onclick="restar_func('der_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="der_func" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('der_func')"></td>
-          <td><button onclick="sumar_func('der_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Frente (eje x)</td>
-
-          <td><button onclick="restar_func('frente_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="frente_func" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('frente_func')"></td>
-          <td><button onclick="sumar_func('frente_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Arriba (eje z)</td>
-
-          <td><button onclick="restar_func('arriba_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="arriba_func" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('arriba_func')"></td>
-          <td><button onclick="sumar_func('arriba_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        <tr>
-          <th colspan="4">Escalamiento</th>
-        </tr>
-        <tr>
-          <td>Eje x</td>
-          <td><button onclick="restar_func('ex_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ex_func" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ex_func')"></td>
-          <td><button onclick="sumar_func('ex_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje y</td>
-
-          <td><button onclick="restar_func('ey_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ey_func" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ey_func')"></td>
-          <td><button onclick="sumar_func('ey_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje z</td>
-
-          <td><button onclick="restar_func('ez_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ez_func" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ez_func')"></td>
-          <td><button onclick="sumar_func('ez_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        <tr>
-          <th colspan="4">Rotaciones</th>
-        </tr>
-        <tr>
-          <td>Eje x</td>
-          <td><button onclick="restar_func('rx_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="rx_func" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('rx_func')"></td>
-          <td><button onclick="sumar_func('rx_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje y</td>
-
-          <td><button onclick="restar_func('ry_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ry_func" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('ry_func')"></td>
-          <td><button onclick="sumar_func('ry_func')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje z</td>
-
-          <td><button onclick="restar_func('rz_func')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="rz_func" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_func('rz_func')"></td>
-          <td><button onclick="sumar_func('rz_func')" ><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        </tbody>
-      </table>
+      {% endif%}
       <br>
-      <br>
+      {% if perms.validacion.can_add_taskgroup %}
       <form>
-      <button id="reinicio_func" class="btn btn-primary" formaction="{% url 'alinear' 'control' object.pk 'funcional' '0' '0' '0' '1' '1' '1' '0' '0' '0' '0' %}" formtarget="realineacion_func" onclick="reiniciar_func()">Reiniciar</button>
-      <button id="guardar_func" class="btn btn-primary" formaction="#" onclick="accion_func('1')">Guardar</button>
+        <button class="btn btn-primary" formaction="{% url 'grupo_crear' %}">Crear Grupo de Tareas</button>
       </form>
-      {% endif %}
-             </center>
-          
-    <script>
-      function accion_func(save) {
-
-          var der_func=document.getElementById("der_func").value;
-          der_func=der_func.replace(".", "_").substring(0, 5);
-          var frente_func=document.getElementById("frente_func").value;
-          frente_func=frente_func.replace(".", "_").substring(0, 5);
-          var arriba_func=document.getElementById("arriba_func").value;
-          arriba_func=arriba_func.replace(".", "_").substring(0, 5);
-          var ex_func=document.getElementById("ex_func").value;
-          ex_func=ex_func.replace(".", "_").substring(0, 5);
-          var ey_func=document.getElementById("ey_func").value;
-          ey_func=ey_func.replace(".", "_").substring(0, 5);
-          var ez_func=document.getElementById("ez_func").value;
-          ez_func=ez_func.replace(".", "_").substring(0, 5);
-          var tx=document.getElementById("rx_func").value;
-          tx=tx.replace(".", "_").substring(0, 5);
-          var ty=document.getElementById("ry_func").value;
-          ty=ty.replace(".", "_").substring(0, 5);
-          var tz=document.getElementById("rz_func").value;
-          tz=tz.replace(".", "_").substring(0, 5);
+      {% endif%}
 
 
-          if ( save == '1'){
-              document.getElementById('movimientos_func').style="display:none";
-              document.getElementById('reinicio_func').style="display:none";
-              document.getElementById('guardar_func').style="display:none";
+
+
+
+
+      <script>
+        function muestragrupos(a){
+          document.getElementById("pipelines").style='display:none';
+          document.getElementById(a).style='display:onblock';
+          document.getElementById("lista_"+a).style='display:onblock';
+
+
+          var x = document.getElementById("task").querySelectorAll(".table");
+          var i;
+          for (i = 0; i < x.length; i++) {
+              x[i].style='display:none';
           }
 
-          url_mask="{% url 'alinear' 'control' object.pk 'funcional' 'der_func' 'frente_func' 'arriba_func' 'ex_func' 'ey_func' 'ez_func' 'tx' 'ty' 'tz' 'save' %}";
-          window.frames["realineacion_func"].location = url_mask.replace('der_func',der_func).replace('frente_func',frente_func).replace('arriba_func',arriba_func).replace('ex_func',ex_func).replace('ey_func',ey_func).replace('ez_func',ez_func).replace('tx',tx).replace('ty',ty).replace('tz',tz).replace('save',save);
-      }
+          var node = document.getElementsByName("tasks");
+          var i;
+          for (i = 0; i < node.length; i++) {
+              node[i].style='display:none';
 
-      function reiniciar_func() {
-          document.getElementById("der_func").value=0;
-          document.getElementById("frente_func").value = 0;
-          document.getElementById("arriba_func").value = 0;
-          document.getElementById("ex_func").value=1;
-          document.getElementById("ey_func").value=1;
-          document.getElementById("ez_func").value=1;
-          document.getElementById("rx_func").value=0;
-          document.getElementById("ry_func").value=0;
-          document.getElementById("rz_func").value=0;
-      }
-    
-    
-      function validar_func(a) {
-          var x = document.getElementById(a).value;
-          if ( x == ''){
-              document.getElementById(a).value=0;
-          }
-          x=parseFloat(x);
-          var max = document.getElementById(a).max;
-          var min = document.getElementById(a).min;
-          if ( x < min || x > max ){
-              document.getElementById(a).value=0;
-          }
-          accion_func('0');
-      }
-
-      function sumar_func(a) {
-          var x = document.getElementById(a);
-          document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
-          validar_func(a);
-          accion_func('0');
-          
-      }
-
-      function restar_func(a) {
-          var x = document.getElementById(a);
-          document.getElementById(a).value=parseFloat(x.value)-parseFloat(0.1);
-          validar_func(a);
-          accion_func('0');
-      }
-    </script>
-        </div>
-        <div class="tab-pane" id="tab_c">
-             <center>
-      <h3>Vista Previa Imagen de Difusión</h3>
-    <iframe src="{{object.get_realineacion.tensor.url}}" width="700" height="290" name="realineacion_tensor" frameborder="0">
-
-
-    </iframe>
-
-
-    {% if object.get_realineacion.tensor_cambio == False and perms.validacion.change_realineacion %}
-      <table cellspacing="50" width="400" id="movimientos_tensor" >
-        <caption>Movimientos</caption>
-
-        <tbody>
-        <tr>
-          <th colspan="4">Traslaciones</th>
-        </tr>
-        <tr>
-          <td>Derecha (eje y)</td>
-          <td><button onclick="restar_tensor('der_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="der_tensor" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('der_tensor')"></td>
-          <td><button onclick="sumar_tensor('der_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Frente (eje x)</td>
-
-          <td><button onclick="restar_tensor('frente_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="frente_tensor" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('frente_tensor')"></td>
-          <td><button onclick="sumar_tensor('frente_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Arriba (eje z)</td>
-
-          <td><button onclick="restar_tensor('arriba_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="arriba_tensor" value="0" maxlength="10" min="-100" max="100" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('arriba_tensor')"></td>
-          <td><button onclick="sumar_tensor('arriba_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        <tr>
-          <th colspan="4">Escalamiento</th>
-        </tr>
-        <tr>
-          <td>Eje x</td>
-          <td><button onclick="restar_tensor('ex_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ex_tensor" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ex_tensor')"></td>
-          <td><button onclick="sumar_tensor('ex_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje y</td>
-
-          <td><button onclick="restar_tensor('ey_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ey_tensor" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ey_tensor')"></td>
-          <td><button onclick="sumar_tensor('ey_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje z</td>
-
-          <td><button onclick="restar_tensor('ez_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ez_tensor" value="1" maxlength="10" min="0.1" max="2" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ez_tensor')"></td>
-          <td><button onclick="sumar_tensor('ez_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        <tr>
-          <th colspan="4">Rotaciones</th>
-        </tr>
-        <tr>
-          <td>Eje x</td>
-          <td><button onclick="restar_tensor('rx_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="rx_tensor" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('rx_tensor')"></td>
-          <td><button onclick="sumar_tensor('rx_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje y</td>
-
-          <td><button onclick="restar_tensor('ry_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="ry_tensor" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('ry_tensor')"></td>
-          <td><button onclick="sumar_tensor('ry_tensor')"><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-        <tr>
-          <td>Eje z</td>
-
-          <td><button onclick="restar_tensor('rz_tensor')"><span style="color:blue" class="glyphicon glyphicon-minus"></span></button></td>
-          <td><input type="text" id="rz_tensor" value="0" maxlength="10" min="-3.1416" max="3.1416" required size="10" oninput="this.value = this.value.replace(/[^0-9&#46;&#45;]/, '')" onchange="validar_tensor('rz_tensor')"></td>
-          <td><button onclick="sumar_tensor('rz_tensor')" ><span style="color:blue" class="glyphicon glyphicon-plus"></span></button></td>
-        </tr>
-
-        </tbody>
-      </table>
-      <br>
-      <br>
-      <form>
-      <button id="reinicio_tensor" class="btn btn-primary" formaction="{% url 'alinear' 'control' object.pk 'tensor' '0' '0' '0' '1' '1' '1' '0' '0' '0' '0' %}" formtarget="realineacion_tensor" onclick="reiniciar_tensor()">Reiniciar</button>
-      <button id="guardar_tensor" class="btn btn-primary" formaction="#" onclick="accion_tensor('1')">Guardar</button>
-      </form>
-      {% endif %}
-             </center>
-          
-    <script>
-      function accion_tensor(save) {
-
-          var der_tensor=document.getElementById("der_tensor").value;
-          der_tensor=der_tensor.replace(".", "_").substring(0, 5);
-          var frente_tensor=document.getElementById("frente_tensor").value;
-          frente_tensor=frente_tensor.replace(".", "_").substring(0, 5);
-          var arriba_tensor=document.getElementById("arriba_tensor").value;
-          arriba_tensor=arriba_tensor.replace(".", "_").substring(0, 5);
-          var ex_tensor=document.getElementById("ex_tensor").value;
-          ex_tensor=ex_tensor.replace(".", "_").substring(0, 5);
-          var ey_tensor=document.getElementById("ey_tensor").value;
-          ey_tensor=ey_tensor.replace(".", "_").substring(0, 5);
-          var ez_tensor=document.getElementById("ez_tensor").value;
-          ez_tensor=ez_tensor.replace(".", "_").substring(0, 5);
-          var tx=document.getElementById("rx_tensor").value;
-          tx=tx.replace(".", "_").substring(0, 5);
-          var ty=document.getElementById("ry_tensor").value;
-          ty=ty.replace(".", "_").substring(0, 5);
-          var tz=document.getElementById("rz_tensor").value;
-          tz=tz.replace(".", "_").substring(0, 5);
-
-
-          if ( save == '1'){
-              document.getElementById('movimientos_tensor').style="display:none";
-              document.getElementById('reinicio_tensor').style="display:none";
-              document.getElementById('guardar_tensor').style="display:none";
           }
 
-          url_mask="{% url 'alinear' 'control' object.pk 'tensor' 'der_tensor' 'frente_tensor' 'arriba_tensor' 'ex_tensor' 'ey_tensor' 'ez_tensor' 'tx' 'ty' 'tz' 'save' %}";
-          window.frames["realineacion_tensor"].location = url_mask.replace('der_tensor',der_tensor).replace('frente_tensor',frente_tensor).replace('arriba_tensor',arriba_tensor).replace('ex_tensor',ex_tensor).replace('ey_tensor',ey_tensor).replace('ez_tensor',ez_tensor).replace('tx',tx).replace('ty',ty).replace('tz',tz).replace('save',save);
-      }
 
-      function reiniciar_tensor() {
-          document.getElementById("der_tensor").value=0;
-          document.getElementById("frente_tensor").value = 0;
-          document.getElementById("arriba_tensor").value = 0;
-          document.getElementById("ex_tensor").value=1;
-          document.getElementById("ey_tensor").value=1;
-          document.getElementById("ez_tensor").value=1;
-          document.getElementById("rx_tensor").value=0;
-          document.getElementById("ry_tensor").value=0;
-          document.getElementById("rz_tensor").value=0;
-      }
-    
-    
-      function validar_tensor(a) {
-          var x = document.getElementById(a).value;
-          if ( x == ''){
-              document.getElementById(a).value=0;
+        }
+
+        function muestrapipeline(){
+          document.getElementById("pipelines").style='display:onblock';
+          var x = document.getElementById("groups").querySelectorAll(".table");
+          var i;
+          for (i = 0; i < x.length; i++) {
+              x[i].style='display:none';
           }
-          x=parseFloat(x);
-          var max = document.getElementById(a).max;
-          var min = document.getElementById(a).min;
-          if ( x < min || x > max ){
-              document.getElementById(a).value=0;
+          var x = document.getElementById("task").querySelectorAll(".table");
+          var i;
+          for (i = 0; i < x.length; i++) {
+              x[i].style='display:none';
           }
-          accion_tensor('0');
-      }
 
-      function sumar_tensor(a) {
-          var x = document.getElementById(a);
-          document.getElementById(a).value=parseFloat(x.value)+parseFloat(0.1);
-          validar_tensor(a);
-          accion_tensor('0');
-          
-      }
+          var node = document.getElementsByName("tasks");
+          var i;
+          for (i = 0; i < node.length; i++) {
+              node[i].style='display:none';
+          }
 
-      function restar_tensor(a) {
-          var x = document.getElementById(a);
-          document.getElementById(a).value=parseFloat(x.value)-parseFloat(0.1);
-          validar_tensor(a);
-          accion_tensor('0');
-      }
-    </script>
-        </div>
-</div><!-- tab content -->
-</div><!-- end of container -->
+          var node = document.getElementsByName("groups");
+          var i;
+          for (i = 0; i < node.length; i++) {
+              node[i].style='display:none';
+          }
 
 
+        }
 
-
-
-
-    
+        function muestratareas(a){
+          var x = document.getElementById("groups").querySelectorAll(".table");
+          var i;
+          for (i = 0; i < x.length; i++) {
+              x[i].style='display:none';
+          }
+          document.getElementById(a).style='display:onblock';
+          document.getElementById("lista_"+a).style='display:onblock';
 
 
 
+        }
 
-  </div>
 
-  <div class="tab-pane " id="snr">
-    <br>
-    <div class="alert alert-dismissible alert-success">
-      <h4 class="alert-heading">Observación</h4>
-      <p class="mb-3">El balance Señal-ruido mostrado a continuación se calculo para cada volumen
-      de las imágenes estructural, funcional y de difusión, ya que no se conoce la verdadera
-      señal para comparar el ruido generado en la adquisición el valor mostrado se compara con
-      el hallado para la imagen template de una imagen de resonancia estructural, la cual tiene un valor de <math>1.03.</math> </p>
+
+
+      </script>
+
     </div>
 
 
 
-     <ul>
-        <li>Imagen Estructural (T1)</li>
-          <ul>
-            <li>snr: {{object.get_snr.structural}}</li>
-          </ul>
-        <li>Imagen Funcional (fMRI)</li>
-          <ul>
-            <li>snr: {{object.get_snr.funcional}}</li>
-            <div id="div_snr_func"><!-- Plotly chart will be drawn inside this DIV --></div>
-          </ul>
-        <li>Imagen de Difusión (DWI)</li>
-          <ul>
-            <li>snr: {{object.get_snr.tensor}}</li>
-            <div id="div_snr_dwi"><!-- Plotly chart will be drawn inside this DIV --></div>
-            <li>El valor de 0 indica el snr para la b0.</li>
-          </ul>
-      </ul>
-
-
-
-    </div>
 
 
   </div>

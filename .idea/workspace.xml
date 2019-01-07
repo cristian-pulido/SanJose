@@ -2,8 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a1ef49-a0ed-419d-a364-3d1c178a5100" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/tareas/dependencias/tools.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tareas/to_estimate_dti_maps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SanJose/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SanJose/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SanJose/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SanJose/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/SanJose/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/fileupload/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/fileupload/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/paciente/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/paciente/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/validacion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/validacion/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/celery.bash" beforeDir="false" afterPath="$PROJECT_DIR$/celery.bash" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/programas/definitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/programas/definitions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/paciente/controles.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/controles.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/paciente/formularios.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/paciente/formularios.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,47 +78,57 @@
     <session id="-1673653805">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="39" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.17" value="2" />
-          <entry key="project.open.time.18" value="2" />
-          <entry key="project.open.time.19" value="2" />
-          <entry key="project.open.time.20" value="4" />
-          <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.18" value="3" />
+          <entry key="project.open.time.19" value="3" />
+          <entry key="project.open.time.20" value="9" />
+          <entry key="project.open.time.21" value="8" />
+          <entry key="project.open.time.22" value="3" />
+          <entry key="project.open.time.23" value="7" />
+          <entry key="project.open.time.24" value="3" />
+          <entry key="project.open.time.25" value="3" />
+          <entry key="project.open.time.26" value="1" />
+          <entry key="project.open.time.27" value="1" />
+          <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.31" value="1" />
-          <entry key="project.open.time.33" value="1" />
-          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.33" value="2" />
+          <entry key="project.open.time.37" value="2" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.40" value="1" />
           <entry key="project.open.time.58" value="1" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="21" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="58" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="26" />
-          <entry key="py" value="76" />
+          <entry key="html" value="45" />
+          <entry key="log" value="1" />
+          <entry key="py" value="206" />
+          <entry key="save" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="26" />
-          <entry key="Python" value="76" />
+          <entry key="HTML" value="45" />
+          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="Python" value="206" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="8340" />
-          <entry key="py" value="7913" />
+          <entry key="html" value="12744" />
+          <entry key="py" value="16421" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="8340" />
-          <entry key="Python" value="7913" />
+          <entry key="HTML" value="12744" />
+          <entry key="Python" value="16421" />
         </counts>
       </usages-collector>
     </session>
@@ -112,174 +139,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
+        <entry file="file://$PROJECT_DIR$/tareas/to_register_dwi_to_mni.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="2786" column="102" lean-forward="true" selection-start-line="2786" selection-start-column="14" selection-end-line="2786" selection-end-column="102" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#!!top" />
-                <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#li#1;n#ul#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#li#2;n#ul#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#li#3;n#ul#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#form#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#div#3;n#div#0;n#div#1;n#div#0;n#!!top" />
-                <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="n#div#3;n#div#0;n#div#2;n#div#0;n#!!top" />
-                <element signature="n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/lectura_form.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#5;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#li#6;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#6;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#7;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#7;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#8;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#8;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#9;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#9;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#div#0;n#li#10;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#11;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#11;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#12;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#12;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#13;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#13;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-                <element signature="n#style#0;n#div#0;n#li#14;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#li#14;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="1483" column="47" selection-start-line="1483" selection-start-column="47" selection-end-line="1483" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#!!top" />
-                <element signature="n#div#1;n#div#0;n#!!top" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18570">
-              <caret line="1252" column="25" selection-start-line="1252" selection-start-column="25" selection-end-line="1252" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
-              <folding>
-                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#ul#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="255">
+              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -288,28 +151,105 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/paciente/neuropsi_form.html">
+        <entry file="file://$PROJECT_DIR$/programas/workflows.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7665">
-              <caret line="511" column="65" selection-start-line="511" selection-start-column="9" selection-end-line="511" selection-end-column="65" />
+            <state relative-caret-position="779">
+              <caret line="61" column="36" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/programas/dcm2niix.py">
+        <entry file="file://$PROJECT_DIR$/SanJose/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="97" column="37" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
+            <state relative-caret-position="694">
+              <caret line="370" column="44" selection-start-line="370" selection-start-column="44" selection-end-line="370" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
+        <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="5790">
+              <caret line="392" column="31" selection-start-line="392" selection-start-column="31" selection-end-line="392" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="94" column="14" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="32" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#!!top" />
+                <element signature="n#div#3;n#div#0;n#!!top" />
+                <element signature="n#div#4;n#div#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1601" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+                <element signature="n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+                <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#88#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tareas/nonLocalMean.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tareas/reslicing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <folding>
+                <element signature="e#2#12#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -319,16 +259,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>this.value</find>
-      <find>||</find>
-      <find>100</find>
       <find>m</find>
       <find>5</find>
       <find>der</find>
@@ -356,6 +293,9 @@
       <find>replace</find>
       <find>Tipo</find>
       <find>lectura</find>
+      <find>processing</find>
+      <find>processing:</find>
+      <find>load</find>
     </findStrings>
     <replaceStrings>
       <replace>semantica</replace>
@@ -400,56 +340,56 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/moca_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/report.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/ingreso_form.html" />
-        <option value="$PROJECT_DIR$/templates/registration/logout.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/paciente_form.html" />
-        <option value="$PROJECT_DIR$/static/css/bootstrap.min.css" />
-        <option value="$PROJECT_DIR$/apps/fileupload/static/css/bootstrap.min.css" />
-        <option value="$PROJECT_DIR$/templates/paciente/bold_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/informante_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/control_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/uci_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/controles_listar.html" />
-        <option value="$PROJECT_DIR$/apps/fileupload/templates/fileupload/picture_form.html" />
-        <option value="$PROJECT_DIR$/apps/validacion/apps.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/serialize.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/templatetags/scripts.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/forms.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/urls.py" />
-        <option value="$PROJECT_DIR$/templates/validacion/filtro_form.html" />
-        <option value="$PROJECT_DIR$/templates/validacion/filtros.html" />
-        <option value="$PROJECT_DIR$/apps/validacion/views.py" />
-        <option value="$PROJECT_DIR$/programas/anonimizador.py" />
-        <option value="$PROJECT_DIR$/programas/definitions.py" />
-        <option value="$PROJECT_DIR$/programas/realineacion.py" />
-        <option value="$PROJECT_DIR$/programas/tools.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/admin.py" />
-        <option value="$PROJECT_DIR$/programas/motion_correct_fmri.py" />
-        <option value="$PROJECT_DIR$/apps/fileupload/views.py" />
-        <option value="$PROJECT_DIR$/programas/dcm2niix.py" />
-        <option value="$PROJECT_DIR$/apps/validacion/models.py" />
-        <option value="$PROJECT_DIR$/templates/base/display_progress.html" />
-        <option value="$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py" />
-        <option value="$PROJECT_DIR$/SanJose/tasks.py" />
-        <option value="$PROJECT_DIR$/SanJose/celery.py" />
-        <option value="$PROJECT_DIR$/SanJose/settings.py" />
-        <option value="$PROJECT_DIR$/apps/paciente/admin.py" />
         <option value="$PROJECT_DIR$/apps/paciente/urls.py" />
         <option value="$PROJECT_DIR$/templates/paciente/seguimiento_form.html" />
         <option value="$PROJECT_DIR$/templates/base/base.html" />
-        <option value="$PROJECT_DIR$/SanJose/urls.py" />
-        <option value="$PROJECT_DIR$/SanJose/views.py" />
         <option value="$PROJECT_DIR$/templates/paciente/neuropsi_form.html" />
-        <option value="$PROJECT_DIR$/apps/paciente/views.py" />
-        <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
         <option value="$PROJECT_DIR$/templates/paciente/paciente_listar.html" />
         <option value="$PROJECT_DIR$/apps/paciente/models.py" />
         <option value="$PROJECT_DIR$/templates/paciente/lectura_form.html" />
-        <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
         <option value="$PROJECT_DIR$/apps/paciente/forms.py" />
+        <option value="$PROJECT_DIR$/apps/validacion/admin.py" />
+        <option value="$PROJECT_DIR$/programas/definitions.py" />
+        <option value="$PROJECT_DIR$/templates/validacion/grupos_eliminar.html" />
+        <option value="$PROJECT_DIR$/apps/validacion/urls.py" />
+        <option value="$PROJECT_DIR$/templates/validacion/pipeline_eliminar.html" />
+        <option value="$PROJECT_DIR$/SanJose/wsgi.py" />
+        <option value="$PROJECT_DIR$/programas/realineacion.py" />
+        <option value="$PROJECT_DIR$/SanJose/settings.py" />
+        <option value="$PROJECT_DIR$/apps/paciente/views.py" />
+        <option value="$PROJECT_DIR$/apps/fileupload/views.py" />
+        <option value="$PROJECT_DIR$/apps/validacion/views.py" />
+        <option value="$PROJECT_DIR$/programas/fslfunc.py" />
+        <option value="$PROJECT_DIR$/tareas/utils.py" />
+        <option value="$PROJECT_DIR$/tareas/fsl_wrapper.py" />
+        <option value="$PROJECT_DIR$/tareas/prueba.py" />
+        <option value="$PROJECT_DIR$/templates/validacion/grupos_form.html" />
+        <option value="$PROJECT_DIR$/tareas/dependencias/fsl_wrapper.py" />
+        <option value="$PROJECT_DIR$/tareas/core.py" />
+        <option value="$PROJECT_DIR$/tareas/bet.py" />
+        <option value="$PROJECT_DIR$/tareas/fslfunc.py" />
+        <option value="$PROJECT_DIR$/tareas/first.py" />
+        <option value="$PROJECT_DIR$/SanJose/celery.py" />
+        <option value="$PROJECT_DIR$/tareas/medianOtsu.py" />
+        <option value="$PROJECT_DIR$/tareas/eddy_correction.py" />
+        <option value="$PROJECT_DIR$/tareas/nonLocalMean.py" />
+        <option value="$PROJECT_DIR$/tareas/reslicing.py" />
+        <option value="$PROJECT_DIR$/tareas/betDWI.py" />
+        <option value="$PROJECT_DIR$/tareas/dependencias/utils.py" />
+        <option value="$PROJECT_DIR$/tareas/dependencias/definitions.py" />
+        <option value="$PROJECT_DIR$/SanJose/urls.py" />
+        <option value="$PROJECT_DIR$/apps/validacion/forms.py" />
+        <option value="$PROJECT_DIR$/templates/validacion/pipeline_form.html" />
+        <option value="$PROJECT_DIR$/programas/workflows.py" />
+        <option value="$PROJECT_DIR$/apps/validacion/models.py" />
+        <option value="$PROJECT_DIR$/tareas/to_estimate_dti.py" />
+        <option value="$PROJECT_DIR$/tareas/to_estimate_dti_maps.py" />
+        <option value="$PROJECT_DIR$/tareas/to_generate_bunddle.py" />
+        <option value="$PROJECT_DIR$/tareas/to_generate_tractography.py" />
+        <option value="$PROJECT_DIR$/tareas/to_register_dwi_to_mni.py" />
+        <option value="$PROJECT_DIR$/SanJose/views.py" />
+        <option value="$PROJECT_DIR$/apps/paciente/templatetags/scripts.py" />
+        <option value="$PROJECT_DIR$/templates/paciente/formularios.html" />
         <option value="$PROJECT_DIR$/templates/paciente/controles.html" />
       </list>
     </option>
@@ -465,7 +405,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -482,20 +421,7 @@
               <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
               <item name="SanJose" type="462c0819:PsiDirectoryNode" />
               <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="fileupload" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
               <item name="paciente" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="paciente" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
@@ -530,6 +456,17 @@
             <path>
               <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
               <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="tareas" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="tareas" type="462c0819:PsiDirectoryNode" />
+              <item name="dependencias" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -544,24 +481,31 @@
               <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="paciente" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="SanJose" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SanJose" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="validacion" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.debugger.python" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tareas/dependencias" />
+      <recent name="$PROJECT_DIR$/tareas" />
       <recent name="$PROJECT_DIR$/templates/validacion" />
       <recent name="$PROJECT_DIR$/apps/validacion" />
       <recent name="$PROJECT_DIR$/apps" />
-      <recent name="$PROJECT_DIR$/apps/paciente/templatetags" />
-      <recent name="$PROJECT_DIR$/programas" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/SanJose/.idea" />
@@ -583,6 +527,29 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="Django Debug" type="PythonConfigurationType" factoryName="Python">
+      <module name="SanJose" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/.virtualenvs/trabajo/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -596,21 +563,30 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="28" width="1922" height="1025" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.31734318" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945945" visible="true" weight="0.15498155" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50054055" side_tool="true" weight="0.26813188" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32700893" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.39955357" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32948583" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32924107" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32924107" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32924107" />
@@ -622,270 +598,145 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="wf" language="Python" />
+        <watch expression="wf.inputs.medianOtsu" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>wf</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4950">
-          <caret line="275" column="26" selection-start-line="275" selection-start-column="26" selection-end-line="283" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/ingreso_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10602">
-          <caret line="589" column="4" lean-forward="true" selection-start-line="589" selection-start-column="4" selection-end-line="606" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/informante_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2394">
-          <caret line="133" column="198" selection-start-line="133" selection-start-column="198" selection-end-line="133" selection-end-column="198" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/control_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
-          <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/uci_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="740" selection-start-line="740" selection-end-line="748" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/neurologia_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1422">
-          <caret line="79" column="21" selection-start-line="76" selection-start-column="20" selection-end-line="79" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/templatetags/upload_tags.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/templates/fileupload/picture_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="82" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/static/js/cors/jquery.xdr-transport.js" />
-    <entry file="file://$PROJECT_DIR$/apps/validacion/migrations/__init__.py">
+    <entry file="file://$PROJECT_DIR$/programas/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/__init__.py">
+    <entry file="file://$PROJECT_DIR$/programas/definitions.py.save">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/apps.py">
+    <entry file="file://$PROJECT_DIR$/SanJose/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        <state relative-caret-position="2700">
+          <caret line="180" column="26" selection-start-line="180" selection-start-column="22" selection-end-line="180" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/response.py" />
-    <entry file="file://$PROJECT_DIR$/apps/validacion/serialize.py" />
-    <entry file="file://$PROJECT_DIR$/templates/paciente/controles_listar.html">
+    <entry file="file://$PROJECT_DIR$/tareas/fsl_wrapper.py" />
+    <entry file="file://$PROJECT_DIR$/tareas/utils.py" />
+    <entry file="file://$PROJECT_DIR$/tareas/prueba.py" />
+    <entry file="file://$PROJECT_DIR$/SanJose/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="41" column="135" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="135" />
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/urls.py">
+    <entry file="file://$PROJECT_DIR$/programas/fslfunc.py" />
+    <entry file="file://$PROJECT_DIR$/templates/validacion/grupos_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="68" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/validacion/filtros.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="32" selection-start-line="52" selection-start-column="32" selection-end-line="55" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programas/anonimizador.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="152" selection-start-line="152" selection-end-line="152" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/programas/realineacion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="87" column="41" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        <state relative-caret-position="1575">
+          <caret line="105" column="47" selection-start-line="105" selection-start-column="47" selection-end-line="105" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/programas/tools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2310">
+        <state relative-caret-position="839">
           <caret line="166" column="29" selection-start-line="165" selection-start-column="4" selection-end-line="166" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/programas/motion_correct_fmri.py">
+    <entry file="file://$PROJECT_DIR$/tareas/fslfunc.py" />
+    <entry file="file://$PROJECT_DIR$/tareas/bet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/validacion/filtro_form.html">
+    <entry file="file://$PROJECT_DIR$/apps/validacion/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="771">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/display_progress.html" />
-    <entry file="file://$PROJECT_DIR$/SanJose/tasks.py" />
-    <entry file="file://$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1515">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        <state relative-caret-position="180">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SanJose/celery.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/settings.py">
+    <entry file="file://$PROJECT_DIR$/apps/paciente/urls.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/.virtualenvs/trabajo/lib/python3.6/site-packages/nipype/pipeline/engine/workflows.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="-100">
+          <caret line="552" column="8" selection-start-line="552" selection-start-column="8" selection-end-line="552" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/admin.py">
+    <entry file="file://$USER_HOME$/.virtualenvs/trabajo/lib/python3.6/site-packages/dipy/denoise/noise_estimate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="25" column="37" lean-forward="true" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
+        <state relative-caret-position="4935">
+          <caret line="334" column="28" selection-start-line="334" selection-start-column="28" selection-end-line="334" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/bold_form.html">
+    <entry file="file://$USER_HOME$/.virtualenvs/trabajo/lib/python3.6/site-packages/dipy/denoise/nlmeans.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11580">
-          <caret line="772" column="14" lean-forward="true" selection-end-line="772" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/seguimiento_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4695">
-          <caret line="313" column="12" selection-start-line="313" selection-start-column="12" selection-end-line="329" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="330">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/fileupload/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        <state relative-caret-position="375">
+          <caret line="42" column="78" selection-start-line="42" selection-start-column="78" selection-end-line="42" selection-end-column="78" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/views.py">
+    <entry file="file://$PROJECT_DIR$/tareas/dependencias/fsl_wrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+        <state relative-caret-position="465">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/urls.py">
+    <entry file="file://$PROJECT_DIR$/tareas/dependencias/tools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="34" column="75" selection-start-line="34" selection-start-column="75" selection-end-line="34" selection-end-column="75" />
+        <state relative-caret-position="-1796" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/dependencias/definitions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/programas/definitions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
+    <entry file="file://$PROJECT_DIR$/tareas/dependencias/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SanJose/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="225" column="20" selection-start-line="225" selection-start-column="20" selection-end-line="225" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/fileupload/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18570">
-          <caret line="1252" column="25" selection-start-line="1252" selection-start-column="25" selection-end-line="1252" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/neuropsi_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7665">
-          <caret line="511" column="65" selection-start-line="511" selection-start-column="9" selection-end-line="511" selection-end-column="65" />
+        <state relative-caret-position="1605">
+          <caret line="113" column="17" selection-start-line="113" selection-start-column="17" selection-end-line="113" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -896,161 +747,214 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
+    <entry file="file://$PROJECT_DIR$/apps/paciente/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="750">
+          <caret line="66" column="104" selection-start-line="66" selection-end-line="66" selection-end-column="104" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/paciente_listar.html">
+    <entry file="file://$PROJECT_DIR$/SanJose/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#ul#0;n#th#0;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#4;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="675">
+          <caret line="54" column="64" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/core.py" />
     <entry file="file://$PROJECT_DIR$/apps/paciente/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="973" column="87" selection-start-line="973" selection-start-column="87" selection-end-line="973" selection-end-column="87" />
+        <state relative-caret-position="-2070" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="694">
+          <caret line="89" column="76" selection-start-line="89" selection-start-column="76" selection-end-line="89" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/paciente/lectura_form.html">
+    <entry file="file://$PROJECT_DIR$/templates/validacion/pipeline_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+        <state relative-caret-position="1140">
+          <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="140" column="55" selection-start-line="140" selection-start-column="55" selection-end-line="140" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="128" column="48" selection-start-line="128" selection-start-column="48" selection-end-line="128" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/betDWI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/to_estimate_dti.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#0;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#1;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#2;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#4;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#5;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#6;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#6;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#7;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#7;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#8;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#8;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#9;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#9;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#div#0;n#li#10;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#11;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#11;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#12;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#12;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#13;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#13;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
-            <element signature="n#style#0;n#div#0;n#li#14;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#li#14;n#ol#0;n#div#0;n#div#0;n#form#0;n#!!top" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/paciente/forms.py">
+    <entry file="file://$PROJECT_DIR$/tareas/to_generate_tractography.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="1483" column="47" selection-start-line="1483" selection-start-column="47" selection-end-line="1483" selection-end-column="47" />
+        <state relative-caret-position="255">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/to_generate_bunddle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/to_estimate_dti_maps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/eddy_correction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/first.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/medianOtsu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/nonLocalMean.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/reslicing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#2#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tareas/to_register_dwi_to_mni.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programas/workflows.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="779">
+          <caret line="61" column="36" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SanJose/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="694">
+          <caret line="370" column="44" selection-start-line="370" selection-start-column="44" selection-end-line="370" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/validacion/templatetags/scripts_validacion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/paciente/templatetags/scripts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5790">
+          <caret line="392" column="31" selection-start-line="392" selection-start-column="31" selection-end-line="392" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/formularios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="2786" column="102" lean-forward="true" selection-start-line="2786" selection-start-column="14" selection-end-line="2786" selection-end-column="102" />
+        <state relative-caret-position="271">
+          <caret line="94" column="14" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="32" />
           <folding>
-            <element signature="n#div#0;n#div#0;n#!!top" />
-            <element signature="n#li#0;n#ul#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#li#1;n#ul#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#li#2;n#ul#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#li#3;n#ul#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#form#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#form#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#1;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#2;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#3;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#5;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#6;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#7;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#9;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#10;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#1;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#button#0;n#td#3;n#tr#11;n#tbody#0;n#table#0;n#center#0;n#div#2;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#div#3;n#div#0;n#div#1;n#div#0;n#!!top" />
-            <element signature="n#div#0;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="n#div#2;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="n#div#3;n#div#0;n#div#2;n#div#0;n#!!top" />
-            <element signature="n#div#1;n#div#0;n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#!!top" />
+            <element signature="n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#4;n#div#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1601" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/paciente/controles.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
+        <state relative-caret-position="90">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
           <folding>
             <element signature="n#div#0;n#div#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+            <element signature="n#ul#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
+            <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#!!top" />
           </folding>
         </state>
       </provider>

@@ -16,6 +16,9 @@ from .response import JSONResponse, response_mimetype
 from .serialize import serialize
 from apps.paciente.templatetags.scripts import anonimizar
 
+import logging
+
+log=logging.getLogger('django')
 
 
 class PictureCreateView(CreateView):
@@ -37,7 +40,9 @@ class PictureCreateView(CreateView):
             file.close()
             c.imagen = "/controles/control" + sn[1:] + "/" + sn[1:] + ".txt"
             c.save()
+            log.info("--------------------- Creacion Picture Control" + str(c.numero) + "---------------------")
             anonimizar.delay(sn)
+
         else:
             p=Candidato.objects.get(sujeto_numero=int(sn))
             if p.estado==1:
@@ -49,6 +54,7 @@ class PictureCreateView(CreateView):
                 p.imagen = "/img/sujeto" + str(sn) + "/" + str(sn) + ".txt"
                 p.save()
                 anonimizar.delay(sn)
+            log.info("--------------------- Creacion Picture Sujeto" + str(p.sujeto_numero) + "---------------------")
         return response
 
     def form_invalid(self, form):

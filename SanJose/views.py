@@ -5,6 +5,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
+from SanJose.settings import MEDIA_ROOT
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
     Control, Cambioradiologia, Moca, Valorablenps, Neuropsi, Parametrosmotioncorrect, Lectura_resonancia
@@ -13,6 +14,10 @@ from programas import anonimizador
 from programas.dcm2niix import T1_path, rest_path, DWI_path
 from programas.realineacion import transformaciones
 
+
+import logging
+
+log=logging.getLogger('django')
 
 def error(request):
     return render(request, 'registration/login-error.html')
@@ -24,9 +29,11 @@ def crearingreso(request, pk):
     else:
         c = Candidato.objects.get(pk=pk)
         if hasattr(c, 'ingreso'):
+            log.info("--------------------- Editar Ingreso Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/ingreso/editar/" + str(c.ingreso.pk))
         else:
             i=Ingreso.objects.create(candidato=c)
+            log.info("--------------------- Crear Ingreso Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/ingreso/editar/"+str(i.pk))
 
 
@@ -36,9 +43,11 @@ def crearradiologia(request, pk):
     else:
         c = Candidato.objects.get(pk=pk)
         if hasattr(c, 'radiologia'):
+            log.info("--------------------- Editar Radiologia Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/radiologia/editar/" + str(c.radiologia.pk))
         else:
             i=Radiologia.objects.create(candidato=c)
+            log.info("--------------------- Crear Radiologia Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/radiologia/editar/"+str(i.pk))
 
 def crearuci(request, pk):
@@ -47,13 +56,14 @@ def crearuci(request, pk):
     else:
         c = Candidato.objects.get(pk=pk)
         if hasattr(c, 'uci'):
+            log.info("--------------------- Editar Uci Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/uci/editar/" + str(c.uci.pk))
         else:
             u=Uci.objects.create(candidato=c)
+            log.info("--------------------- Crear Uci Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/uci/editar/"+str(u.pk))
 
-        u=Uci.objects.create(candidato=c)
-        return redirect("/paciente/uci/editar/"+str(u.pk))
+
 
 def crearneurologia(request, pk):
     if not request.user.is_authenticated:
@@ -63,15 +73,19 @@ def crearneurologia(request, pk):
         neuro=c.neurologia_set.all()
         if len(neuro) == 0:
             n = Neurologia.objects.create(candidato=c)
+            log.info("--------------------- Crear Neurologia Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/neurologia/editar/" + str(n.pk))
         else:
             n=c.neurologia_set.all().last()
             if n.fechaneuro == None:
+                log.info("--------------------- Editar Neurologia Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/neurologia/editar/" + str(n.pk))
             else:
                 hoy=datetime.date.today()
                 if hoy != n.fechaneuro:
                     n=Neurologia.objects.create(candidato=c)
+                    log.info("--------------------- Crear Neurologia Sujeto " + str(
+                        c.sujeto_numero) + "---------------------")
                     return redirect("/paciente/neurologia/editar/" + str(n.pk))
                 else:
                     from django.contrib import messages
@@ -86,9 +100,11 @@ def crearbold(request, pk):
     else:
         c = Candidato.objects.get(pk=pk)
         if hasattr(c, 'bold'):
+            log.info("--------------------- Editar Bold Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/bold/editar/" + str(c.bold.pk))
         else:
             b=Bold.objects.create(candidato=c)
+            log.info("--------------------- Crear Bold Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/bold/editar/"+str(b.pk))
 
 
@@ -101,16 +117,24 @@ def crearinformante(request, pk):
         edad=c.edad
         if edad>59:
             if hasattr(c, 'mayor'):
+                log.info(
+                    "--------------------- Editar Mayor Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/mayor/editar/" + str(c.mayor.pk))
             else:
                 m = Mayor.objects.create(candidato=c)
                 i = Informante.objects.create(candidato=c)
+                log.info(
+                    "--------------------- Crear Mayor Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/mayor/editar/" + str(m.pk))
         else:
             if hasattr(c, 'informante'):
+                log.info(
+                    "--------------------- Editar Informante Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/informante/editar/" + str(c.informante.pk))
             else:
                 i = Informante.objects.create(candidato=c)
+                log.info(
+                    "--------------------- Crear Informante Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/informante/editar/" + str(i.pk))
 
 def crearseguimiento(request, pk):
@@ -136,6 +160,7 @@ def crearseguimiento(request, pk):
                     break
         if flag == 0:
             s = Seguimiento.objects.create(candidato=c)
+            log.info("--------------------- Crear Seguimiento Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/seguimiento/editar/" + str(s.pk))
         elif flag == 1:
             from django.contrib import messages
@@ -155,6 +180,7 @@ def crearradiologiaf(request, pk, razon):
             p=razon.find('_')
             razon=razon[:p]+e+razon[p+1:]
         Cambioradiologia.objects.create(sujeto=c, fecha=datetime.datetime.now(),razon=razon)
+        log.info("--------------------- Crear cambio fecha readiologia Sujeto " + str(c.sujeto_numero) + "---------------------")
         return redirect("/paciente/formularios/" + str(c.pk))
 
 def crearnps(request, pk, razon, fecha):
@@ -180,6 +206,7 @@ def crearnps(request, pk, razon, fecha):
             n = Valorablenps.objects.create(sujeto=c, valorable=False, fecha=datetime.datetime.now(), razon=choice)
         from django.contrib import messages
         messages.add_message(request, messages.INFO, 'Sujeto #'+str(c.sujeto_numero)+" no valorable por Neuropsicología, causa: "+choice)
+        log.info("--------------------- Crear nps Sujeto " + str(c.sujeto_numero) + "---------------------")
         return redirect("/paciente/formularios/" + str(c.pk))
 
 def crearmoca(request, pk):
@@ -191,12 +218,17 @@ def crearmoca(request, pk):
         if n != 0:
             m = c.moca_set.all()
             if m.last().fecha == None:
+                log.info(
+                    "--------------------- Crear Moca Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/moca/editar/" + str(m.last().pk))
             else:
                 nps = Moca.objects.create(candidato=c)
+                log.info(
+                    "--------------------- Crear Moca Sujeto " + str(c.sujeto_numero) + "---------------------")
                 return redirect("/paciente/moca/editar/" + str(nps.pk))
         else:
             nps = Moca.objects.create(candidato=c)
+            log.info("--------------------- Crear Moca Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/moca/editar/" + str(nps.pk))
 
 def crearneuropsi(request, pk):
@@ -205,9 +237,11 @@ def crearneuropsi(request, pk):
     else:
         c = Candidato.objects.get(pk=pk)
         if hasattr(c, 'neuropsi'):
+            log.info("--------------------- Editar Nuropsi Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/neuropsi/editar/" + str(c.neuropsi.pk))
         else:
             n = Neuropsi.objects.create(candidato=c)
+            log.info("--------------------- Crear Neropsi Sujeto " + str(c.sujeto_numero) + "---------------------")
             return redirect("/paciente/neuropsi/editar/" + str(n.pk))
 
 def crearlectura(request, pk, tipo):
@@ -219,11 +253,13 @@ def crearlectura(request, pk, tipo):
         else:
             c = Control.objects.get(pk=pk)
         if hasattr(c, 'lectura_resonancia'):
+            log.info("--------------------- Editar Lectura ---------------------")
             return redirect("/paciente/lectura/editar/" + str(c.lectura_resonancia.pk))
         else:
             l=Lectura_resonancia.objects.create()
             setattr(l, tipo, c)
             l.save()
+            log.info("--------------------- Editar Lectura ---------------------")
             return redirect("/paciente/lectura/editar/"+str(l.pk))
 
 
@@ -263,6 +299,7 @@ def validarmovimiento(request, tipo,pk,v1,v2):
             parametros.aceptado_dwi = False
 
         parametros.save()
+        log.info("--------------------- Validar Movimiento"+str(C)+" ---------------------")
         return redirect("login")
 
 
@@ -286,6 +323,7 @@ def alinear(request,tipo,pk,img,der,frente,arriba,x,y,z,tx,ty,tz,save):
             C = Control.objects.get(pk=pk)
         R=C.get_realineacion()
         folder_nii=settings.MEDIA_ROOT+os.path.dirname(os.path.dirname(R.structural.name))
+        log.info("--------------------- Alinear imagenes ---------------------")
 
         if img == "structural":
             img_path=T1_path(folder_nii)
@@ -316,6 +354,23 @@ def alinear(request,tipo,pk,img,der,frente,arriba,x,y,z,tx,ty,tz,save):
             R.save()
 
             return redirect(R.tensor.url)
+
+def run_pipeline(request,pk,numero,tipo):
+
+    from apps.paciente.templatetags.scripts import crear_tareas
+
+    n=str(numero)
+
+    if tipo=='control':
+        n="c"+n
+
+    P=Picture.objects.get(slug=n)
+    abs_path = MEDIA_ROOT + P.file.name
+    folder = os.path.join(os.path.dirname(abs_path), "nifty/")
+
+    crear_tareas.delay(pk,folder,numero,tipo)
+    log.info("--------------------- run Pipeline "+tipo+str(numero)+"---------------------")
+    return redirect("login")
 
 
 

@@ -22,14 +22,14 @@ from django.views.generic import TemplateView
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
     crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento, alinear, \
-    crearlectura
+    crearlectura, run_pipeline
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
     path('admin/', admin.site.urls),
     path('carga/', include('apps.fileupload.urls')),
     path('paciente/', include('apps.paciente.urls')),
-    path('filtro/', include('apps.validacion.urls')),
+    path('validacion/', include('apps.validacion.urls')),
 
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
@@ -51,6 +51,8 @@ urlpatterns = [
     path('script/filtros_img/<slug:pk>/', visionimagen, name='vision_img'),
     path('script/vmovimiento/<slug:tipo>/<int:pk>/<slug:v1>/<slug:v2>/', validarmovimiento, name='v_movimiento'),
     path('script/alinear/<slug:tipo>/<int:pk>/<slug:img>/<slug:der>/<slug:frente>/<slug:arriba>/<slug:x>/<slug:y>/<slug:z>/<slug:tx>/<slug:ty>/<slug:tz>/<slug:save>/', alinear, name='alinear'),
+
+    path('script/run_pipeline/<int:pk>/<int:numero>/<slug:tipo>/', run_pipeline, name='run_pipeline'),
 
 
 

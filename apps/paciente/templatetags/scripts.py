@@ -10,13 +10,14 @@ from apps.fileupload.models import Picture
 from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control,  Parametrosmotioncorrect
 from django import template
 
-from apps.validacion.models import Realineacion
+from apps.validacion.models import Realineacion, Pipeline, Taskgroup, Task, Tipoimagenes
 from apps.validacion.templatetags.scripts_validacion import pass_tags_to_db, campos_a_mostrar
 from programas import anonimizador, definitions
 from programas.anonimizador import get_tags_dicom
 from programas.dcm2niix import convertir_dcm_2_nii, copytodata, rest_path, DWI_path, T1_path, do_snr
 from programas.motion_correct_fmri import func_motion_correct
 from programas.realineacion import transformaciones, registro
+from programas.workflows import run_pipeline
 
 register = template.Library()
 
@@ -27,6 +28,20 @@ def num():
     else:
         a=len(Candidato.objects.all())
         return ""+str((int(a)+1)).zfill(4)
+
+@register.simple_tag
+def pipelines():
+    return Pipeline.objects.all()
+
+
+@register.simple_tag
+def grouptask():
+    return Taskgroup.objects.all()
+
+@register.simple_tag
+def task():
+    T=Task.objects.all()
+    return T
 
 
 
@@ -194,13 +209,16 @@ def anonimizar(sn):
 
     folder_dicom = os.path.join(base_dir, "imagenes")
     shutil.move(settings.MEDIA_ROOT[:-6] + i.file.url, folder_dicom)
+    print("Archivos Copiados "+tipe+n)
     anonimizador.dicom_anonymizer(folder_dicom)
+    print("Anonimizado " + tipe + n)
     # archive=os.path.join(folder_dicom,os.listdir(folder_dicom)[0])
     # import zipfile
     # a=zipfile.ZipFile(archive)
     # a.extractall(folder_dicom)
     series=get_tags_dicom(folder_dicom)
     pass_tags_to_db(sn, series)
+    print("Creacion tags " + tipe + n)
     campos_a_mostrar()
     f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
     f.write("-Anonimizado\n")
@@ -212,6 +230,7 @@ def anonimizar(sn):
     folder_nii = os.path.join(base_dir, "nifty")
     os.mkdir(folder_nii)
     convertir_dcm_2_nii(base_dir, folder_nii)
+    print("Formato nifty " + tipe + n)
     zip_name = os.path.join(base_dir, tipe + n + "_dicom")
     carpeta = folder_dicom
     shutil.make_archive(zip_name, 'zip', carpeta)
@@ -230,10 +249,13 @@ def anonimizar(sn):
 
     folder_data = definitions.folder_data
     copytodata(n, folder_data, folder_nii, tipe)
+    print("Copia a Data " + tipe + n)
 
     structural_result=os.path.join(folder_nii, "structural_result")
     os.mkdir(structural_result)
     registro(path_in=T1_path(folder_nii), path_out=T1_path(folder_nii), path_plot=os.path.join(structural_result,"T1_realing.png"))
+
+    print("Proceso Estructural " + tipe + n)
 
 
 
@@ -243,6 +265,8 @@ def anonimizar(sn):
     os.remove(rest_path(folder_nii))
     shutil.move(rest_path(func_result), folder_nii)
     registro(path_in=rest_path(folder_nii), path_out=rest_path(folder_nii), path_plot=os.path.join(func_result, "func_realing.png"))
+
+    print("Proceso Funcional " + tipe + n)
 
     dir_dwi = os.path.join(folder_nii, "dwi_mc")
     os.mkdir(dir_dwi)
@@ -266,6 +290,8 @@ def anonimizar(sn):
     shutil.rmtree(dir_dwi)
     registro(path_in=DWI_path(folder_nii,False), path_out=DWI_path(folder_nii,False), path_plot=os.path.join(dwi_result, "dwi_realing.png"))
 
+    print("Proceso Difusion " + tipe + n)
+
     realineacion = Realineacion.objects.create(sujeto=sn,
                                                structural=structural_result[23:] + "/T1_realing.png",
                                                funcional=func_result[23:] + "/func_realing.png",
@@ -283,9 +309,10 @@ def anonimizar(sn):
                                                graphic_rotacion_dwi=paths_html_dwi["rotaciones"],
                                                graphic_traslacion_dwi=paths_html_dwi["traslaciones"]
                                                )
+
     setattr(P, tipe, c)
     P.save()
-
+    print("Creacion Parametros " + tipe + n)
     do_snr(sn=n, tipo=tipe, folder_nii=folder_nii, func_result=func_result, dwi_result=dwi_result)
 
     f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
@@ -338,7 +365,7 @@ def totalexcluidos():
 @register.simple_tag
 def mexclusion(c):
     a=len(c.D_neuro_logico_psiquiatrico_previo.all())
-    ci=c.ci3*1+c.ci4*1;
+    ci=c.ci3*1+c.ci4*1
     ce=c.ce1*1+c.ce2*1+c.ce3*1+c.ce4*1
 
     if a > 0 :
@@ -353,3 +380,53 @@ def mexclusion(c):
         return "Imagenes dañadas o muerte anterior a la toma de estas"
     else:
         return 0
+
+
+@shared_task
+def crear_tareas(pk,folder,numero,tipo):
+    pipeline = Pipeline.objects.get(pk=pk)
+    base=pipeline.pathout
+    if not os.path.exists(base):
+        os.mkdir(base)
+
+    sujetos=os.path.join(base,"Sujetos")
+    controles=os.path.join(base,"Controles")
+    if not os.path.exists(sujetos):
+        os.mkdir(sujetos)
+    if not os.path.exists(controles):
+        os.mkdir(controles)
+
+    if tipo == 'sujeto':
+        pathout=os.path.join(sujetos,"Sujeto"+str(numero)+"/")
+        if not os.path.exists(pathout):
+            os.mkdir(pathout)
+    elif tipo == 'control':
+        pathout = os.path.join(controles, "Control" + str(numero) + "/")
+        if not os.path.exists(pathout):
+            os.mkdir(pathout)
+
+
+    path_in=""
+    if pipeline.tipo_imagen.nombre == 'TENSOR  AXI':
+        files_dwi=DWI_path(folder,True)
+        for file in files_dwi:
+            shutil.copy(file,pathout)
+        path_in=DWI_path(pathout,False)
+
+    elif pipeline.tipo_imagen.nombre == '3D AX Obl T1 FSPGR':
+        path_in=T1_path(folder)
+    else:
+        path_in=rest_path(folder)
+    #
+    grupos=pipeline.grupos.all()
+    for grupo in grupos:
+        print(path_in)
+        tareas=grupo.get_task()
+        dic_tareas={}
+        for i in range(len(tareas)):
+                dic_tareas[i]=[tareas[i].nombre,tareas[i].pathscript,[path_in]]
+        path_in=run_pipeline("g",dic_tareas,pathout)
+
+
+
+    return ""

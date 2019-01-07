@@ -92,3 +92,58 @@ class Snr(models.Model):
         )
     class ReportBuilder:
         exclude = ('id', )  # Lists or tuple of excluded fields
+
+
+class Task(models.Model):
+    nombre = models.CharField(max_length=100)
+    pathscript = models.CharField(max_length=150)
+    dependencia = models.ForeignKey('self', on_delete=None, null=True, default=None, blank=True)
+    habilitado = models.BooleanField(default=True)
+    tipo_imagen = models.ForeignKey(Tipoimagenes, on_delete=None)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+class Taskgroup(models.Model):
+
+    nombre=models.CharField(max_length=100)
+    tasks=models.ManyToManyField(Task)
+    tipo_imagen = models.ForeignKey(Tipoimagenes, on_delete=None)
+    dependencia = models.ForeignKey('self',on_delete=None,null=True,default=None,blank=True)
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def get_task(self):
+        tasks = self.tasks.all()
+        tareas = []
+        for tar in tasks:
+            if tar.dependencia == None or tar.dependencia not in tasks:
+                tareas.append(tar)
+                break
+        contador = 0
+        while len(tareas) != len(tasks):
+            for tar in tasks:
+                if tar in tareas:
+                    continue
+                else:
+                    if tar.dependencia == tareas[contador]:
+                        tareas.append(tar)
+                        contador += 1
+
+        return tareas
+
+
+
+class Pipeline(models.Model):
+
+    nombre=models.CharField(max_length=100)
+    tipo_imagen=models.ForeignKey(Tipoimagenes,on_delete=None)
+    pathout = models.CharField(max_length=150,null=True)
+    dependencia=models.ForeignKey('self',on_delete=None,null=True,default=None,blank=True)
+
+    grupos = models.ManyToManyField(Taskgroup)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+

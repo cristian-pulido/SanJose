@@ -1,0 +1,127 @@
+{% extends 'base/base.html' %}
+
+{% block title %} Formulario Grupos {% endblock %}
+{% block content %}
+{% if not perms.validacion.can_add_taskgroup or not perms.validacion.can_change_taskgroup %}
+<script type="text/javascript">
+        window.location="{% url 'paciente_listar' %}";
+</script>
+{% endif %}
+
+
+{% load scripts %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="col-md-8 col-md-offset-2">
+                {% if form.errors %}
+                    <!-- Error messaging -->
+                    <div id="errors">
+                        <div class="inner">
+                            <p>There were some errors in the information you entered. Please correct the following:</p>
+                            {{ form.non_field_errors }}
+                            <ul>
+                                {% for field in form %}
+                                    {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /Error messaging -->
+                {% endif %}
+        </div>
+
+
+
+
+    <div class="col-md-8 col-md-offset-2">
+        {% if not object %}
+        <h1> Crear Grupo </h1>
+        {% else %}
+        <h1> Editar Grupo {{object}}</h1>
+        {% endif%}
+
+        <label>{{form.nombre.label}}</label>
+        {{form.nombre}}
+
+        <label>{{form.tipo_imagen.label}}</label>
+
+        <select name="tipo_imagen" class="form-control" required id="id_tipo_imagen" onchange="tareas()">
+          <option value="" {% if not object %}selected {% endif %}>---------</option>
+
+          <option value="1" {% if object.tipo_imagen.nombre == 'TENSOR  AXI' %} selected {%endif%}>TENSOR</option>
+
+          <option value="3" {% if object.tipo_imagen.nombre == 'RESTING' %} selected {%endif%}>RESTING</option>
+
+          <option value="8" {% if object.tipo_imagen.nombre == '3D AX Obl T1 FSPGR' %} selected {%endif%}>T1</option>
+
+        </select>
+
+        {% task as tareas %}
+
+        <label for="id_tasks">Tareas:</label>
+
+        <select name="tasks" class="form-control" required id="id_tasks" multiple="multiple">
+
+          {% for t in tareas %}
+
+            {% if t.tipo_imagen.nombre == object.tipo_imagen.nombre %}
+
+                {% if t in object.tasks.all %}
+                <option value="{{t.pk}}" title="{{t.tipo_imagen.pk}}" selected >{{t}}</option>
+                {% else %}
+                <option value="{{t.pk}}" title="{{t.tipo_imagen.pk}}" >{{t}}</option>
+
+                {% endif%}
+            {% else %}
+            <option value="{{t.pk}}" title="{{t.tipo_imagen.pk}}" style="display:none">{{t}}</option>
+            {% endif%}
+
+          {%endfor%}
+
+
+        </select>
+
+        <label>{{form.dependencia.label}}</label>
+        {{form.dependencia}}
+
+
+
+    </div>
+    <br>
+
+    <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-primary" id="guardar" type="submit">Guardar</button>
+    </div>
+
+</form>
+<br>
+<br>
+
+<script>
+    function tareas(){
+
+      var x=document.getElementById("id_tipo_imagen");
+
+      var text=x.options[x.selectedIndex].value;
+
+      var tareas=document.getElementById("id_tasks");
+
+       var i;
+        for (i = 0; i < tareas.length; i++) {
+            tareas.options[i].style="display:none";
+            tareas.options[i].selected=false;
+
+            if (tareas.options[i].title == text){
+
+                tareas.options[i].style="display:onblock";
+
+            }
+        }
+
+
+    }
+
+</script>
+{% endblock %}
+

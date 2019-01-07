@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'social_django',
     'django.contrib.admin',
     'report_builder',
+
 
 ]
 
@@ -80,6 +82,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SanJose.wsgi.application'
+
+
+
 
 
 # Database
@@ -168,3 +173,21 @@ REST_FRAMEWORK = {
 
 REPORT_BUILDER_INCLUDE = ['paciente.candidato','paciente.control']
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR,'debug.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

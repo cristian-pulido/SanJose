@@ -16,6 +16,10 @@ from apps.paciente.forms import PacienteForm, MedicoForm, IngresoForm, Radiologi
 from apps.paciente.models import Candidato, Medico, Ingreso, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, \
     Seguimiento, Control, Moca, Valorablenps, Neuropsi, Lectura_resonancia
 
+import logging
+
+log=logging.getLogger('django')
+
 
 class PacienteCreate(CreateView):
     model = Candidato
@@ -60,6 +64,8 @@ class PacienteCreate(CreateView):
         messages.add_message(self.request, messages.INFO, "Se ha añadido el registro del sujeto "+str(p.sujeto_numero).zfill(4)+".")
 
 
+        log.info("--------------------- Creacion Sujeto" + str(p.sujeto_numero)+"---------------------")
+
         return reverse_lazy('paciente_listar')
 
 
@@ -78,6 +84,8 @@ class PacienteUpdate(UpdateView):
             if criterios_inclusion == 2 and criterios_exclusion == 0:
                 p.inscrito = True
             p.save()
+
+        log.info(" --------------------- Editar Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 class IngresoUpdate(UpdateView):
@@ -104,6 +112,7 @@ class IngresoUpdate(UpdateView):
 
         except:
             ""
+        log.info("--------------------- Editar Ingreso Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 
@@ -128,6 +137,7 @@ class UciUpdate(UpdateView):
             p.inscrito=False
             p.save()
             messages.add_message(self.request, messages.INFO,"Sujeto " + str(p.sujeto_numero).zfill(4) + " excluido por realizar evaluación de egreso sin tener archivos de imagen.")
+        log.info("--------------------- Editar Uci Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 class NeurologiaUpdate(UpdateView):
@@ -139,6 +149,7 @@ class NeurologiaUpdate(UpdateView):
     def get_success_url(self):
         n=self.object
         p=n.candidato
+        log.info("--------------------- Editar Neurologia Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 class RadiologiaUpdate(UpdateView):
@@ -150,6 +161,7 @@ class RadiologiaUpdate(UpdateView):
     def get_success_url(self):
         r=self.object
         p=r.candidato
+        log.info("--------------------- Editar Radiologia Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 class BoldUpdate(UpdateView):
@@ -161,6 +173,7 @@ class BoldUpdate(UpdateView):
     def get_success_url(self):
         b=self.object
         p=b.candidato
+        log.info("--------------------- Editar Bold Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 class LecturaUpdate(UpdateView):
@@ -173,9 +186,11 @@ class LecturaUpdate(UpdateView):
         l=self.object
         if l.candidato != None:
             p=l.candidato
+            log.info("--------------------- Editar Lectura Sujeto" + str(p.sujeto_numero)+"---------------------")
             return reverse_lazy('paciente', args=[p.pk])
         if l.control != None:
             p=l.control
+            log.info("--------------------- Editar Lectura Control" + str(p.sujeto_numero)+"---------------------")
             return reverse_lazy('control', args=[p.pk])
 
 class MayorUpdate(UpdateView):
@@ -194,6 +209,7 @@ class MayorUpdate(UpdateView):
         i.parentezco = p.mayor.parentezco
         i.confiable = p.mayor.confiable
         i.save()
+        log.info("--------------------- Editar Mayor Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('informante_editar', args=[i.pk])
 
 class InformanteUpdate(UpdateView):
@@ -205,6 +221,7 @@ class InformanteUpdate(UpdateView):
     def get_success_url(self):
         i=self.object
         p=i.candidato
+        log.info("--------------------- Editar Informante Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 class SeguimientoUpdate(UpdateView):
@@ -219,8 +236,10 @@ class SeguimientoUpdate(UpdateView):
         hoy = datetime.today().strftime('%Y-%m-%d')
         messages.add_message(self.request, messages.INFO,"Se ha añadido el seguiento del sujeto " + str(p.sujeto_numero).zfill(4) + " para la fecha "+ s.fechaseguimiento.strftime('%d/%m/%Y'))
         if str(s.fechaseguimiento) == hoy:
+            log.info("--------------------- Editar Seguimiento Sujeto" + str(p.sujeto_numero)+"---------------------")
             return reverse_lazy('paciente', args=[p.pk])
         else:
+            log.info("--------------------- Editar Seguimiento Sujeto" + str(p.sujeto_numero)+"---------------------")
             return reverse_lazy('crear_seguimiento', args=[p.pk])
 
 
@@ -236,6 +255,7 @@ class MocaUpdate(UpdateView):
         n = Valorablenps.objects.get_or_create(sujeto=p)[0]
         n.valorable=True
         n.save()
+        log.info("--------------------- Editar Moca Sujeto" + str(p.sujeto_numero)+"---------------------")
         return reverse_lazy('paciente', args=[p.pk])
 
 
@@ -243,30 +263,36 @@ class MocaUpdate(UpdateView):
 class PacienteView(DetailView):
     model = Candidato
     template_name = 'paciente/formularios.html'
+    log.info("Vista sujetos detallada")
 
 class ControlView(DetailView):
     model = Control
     template_name = 'paciente/controles.html'
+    log.info("Vista controles detallada")
 
 class PacienteList(ListView):
     model = Candidato
     template_name = 'paciente/paciente_listar.html'
+    log.info("Vista sujetos")
 
 class ControlList(ListView):
     model = Control
     template_name = 'paciente/controles_listar.html'
+    log.info("Vista controles")
 
 class PacienteDelete(DeleteView):
     model = Candidato
     template_name = 'paciente/paciente_eliminar.html'
     # a donde va dirigido
     success_url = reverse_lazy('paciente_listar')
+    log.info("Eliminado sujeto")
 
 class ControlDelete(DeleteView):
     model = Control
     template_name = 'paciente/control_eliminar.html'
     # a donde va dirigido
     success_url = reverse_lazy('controles_listar')
+    log.info("Eliminado Control")
 
 
 class MedicoCreate(CreateView):
@@ -274,10 +300,12 @@ class MedicoCreate(CreateView):
     form_class = MedicoForm
     template_name = 'paciente/medico_form.html'
     success_url = reverse_lazy('paciente_listar')
+    log.info("Creacion Profesional")
 
 class MedicoList(ListView):
     model = Medico
     template_name = 'paciente/medico_listar.html'
+    log.info("Lista Profesionales")
 
 class MedicoUpdate(UpdateView):
     model = Medico
@@ -285,12 +313,14 @@ class MedicoUpdate(UpdateView):
     template_name = 'paciente/medico_form.html'
     # a donde va dirigido
     success_url = reverse_lazy('medico_listar')
+    log.info("Editar medico")
 
 class MedicoDelete(DeleteView):
     model = Medico
     template_name = 'paciente/medico_eliminar.html'
     # a donde va dirigido
     success_url = reverse_lazy('medico_listar')
+    log.info("Medico Eliminar")
 
 
 class ControlCreate(CreateView):
@@ -328,6 +358,7 @@ class ControlCreate(CreateView):
         c.edad = int(dt.days / 365)
         c.save()
         messages.add_message(self.request, messages.INFO,"Se ha añadido el registro del control " + str(c.numero).zfill(4) + ".")
+        log.info("--------------------- Creacion Control"+str(c.numero)+"---------------------")
         return reverse_lazy('controles_listar')
 
 class ControlUpdate(UpdateView):
@@ -335,6 +366,7 @@ class ControlUpdate(UpdateView):
     form_class = ControlForm
     template_name = 'paciente/control_form.html'
     success_url = reverse_lazy('controles_listar')
+    log.info("Editar Control")
 
 class NeuropsiUpdate(UpdateView):
     model = Neuropsi
@@ -342,8 +374,10 @@ class NeuropsiUpdate(UpdateView):
     template_name = 'paciente/neuropsi_form.html'
 
     def get_success_url(self):
+
         n=self.object
         p=n.candidato
+        log.info("--------------------- Editar Neuropsi sujeto"+str(p.sujeto_numero)+"---------------------")
 
         ## escolaridad 0-Analfabeta  1-4-Primaria  5-9 bachillerato  10-24  tecnico-profesional
         escolaridad=p.ingreso.n_educativo
