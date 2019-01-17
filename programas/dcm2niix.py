@@ -233,15 +233,6 @@ def do_change(sujeto_numero,tipe):
                 folder_dicom=os.path.join(base_dir,i)
 
 
-
-
-        series = get_tags_dicom(folder_dicom)
-        if tipe == "control":
-            sn="c"+n
-        else:
-            sn=n
-        pass_tags_to_db(sn, series)
-        campos_a_mostrar()
         f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
         f.write("-Anonimizado\n")
         f.write("-Verificación Parametros\n")
@@ -259,6 +250,11 @@ def do_change(sujeto_numero,tipe):
 
         folder_data = definitions.folder_data
         copytodata(n, folder_data, folder_nii, tipe)
+
+        if not os.path.exists(os.path.join(base_dir,tipe+n+".zip")):
+            zip_name = os.path.join(base_dir, tipe + n)
+            carpeta = folder_nii
+            shutil.make_archive(zip_name, 'zip', carpeta)
 
         func_result = os.path.join(folder_nii, "func_result")
         absolute_func, relative_func, paths_html_func = func_motion_correct(rest_path(folder_nii), func_result, n, tipe,
@@ -283,9 +279,10 @@ def do_change(sujeto_numero,tipe):
         absolute_dwi, relative_dwi, paths_html_dwi = func_motion_correct(DWI_path(dir_dwi, False),
                                                                          dwi_result,
                                                                          n, tipe, "dwi")
-        os.system("fslmerge -t " + folder_nii + "/TENSOR" + " " + b0 + " " + DWI_path(dwi_result, False))
+        os.system("fslmerge -t " + folder_nii + "/TENSOR_"+tipe+n + " " + b0 + " " + DWI_path(dwi_result, False))
         os.remove(DWI_path(dwi_result, False))
         shutil.rmtree(dir_dwi)
+
 
         P = Parametrosmotioncorrect.objects.create(absolute_func=absolute_func,
                                                    relative_func=relative_func,

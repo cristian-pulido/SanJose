@@ -285,10 +285,14 @@ def anonimizar(sn):
     absolute_dwi, relative_dwi, paths_html_dwi = func_motion_correct(DWI_path(dir_dwi, False),
                                                                      dwi_result,
                                                                      n, tipe,"dwi")
-    os.system("fslmerge -t " + folder_nii + "/TENSOR" + " " + b0 + " " + DWI_path(dwi_result, False))
+    os.system("fslmerge -t " + folder_nii + "/TENSOR_"+tipe+n + " " + b0 + " " + DWI_path(dwi_result, False))
     os.remove(DWI_path(dwi_result, False))
     shutil.rmtree(dir_dwi)
     registro(path_in=DWI_path(folder_nii,False), path_out=DWI_path(folder_nii,False), path_plot=os.path.join(dwi_result, "dwi_realing.png"))
+
+
+
+
 
     print("Proceso Difusion " + tipe + n)
 
