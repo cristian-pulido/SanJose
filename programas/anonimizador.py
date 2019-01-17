@@ -32,7 +32,7 @@ def recursive_walking(folder):
                 recursive_walking(os.path.join(root, dir))
             for file in files:
                 if dicom_reader(os.path.join(root, file)):
-                    print(os.path.join(root, file))
+                    #print(os.path.join(root, file))
                     dicom_file_anonymizer(os.path.join(root, file))
     return
 
@@ -51,7 +51,7 @@ def read_unpack(file_path):
             nib.load(file_path)
         except ImageFileError:
             if patoolib.extract_archive(file_path, outdir=output_folder):
-                return print(file_path, "successfully unpacked")
+                return #print(file_path, "successfully unpacked")
             else:
                 raise ValueError('File extension is not supported for your program', file_path)
     else:
@@ -76,9 +76,9 @@ def read_delete(file_path):
                 os.remove(file_path)
                 return print('Packed file removed: ', file_path)
             else:
-                return print('Dicom file does not removed: ', file_path)
+                return #print('Dicom file does not removed: ', file_path)
         else:
-            return print('Nifti file does not removed: ', file_path)
+            return #print('Nifti file does not removed: ', file_path)
     else:
         pass
 
@@ -100,7 +100,7 @@ def dicom_file_anonymizer(path):
 
     if dicom_reader(path):
         data_set = pydicom.dcmread(path)
-        print('---> Reading to anonymize: ', path)
+        #print('---> Reading to anonymize: ', path)
 
         data_elements = ['PatientName', 'PatientID', 'IssuerOfPatientID', 'TypeOfPatientID',
                          'PatientBirthDate', 'PatientBirthTime', 'PatientBirthDateInAlternative',
@@ -119,10 +119,11 @@ def dicom_file_anonymizer(path):
         for element in data_elements:
             if element in data_set:
                 delattr(data_set, element)
-                print('Deleting', element, 'from', path)
+                #print('Deleting', element, 'from', path)
             else:
-                print(element, 'not in', path)
-        print('---> Finished anonymization in ', path)
+                pass
+                #print(element, 'not in', path)
+        #print('---> Finished anonymization in ', path)
         return data_set.save_as(path)
     else:
         pass
@@ -186,3 +187,4 @@ def get_tags_dicom(dicom_dir):
         for element in eliminacion:
                 series[s].pop(element)
     return series
+

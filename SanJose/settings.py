@@ -180,7 +180,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR,'debug.log'),
+            'filename': os.path.join(MEDIA_ROOT,'debug.log'),
         },
     },
     'loggers': {

@@ -4,17 +4,17 @@ import os
 
 path_input = '/home/runlab/data/alejandra/'
 path_output = '/home/runlab/data/results/'
-path_temporal = '/home/cristian/Escritorio/temporal/'#'/home/runlab/data/results/temporal/'
+path_temporal = '/home/runlab/data/results/temporal/'
 
-atlas = "/home/cristian/Escritorio/Atlas/1mm/AAN.nii"#'/home/runlab/data/Atlas/1mm/AAN_1mm.nii'
-aan_atlas = "/home/cristian/Escritorio/Atlas/1mm/AAN.nii"#'/home/runlab/data/Atlas/1mm/AAN.nii'
-morel_atlas = "/home/cristian/Escritorio/Atlas/1mm/ThalamicNucleiMorelAtlas.nii"#'/home/runlab/data/Atlas/1mm/ThalamicNucleiMorelAtlas.nii'
-harvard_oxford_cort_atlas = "/home/cristian/Escritorio/Atlas/1mm/HarvardOxfordCort.nii"#'/home/runlab/data/Atlas/1mm/HarvardOxfordCort.nii'
-hypothalamus_atlas = "/home/cristian/Escritorio/Atlas/1mm/Hypothalamus.nii"#'/home/runlab/data/Atlas/1mm/Hypothalamus.nii'
+atlas = '/home/runlab/data/Atlas/1mm/AAN_1mm.nii'
+aan_atlas = '/home/runlab/data/Atlas/1mm/AAN.nii'
+morel_atlas = '/home/runlab/data/Atlas/1mm/ThalamicNucleiMorelAtlas.nii'
+harvard_oxford_cort_atlas = '/home/runlab/data/Atlas/1mm/HarvardOxfordCort.nii'
+hypothalamus_atlas = '/home/runlab/data/Atlas/1mm/Hypothalamus.nii'
 
-standard_t2 = '/home/cristian/Escritorio/MNI152_T2_1mm_brain.nii.gz'#os.path.join(os.environ['FSLDIR'], 'data/standard/MNI152_T2_1mm_brain.nii.gz')
-standard_t1 = '/usr/local/fsl/data/standard/MNI152_T1_1mm_brain.nii.gz'#os.path.join(os.environ['FSLDIR'], 'data/standard/MNI152_T1_1mm_brain.nii.gz')
-brain_mask_nmi = '/usr/local/fsl/data/standard/MNI152_T1_1mm_brain_mask.nii.gz'#os.path.join(os.environ['FSLDIR'], 'data/standard/MNI152_T1_1mm_brain_mask.nii.gz')
+standard_t2 = os.path.join(os.environ['FSLDIR'], 'data/standard/MNI152_T2_1mm_brain.nii.gz')
+standard_t1 = os.path.join(os.environ['FSLDIR'], 'data/standard/MNI152_T1_1mm_brain.nii.gz')
+brain_mask_nmi = os.path.join(os.environ['FSLDIR'], 'data/standard/MNI152_T1_1mm_brain_mask.nii.gz')
 
 default_b0_ref = 0
 extension = '.nii.gz'
