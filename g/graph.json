@@ -1,0 +1,32 @@
+[
+    {
+        "group": 1,
+        "imports": [],
+        "name": "0_to_estimate_dti",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "0_to_estimate_dti"
+        ],
+        "name": "1_to_estimate_dti_maps",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "1_to_estimate_dti_maps"
+        ],
+        "name": "2_to_generate_bunddle",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "2_to_generate_bunddle"
+        ],
+        "name": "3_to_generate_tractography",
+        "size": 1
+    }
+]
