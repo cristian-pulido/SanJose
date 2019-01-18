@@ -1,0 +1,180 @@
+{% extends 'base/base.html' %}
+{% load scripts %}
+{% block title %} Ejecucion Pipelines {% endblock %}
+{% block content %}
+
+<h3>Escoja Pipeline a Ejecutar</h3>
+
+
+{% if object_list %}
+<select onchange="mostrar()" id="selectpipeline">
+    <option value="">------</option>
+    {% for object in object_list %}
+
+        <option value="{{object.pk}}">{{object}}</option>
+
+    {% endfor%}
+</select>
+{% else %}
+<h2>No hay registros de Pipelines</h2>
+{% endif %}
+<br>
+<br>
+{% if perms.validacion.can_change_pipeline %}
+  <a class="btn btn-success" onclick="ejecutar()">Ejecutar</a>
+{% endif%}
+
+<div id="description">
+{% for object in object_list %}
+<div id="description_{{object.pk}}" style="border:thin;display:none" class="a">
+    <h3>Descripción:</h3>
+    <ul>
+      <li>Nombre: {{object}}</li>
+      <li>Tipo imagen: {{object.tipo_imagen}}    </li>
+      <li>Grupos de Tareas:</li>
+
+        <ul>
+            {% for group in object.grupos.all %}
+            <li>{{group}}:
+                {% for tarea in group.get_task %}
+                    {{tarea}},
+                {% endfor %}
+            </li>
+            {% endfor%}
+        </ul>
+    <li>Dependencia: {{object.dependencia}}</li>
+
+    </ul>
+
+</div>
+<div id="sujetos_{{object.pk}}" style="border:thin;display:none" class="a">
+    {% sujetos as sujetos %}
+    <h3>Lista de Sujetos Con Archivos Cargados</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Estado de Ejecución Pipeline Elegido</th>
+                <th>Seleccionar</th>
+            </tr>
+
+        </thead>
+        <tbody>
+             {% for sujeto in sujetos%}
+                <tr>
+                    <td>{{sujeto.sujeto_numero}}</td>
+                    {% pipeline_estate_sujeto object sujeto as state %}
+                    <td>{% if not state.estado %}
+                          Sin Ejecutar
+                        {% else %}
+                        {{state.estado}}
+                        {% endif%}</td>
+                    <td>
+                        {% if not state.estado %}
+                          <input type="checkbox" name="elegir" value="{{object.pk}}_sujeto_{{sujeto.sujeto_numero}}">
+                        {% endif%}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+
+
+    </table>
+
+
+
+
+</div>
+<div id="controles_{{object.pk}}" style="border:thin;display:none" class="a">
+    {% controles as controles %}
+    <h3>Lista de Controles Con Archivos Cargados</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Estado de Ejecución Pipeline Elegido</th>
+                <th>Seleccionar</th>
+            </tr>
+
+        </thead>
+        <tbody>
+             {% for control in controles %}
+                <tr>
+                    <td>{{control.numero}}</td>
+                    {% pipeline_estate_control object control as state %}
+                    <td>{% if not state.estado %}
+                          Sin Ejecutar
+                        {% else %}
+                        {{state.estado}}
+                        {% endif%}</td>
+                    <td>
+                        {% if not state.estado %}
+                          <input type="checkbox" name="elegir" value="{{object.pk}}_control_{{control.numero}}">
+                        {% endif%}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+
+
+    </table>
+
+
+
+
+</div>
+{% endfor%}
+</div>
+
+
+
+
+
+
+<script>
+function mostrar() {
+  var a = document.getElementById("description").querySelectorAll(".a");
+  for (var i = 0; i < a.length; i++) {
+            a[i].style="display:none";
+    }
+
+  var cajas = document.getElementsByName("elegir");
+  for (var i = 0; i < cajas.length; i++) {
+            cajas[i].checked=false;
+    }
+
+  var x = document.getElementById("selectpipeline").value;
+  document.getElementById("description_"+x).style="block";
+  document.getElementById("sujetos_"+x).style="block";
+  document.getElementById("controles_"+x).style="block";
+}
+
+
+function ejecutar(){
+      var lista = "";
+      var cajas = document.getElementsByName("elegir");
+      for (var i = 0; i < cajas.length; i++) {
+            if(cajas[i].checked==true){
+                lista+="-"+cajas[i].value;
+            }
+
+        }
+        if (lista!=""){
+
+            var url_mask = "{% url 'run_pipeline_multi' 'x'%}"
+            url_mask=url_mask.replace('x', lista.toString());
+            window.location=url_mask;
+        }else{
+            alert("No se ha seleccionado ningun elemento");
+        }
+}
+
+
+</script>
+
+
+
+{% endblock %}
+

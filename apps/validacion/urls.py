@@ -2,7 +2,7 @@
 from django.urls import path
 
 from apps.validacion.views import Campos_defectoCreate, Campos_defectoUpdate, Campos_defectoList, Campos_defectoDelete, \
-    TaskgroupCreate, TaskgroupUpdate, TaskgroupDelete, PipelinesCreate, PipelinesUpdate, PipelinesDelete
+    TaskgroupCreate, TaskgroupUpdate, TaskgroupDelete, PipelinesCreate, PipelinesUpdate, PipelinesDelete, PipelinesList
 
 urlpatterns = [
 
@@ -19,6 +19,8 @@ urlpatterns = [
     path('pipelines/crear', PipelinesCreate.as_view(), name='pipelines_crear'),
     path('pipelines/editar/<int:pk>/', PipelinesUpdate.as_view(), name='pipelines_editar'),
     path('pipelines/eliminar/<int:pk>/', PipelinesDelete.as_view(), name='pipelines_eliminar'),
+
+    path('pipelines/listar/', PipelinesList.as_view(), name='pipelines_listar'),
 
 
 ]

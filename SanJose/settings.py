@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'social_django',
     'django.contrib.admin',
     'report_builder',
-
-
+    'apps.taskcelery',
 ]
 
 MIDDLEWARE = [

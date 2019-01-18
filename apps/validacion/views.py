@@ -129,6 +129,10 @@ class PipelinesDelete(DeleteView):
         log.info("--------------------- Eliminar Pipeline " + str(self.object.nombre) + "---------------------")
         return reverse_lazy('login')
 
+class PipelinesList(ListView):
+    model = Pipeline
+    template_name = 'validacion/pipeline_listar.html'
+    log.info("Vista pipelines")
 
 
 

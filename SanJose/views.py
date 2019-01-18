@@ -9,7 +9,8 @@ from SanJose.settings import MEDIA_ROOT
 from apps.fileupload.models import Picture
 from apps.paciente.models import Ingreso, Candidato, Radiologia, Uci, Neurologia, Bold, Mayor, Informante, Seguimiento, \
     Control, Cambioradiologia, Moca, Valorablenps, Neuropsi, Parametrosmotioncorrect, Lectura_resonancia
-from apps.validacion.models import Tipoimagenes
+from apps.taskcelery.models import taskc
+from apps.validacion.models import Tipoimagenes, Pipeline
 from programas import anonimizador
 from programas.dcm2niix import T1_path, rest_path, DWI_path
 from programas.realineacion import transformaciones
@@ -361,18 +362,39 @@ def run_pipeline(request,pk,numero,tipo):
 
     n=str(numero)
 
-    if tipo=='control':
-        n="c"+n
+    if tipo=='sujeto':
+        sujeto = Candidato.objects.get(sujeto_numero=n)
+    else:
+        sujeto = Control.objects.get(numero=n)
+        n = "c" + n
+
 
     P=Picture.objects.get(slug=n)
     abs_path = MEDIA_ROOT + P.file.name
     folder = os.path.join(os.path.dirname(abs_path), "nifty/")
 
-    crear_tareas.delay(pk,folder,numero,tipo)
+    pipeline=Pipeline.objects.get(pk=pk)
+
+    tarea=crear_tareas.delay(pk,folder,numero,tipo)
+
+    celery_task=taskc.objects.create(numero=tarea.task_id, proceso=pipeline,estado="Iniciado")
+
+    setattr(celery_task,tipo,sujeto)
+    celery_task.save()
+
     log.info("--------------------- run Pipeline "+tipo+str(numero)+"---------------------")
     return redirect("login")
 
 
+def run_pipeline_multi(request,lista):
+
+    cola=lista.split("-")[1:]
+
+    for item in cola:
+        pk, tipo, numero = item.split("_")
+        run_pipeline(request,pk,numero,tipo)
+
+    return redirect("login")
 
 
 

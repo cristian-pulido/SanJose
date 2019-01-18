@@ -1187,6 +1187,7 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
                 <th>Nombre</th>
                 <th>Tipo imagen</th>
                 <th>Dependencia</th>
+                <th>Estado</th>
 
                 {% if perms.validacion.can_change_pipeline %}
                 <th>Ejecutar</th>
@@ -1204,11 +1205,18 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
                 <td>{{p.tipo_imagen}}</td>
                 <td>{% if p.dependencia != None %}{{p.dependencia}}{% endif%}</td>
 
+                {% pipeline_estate_control p object as state %}
+                {% if not state.estado %}
+                  <td>No Iniciado</td>
+                {% else %}
+                  <td>{{state.estado}}</td>
+                {% endif %}
+
                 {% if perms.validacion.can_change_pipeline %}
 
                 <td>
                 <form>
-                  <button class="btn btn-success" formaction="{% url 'run_pipeline' p.pk object.numero 'control' %}">Ejecutar</button>
+                  <button class="btn btn-success" formaction="{% url 'run_pipeline' p.pk object.numero 'control' %}" {% if state.estado %} disabled {% endif %} >Ejecutar</button>
                 </form>
                 </td>
                 <td>
@@ -1295,7 +1303,7 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
                     <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>Script</th>
+
 
                         <th>Dependencia</th>
                         <th>Habilitado</th>
@@ -1306,7 +1314,7 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
                   {% for t in g.get_task %}
                         <tr>
                             <td>{{t}}</td>
-                            <td>{{t.pathscript}}</td>
+
 
                             <td>{% if t.dependencia != None %}{{t.dependencia}}{% endif%}</td>
                             <td>{{t.habilitado}}</td>

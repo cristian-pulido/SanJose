@@ -22,7 +22,7 @@ from django.views.generic import TemplateView
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
     crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento, alinear, \
-    crearlectura, run_pipeline
+    crearlectura, run_pipeline, run_pipeline_multi
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -53,6 +53,7 @@ urlpatterns = [
     path('script/alinear/<slug:tipo>/<int:pk>/<slug:img>/<slug:der>/<slug:frente>/<slug:arriba>/<slug:x>/<slug:y>/<slug:z>/<slug:tx>/<slug:ty>/<slug:tz>/<slug:save>/', alinear, name='alinear'),
 
     path('script/run_pipeline/<int:pk>/<int:numero>/<slug:tipo>/', run_pipeline, name='run_pipeline'),
+    path('script/run_pipeline_multi/<slug:lista>/', run_pipeline_multi, name='run_pipeline_multi'),
 
 
 

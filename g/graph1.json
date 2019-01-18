@@ -3,56 +3,19 @@
         {
             "name": "Group_00001",
             "procs": [
-                0,
-                1,
-                2,
-                3
+                0
             ],
-            "total": 4
+            "total": 1
         }
     ],
-    "links": [
-        {
-            "source": 0,
-            "target": 1,
-            "value": 1
-        },
-        {
-            "source": 1,
-            "target": 2,
-            "value": 1
-        },
-        {
-            "source": 2,
-            "target": 3,
-            "value": 1
-        }
-    ],
-    "maxN": 4,
+    "links": [],
+    "maxN": 1,
     "nodes": [
         {
             "group": 1,
-            "name": "0_to_estimate_dti",
-            "report": "/tmp/tmpprphyfrl/g/to_estimate_dti/_report/report.rst",
-            "result": "/tmp/tmpprphyfrl/g/to_estimate_dti/result_to_estimate_dti.pklz"
-        },
-        {
-            "group": 1,
-            "name": "1_to_estimate_dti_maps",
-            "report": "/tmp/tmpkje6wc0x/g/to_estimate_dti_maps/_report/report.rst",
-            "result": "/tmp/tmpkje6wc0x/g/to_estimate_dti_maps/result_to_estimate_dti_maps.pklz"
-        },
-        {
-            "group": 1,
-            "name": "2_to_generate_bunddle",
-            "report": "/tmp/tmpmq49r9g9/g/to_generate_bunddle/_report/report.rst",
-            "result": "/tmp/tmpmq49r9g9/g/to_generate_bunddle/result_to_generate_bunddle.pklz"
-        },
-        {
-            "group": 1,
-            "name": "3_to_generate_tractography",
-            "report": "/tmp/tmpdqhkar6q/g/to_generate_tractography/_report/report.rst",
-            "result": "/tmp/tmpdqhkar6q/g/to_generate_tractography/result_to_generate_tractography.pklz"
+            "name": "0_eddy_correction",
+            "report": "/tmp/tmpmwxgqpm3/g/eddy_correction/_report/report.rst",
+            "result": "/tmp/tmpmwxgqpm3/g/eddy_correction/result_eddy_correction.pklz"
         }
     ]
 }

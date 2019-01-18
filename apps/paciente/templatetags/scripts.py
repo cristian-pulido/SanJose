@@ -10,6 +10,7 @@ from apps.fileupload.models import Picture
 from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control,  Parametrosmotioncorrect
 from django import template
 
+from apps.taskcelery.models import taskc
 from apps.validacion.models import Realineacion, Pipeline, Taskgroup, Task, Tipoimagenes
 from apps.validacion.templatetags.scripts_validacion import pass_tags_to_db, campos_a_mostrar
 from programas import anonimizador, definitions
@@ -42,6 +43,41 @@ def grouptask():
 def task():
     T=Task.objects.all()
     return T
+
+@register.simple_tag
+def pipeline_estate_sujeto(p,s):
+    try:
+        T=taskc.objects.get(proceso=p,sujeto=s)
+        return T
+    except:
+        return ""
+
+@register.simple_tag
+def pipeline_estate_control(p,c):
+    try:
+        T=taskc.objects.get(proceso=p,control=c)
+        return T
+    except:
+        return ""
+
+
+@register.simple_tag
+def sujetos():
+    S=Candidato.objects.all()
+    subjects=[]
+    for s in S:
+        if hasattr(s,'parametrosmotioncorrect'):
+            subjects.append(s)
+    return subjects
+
+@register.simple_tag
+def controles():
+    C=Control.objects.all()
+    subjects=[]
+    for s in C:
+        if hasattr(s,'parametrosmotioncorrect'):
+            subjects.append(s)
+    return subjects
 
 
 
@@ -431,6 +467,14 @@ def crear_tareas(pk,folder,numero,tipo):
                 dic_tareas[i]=[tareas[i].nombre,tareas[i].pathscript,[path_in]]
         path_in=run_pipeline("g",dic_tareas,pathout)
 
+    if tipo == 'sujeto':
+        sujeto=Candidato.objects.get(sujeto_numero=numero)
+        celery_task = taskc.objects.get(proceso=pipeline,sujeto=sujeto)
+    else:
+        control = Control.objects.get(numero=numero)
+        celery_task = taskc.objects.get(proceso=pipeline, control=control)
 
+    celery_task.estado="Finalizado"
+    celery_task.save()
 
     return ""

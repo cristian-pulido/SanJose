@@ -88,16 +88,9 @@
 														<li><a href="{% url 'medico_listar' %}">Lista</a></li>
                                                     </ul>
                                                 </li>
+												<li><a href="{% url 'pipelines_listar' %}">Pipelines</a></li>
 												{% if user.groups.all.0.name == 'Coordinador' or user.groups.all.0.name == 'SuperAdministrador'%}
-												<li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Reportes <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu" role="menu">
-
-                                                        <li><a href="{% url 'report_builder' %}">Ver y Añadir</a></li>
-
-
-                                                    </ul>
-                                                </li>
+												<li><a href="{% url 'report_builder' %}">Reportes</a></li>
 												{%endif%}
 
 											</ul>
