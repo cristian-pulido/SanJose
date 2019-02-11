@@ -89,8 +89,8 @@
                                                     </ul>
                                                 </li>
 												<li><a href="{% url 'pipelines_listar' %}">Pipelines</a></li>
-												{% if user.groups.all.0.name == 'Coordinador' or user.groups.all.0.name == 'SuperAdministrador'%}
-												<li><a href="{% url 'report_builder' %}">Reportes</a></li>
+												{% if user.is_staff %}
+												<li><a href="{% url 'reportes' %}">Reportes</a></li>
 												{%endif%}
 
 											</ul>

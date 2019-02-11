@@ -1042,11 +1042,11 @@
         <li class="breadcrumb-item active "><a onclick="muestrapipeline()">Pipelines</a></li>
 
         {% for p in pipe %}
-        <li class="breadcrumb-item" style="display:none" id="lista_{{p.nombre}}" onclick="muestragrupos('{{p}}')" name="groups"><a >{{p.nombre}}</a></li>
+        <li class="breadcrumb-item" style="display:none" id="lista_{{p.nombre}}" onclick="muestragrupos('{{p}}')" name="groups"><a>{{p.nombre}}</a></li>
         {% endfor %}
 
         {% for g in grupos %}
-        <li class="breadcrumb-item" style="display:none" id="lista_{{g.nombre}}"   name="tasks" ><a >{{g.nombre}}</a></li>
+        <li class="breadcrumb-item" style="display:none" id="lista_{{g.nombre}}"   name="tasks" ><a>{{g.nombre}}</a></li>
         {% endfor %}
 
 
@@ -2096,7 +2096,7 @@
           <p class="text-danger">No se encontro información de evaluación MOCA</p>
           {% tiempoeventoprincipal object as tep %}
 
-          {% if perms.paciente.add_moca and tep %}
+          {% if perms.paciente.add_moca %}
         <label>Valorable por Neuropsicología   &nbsp;</label><a id="nov" class="btn btn-primary" onclick="ver()" >No</a>
         <button id="siv" class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Si</button>
 
@@ -2175,7 +2175,7 @@
             <li>Causa: {{object.valorablenps.razon}} {% if object.valorablenps.fechafallecido != None %} {{object.valorablenps.fechafallecido}} {% endif %}</li>
             {% tiempoeventoprincipal object as tep %}
 
-            {% if object.valorablenps.razon != "Fallecido" and tep %}
+            {% if object.valorablenps.razon != "Fallecido" %}
             <br>
             <button class="btn btn-primary" formaction="{% url 'crear_moca' object.pk %}">Realizar evaluación MOCA</button>
             <br>

@@ -243,6 +243,16 @@ def do_change(sujeto_numero,tipe):
         convertir_dcm_2_nii(base_dir, folder_nii)
         shutil.rmtree(folder_dicom)
 
+        files = [[T1_path(folder_nii)], DWI_path(folder_nii), [rest_path(folder_nii)]]
+        folder_filter=os.path.join(base_dir,"filter")
+        os.mkdir(folder_filter)
+
+        for i in files:
+            for j in i:
+                shutil.copy(j,folder_filter)
+        shutil.rmtree(folder_nii)
+        os.rename(folder_filter,folder_nii)
+
 
         f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
         f.write("-Conversion Dicom a Nifty\n")
@@ -255,6 +265,9 @@ def do_change(sujeto_numero,tipe):
             zip_name = os.path.join(base_dir, tipe + n)
             carpeta = folder_nii
             shutil.make_archive(zip_name, 'zip', carpeta)
+
+        structural_result = os.path.join(folder_nii, "structural_result")
+        os.mkdir(structural_result)
 
         func_result = os.path.join(folder_nii, "func_result")
         absolute_func, relative_func, paths_html_func = func_motion_correct(rest_path(folder_nii), func_result, n, tipe,
@@ -302,6 +315,13 @@ def do_change(sujeto_numero,tipe):
         f.write("-Correccion movimiento\n")
         f.close()
 
+        do_snr(sn=n, tipo=tipe, folder_nii=folder_nii, func_result=func_result, dwi_result=dwi_result)
+
+        f = open(settings.MEDIA_ROOT[:-6] + c.imagen.url, "a")
+        f.write("-Registro\n")
+        f.write("-Snr\n")
+        f.close()
+
 
 
     return "Completo"
@@ -317,9 +337,9 @@ def modificar():
             pass
         print("Sujeto "+str(sujeto.sujeto_numero)+ " Listo")
     totalcontroles = Control.objects.all()
-    for control in totalcontroles:
+    for control in range(2,11):
         try:
-            do_change(control.numero,"control")
+            do_change(control,"control")
         except:
             pass
-        print("Control " + str(control.numero) + " Listo")
+        print("Control " + str(control) + " Listo")

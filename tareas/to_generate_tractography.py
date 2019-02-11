@@ -15,6 +15,10 @@ file_inMask=""
 for i in os.listdir(folder):
     if "masked_mask" in i:
         file_inMask=os.path.join(folder,i)
+    if "Reslice.nii.gz" in i:
+    	os.remove(os.path.join(folder,i))
+
+
 
 folder_sujeto=path_output
 for l in os.listdir(folder_sujeto):

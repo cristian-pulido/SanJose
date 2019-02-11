@@ -26,7 +26,7 @@ SECRET_KEY = '-lfe9w8o-55bx)ahc)mf70chus@%$n4*s37yn!c&k$m#vrplez'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fucs-cimca.fucsalud.edu.co','172.17.29.27', '190.242.38.132','127.0.0.1','ec2-54-94-226-161.sa-east-1.compute.amazonaws.com']
+ALLOWED_HOSTS = ['fucs-cimca.fucsalud.edu.co','172.17.29.27', '127.0.0.1']
 
 
 # Application definition
@@ -41,10 +41,17 @@ INSTALLED_APPS = [
     'apps.fileupload',
     'apps.paciente',
     'apps.validacion',
-    'social_django',
+    
     'django.contrib.admin',
     'report_builder',
     'apps.taskcelery',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # Login via Google
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -72,8 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',  # <- Here
-                'social_django.context_processors.login_redirect', # <- Here
+                'django.template.context_processors.i18n',
 
             ],
         },
@@ -147,21 +153,22 @@ MEDIA_ROOT = '/home/colciencias/media'
 
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId',  # for Google authentication
-    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
-    'social_core.backends.github.GithubOAuth2',  # for Github authentication
-    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
-
-    'django.contrib.auth.backends.ModelBackend',
+    # Default backend -- used to login by username in Django admin
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+SITE_ID = 1
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'paciente_listar'
 LOGIN_ERROR_URL= 'login-error'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='840617295981-o7teu8iuk78nlk71i07du7g4lho0skq5.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'QOvCZEt-hODaqt-96wQ6SuqL' #Paste Secret Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'prompt': 'select_account'}
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_QUERY_EMAIL = True
+
 CELERY_BROKER_URL = 'amqp://localhost'
 
 REST_FRAMEWORK = {
@@ -190,3 +197,7 @@ LOGGING = {
         },
     },
 }
+
+
+
+SOCIALACCOUNT_ADAPTER = 'SanJose.adapter.MySocialAccountAdapter'

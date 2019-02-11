@@ -287,9 +287,22 @@ def anonimizar(sn):
     copytodata(n, folder_data, folder_nii, tipe)
     print("Copia a Data " + tipe + n)
 
+
+    files = [[T1_path(folder_nii)], DWI_path(folder_nii), [rest_path(folder_nii)]]
+    folder_filter=os.path.join(base_dir,"filter")
+    os.mkdir(folder_filter)
+
+    for i in files:
+        for j in i:
+            shutil.copy(j,folder_filter)
+    shutil.rmtree(folder_nii)
+    os.rename(folder_filter,folder_nii)
+
+
+
     structural_result=os.path.join(folder_nii, "structural_result")
     os.mkdir(structural_result)
-    registro(path_in=T1_path(folder_nii), path_out=T1_path(folder_nii), path_plot=os.path.join(structural_result,"T1_realing.png"))
+    #registro(path_in=T1_path(folder_nii), path_out=T1_path(folder_nii), path_plot=os.path.join(structural_result,"T1_realing.png"))
 
     print("Proceso Estructural " + tipe + n)
 
@@ -300,7 +313,7 @@ def anonimizar(sn):
     absolute_func, relative_func , paths_html_func= func_motion_correct(rest_path(folder_nii), func_result,n,tipe,"func")
     os.remove(rest_path(folder_nii))
     shutil.move(rest_path(func_result), folder_nii)
-    registro(path_in=rest_path(folder_nii), path_out=rest_path(folder_nii), path_plot=os.path.join(func_result, "func_realing.png"))
+    #registro(path_in=rest_path(folder_nii), path_out=rest_path(folder_nii), path_plot=os.path.join(func_result, "func_realing.png"))
 
     print("Proceso Funcional " + tipe + n)
 
@@ -324,20 +337,20 @@ def anonimizar(sn):
     os.system("fslmerge -t " + folder_nii + "/TENSOR_"+tipe+n + " " + b0 + " " + DWI_path(dwi_result, False))
     os.remove(DWI_path(dwi_result, False))
     shutil.rmtree(dir_dwi)
-    registro(path_in=DWI_path(folder_nii,False), path_out=DWI_path(folder_nii,False), path_plot=os.path.join(dwi_result, "dwi_realing.png"))
+    #registro(path_in=DWI_path(folder_nii,False), path_out=DWI_path(folder_nii,False), path_plot=os.path.join(dwi_result, "dwi_realing.png"))
 
 
 
 
 
     print("Proceso Difusion " + tipe + n)
-
+    """
     realineacion = Realineacion.objects.create(sujeto=sn,
                                                structural=structural_result[23:] + "/T1_realing.png",
                                                funcional=func_result[23:] + "/func_realing.png",
                                                tensor=dwi_result[23:] + "/dwi_realing.png")
 
-
+    """
     P = Parametrosmotioncorrect.objects.create(absolute_func=absolute_func,
                                                relative_func=relative_func,
                                                graphic_desplazamiento_func=paths_html_func["desplazamiento"],
@@ -457,6 +470,8 @@ def crear_tareas(pk,folder,numero,tipo):
         path_in=T1_path(folder)
     else:
         path_in=rest_path(folder)
+        shutil.copy(path_in,pathout)
+        shutil.copy(T1_path(folder),pathout)
     #
     grupos=pipeline.grupos.all()
     for grupo in grupos:
@@ -474,7 +489,12 @@ def crear_tareas(pk,folder,numero,tipo):
         control = Control.objects.get(numero=numero)
         celery_task = taskc.objects.get(proceso=pipeline, control=control)
 
-    celery_task.estado="Finalizado"
-    celery_task.save()
+    if path_in != "error":
+        celery_task.estado="Finalizado"
+        celery_task.save()
+    else:
+        celery_task.estado="Finalizado con Error"
+        celery_task.save()
+
 
     return ""

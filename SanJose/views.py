@@ -375,15 +375,18 @@ def run_pipeline(request,pk,numero,tipo):
 
     pipeline=Pipeline.objects.get(pk=pk)
 
+    
     tarea=crear_tareas.delay(pk,folder,numero,tipo)
 
     celery_task=taskc.objects.create(numero=tarea.task_id, proceso=pipeline,estado="Iniciado")
+
 
     setattr(celery_task,tipo,sujeto)
     celery_task.save()
 
     log.info("--------------------- run Pipeline "+tipo+str(numero)+"---------------------")
     return redirect("login")
+
 
 
 def run_pipeline_multi(request,lista):
@@ -395,6 +398,11 @@ def run_pipeline_multi(request,lista):
         run_pipeline(request,pk,numero,tipo)
 
     return redirect("login")
+
+
+def reportes(request):
+    return render(request,'base/reportes.html')
+
 
 
 

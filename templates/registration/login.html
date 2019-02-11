@@ -78,18 +78,27 @@ window.location="{% url 'paciente_listar' %}";
 <li><input type="submit" value="CONTINUAR" class="btn"></li>
 </ul>
 </form>
+<div >
+
+<a id="google_login" href="/accounts/google/login">
+	<img src="/media/google_signin_buttons/web/2x/btn_google_signin_dark_focus_web@2x.png" border="0" width="100%">
+	
+</a>
+
+</div>
 </div>
 
-<div class="social-login">O conectar con &nbsp;
 
-<a href="{% url 'social:begin' 'google-oauth2' %}" class="gp"><i class="fa fa-google-plus"></i></a>
 
-</div>
 </section>
 
+
 </div>
 
 </div>
+
+	
+
 
 {% load scripts %}
 {% crearDprevios %}

@@ -13,9 +13,9 @@
     "nodes": [
         {
             "group": 1,
-            "name": "0_eddy_correction",
-            "report": "/tmp/tmpmwxgqpm3/g/eddy_correction/_report/report.rst",
-            "result": "/tmp/tmpmwxgqpm3/g/eddy_correction/result_eddy_correction.pklz"
+            "name": "0_rest_process",
+            "report": "/tmp/tmpouy1c8ic/g/rest_process/_report/report.rst",
+            "result": "/tmp/tmpouy1c8ic/g/rest_process/result_rest_process.pklz"
         }
     ]
 }

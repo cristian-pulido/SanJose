@@ -14,6 +14,12 @@ class taskc(models.Model):
     estado = models.CharField(max_length=50,default="No Creado")
 
     def __str__(self):
-        return '{}'.format(self.numero)
+        if self.sujeto:
+            return 'sujeto %s - proceso %s' % (self.sujeto.sujeto_numero,self.proceso.nombre)
+        elif self.control:
+            return 'control %s - proceso %s' % (self.control.numero,self.proceso.nombre)
+        else:
+            return 'algo {}'.format(self.estado)
+
     class ReportBuilder:
         exclude = ('id', )  # Lists or tuple of excluded fields

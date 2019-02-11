@@ -19,10 +19,13 @@ from django.http import HttpResponseRedirect
 from django.urls import path, include
 from django.contrib.auth import views
 from django.views.generic import TemplateView
+from django.contrib.auth.views import logout
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
     crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento, alinear, \
     crearlectura, run_pipeline, run_pipeline_multi
+
+from .views import reportes
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -32,8 +35,7 @@ urlpatterns = [
     path('validacion/', include('apps.validacion.urls')),
 
     url(r'^login/$', views.login, name='login'),
-    url(r'^logout/$', views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
-    url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
+    url(r'^accounts/logout/$', logout, {'template_name': 'registration/logout.html'},name='logout'),
     url(r'^login-error$', error, name='login-error'),
     path('report_builder/', include('report_builder.urls')),
     path('script/creari/<int:pk>/', crearingreso, name='crear_ingreso'),
@@ -55,6 +57,9 @@ urlpatterns = [
     path('script/run_pipeline/<int:pk>/<int:numero>/<slug:tipo>/', run_pipeline, name='run_pipeline'),
     path('script/run_pipeline_multi/<slug:lista>/', run_pipeline_multi, name='run_pipeline_multi'),
 
+    url(r'^reportes$',reportes,name="reportes"),
+
+    url(r'^accounts/', include('allauth.urls')),
 
 
 

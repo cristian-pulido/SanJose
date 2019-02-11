@@ -57,31 +57,12 @@ def run_pipeline(p_name, tareas,results):
                 print("no parametros extra")
             wf.connect(wf_nodes[i-1],'path_out',nodo,'path_in')
 
-    eg = wf.run()
+    try:
+        eg = wf.run()
+        return list(eg.nodes())[-1].result.outputs.path_out
+    except Exception as e:
+        return "error"
+    
 
-    return list(eg.nodes())[-1].result.outputs.path_out
+    
 
-
-
-# @shared_task
-# def crear_tareas(pipeline):
-#     path_in=""
-#     folder="/home/cristian/Escritorio/sujeto14/nifty/"
-#     if pipeline.tipo_imagen.nombre == 'TENSOR  AXI':
-#         path_in=DWI_path(folder,False)
-#     elif pipeline.tipo_imagen.nombre == '3D AX Obl T1 FSPGR':
-#         path_in=T1_path(folder)
-#     else:
-#         path_in=rest_path(folder)
-#
-#     grupos=pipeline.grupos.all()
-#     for grupo in grupos:
-#         tareas=grupo.get_task()
-#         dic_tareas={}
-#         for i in range(len(tareas)):
-#                 dic_tareas[i]=[tareas[i].nombre,tareas[i].pathscript,[path_in,tareas[i].pathout]]
-#         # print(dic_tareas)
-#         w=run_pipeline(grupo.nombre,dic_tareas)
-#
-#
-#     return w
