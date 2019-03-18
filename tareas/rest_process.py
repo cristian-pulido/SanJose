@@ -19,14 +19,18 @@ path_t1=os.path.splitext(path_t1)[0]
 os.system("gzip -d "+path_func)
 path_func=os.path.splitext(path_func)[0]
 
-folder=os.path.join(path_output,"sub-1")
+folder=os.path.join(path_output,"1")
 os.mkdir(folder)
-shutil.copy(path_t1,os.path.join(folder,"t1.nii"))
+struc=os.path.join(path_output,"struc")
+os.mkdir(struc)
+folder_t1=os.path.join(struc,"1")
+os.mkdir(folder_t1)
+shutil.copy(path_t1,os.path.join(folder_t1,"t1.nii"))
 shutil.copy(path_func,os.path.join(folder,"fmri.nii"))
 
 
 
-from tareas.fmri.preprocessing import run
+from tareas.fmri.run import run
 
 run(path_output)
 

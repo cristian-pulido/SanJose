@@ -10,15 +10,14 @@ from apps.fileupload.models import Picture
 from apps.paciente.models import Dprevio, Apatologicos, Candidato, Control,  Parametrosmotioncorrect
 from django import template
 
-from apps.taskcelery.models import taskc
-from apps.validacion.models import Realineacion, Pipeline, Taskgroup, Task, Tipoimagenes
+from apps.validacion.models import Realineacion, Tipoimagenes, img_to_show
 from apps.validacion.templatetags.scripts_validacion import pass_tags_to_db, campos_a_mostrar
 from programas import anonimizador, definitions
 from programas.anonimizador import get_tags_dicom
 from programas.dcm2niix import convertir_dcm_2_nii, copytodata, rest_path, DWI_path, T1_path, do_snr
 from programas.motion_correct_fmri import func_motion_correct
 from programas.realineacion import transformaciones, registro
-from programas.workflows import run_pipeline
+
 
 register = template.Library()
 
@@ -30,35 +29,6 @@ def num():
         a=len(Candidato.objects.all())
         return ""+str((int(a)+1)).zfill(4)
 
-@register.simple_tag
-def pipelines():
-    return Pipeline.objects.all()
-
-
-@register.simple_tag
-def grouptask():
-    return Taskgroup.objects.all()
-
-@register.simple_tag
-def task():
-    T=Task.objects.all()
-    return T
-
-@register.simple_tag
-def pipeline_estate_sujeto(p,s):
-    try:
-        T=taskc.objects.get(proceso=p,sujeto=s)
-        return T
-    except:
-        return ""
-
-@register.simple_tag
-def pipeline_estate_control(p,c):
-    try:
-        T=taskc.objects.get(proceso=p,control=c)
-        return T
-    except:
-        return ""
 
 
 @register.simple_tag
@@ -303,7 +273,13 @@ def anonimizar(sn):
     structural_result=os.path.join(folder_nii, "structural_result")
     os.mkdir(structural_result)
     #registro(path_in=T1_path(folder_nii), path_out=T1_path(folder_nii), path_plot=os.path.join(structural_result,"T1_realing.png"))
-
+    
+    archive=T1_path(folder_nii)
+       
+    img_to_show.objects.create(sujeto=sn,
+                               imagen=Tipoimagenes.objects.get_or_create(nombre='3D AX Obl T1 FSPGR')[0],
+                               path=archive[len(settings.MEDIA_ROOT[:-6]):])
+    
     print("Proceso Estructural " + tipe + n)
 
 
@@ -315,6 +291,13 @@ def anonimizar(sn):
     shutil.move(rest_path(func_result), folder_nii)
     #registro(path_in=rest_path(folder_nii), path_out=rest_path(folder_nii), path_plot=os.path.join(func_result, "func_realing.png"))
 
+    
+    archive=rest_path(folder_nii)
+       
+    img_to_show.objects.create(sujeto=sn,
+                               imagen=Tipoimagenes.objects.get_or_create(nombre='RESTING')[0],
+                               path=archive[len(settings.MEDIA_ROOT[:-6]):])
+    
     print("Proceso Funcional " + tipe + n)
 
     dir_dwi = os.path.join(folder_nii, "dwi_mc")
@@ -340,7 +323,11 @@ def anonimizar(sn):
     #registro(path_in=DWI_path(folder_nii,False), path_out=DWI_path(folder_nii,False), path_plot=os.path.join(dwi_result, "dwi_realing.png"))
 
 
-
+    archive=DWI_path(folder_nii,False)
+       
+    img_to_show.objects.create(sujeto=sn,
+                               imagen=Tipoimagenes.objects.get_or_create(nombre='TENSOR  AXI')[0],
+                               path=archive[len(settings.MEDIA_ROOT[:-6]):])
 
 
     print("Proceso Difusion " + tipe + n)
@@ -435,66 +422,3 @@ def mexclusion(c):
         return 0
 
 
-@shared_task
-def crear_tareas(pk,folder,numero,tipo):
-    pipeline = Pipeline.objects.get(pk=pk)
-    base=pipeline.pathout
-    if not os.path.exists(base):
-        os.mkdir(base)
-
-    sujetos=os.path.join(base,"Sujetos")
-    controles=os.path.join(base,"Controles")
-    if not os.path.exists(sujetos):
-        os.mkdir(sujetos)
-    if not os.path.exists(controles):
-        os.mkdir(controles)
-
-    if tipo == 'sujeto':
-        pathout=os.path.join(sujetos,"Sujeto"+str(numero)+"/")
-        if not os.path.exists(pathout):
-            os.mkdir(pathout)
-    elif tipo == 'control':
-        pathout = os.path.join(controles, "Control" + str(numero) + "/")
-        if not os.path.exists(pathout):
-            os.mkdir(pathout)
-
-
-    path_in=""
-    if pipeline.tipo_imagen.nombre == 'TENSOR  AXI':
-        files_dwi=DWI_path(folder,True)
-        for file in files_dwi:
-            shutil.copy(file,pathout)
-        path_in=DWI_path(pathout,False)
-
-    elif pipeline.tipo_imagen.nombre == '3D AX Obl T1 FSPGR':
-        path_in=T1_path(folder)
-    else:
-        path_in=rest_path(folder)
-        shutil.copy(path_in,pathout)
-        shutil.copy(T1_path(folder),pathout)
-    #
-    grupos=pipeline.grupos.all()
-    for grupo in grupos:
-        print(path_in)
-        tareas=grupo.get_task()
-        dic_tareas={}
-        for i in range(len(tareas)):
-                dic_tareas[i]=[tareas[i].nombre,tareas[i].pathscript,[path_in]]
-        path_in=run_pipeline("g",dic_tareas,pathout)
-
-    if tipo == 'sujeto':
-        sujeto=Candidato.objects.get(sujeto_numero=numero)
-        celery_task = taskc.objects.get(proceso=pipeline,sujeto=sujeto)
-    else:
-        control = Control.objects.get(numero=numero)
-        celery_task = taskc.objects.get(proceso=pipeline, control=control)
-
-    if path_in != "error":
-        celery_task.estado="Finalizado"
-        celery_task.save()
-    else:
-        celery_task.estado="Finalizado con Error"
-        celery_task.save()
-
-
-    return ""

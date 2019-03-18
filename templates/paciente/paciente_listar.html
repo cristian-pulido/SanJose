@@ -137,7 +137,9 @@
 
                         <th scope="col">Imágenes Cargadas</th>
 
-                     {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
+
+                        
+                     {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato or perms.validacion.can_ver_slice %}
                       <th style="text-align:right" scope="col">Acciones</th>
                       {% endif %}
                     </tr>
@@ -184,9 +186,17 @@
 
 
 
-                              {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato %}
+                              {% if perms.paciente.delete_candidato or  perms.paciente.can_descargar_candidato or perms.validacion.can_ver_slice %}
                               <td style="text-align:right;vertical-align: middle;" >
                                   <form>
+                                      
+                                {% if object.get_img and object.get_img.anonimo == 1 and perms.validacion.can_ver_slice %}
+                              <button class="btn btn-info"  formaction="{% url 'pacienteviewimg' object.pk %}" title="Ver Imágenes">
+                              <i class="glyphicon glyphicon-eye-open"></i>
+                              </button>
+                                  {% endif %}  
+                                      
+                                      
                                     {% if object.get_img and object.get_img.anonimo == 1 and perms.paciente.can_descargar_candidato %}
                                   <button class="btn btn-success"  formaction="{{ object.get_img.file.url }}" title="Descargar">
                                   <i class="glyphicon glyphicon-download"></i>

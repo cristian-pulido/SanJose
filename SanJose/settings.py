@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'apps.fileupload',
     'apps.paciente',
     'apps.validacion',
+    'apps.procesamiento',
     
     'django.contrib.admin',
     'report_builder',
-    'apps.taskcelery',
+    
 
     'django.contrib.sites',
     'allauth',
@@ -179,24 +180,24 @@ REST_FRAMEWORK = {
 
 REPORT_BUILDER_INCLUDE = ['paciente.candidato','paciente.control']
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(MEDIA_ROOT,'debug.log'),
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename': os.path.join(MEDIA_ROOT,'debug.log'),
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 
 

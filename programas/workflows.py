@@ -5,12 +5,6 @@ import inspect
 from programas.dcm2niix import DWI_path, T1_path, rest_path
 
 
-# def tarea(t):
-#     import importlib
-#     pathscript=t.pathscript
-#     module=importlib.import_module(pathscript)
-#     task=getattr(module,t.nombre)
-#     return task
 
 
 def to_call_by_terminal(ruta, path_in,path_out,parameters_list):

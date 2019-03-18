@@ -264,11 +264,20 @@ class PacienteView(DetailView):
     model = Candidato
     template_name = 'paciente/formularios.html'
     log.info("Vista sujetos detallada")
+    
+class PacienteViewImg(DetailView):
+    model = Candidato
+    template_name = 'base/slice.html'
+    
 
 class ControlView(DetailView):
     model = Control
     template_name = 'paciente/controles.html'
     log.info("Vista controles detallada")
+    
+class ControlViewImg(DetailView):
+    model = Control
+    template_name = 'base/slice.html'
 
 class PacienteList(ListView):
     model = Candidato

@@ -26,7 +26,7 @@
 
             <th scope="col">Imágenes Cargadas</th>
 
-            {% if perms.paciente.delete_control or perms.paciente.can_descargar_control %}
+            {% if perms.paciente.delete_control or perms.paciente.can_descargar_control or perms.validacion.can_ver_slice %}
             <th>Acciones</th>
             {% endif %}
 
@@ -42,9 +42,16 @@
                 <td scope="col">{% if control.imagen %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
 
 
-            {% if perms.paciente.delete_control or perms.paciente.can_descargar_control %}
+            {% if perms.paciente.delete_control or perms.paciente.can_descargar_control or perms.validacion.can_ver_slice %}
             <td>
                 <form>
+                 {% if control.get_img and control.get_img.anonimo == 1 and perms.validacion.can_ver_slice %}
+                  <button class="btn btn-info"  formaction="{% url 'controlviewctl' control.pk %}" title="Ver Imágenes">
+                  <i class="glyphicon glyphicon-eye-open"></i>
+                  </button>
+                  {% endif %}  
+                    
+                    
                 {% if control.get_img and control.get_img.anonimo == 1 and perms.paciente.can_descargar_control %}
                   <button class="btn btn-success"  formaction="{{ control.get_img.file.url }}" title="Descargar">
                   <i class="glyphicon glyphicon-download"></i>

@@ -22,10 +22,9 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import logout
 
 from .views import error, crearingreso, crearradiologia, crearuci, crearneurologia, crearbold, crearinformante, \
-    crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento, alinear, \
-    crearlectura, run_pipeline, run_pipeline_multi
+    crearseguimiento, crearradiologiaf, crearmoca, crearnps, crearneuropsi, visionimagen, validarmovimiento, alinear, crearlectura
 
-from .views import reportes
+from .views import reportes, run_pipeline
 
 urlpatterns = [
     path('', lambda x: HttpResponseRedirect('/login')),
@@ -54,12 +53,16 @@ urlpatterns = [
     path('script/vmovimiento/<slug:tipo>/<int:pk>/<slug:v1>/<slug:v2>/', validarmovimiento, name='v_movimiento'),
     path('script/alinear/<slug:tipo>/<int:pk>/<slug:img>/<slug:der>/<slug:frente>/<slug:arriba>/<slug:x>/<slug:y>/<slug:z>/<slug:tx>/<slug:ty>/<slug:tz>/<slug:save>/', alinear, name='alinear'),
 
-    path('script/run_pipeline/<int:pk>/<int:numero>/<slug:tipo>/', run_pipeline, name='run_pipeline'),
-    path('script/run_pipeline_multi/<slug:lista>/', run_pipeline_multi, name='run_pipeline_multi'),
-
+  
     url(r'^reportes$',reportes,name="reportes"),
 
+    url(r'^visualizador', TemplateView.as_view(template_name='slicedrop/index.html'), name="visor"),
+
     url(r'^accounts/', include('allauth.urls')),
+    
+    path('procesamiento/', include('apps.procesamiento.urls')),
+    
+    path('script/run_pipeline/<int:user_pk>/<int:img_pk>/<int:pipeline_pk>/', run_pipeline, name='run_pipeline'),
 
 
 

@@ -35,9 +35,12 @@
 		 <p class="display-4">Usuario, {{ user.first_name }} {{ user.last_name }}</p>
 		 {{ user.groups.all.0  }}
 	     {% load scripts %}
+         {% load scripts_procesamiento %}
 		 {% crearDprevios %}
 		 {% creargrupos %}
 		 {% crearmedia %}
+         {% tareas_defecto %}
+             
 		 {% edad %}
 
 
@@ -88,7 +91,19 @@
 														<li><a href="{% url 'medico_listar' %}">Lista</a></li>
                                                     </ul>
                                                 </li>
-												<li><a href="{% url 'pipelines_listar' %}">Pipelines</a></li>
+                                                {% if user.is_superuser %}
+                                                <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Pipelines <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+													
+                                                    <li><a href="#">Ejecutar</a></li>
+                                                    <li><a href="{% url 'grupo_listar' %}">Lista Pipelines</a></li>
+													
+													
+                                                </ul>
+                                            </li>
+                                                {% endif%}
+												
 												{% if user.is_staff %}
 												<li><a href="{% url 'reportes' %}">Reportes</a></li>
 												{%endif%}

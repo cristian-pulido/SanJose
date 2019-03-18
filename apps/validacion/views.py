@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 
-from apps.validacion.forms import Campos_defectoForm, gruposForm, pipelinesForm
-from apps.validacion.models import Campos_defecto, Campostagimg, Taskgroup, Pipeline
+from apps.validacion.forms import Campos_defectoForm
+from apps.validacion.models import Campos_defecto, Campostagimg
 from apps.validacion.templatetags.scripts_validacion import campos_a_mostrar
 
 import logging
@@ -73,66 +73,6 @@ class Campos_defectoDelete(DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-class TaskgroupCreate(CreateView):
-    model = Taskgroup
-    form_class = gruposForm
-    template_name = 'validacion/grupos_form.html'
-
-
-    def get_success_url(self):
-        log.info("--------------------- Creacion Grupo de Tareas" + str(self.object.nombre) + "---------------------")
-        return reverse_lazy('login')
-
-class TaskgroupUpdate(UpdateView):
-    model = Taskgroup
-    form_class = gruposForm
-    template_name = 'validacion/grupos_form.html'
-
-    def get_success_url(self):
-        log.info("--------------------- Editar Grupo de Tareas" + str(self.object.nombre) + "---------------------")
-        return reverse_lazy('login')
-
-class TaskgroupDelete(DeleteView):
-    model = Taskgroup
-    # a donde va dirigido
-    template_name = 'validacion/grupos_eliminar.html'
-    def get_success_url(self):
-        log.info("--------------------- Eliminar Grupo de Tareas" + str(
-            self.object.nombre) + "---------------------")
-        return reverse_lazy('login')
-
-class PipelinesCreate(CreateView):
-    model = Pipeline
-    form_class = pipelinesForm
-    template_name = 'validacion/pipeline_form.html'
-
-
-    def get_success_url(self):
-        log.info("--------------------- Creacion Pipeline " + str(self.object.nombre) + "---------------------")
-
-        return reverse_lazy('login')
-
-class PipelinesUpdate(UpdateView):
-    model = Pipeline
-    form_class = pipelinesForm
-    template_name = 'validacion/pipeline_form.html'
-
-    def get_success_url(self):
-        log.info("--------------------- Editar Pipeline " + str(self.object.nombre) + "---------------------")
-        return reverse_lazy('login')
-
-class PipelinesDelete(DeleteView):
-    model = Pipeline
-    # a donde va dirigido
-    template_name = 'validacion/pipeline_eliminar.html'
-    def get_success_url(self):
-        log.info("--------------------- Eliminar Pipeline " + str(self.object.nombre) + "---------------------")
-        return reverse_lazy('login')
-
-class PipelinesList(ListView):
-    model = Pipeline
-    template_name = 'validacion/pipeline_listar.html'
-    log.info("Vista pipelines")
 
 
 

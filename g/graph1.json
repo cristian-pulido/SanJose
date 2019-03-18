@@ -3,19 +3,44 @@
         {
             "name": "Group_00001",
             "procs": [
-                0
+                0,
+                1,
+                2
             ],
-            "total": 1
+            "total": 3
         }
     ],
-    "links": [],
-    "maxN": 1,
+    "links": [
+        {
+            "source": 0,
+            "target": 1,
+            "value": 1
+        },
+        {
+            "source": 1,
+            "target": 2,
+            "value": 1
+        }
+    ],
+    "maxN": 3,
     "nodes": [
         {
             "group": 1,
-            "name": "0_rest_process",
-            "report": "/tmp/tmpouy1c8ic/g/rest_process/_report/report.rst",
-            "result": "/tmp/tmpouy1c8ic/g/rest_process/result_rest_process.pklz"
+            "name": "0_4",
+            "report": "/tmp/tmpv9q6pcg2/g/4/_report/report.rst",
+            "result": "/tmp/tmpv9q6pcg2/g/4/result_4.pklz"
+        },
+        {
+            "group": 1,
+            "name": "1_6",
+            "report": "/tmp/tmpur4d04wa/g/6/_report/report.rst",
+            "result": "/tmp/tmpur4d04wa/g/6/result_6.pklz"
+        },
+        {
+            "group": 1,
+            "name": "2_5",
+            "report": "/tmp/tmpi3t6teiu/g/5/_report/report.rst",
+            "result": "/tmp/tmpi3t6teiu/g/5/result_5.pklz"
         }
     ]
 }
