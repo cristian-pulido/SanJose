@@ -170,7 +170,9 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_QUERY_EMAIL = True
 
-CELERY_BROKER_URL = 'amqp://localhost'
+# CELERY_BROKER_URL = 'amqp://col1:col1@localhost:5672/sanjose'
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -202,3 +204,4 @@ REPORT_BUILDER_INCLUDE = ['paciente.candidato','paciente.control']
 
 
 SOCIALACCOUNT_ADAPTER = 'SanJose.adapter.MySocialAccountAdapter'
+

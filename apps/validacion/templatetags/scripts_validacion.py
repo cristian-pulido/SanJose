@@ -80,7 +80,7 @@ def campos_a_mostrar():
             else:
                 sup=float(c.v_esperado)*(1+float(c.precision)/100)
                 inf = float(c.v_esperado) * (1 - float(c.precision) / 100)
-                if float(c.v_esperado) >= inf and float(c.v_esperado) <= sup:
+                if float(c.valor) >= inf and float(c.valor) <= sup:
                     c.cumple = True
                 else:
                     c.cumple = False

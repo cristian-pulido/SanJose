@@ -14,7 +14,7 @@ def np2str(a):
     return line
 
 
-def grafics_plot(arrays, direccion, legends, Title, labelaxes, myDiv):
+def grafics_plot(arrays, direccion, legends, Title, labelaxes, myDiv,autosize=True):
     file = direccion
     f = open(file, "w+")
     traces = []
@@ -25,7 +25,15 @@ def grafics_plot(arrays, direccion, legends, Title, labelaxes, myDiv):
         f.write("name: '" + legends[i] + "', \n")
         f.write("type: 'scatter' \n };\n")
     f.write("var data = " + np2str(traces) + ";\n")
-    f.write("var layout = { \n title: '" + Title + "',\n 'titlefont': { \n 'size': 36, \n }, \n xaxis: { \n title: '" +
+    
+    size=""
+    size_title=36
+    if autosize==False:
+        size='\n autosize:false, \n height: 250, '
+        size_title=18
+        
+    
+    f.write("var layout = { "+ size +"\n title: '" + Title + "',\n 'titlefont': { \n 'size': "+ str(size_title)+", \n }, \n xaxis: { \n title: '" +
             labelaxes[0] + "', \n  titlefont: { \n")
     f.write("family: 'Courier New, monospace', \n size: 18, \n color: '#7f7f7f' \n   } \n  }, \n ")
     f.write(" yaxis: { \n  title: '" + labelaxes[

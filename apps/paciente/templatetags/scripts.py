@@ -40,6 +40,8 @@ def sujetos():
             subjects.append(s)
     return subjects
 
+
+
 @register.simple_tag
 def controles():
     C=Control.objects.all()

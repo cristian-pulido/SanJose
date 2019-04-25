@@ -2,23 +2,7 @@
     {
         "group": 1,
         "imports": [],
-        "name": "0_4",
-        "size": 1
-    },
-    {
-        "group": 1,
-        "imports": [
-            "0_4"
-        ],
-        "name": "1_6",
-        "size": 1
-    },
-    {
-        "group": 1,
-        "imports": [
-            "1_6"
-        ],
-        "name": "2_5",
+        "name": "0_Resting_Task",
         "size": 1
     }
 ]

@@ -4,6 +4,7 @@
 
 {% block content %}
 {% load scripts_validacion %}
+{% load scripts_procesamiento %}
 {% load scripts %}
 <h1>Sujeto Control # : {{ object.numero|stringformat:"04d" }}</h1>
 <ul class="nav nav-tabs">
@@ -1158,264 +1159,66 @@ paranasales). &nbsp; {{object.lectura_resonancia.lesiones_asociadas}}
          </div>
 
     </div>
-        <div id="pre" class="tab-pane fade">
-      <br>
-      {% pipelines as pipe %}
-      {% grouptask as grupos %}
+        
+         {% if perms.validacion.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
+    <div id="pre" class="tab-pane fade">
+           
+      	<h3>Ejecución de Pipelines</h3>
+        {% get_pipelines as pipe %}
+      
+      
+      <table class="table table-hover">
+       <thead>
+           <tr>
+               <th>Nombre</th>
+               <th>Tipo Imagen</th>
+               <th>Estado</th>
+               <th>Acción</th>
+               
+           </tr>
 
+       </thead>
+        <tbody>
+            {% for p in pipe %}
+            {% get_estado_pipeline p object.get_img as task_c%}
+            <tr>
+               <td>{{p.nombre}}</td>
+               <td>{{p.tipo_imagen}}</td>
+                <td>{% if task_c %} {{task_c.0.estado}} {% else%} Aun no iniciado {% endif %}</td>
+                
+               <td>{% if task_c %}  
+                   
+                     {% if  perms.procesamiento.can_ver_resultados %}
+                   
+                   
+                   {% if task_c.0.estado == 'Finalizado'%}
+                           <form>
+                  <button class="btn btn-primary" formaction="{% url 'resultados' task_c.0.pk %}" title="Ver Resultados">Ver Resultados </button>
+                  
+                   </form>
+                       {% endif%} 
 
-
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active "><a onclick="muestrapipeline()">Pipelines</a></li>
-
-        {% for p in pipe %}
-        <li class="breadcrumb-item" style="display:none" id="lista_{{p.nombre}}" onclick="muestragrupos('{{p}}')" name="groups"><a >{{p.nombre}}</a></li>
-        {% endfor %}
-
-        {% for g in grupos %}
-        <li class="breadcrumb-item" style="display:none" id="lista_{{g.nombre}}"   name="tasks" ><a >{{g.nombre}}</a></li>
-        {% endfor %}
-
-
-      </ol>
-
-
-        <div id="pipelines" >
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Tipo imagen</th>
-                <th>Dependencia</th>
-                <th>Estado</th>
-
-                {% if perms.validacion.can_change_pipeline %}
-                <th>Ejecutar</th>
-                <th>Editar Pipeline</th>
-                {% endif%}
-                {% if perms.validacion.can_delete_pipeline %}
-                <th>Eliminar Pipeline</th>
-                {% endif%}
-              </tr>
-            </thead>
-            <tbody>
-              {% for p in pipe %}
-              <tr>
-                <td><a onclick="muestragrupos('{{p}}')">{{p}}</a></td>
-                <td>{{p.tipo_imagen}}</td>
-                <td>{% if p.dependencia != None %}{{p.dependencia}}{% endif%}</td>
-
-                {% pipeline_estate_control p object as state %}
-                {% if not state.estado %}
-                  <td>No Iniciado</td>
-                {% else %}
-                  <td>{{state.estado}}</td>
-                {% endif %}
-
-                {% if perms.validacion.can_change_pipeline %}
-
-                <td>
-                <form>
-                  <button class="btn btn-success" formaction="{% url 'run_pipeline' p.pk object.numero 'control' %}" {% if state.estado %} disabled {% endif %} >Ejecutar</button>
+                    {% endif %}
+                   
+                   {% else%} 
+                   <form>
+                  <button class="btn btn-primary" formaction="{% url 'run_pipeline' user.pk object.get_img.pk p.pk %}" title="Ejecutar"><i class="glyphicon glyphicon-log-in"></i></button>
                 </form>
-                </td>
-                <td>
-                <form>
-                  <button class="btn btn-primary" formaction="{% url 'pipelines_editar' p.pk %}">Editar</button>
-                </form>
-                </td>
+                   
+                   {% endif %}</td>
+               
+           </tr>
+            {% endfor %}
+        
+        </tbody>
+      </table>
+      
+    
 
-                {% endif%}
-                {% if perms.validacion.can_delete_pipeline %}
-                <td>
-                <form>
-                  <button class="btn btn-danger" formaction="{% url 'pipelines_eliminar' p.pk %}">Eliminar</button>
-                </form>
-                </td>
-
-                {% endif%}
-
-              </tr>
-
-              {% endfor %}
-            </tbody>
-          </table>
-
-        </div>
-        <div id="groups">
-
-
-
-          {% for p in pipe %}
-
-          <table class="table table-hover" id="{{p.nombre}}" style="display:none">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Dependencia</th>
-                {% if perms.validacion.can_change_taskgroup %}
-                <th>Editar Grupo</th>
-                {% endif%}
-                {% if perms.validacion.can_delete_taskgroup %}
-                <th>Eliminar Grupo</th>
-                {% endif%}
-              </tr>
-            </thead>
-            <tbody>
-              {% for tg in p.grupos.all %}
-              <tr>
-                <td><a onclick="muestratareas('{{tg}}')">{{tg}}</a></td>
-                <td>{% if tg.dependencia != None %}{{tg.dependencia}}{% endif %}</td>
-                {% if perms.validacion.can_change_taskgroup %}
-                <td>
-                <form>
-                  <button class="btn btn-primary" formaction="{% url 'grupo_editar' tg.pk %}">Editar</button>
-                </form>
-                </td>
-
-                {% endif%}
-                {% if perms.validacion.can_delete_taskgroup %}
-                <td>
-                <form>
-                  <button class="btn btn-danger" formaction="{% url 'grupo_eliminar' tg.pk %}">Eliminar</button>
-                </form>
-                </td>
-
-                {% endif%}
-
-              </tr>
-
-              {% endfor %}
-            </tbody>
-          </table>
-
-          {% endfor %}
-
-
-        </div>
-        <div id="task" >
-
-
-
-          {% for g in grupos %}
-
-                  <table class="table table-hover" id="{{g.nombre}}" style="display:none">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-
-
-                        <th>Dependencia</th>
-                        <th>Habilitado</th>
-                        <th>Orden</th>
-                      </tr>
-                    </thead>
-                      <tbody>
-                  {% for t in g.get_task %}
-                        <tr>
-                            <td>{{t}}</td>
-
-
-                            <td>{% if t.dependencia != None %}{{t.dependencia}}{% endif%}</td>
-                            <td>{{t.habilitado}}</td>
-                            <td>{{ forloop.counter }}</td>
-                        </tr>
-
-                  {% endfor %}
-                      </tbody>
-                  </table>
-              {% endfor %}
-
-
-        </div>
-
-      {% if perms.validacion.can_add_pipeline %}
-      <form>
-        <button class="btn btn-primary" formaction="{% url 'pipelines_crear' %}">Crear Pipeline</button>
-      </form>
-      {% endif%}
-      <br>
-      {% if perms.validacion.can_add_taskgroup %}
-      <form>
-        <button class="btn btn-primary" formaction="{% url 'grupo_crear' %}">Crear Grupo de Tareas</button>
-      </form>
-      {% endif%}
-
-
-
-
-
-
-      <script>
-        function muestragrupos(a){
-          document.getElementById("pipelines").style='display:none';
-          document.getElementById(a).style='display:onblock';
-          document.getElementById("lista_"+a).style='display:onblock';
-
-
-          var x = document.getElementById("task").querySelectorAll(".table");
-          var i;
-          for (i = 0; i < x.length; i++) {
-              x[i].style='display:none';
-          }
-
-          var node = document.getElementsByName("tasks");
-          var i;
-          for (i = 0; i < node.length; i++) {
-              node[i].style='display:none';
-
-          }
-
-
-        }
-
-        function muestrapipeline(){
-          document.getElementById("pipelines").style='display:onblock';
-          var x = document.getElementById("groups").querySelectorAll(".table");
-          var i;
-          for (i = 0; i < x.length; i++) {
-              x[i].style='display:none';
-          }
-          var x = document.getElementById("task").querySelectorAll(".table");
-          var i;
-          for (i = 0; i < x.length; i++) {
-              x[i].style='display:none';
-          }
-
-          var node = document.getElementsByName("tasks");
-          var i;
-          for (i = 0; i < node.length; i++) {
-              node[i].style='display:none';
-          }
-
-          var node = document.getElementsByName("groups");
-          var i;
-          for (i = 0; i < node.length; i++) {
-              node[i].style='display:none';
-          }
-
-
-        }
-
-        function muestratareas(a){
-          var x = document.getElementById("groups").querySelectorAll(".table");
-          var i;
-          for (i = 0; i < x.length; i++) {
-              x[i].style='display:none';
-          }
-          document.getElementById(a).style='display:onblock';
-          document.getElementById("lista_"+a).style='display:onblock';
-
-
-
-        }
-
-
-
-
-      </script>
+      
 
     </div>
+      {% endif%}
 
 
 

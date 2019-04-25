@@ -201,7 +201,7 @@
         <br>
        <ul class="nav nav-tabs">
         <li class="nav-item active">
-          <a class="nav-link active" data-toggle="tab" href="#imagenes">Imagenes Encontradas</a>
+          <a class="nav-link active" data-toggle="tab" href="#imagenes">Imágenes Encontradas</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active show" data-toggle="tab" href="#movimiento">Movimiento</a>
@@ -269,7 +269,8 @@
                         <td>{{campo.valor}} {{campo.medidas}}</td>
                         <td>{{campo.v_esperado}} {{campo.medidas}}</td>
                         <td>{{campo.precision}}%</td>
-                        <td>{% if campo.cumple == True %} <span style="color:green" class="glyphicon glyphicon-check"></span> {% endif %}</td>
+                        <td>{% if campo.cumple   %}   <span style="color:green" class="glyphicon glyphicon-check" ></span> 
+                                        {% else  %}   <span style="color:red" class="glyphicon glyphicon-remove-circle"></span> {% endif %}</td>
                       </tr>
 
                       {% endfor %}
@@ -1032,6 +1033,7 @@
         <script src="{{object.get_snr.tensor_plot}}"></script>
 
     </div>
+       {% if perms.validacion.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
     <div id="pre" class="tab-pane fade">
            
       	<h3>Ejecución de Pipelines</h3>
@@ -1057,7 +1059,26 @@
                <td>{{p.tipo_imagen}}</td>
                 <td>{% if task_c %} {{task_c.0.estado}} {% else%} Aun no iniciado {% endif %}</td>
                 
-               <td>{% if task_c %}  {% else%} 
+               <td>{% if task_c %}
+                   
+                                      
+                   {% if  perms.procesamiento.can_ver_resultados %}
+                   
+                   
+                   
+                   {% if task_c.0.estado == 'Finalizado'%}
+                           <form>
+                  <button class="btn btn-primary" formaction="{% url 'resultados' task_c.0.pk %}" title="Ver Resultados">Ver Resultados </button>
+                  
+                   </form>
+                       {% endif%}
+
+                    {% endif %}
+                   
+                   
+                   
+                   
+                   {% else%} 
                    <form>
                   <button class="btn btn-primary" formaction="{% url 'run_pipeline' user.pk object.get_img.pk p.pk %}" title="Ejecutar"><i class="glyphicon glyphicon-log-in"></i></button>
                 </form>
@@ -1075,6 +1096,7 @@
       
 
     </div>
+      {% endif%}
 
   </div>
 </div>
