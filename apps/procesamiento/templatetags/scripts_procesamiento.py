@@ -416,9 +416,15 @@ def crear_tarea(pk):
                     name=os.path.basename(a)
                     if def_res.word_key in a:
                         nombre=name.split('.')[0]
-                        results.objects.create(task_celery=t_celery,nombre=nombre,
-                                               path=a[len(os.path.dirname(media)):],
-                                               tipo=def_res.tipo)
+                        result=results.objects.create(task_celery=t_celery,nombre=nombre,
+                                                      path=a[len(os.path.dirname(media)):],
+                                                      tipo=def_res.tipo)
+                        
+                        if nombre == 'wt1_n4bias':
+                            t1_result=Tipoimagenes.objects.get_or_create(nombre="T1 Resultado Funcional")[0]
+                            img_to_show.objects.create(sujeto=picture.slug,imagen=t1_result,path=result.path)
+                            
+                            
     
 
     

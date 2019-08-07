@@ -17,6 +17,8 @@
 
 
 {% load scripts %}
+{% load scripts_procesamiento %}
+
 
 <h4>Seleccione Imagen a Mostrar</h4>
 
@@ -32,6 +34,39 @@
 <br>
 
 <button onclick="reload()">Reiniciar</button>
+<br>
+
+{% if perms.validacion.can_ver_parametrosimg  and object.parametrosmotioncorrect %}
+    <div >
+           
+        {% get_pipelines as pipe %}
+      
+            {% for p in pipe %}
+            {% get_estado_pipeline p object.get_img as task_c%}
+                            
+        {% if task_c %}         
+                                      
+                   {% if  perms.procesamiento.can_ver_resultados %}
+                                     
+                   
+                   {% if task_c.0.estado == 'Finalizado'%}
+                <form>
+                  <button class="btn btn-primary" formaction="{% url 'resultados' task_c.0.pk %}" title="Ver Resultados">Ver Resultados {{p.nombre}}</button>
+                  
+                   </form>
+                       {% endif%}
+
+                    {% endif %}
+     
+                   
+                   {% endif %}
+        <br>
+               
+            {% endfor %}  
+         
+
+    </div>
+      {% endif%}
 
 
 
