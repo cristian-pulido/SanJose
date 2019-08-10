@@ -1,0 +1,69 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+{{block.super}}
+<title>{% block title %}Graficas {% endblock %}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container text-center">
+
+  <h1>Información Demográfica Sujetos Incluidos</h1>
+
+  <div class="card" style="width: 100%;margin-top: 15px">
+
+    <div class="card-body">
+        <h2 class="card-title">Análisis Univariado</h2>
+        
+        
+          <div >
+            <h3>Variables Continuas</h3>
+              {{demografico_continuo|safe}}
+          </div>
+          <div>
+            <h3>Variables Categóricas</h3>
+              {{demografico_categorical|safe}}
+          </div>
+        
+      
+    </div>
+  </div>
+    
+  <div class="card" style="width: 100%;margin-top: 15px">
+
+    <div class="card-body">
+        <h2 class="card-title">Mapa Lugar de Nacimiento y Residencia</h2>
+      {{demografico_map|safe}}
+    </div>
+  </div>
+
+  <div class="card" style="width: 100%;margin-top: 15px">
+
+    <div class="card-body">
+        <h2 class="card-title">Análisis Multivariado</h2>
+      {{demografico_multi_scatter|safe}}
+    </div>
+  </div>
+  <div class="card" style="width: 100%;margin-top: 15px">
+
+    <div class="card-body">
+      {{demografico_multi_categorical|safe}}
+    </div>
+  </div>
+
+  
+
+
+</div>
+{% endblock %}
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>

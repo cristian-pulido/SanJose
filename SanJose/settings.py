@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.paciente',
     'apps.validacion',
     'apps.procesamiento',
+    'apps.graphs',
     
     'django.contrib.admin',
     'report_builder',

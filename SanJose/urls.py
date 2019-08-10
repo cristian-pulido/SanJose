@@ -32,6 +32,7 @@ urlpatterns = [
     path('carga/', include('apps.fileupload.urls')),
     path('paciente/', include('apps.paciente.urls')),
     path('validacion/', include('apps.validacion.urls')),
+    path('graficas/',include('apps.graphs.urls')),
 
     url(r'^login/$', views.login, name='login'),
     url(r'^accounts/logout/$', logout, {'template_name': 'registration/logout.html'},name='logout'),
