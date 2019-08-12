@@ -29,6 +29,38 @@ class graphs_demografico(TemplateView):
 
         return context
 
+class graphs_clinica(TemplateView):
+    template_name = 'graphs/clinica.html'
+    def get_context_data(self, **kwargs):
+        context = super(graphs_clinica, self).get_context_data(**kwargs)
+        context['clinica_grupod']=plots.clinica_grupod()
+        context['clinica_conciencia']=plots.clinica_conciencia()
+        context['clinica_uci_g']=plots.clinica_uci_g()
+        context['clinica_uci_egreso']=plots.clinica_uci_egreso()
+        context['clinica_formularios']=plots.clinica_formularios()      
+
+        return context
+
+class graphs_uci(TemplateView):
+    template_name = 'graphs/uci.html'
+    def get_context_data(self, **kwargs):
+        context = super(graphs_uci, self).get_context_data(**kwargs)
+        
+
+        return context
+
+class graphs_neuropsicologia(TemplateView):
+    template_name = 'graphs/neuropsicologia.html'
+    def get_context_data(self, **kwargs):
+        context = super(graphs_neuropsicologia, self).get_context_data(**kwargs)
+        context['neuropsi_vs_G_diagnostico']=plots.neuropsi_vs_G_diagnostico()      
+        context['neuropsi_vs_G_diagnostico_2']=plots.neuropsi_vs_G_diagnostico_2()      
+        
+
+        return context
+
+
+
 
 
 

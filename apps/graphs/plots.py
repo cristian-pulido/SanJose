@@ -207,4 +207,105 @@ def demografico_multi_categorical():
   return plot_div
 
 
+def clinica_grupod():
+  C=Candidato.objects.filter(inscrito=True)
+  G=C.values_list('G_diagnostico',flat=True)
+  labels,values=np.unique(G,return_counts=True)
+
+  fig = go.Figure(data=[go.Pie(labels=labels,
+                             	 values=values,
+                               hole=0.3,
+                               text=labels,
+                               hoverinfo='text+value'
+                            	)
+  											] 
+  								)
+  fig['layout'].update(legend=dict(orientation="h"))  
+
+  plot_div = plot(fig, output_type='div',filename='clinica_grupod')
+  return plot_div
+
+def clinica_conciencia():
+  C=Candidato.objects.filter(inscrito=True)
+  conciencia=[c.ingreso.conciencia if hasattr(c,'ingreso') else None for c in C]
+
+  labels,values=np.unique(conciencia,return_counts=True)
+
+  fig = go.Figure(data=[go.Pie(labels=labels,
+                             	 values=values,
+                               hole=0.3,
+                               text=labels,
+                               hoverinfo='text+value'
+                            	)
+  											] 
+  								)
+  fig['layout'].update(legend=dict(orientation="h"))  
+
+  plot_div = plot(fig, output_type='div',filename='clinica_conciencia')
+  return plot_div
+
+def clinica_uci_g():
+  C=Candidato.objects.filter(inscrito=True)
+  glasgow= [c.uci.glasgowtotal if hasattr(c,'uci') else None for c in C]
+  A=pd.DataFrame(glasgow,columns=['Glasgow Total Ingreso'])
+  fig = px.box(A,y='Glasgow Total Ingreso')
+
+
+  plot_div = plot(fig, output_type='div',filename='clinica_uci_g')
+  return plot_div
+
+def clinica_uci_egreso():
+  C=Candidato.objects.filter(inscrito=True)
+  egreso= [c.uci.condicion_egreso if hasattr(c,'uci') else None for c in C]
+  A=pd.DataFrame(egreso,columns=['Condición de Egreso']).dropna()
+  fig = px.histogram(A,x='Condición de Egreso')
+
+
+  plot_div = plot(fig, output_type='div',filename='clinica_uci_egreso')
+  return plot_div
+
+def clinica_formularios():
+  C=Candidato.objects.filter(inscrito=True)
+  x=np.sum([len(c.get_neuro())>0 for c in C])*['Neurología']+\
+  	np.sum([1 if hasattr(c,'informante') else 0 for c in C])*['Neuropsicología Informante']+\
+  	np.sum([len(c.moca_set.all())>0 for c in C])*['Moca']+\
+  	np.sum([1 if hasattr(c,'neuropsi') else 0 for c in C])*['Neuropsi']+\
+  	np.sum([1 if hasattr(c,'lectura_resonancia') else 0 for c in C])*['Lectura Estructural']
+
+  fig = go.Figure(data=[go.Histogram(x=x)])
+  fig['layout'].update(legend=dict(orientation="h"))
+
+  plot_div = plot(fig, output_type='div',filename='clinica_formularios')
+  return plot_div
+
+def neuropsi_vs_G_diagnostico():
+  from apps.paciente.models import Neuropsi
+  N=Neuropsi.objects.all()
+
+  A=pd.DataFrame([[n.candidato.G_diagnostico,n.orientacion,n.atencion,n.codificacion,n.evocacion] for n in N], 
+  	columns=['Grupo Diagnóstico','Orientación','Atención','Codificación','Evocación']).dropna()
+  fig=px.strip(A,x='Atención',y='Orientación',facet_col='Codificación',facet_row='Evocación',
+    color='Grupo Diagnóstico',
+    
+     category_orders={'Orientación':['Normal Alto','Normal','Moderado','Severo'],
+                      'Atención':['Normal Alto','Normal','Moderado','Severo'],
+                      'Codificación':['Normal Alto','Normal','Moderado','Severo'],
+                      'Evocación':['Normal Alto','Normal','Moderado','Severo']
+                     })
+
+
+  plot_div = plot(fig, output_type='div',filename='neuropsi_vs_G_diagnostico')
+  return plot_div
+
+def neuropsi_vs_G_diagnostico_2():
+  from apps.paciente.models import Neuropsi
+  N=Neuropsi.objects.all()
+
+  A=pd.DataFrame([[n.candidato.G_diagnostico,n.orientacion,n.atencion,n.codificacion,n.evocacion] for n in N], 
+  	columns=['Grupo Diagnóstico','Orientación','Atención','Codificación','Evocación']).dropna()
+  fig=px.parallel_categories(A)
+
+
+  plot_div = plot(fig, output_type='div',filename='neuropsi_vs_G_diagnostico_2')
+  return plot_div
 

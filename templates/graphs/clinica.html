@@ -1,0 +1,98 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+
+
+{{block.super}}
+<title>{% block title %}Graficas {% endblock %}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container text-center">
+
+  <h1>Información Clínica Sujetos Incluidos</h1>
+
+  
+<div>
+  <div style="float:left;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h2 class="card-title">Grupo Diagnóstico</h2>
+            {{clinica_grupod|safe}}          
+        </div>
+      </div>
+  </div>
+  <div style="float:right;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h2 class="card-title">Estado de Conciencia</h2>
+            {{clinica_conciencia|safe}}          
+        </div>
+      </div>
+  </div>
+</div>
+
+<h1>Información UCI </h1>
+<form>
+  <button class="btn btn-primary" formaction="{% url 'graph_uci' %}">Más Información</button>
+</form>
+<div>
+  <div style="float:left;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h2 class="card-title">Glasgow Total Ingreso</h2>
+            {{clinica_uci_g|safe}}          
+        </div>
+      </div>
+  </div>
+  <div style="float:right;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h2 class="card-title">Condición de Egreso</h2>
+            {{clinica_uci_egreso|safe}}   
+            
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<h1>Cantidad Formularios Cargados</h1>
+
+
+  <div class="card" style="width: 100%;margin-top: 15px">
+      <div class="card-body">
+          {{clinica_formularios|safe}}          
+      </div>
+  </div>
+
+  <h3>Más Información<h3>
+<form>
+  <button class="btn btn-primary" formaction="#" disabled>Neurología</button>
+  <button class="btn btn-primary" formaction="#" disabled>Neuropsicología Informante</button>
+  <button class="btn btn-primary" formaction="{% url 'graph_neuropsicologia' %}">Neuropsicología Paciente</button>
+  <button class="btn btn-primary" formaction="#" disabled>Lecturas MRI</button>
+</form>
+  
+    
+
+
+    
+ 
+
+  
+
+
+</div>
+{% endblock %}
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
