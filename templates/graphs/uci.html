@@ -16,13 +16,32 @@
 
 <div class="container text-center">
 
-  <h1>Información Estadía UCI Sujetos Incluidos</h1>
+  <h2>Información Estadía UCI Sujetos Incluidos</h2>
 
 
   <div class="card" style="width: 100%;margin-top: 15px">
       <div class="card-body">
-        <h2 class="card-title"></h2>
+          <h3 class="card-title">Relaciones Glasgow Ingreso</h3>
+              {{uci_glasgow_ingreso|safe}}
+          <h3 class="card-title">Relaciones Variables vs Condición Egreso</h3>
+              {{uci_variables_vs_egreso|safe}}
+          <h3 class="card-title">Falla Orgánica</h3>
+              {{uci_falla_organica|safe}}
+          <h3 class="card-title">Causa Mortalidad</h3>
+              {{uci_causa_mortalidad|safe}}
+          <h3 class="card-title">Relaciones Glasgow Egreso</h3>
+              {{uci_glasgow_egreso|safe}}
+          <h3 class="card-title">Diagnóstico Egreso</h3>
+              <img src='{{uci_dx_egreso|safe}}' height="400" width="100%">
+          
+          
+          
+          
+          
+          
              
+          
+          
       </div>
   </div>
   

@@ -16,14 +16,14 @@
 
 <div class="container text-center">
 
-  <h1>Información Clínica Sujetos Incluidos</h1>
+  <h2>Información Clínica Sujetos Incluidos</h2>
 
   
 <div>
   <div style="float:left;width: 50%">
     <div class="card" style="width: 100%;margin-top: 15px">
         <div class="card-body">
-            <h2 class="card-title">Grupo Diagnóstico</h2>
+            <h3 class="card-title">Grupo Diagnóstico</h3>
             {{clinica_grupod|safe}}          
         </div>
       </div>
@@ -31,22 +31,65 @@
   <div style="float:right;width: 50%">
     <div class="card" style="width: 100%;margin-top: 15px">
         <div class="card-body">
-            <h2 class="card-title">Estado de Conciencia</h2>
+            <h3 class="card-title">Estado de Conciencia</h3>
             {{clinica_conciencia|safe}}          
         </div>
       </div>
   </div>
 </div>
+    
 
-<h1>Información UCI </h1>
-<form>
-  <button class="btn btn-primary" formaction="{% url 'graph_uci' %}">Más Información</button>
-</form>
 <div>
   <div style="float:left;width: 50%">
     <div class="card" style="width: 100%;margin-top: 15px">
         <div class="card-body">
-            <h2 class="card-title">Glasgow Total Ingreso</h2>
+            <h3 class="card-title">Antecedentes Patológicos</h3>
+            {{clinica_a_patologicos|safe}}          
+        </div>
+      </div>
+  </div>
+  <div style="float:right;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h3 class="card-title">Antecedentes Patológicos (Otros)</h3>
+            <img src='{{clinica_a_patologicos_cual|safe}}' height="450" width="100%">        
+        </div>
+      </div>
+  </div>
+</div>  
+    
+
+<div>
+  <div style="float:left;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h3 class="card-title">Antecedentes Tóxico Alérgicos</h3>
+            <img src='{{a_toxico_alergenicos|safe}}' height="450" width="100%">       
+        </div>
+      </div>
+  </div>
+  <div style="float:right;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h3 class="card-title">Antecedentes familiares relevantes</h3>
+            <img src='{{a_familiares|safe}}' height="450" width="100%">        
+        </div>
+      </div>
+  </div>
+</div> 
+
+<br>    
+    
+
+<div>
+  <h2>Información UCI </h2>
+    <form>
+      <button class="btn btn-primary" formaction="{% url 'graph_uci' %}">Más Información</button>
+    </form>  
+  <div style="float:left;width: 50%">
+    <div class="card" style="width: 100%;margin-top: 15px">
+        <div class="card-body">
+            <h3 class="card-title">Glasgow Total Ingreso</h3>
             {{clinica_uci_g|safe}}          
         </div>
       </div>
@@ -54,7 +97,7 @@
   <div style="float:right;width: 50%">
     <div class="card" style="width: 100%;margin-top: 15px">
         <div class="card-body">
-            <h2 class="card-title">Condición de Egreso</h2>
+            <h3 class="card-title">Condición de Egreso</h3>
             {{clinica_uci_egreso|safe}}   
             
         </div>
@@ -62,8 +105,9 @@
   </div>
 </div>
 
+<br>
 
-<h1>Cantidad Formularios Cargados</h1>
+<h2>Cantidad Formularios Cargados</h2>
 
 
   <div class="card" style="width: 100%;margin-top: 15px">
