@@ -4,7 +4,7 @@
 
 
 {{block.super}}
-<title>{% block title %}Graficas {% endblock %}</title>
+<title>{% block title %}Graficas Neuropsicología {% endblock %}</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -21,9 +21,23 @@
 
   <div class="card" style="width: 100%;margin-top: 15px">
       <div class="card-body">
-			<h3 class="card-title">Relaciones Grupo Diagnóstico</h3>
+            <h3 class="card-title">Entrevista Informante</h3>
+            {{informante_all|safe}}  
+          
+            <h3 class="card-title">Moca</h3>
+            {{moca|safe}}   
+          
+			<h3 class="card-title">Neuropsi Relaciones Grupo Diagnóstico</h3>
             {{neuropsi_vs_G_diagnostico|safe}}   
-            {{neuropsi_vs_G_diagnostico_2|safe}}   
+          
+            <h3 class="card-title">Relaciones Moca/Neuropsi/Informante</h3>
+            {{results_neuropsicologia|safe}}   
+          
+          
+          
+          
+            
+            
             
         
              

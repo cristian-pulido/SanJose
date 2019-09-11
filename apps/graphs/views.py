@@ -60,12 +60,30 @@ class graphs_uci(TemplateView):
         
         return context
 
+class graphs_neurologia(TemplateView):
+    template_name = 'graphs/neurologia.html'
+    def get_context_data(self, **kwargs):
+        context = super(graphs_neurologia, self).get_context_data(**kwargs)
+        context['neurologia_crsr']=plots.neurologia_crsr()   
+        context['neurologia_four']=plots.neurologia_four()
+        context['neurologia_conciencia']=plots.neurologia_conciencia()
+        context['neurologia_vs']=plots.neurologia_vs()
+        
+        
+        return context
+    
+    
 class graphs_neuropsicologia(TemplateView):
     template_name = 'graphs/neuropsicologia.html'
     def get_context_data(self, **kwargs):
         context = super(graphs_neuropsicologia, self).get_context_data(**kwargs)
-        context['neuropsi_vs_G_diagnostico']=plots.neuropsi_vs_G_diagnostico()      
-        context['neuropsi_vs_G_diagnostico_2']=plots.neuropsi_vs_G_diagnostico_2()      
+        context['informante_all']=plots.informante_all()      
+        context['neuropsi_vs_G_diagnostico']=plots.neuropsi_vs_G_diagnostico() 
+        context['moca']=plots.moca() 
+        context['results_neuropsicologia']=plots.results_neuropsicologia() 
+        
+             
+             
         
 
         return context

@@ -1,0 +1,202 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+
+
+{{block.super}}
+<title>{% block title %}Graficas Neurología{% endblock %}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container text-center">
+
+  <h2>Información Neurológica</h2>
+
+
+  <div class="card" style="width: 100%;margin-top: 15px">
+      <div class="card-body">
+			<h3 class="card-title">COMA RECOVERY SCALE-REVISED</h3>
+            {{neurologia_crsr|safe}}   
+            <a href="#legend" class="btn btn-info" data-toggle="collapse"><label>Leyenda</label></a>     
+      </div>
+  </div>
+  
+</div>
+
+
+<div id="legend" class="collapse">
+         
+<table class="table table-hover">
+<thead>
+<tr>
+  <th scope="col">Escala</th>
+  <th scope="col">Valores</th>            
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>ESCALA DE FUNCIÓN AUDITIVA</td>
+  <td>
+      <li>(0) No hay respuesta</li>
+      <li>(1) Percibe pero no localiza (Sobresalto auditivo)</li>
+      <li>(2) Localiza el sonido</li>
+      <li>(3) Reproduce movimiento a la orden</li>
+      <li>(4) Movimiento consistente a la orden</li>
+  </td>              
+</tr>
+<tr>
+  <td>ESCALA DE FUNCIÓN MOTORA</td>
+  <td>
+      <li>(0) No hay respuesta/flacidez</li>
+      <li>(1) Postura anormal</li>
+      <li>(2) Retirada flexora</li>
+      <li>(3) Localización de estímulos dolorosos</li>
+      <li>(4) Manipulación de objetos</li>
+      <li>(5) Respuesta motora automática</li>
+      <li>(6) Uso funcional del objeto</li>
+  </td>              
+</tr>    
+<tr>
+  <td>ESCALA DE COMUNICACIÓN</td>
+  <td>
+      <li>(0) No hay respuesta</li>
+      <li>(1) No funcional: Intencional</li>
+      <li>(2) Funcional: Adecuada</li>
+  </td>              
+</tr>  
+<tr>
+  <td>ESCALA DE FUNCIÓN VISUAL</td>
+  <td>
+      <li>(0) No hay respuesta</li>
+      <li>(1) Sobresalto visual</li>
+      <li>(2) Fijación visual</li>
+      <li>(3) Seguimiento visual</li>
+      <li>(4) Localiza el objeto: alcanza</li>
+      <li>(5) Reconoce el objeto</li>
+  </td>              
+</tr> 
+<tr>
+  <td>ESCALA DE FUNCIÓN OROMOTORA/VERBAL</td>
+  <td>
+      <li>(0) No hay respuesta</li>
+      <li>(1) Movimientos orales reflejos</li>
+      <li>(2) Movimientos orales/vocalizaciones</li>
+      <li>(3) Verbalización entendible</li>
+  </td>              
+</tr>  
+<tr>
+  <td>ESCALA DE NIVEL DE ALERTA</td>
+  <td>
+      <li>(0) No hay respuesta</li>
+      <li>(1) Apertura ocular con estimulación</li>
+      <li>(2) Apertura ocular espontánea</li>
+      <li>(3) Alerta y atento</li>
+  </td>              
+</tr>  
+
+    
+</tbody>
+</table>
+</div>
+
+<div class="container text-center">
+
+  <div class="card" style="width: 100%;margin-top: 15px">
+      <div class="card-body">
+			<h3 class="card-title">Full Outline of UnResponsiveness FOUR</h3>
+            {{neurologia_four|safe}}   
+            <a href="#legendfour" class="btn btn-info" data-toggle="collapse"><label>Leyenda</label></a>     
+      </div>
+  </div>
+  
+</div>
+       
+
+
+<div id="legendfour" class="collapse">
+         
+<table class="table table-hover">
+<thead>
+<tr>
+  <th scope="col">Escala</th>
+  <th scope="col">Valores</th>            
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Apertura ocular</td>
+  <td>
+      <li>(0) Ojos cerrados al dolor</li>
+      <li>(1) Apertura a estímulos nociceptivos</li>
+      <li>(2) Apertura a estímulos sonoros intensos</li>
+      <li>(3) Espontánea pero no dirige la mirada</li>
+      <li>(4) Dirige la mirada en respuesta a órdenes</li>
+  </td>              
+</tr>
+<tr>
+  <td>Respuesta Motora</td>
+  <td>
+      <li>(0) Ninguna o Estado mioclónico generalizado</li>
+      <li>(1) Respuesta extensora al dolor (Descerebración)</li>
+      <li>(2) Respuesta flexora al dolor en MMSS (Decorticación y retirada)</li>
+      <li>(3) Localiza estímulos dolorosos</li>
+      <li>(4) Obedece órdenes</li>
+  </td>             
+</tr>    
+<tr>
+  <td>Reflejos del Tronco</td>
+  <td>
+      <li>(0) Reflejos corneales, fotomotores y tusígeno ausentes</li>
+      <li>(1) Reflejos corneales y fotomotores ausentes</li>
+      <li>(2) Reflejos corneales o fotomotores ausentes</li>
+      <li>(3) Reflejo motor ausente unilateral</li>
+      <li>(4) Ambos reflejos corneales y fotomotores presentes</li>
+  </td>              
+</tr>  
+<tr>
+  <td>Respiración</td>
+  <td>
+      <li>(0) Intubado, respira a la frecuencia del respirador o apnea</li>
+      <li>(1) Intubado, respira por encima de la frecuencia del respirador</li>
+      <li>(2) No intubado, respiración irregular</li>
+      <li>(3) No intubado, respiración de Cheyene- Stokes</li>
+      <li>(4) No intubado, respiración rítmica</li>
+  </td>               
+</tr>  
+
+    
+</tbody>
+</table>
+</div>
+
+<div class="container text-center">
+
+  <div class="card" style="width: 100%;margin-top: 15px">
+      <div class="card-body">
+			<h3 class="card-title">Dx Estado de conciencia</h3>
+            {{neurologia_conciencia|safe}}   
+          
+             <h3 class="card-title">Relaciones Evaluación Neurológica</h3>
+            {{neurologia_vs|safe}}   
+          
+          
+      </div>
+  </div>
+  
+</div>
+     
+      
+
+
+{% endblock %}
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
