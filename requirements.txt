@@ -64,7 +64,7 @@ pydicom==1.0.2
 pydot==1.2.4
 pydotplus==2.0.2
 Pygments==2.2.0
-PyJWT==1.6.1
+PyJWT==2.4.0
 PyMySQL==0.8.0
 pyparsing==2.2.0
 pytest==3.7.3
